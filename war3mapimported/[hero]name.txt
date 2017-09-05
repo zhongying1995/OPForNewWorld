@@ -1,0 +1,57 @@
+删除的英雄：	熊猫人，背波，贝拉米，门门，医生，偎取
+
+[hero]BHZ	白胡子
+[hero]deleike	得雷法 恐龙
+[hero]ENL	艾妮尔 神
+[hero]ZF	泽法	大将
+[hero]ywkf	伊万科夫 大人妖
+[hero]bj	巴基
+[hero]daXiong   大熊 七武海
+[hero]hjs	霍金斯 傀儡师
+[hero]Ace	艾斯
+[hero]nd	女帝
+[hero]blook	布鲁克
+[hero]qb_nl	乔巴 - 脑力强化
+[hero]luo	罗
+[hero]eLong	恶龙
+[hero]fkl	冯克雷	小人妖
+[hero]zg	战国
+[hero]flq	弗兰奇
+[hero]hdqs	霍迪
+[hero]mly	莫利亚
+[hero]pln	佩罗娜
+[hero]jela	基拉
+[hero]sp	甚平
+[hero]jbl	加布拉	狼人
+[hero]kaku	卡库	马马变身前
+[hero]kalifa	卡立法	泡沫秘术
+[hero]capone	黑手
+[hero]crocodile 克罗克戴尔	沙沙
+[hero]qz	青雉
+[hero]cq	赤犬
+[hero]th	腾虎
+[hero]lm	龙马
+[hero]luffy	路飞
+[hero]robin	罗宾
+[hero]namei	娜美
+[hero]sz	香吉士
+[hero]zoro	索隆
+[hero]wsp	乌索普
+[hero]maerke	马尔科
+[hero]mgl	麦哲伦 毒毒
+[hero]hhz	黑胡子
+[hero]george	乔治
+[hero]foxi	狐狸
+[hero]sabo	萨博 	模型太大，动作过多
+[hero]hf	红发
+[hero]jide	基德
+[hero]siji	史基
+[hero]vrg	维尔戈
+[hero]xiao	枭
+[hero]vv	微微
+[hero]kp	卡普
+[hero]Dflmg	多佛朗明哥
+[hero]smoker	斯摩卡
+[hero]yy	鹰眼
+[hero]hy	黄猿
+[hero]lq	路奇

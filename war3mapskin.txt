@@ -1,0 +1,44 @@
+[CustomSkin]
+LumberIcon=ReplaceableTextures\CommandButtons\DJ_Reward_Paper.blp
+SupplyIcon=ReplaceableTextures\CommandButtons\DJ_Time_Frame.blp
+[Errors]
+Cantpawn=这个东西不能出售。
+Cantsee=那里对于你来说是个未知的领域。
+Canttakeitem=这个东西是别人的。
+Cooldown=您暂时还不能使用该技能。
+Neednearbypatron=这附近必须有一个英雄。
+Nofood=在本游戏中你只可以使用一个英雄单位。
+Nogold=贝利不够。
+Nolumber=赏金不够。
+Notinvulnerable=目标是不允许被伤害的。
+Notpowerup=宝宝无法购买该物品！
+[FrameDef]
+CHEATENABLED=本图具有测试模式，开启方式进群咨询。
+COLON_FOOD=时间：
+COLON_FOOD_USED=游戏时间
+COLON_GOLD=贝利：
+COLON_GOLD_INCOME_RATE=百度贴吧 |cff00ff00海贼王 通向新世界|r 
+COLON_LUMBER=赏金：
+COLON_LUMBER_INCOME_RATE=赏金获取率：
+COLON_UPKEEP=游戏反馈：
+GOLD=贝利
+INVULNERABLE=|Cffff0000不会受到伤害|R
+KEY_MENU=航海图 (|Cfffed312F10|R)
+KEY_QUESTS=地图信息 (|Cfffed312F9|R)
+LUMBER=赏金
+PAUSE_GAME_NOTIFY=%s想休息一下。<还剩下%u的时限>
+PAUSE_GAME_NOTIFY_NO_TIMEOUT=%s想休息一下。
+PLAYER_DEFEATED=%s已经被赶出了伟大航路。
+PLAYER_LEFT_GAME=%s已经被丢进推进城Impel Down。
+QUESTS=地图信息
+QUESTSMAIN=地图信息
+RESOURCES_COLUMN0=贝利
+RESOURCES_COLUMN1=赏金
+RESOURCES_COLUMN4=感谢您的反馈！
+RESOURCE_UBERTIP_GOLD=贝利可以通过杀死单位获得。
+RESOURCE_UBERTIP_LUMBER=可以通过击杀敌对英雄或者小兵来获取赏金。
+RESOURCE_UBERTIP_SUPPLY=该选项代表当前游戏已经进行的时间。
+RESOURCE_UBERTIP_UPKEEP=如果您发现任何BUG或者有任何建议，请访问官方网站或QQ群。具体信息请见F9。
+RESOURCE_UBERTIP_UPKEEP_INFO=|n|n|cffff0000海贼王 - 通向新世界|r
+UPKEEP_NONE=|Cff00ff00>海贼王 通向新世界< |r系列
+UPPER_BUTTON_MENU_TIP=世界地图 (|Cfffed312F10|R)
