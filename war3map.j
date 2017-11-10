@@ -2,9 +2,15 @@ globals
 //globals from DataSetAndGet:
 constant boolean LIBRARY_DataSetAndGet=true
 //endglobals from DataSetAndGet
+//globals from FuncForBroadcast:
+constant boolean LIBRARY_FuncForBroadcast=true
+//endglobals from FuncForBroadcast
 //globals from FuncForDebug:
 constant boolean LIBRARY_FuncForDebug=true
 //endglobals from FuncForDebug
+//globals from FuncForGame:
+constant boolean LIBRARY_FuncForGame=true
+//endglobals from FuncForGame
 //globals from FuncForRegister:
 constant boolean LIBRARY_FuncForRegister=true
 //endglobals from FuncForRegister
@@ -50,26 +56,48 @@ integer array i_32
 //globals from YDWEEnumUnitsSelectedNull:
 constant boolean LIBRARY_YDWEEnumUnitsSelectedNull=true
 //endglobals from YDWEEnumUnitsSelectedNull
+//globals from YDWETriggerEvent:
+constant boolean LIBRARY_YDWETriggerEvent=true
+trigger yd_DamageEventTrigger= null
+trigger array YDWETriggerEvent___DamageEventQueue
+integer YDWETriggerEvent___DamageEventNumber= 0
+	
+item bj_lastMovedItemInItemSlot= null
+	
+trigger YDWETriggerEvent___MoveItemEventTrigger= null
+trigger array YDWETriggerEvent___MoveItemEventQueue
+integer YDWETriggerEvent___MoveItemEventNumber= 0
+//endglobals from YDWETriggerEvent
+//globals from FuncForDamage:
+constant boolean LIBRARY_FuncForDamage=true
+hashtable FuncForDamage__FuncForDamage_ht= InitHashtable()
+//endglobals from FuncForDamage
 //globals from FuncForItem:
 constant boolean LIBRARY_FuncForItem=true
 //endglobals from FuncForItem
+//globals from FuncForPlayer:
+constant boolean LIBRARY_FuncForPlayer=true
+//endglobals from FuncForPlayer
 //globals from japi:
 constant boolean LIBRARY_japi=true
 hashtable japi_ht=InitHashtable()
-integer japi___key=StringHash("jass")
+integer japi__key=StringHash("jass")
 //endglobals from japi
-//globals from FuncForGame:
-constant boolean LIBRARY_FuncForGame=true
-//endglobals from FuncForGame
+//globals from FuncForCreep:
+constant boolean LIBRARY_FuncForCreep=true
+//endglobals from FuncForCreep
+//globals from FuncForUnit:
+constant boolean LIBRARY_FuncForUnit=true
+//endglobals from FuncForUnit
 //globals from LocalActionLib:
 constant boolean LIBRARY_LocalActionLib=true
-constant hashtable LocalActionLib___ht=japi_ht
-constant integer LocalActionLib___key=StringHash("jass")
+constant hashtable LocalActionLib__ht=japi_ht
+constant integer LocalActionLib__key=StringHash("jass")
 //endglobals from LocalActionLib
 //globals from d3d:
 constant boolean LIBRARY_d3d=true
-constant hashtable d3d___ht=japi_ht
-constant integer d3d___key=StringHash("jass")
+constant hashtable d3d__ht=japi_ht
+constant integer d3d__key=StringHash("jass")
 //endglobals from d3d
     // User-defined
 real array udg_CreepsBirthPointX
@@ -203,15 +231,23 @@ rect gg_rct_HeroSelection= null
 rect gg_rct_NavyHeroBirth= null
 rect gg_rct_PirateHeroBirth= null
 rect gg_rct_CreepMagmaBirth= null
+rect gg_rct_BroadcastRct= null
 trigger gg_trg_FuncForDebug= null
 trigger gg_trg_FuncForGame= null
+trigger gg_trg_FuncForBroadcast= null
+trigger gg_trg_FuncForPlayer= null
+trigger gg_trg_FuncForUnit= null
 trigger gg_trg_DataSetAndGet= null
 trigger gg_trg_FuncForRegister= null
+trigger gg_trg_FuncForItem= null
+trigger gg_trg_FuncForToast= null
+trigger gg_trg_FuncForDamage= null
+trigger gg_trg_FuncForCreep= null
 trigger gg_trg_japiConstant= null
 trigger gg_trg_newJapiLibrary= null
 trigger gg_trg_d3dLibrary= null
 trigger gg_trg_______japi___u= null
-trigger gg_trg_initData= null
+trigger gg_trg_InitData= null
 trigger gg_trg_AllianceSet= null
 trigger gg_trg_ForbidAbility= null
 trigger gg_trg_GameInitData= null
@@ -219,7 +255,8 @@ trigger gg_trg_Constant= null
 trigger gg_trg_UnitLevel= null
 trigger gg_trg_GameTime= null
 trigger gg_trg_noteUnitMoney= null
-trigger gg_trg_Creeps= null
+trigger gg_trg_SystemPayOff= null
+trigger gg_trg_RegisterCreeps= null
 trigger gg_trg_InitCreep= null
 trigger gg_trg_StateCreepsFlush= null
 trigger gg_trg_SeaRegionCreep= null
@@ -227,9 +264,10 @@ trigger gg_trg_AncientCreep= null
 trigger gg_trg_SnowCreep= null
 trigger gg_trg_MagmaCreep= null
 trigger gg_trg_BossCreep= null
-trigger gg_trg_Soldiers= null
-trigger gg_trg_AttackDir= null
-trigger gg_trg_Towers= null
+trigger gg_trg_CreepsDeath= null
+trigger gg_trg_RegisterSoldiers= null
+trigger gg_trg_RegisterAttackDir= null
+trigger gg_trg_RegisterTowers= null
 trigger gg_trg_InitAttackAndDef= null
 trigger gg_trg_StateFlushSoldiersAll= null
 trigger gg_trg_SoldierLeak= null
@@ -243,13 +281,13 @@ trigger gg_trg_SoldierProtect= null
 trigger gg_trg_TowerProtect= null
 trigger gg_trg_TowerAttack= null
 trigger gg_trg_TowerDefendRel= null
-trigger gg_trg_SeaAreas= null
-trigger gg_trg_UnitSeaDebuff= null
+trigger gg_trg_RegisterSeaAreas= null
+trigger gg_trg_RegisterUnitSeaDebuff= null
 trigger gg_trg_InitSeaData= null
 trigger gg_trg_EnterSea= null
 trigger gg_trg_ExitSea= null
-trigger gg_trg_HeroInfo= null
-trigger gg_trg_PlayerHashInfo= null
+trigger gg_trg_RegisterHeroInfo= null
+trigger gg_trg_RegisterPlayerHashInfo= null
 trigger gg_trg_InitChooseInterface= null
 trigger gg_trg_startChosenInterface= null
 trigger gg_trg_ChooseInterface= null
@@ -261,6 +299,7 @@ trigger gg_trg_Repick= null
 trigger gg_trg_ClickConfirmByTurn= null
 trigger gg_trg_TurnToChoose= null
 trigger gg_trg_UseTurnChoose= null
+trigger gg_trg_ClearChooseHeroData= null
 trigger gg_trg________________u= null
 trigger gg_trg_NotifyPanel= null
 trigger gg_trg_InitPanel= null
@@ -274,6 +313,15 @@ trigger gg_trg_DialogBox= null
 trigger gg_trg_DialogClick= null
 trigger gg_trg_GamePrepare= null
 trigger gg_trg_GameStart= null
+trigger gg_trg_RegisterItemFuse= null
+trigger gg_trg_InitItemData= null
+trigger gg_trg_UnitDropItem= null
+trigger gg_trg_UnitPickUpItem= null
+trigger gg_trg_UnitSpellObtainItem= null
+trigger gg_trg_UnitPickUpBuffItem= null
+trigger gg_trg_JusticeFlagOfRoshan= null
+trigger gg_trg_Escaped_Dagger= null
+trigger gg_trg_UnitBeDamaged= null
 trigger gg_trg_AbilityData= null
 trigger gg_trg_InitAbilTrg= null
 trigger gg_trg_CameraUp= null
@@ -323,11 +371,6 @@ unit gg_unit_h00G_0051= null
 unit gg_unit_h00D_0052= null
 unit gg_unit_h00I_0060= null
 unit gg_unit_h00I_0061= null
-trigger gg_trg_FuncForItem= null
-trigger gg_trg_FuncForToast= null
-trigger gg_trg_UnitDropItem= null
-trigger gg_trg_UnitPickUpItem= null
-trigger gg_trg_UnitSpellObtainItem= null
     
     //该数仅用于求取矩形内单位的个数
 integer m_unitCountInRect= 0
@@ -340,7 +383,28 @@ hashtable tag_ht= InitHashtable()
     //买活状态中
 boolean array buyBack
     
+    //地图边界
+real MAP_MIN_X= GetRectMinX(bj_mapInitialPlayableArea) + 50
+real MAP_MAX_X= GetRectMaxX(bj_mapInitialPlayableArea) - 50
+real MAP_MIN_Y= GetRectMinY(bj_mapInitialPlayableArea) + 50
+real MAP_MAX_Y= GetRectMaxY(bj_mapInitialPlayableArea) - 50
+    
+    
+    
+region RECEIVER_REGION
+rect RECEIVER_RECT
+hashtable RECEIVER_HT= InitHashtable()
 hashtable SET_GET_HASH= InitHashtable()
+    //保存物品的合成公式
+hashtable itemSyntheticFormula_ht= InitHashtable()
+    //保存物品的指向配方
+hashtable itemFuseItems_ht= InitHashtable()
+    //保存物品的某些信息
+hashtable itemNativeInfo_ht= InitHashtable()
+    //保存正牌物品和替身物品
+hashtable itemSurrenal_ht= InitHashtable()
+    //野怪boss的类型数组
+integer array CreepsBossTypes
     
 boolean array isPlayer
     
@@ -374,18 +438,6 @@ integer SIDE_ROAD= 1
 hashtable SPELL_HS= InitHashtable()
     
     
-    //浮空型
-integer SEAR_FLOAT= - 1
-    //非能力者
-integer SEAR_NORMAL= 0
-    //能力者重罚型
-integer SEAR_DEVILER= 1
-    //能力者海行型
-integer SEAR_DEVIL_WORLD= 2
-    //海族
-integer SEAR_NEPTUNE= 3
-    //僵尸类
-integer SEAR_CORPSE= 4
     
     
 unit array HERO_OF_PLAYER
@@ -393,6 +445,7 @@ unit array HERO_OF_PLAYER
 integer INIT_MONEY= 875
 integer HAND_MONEY= - 100
 integer REPICK_MONEY= - 100
+    
     
     
     //英雄的当前等级
@@ -405,6 +458,7 @@ integer Sys_minute= 0
     
 hashtable unitMenoy_ht= InitHashtable()
     
+integer roshanAbilLevel= 0
 
     //出生坐标
 real array soldierBirthXUp
@@ -436,7 +490,18 @@ region array attackRegionMin
     
     
 region SEA_REGION
-    
+    //非能力者
+integer SEAR_NORMAL= - 1
+    //浮空型
+integer SEAR_FLOAT= 0
+    //能力者重罚型
+integer SEAR_DEVILER= 1
+    //能力者海行型
+integer SEAR_DEVIL_WORLD= 2
+    //海族
+integer SEAR_NEPTUNE= 3
+    //僵尸类
+integer SEAR_CORPSE= 4
 hashtable array chosenHeroInfo
 unitpool array ChosenHeroPool
 integer array HeroSelectedNum
@@ -490,20 +555,32 @@ player gameDialog_player
 integer GAME_MODE= 0
 timerdialog gamePrepare_td= null
 hashtable heroWeaponBuff_ht= InitHashtable()
+integer BUFF_TYPES= 19
+    //0溅射：30%	物理伤害
+    //1月刃：2      物理伤害
+    //2闪电：25%    魔法伤害
+	//3残废：25%
+    //4破魔：30    
+    //5击晕：20%
+	//6物吸：25%   物理伤害相关
+    //7物暴：30%   物理伤害相关，物理伤害
+    //8破防：-7    物理伤害性质
+	//9法吸：10%   魔法伤害相关
+    //10法暴：20%  魔法伤害相关，魔法伤害
+    //11法穿：10%   魔法伤害性质
+	//12冷却：10%   
+    //13闪避：20%  物理伤害相关
+    //14法抗：10%   设置生命的方式来恢复生命
+	//15格挡：50	设置生命值的方式来恢复生命
+    //16冰冻：20%   
+    //17疾行：35%
+    //18额外恢复
+    
+    
+hashtable heroSpellObtainItem_ht= InitHashtable()
     
     //设置空格个数
 string array space
-    
-    //保存物品的合成公式
-hashtable itemSyntheticFormula_ht= InitHashtable()
-    //保存物品的指向配方
-hashtable itemFuseItems_ht= InitHashtable()
-    //保存物品的某些信息
-hashtable itemNativeInfo_ht= InitHashtable()
-    //保存正牌物品和替身物品
-hashtable itemSurrenal_ht= InitHashtable()
-    
-hashtable heroSpellObtainItem_ht= InitHashtable()
     
 
 
@@ -611,6 +688,56 @@ endfunction
 //===========================================================================
 
 //library DataSetAndGet ends
+//library FuncForBroadcast:
+
+function sendBroadcastToPlayer takes integer unitId,integer filter,player p returns nothing
+    local real x= GetRectCenterX(RECEIVER_RECT)
+    local real y= GetRectCenterY(RECEIVER_RECT)
+    local unit u= CreateUnit(p, unitId, x, y, 0)
+    
+    call SaveInteger(RECEIVER_HT, GetHandleId(u), 0, filter)
+    
+    call RemoveUnit(u)
+    set u=null
+endfunction
+
+function registerBroadcastConditions takes nothing returns boolean
+    local trigger trg= GetTriggeringTrigger()
+    local unit u= GetTriggerUnit()
+    local player owningP= GetOwningPlayer(u)
+    local integer unitType= GetUnitTypeId(u)
+    local integer targetUnitType= LoadInteger(RECEIVER_HT, GetHandleId(trg), 0)
+    local integer trgFilter= LoadInteger(RECEIVER_HT, GetHandleId(trg), 1)
+    local integer uFilter= LoadInteger(RECEIVER_HT, GetHandleId(u), 0)
+    local player registerP= LoadPlayerHandle(RECEIVER_HT, GetHandleId(trg), 2)
+    
+    if ( trgFilter != 0 and uFilter != 0 and trgFilter == uFilter and unitType == targetUnitType and owningP == registerP ) then
+        set u=null
+        set owningP=null
+        set registerP=null
+        set trg=null
+        return true
+    endif
+    set u=null
+    set owningP=null
+    set registerP=null
+    set trg=null
+    return false
+endfunction
+function registerBroadcastReceiverToPlayer takes integer unitId,integer filter,player p,code callback returns nothing
+    local trigger trg= CreateTrigger()
+    local integer pKey= GetHandleId(trg)
+    call SaveInteger(RECEIVER_HT, pKey, 0, unitId)
+    call SaveInteger(RECEIVER_HT, pKey, 1, filter)
+    call SavePlayerHandle(RECEIVER_HT, pKey, 2, p)
+    call TriggerRegisterEnterRegion(trg, RECEIVER_REGION, null)
+    call TriggerAddCondition(trg, Condition(function registerBroadcastConditions))
+    call TriggerAddAction(trg, callback)
+    
+    set trg=null
+endfunction
+
+//library FuncForBroadcast ends
 //library FuncForDebug:
 //===========================================================================
 
@@ -628,6 +755,89 @@ function debugPoint takes real x,real y returns nothing
 endfunction
 
 //library FuncForDebug ends
+//library FuncForGame:
+//===========================================================================
+
+function getDistanceInPts takes real x0,real y0,real x1,real y1 returns real
+    
+    local real x= x0 - x1
+    local real y= y0 - y1
+    return SquareRoot(x * x + y * y)
+    
+endfunction
+//===========================================================================
+
+function getPolarX takes real x,real dist,real angle returns real
+    return x + dist * Cos(angle * bj_DEGTORAD)
+endfunction
+function getPolarY takes real y,real dist,real angle returns real
+    return y + dist * Sin(angle * bj_DEGTORAD)
+endfunction
+//===========================================================================
+
+function getAngleFormXY takes real x,real y,real x1,real y1 returns real
+    return bj_RADTODEG * Atan2(y1 - y, x1 - x)
+endfunction
+//===========================================================================
+
+function getSafeX takes real x returns real
+     
+     if ( x < MAP_MIN_X ) then
+         return MAP_MIN_X
+     endif
+     
+     if ( x > MAP_MAX_X ) then
+         return MAP_MAX_X
+     endif
+     return x
+endfunction
+function getSafeY takes real y returns real
+     
+     if ( y < MAP_MIN_Y ) then
+         return MAP_MIN_Y
+     endif
+     
+     if ( y > MAP_MAX_Y ) then
+         return MAP_MAX_Y
+     endif
+     return y
+endfunction
+//===========================================================================
+
+function changeTextTagScale_timeDo takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local string s= LoadStr(tag_ht, pKey, 0)
+    local texttag tag= LoadTextTagHandle(tag_ht, pKey, 2)
+    local real scale= LoadReal(tag_ht, pKey, 1)
+    call SetTextTagText(tag, s, scale)
+    call DestroyTimer(t)
+    set t=null
+endfunction
+function changeTextTagScaleTime takes texttag tag,string s,real scale,real time returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    call SaveStr(tag_ht, pKey, 0, s)
+    call SaveReal(tag_ht, pKey, 1, scale)
+    call SaveTextTagHandle(tag_ht, pKey, 2, tag)
+    call TimerStart(t, time, false, function changeTextTagScale_timeDo)
+    set t=null
+endfunction
+//===========================================================================
+
+function setStringPlayerIdColor takes integer pId,string s returns string
+    return playerColors[pId] + s + "|r"
+endfunction
+//===========================================================================
+
+function getPlayerColorNameById takes integer i returns string
+    local player p= Player(i)
+    local string s= GetPlayerName(p)
+    set p=null
+    return setStringPlayerIdColor(i , s)
+endfunction
+
+//library FuncForGame ends
 //library FuncForRegister:
 //===========================================================================
 
@@ -655,13 +865,23 @@ function triggerRegisterHeroEvent takes trigger trig,playerunitevent whichEvent 
     endloop
 endfunction
 
+function triggerRegisterPlayingPlayersEvent takes trigger trig,playerunitevent whichEvent,boolexpr filter returns nothing
+    local integer i= 0
+    
+    loop
+        exitwhen i > 10 - 1
+        call TriggerRegisterPlayerUnitEvent(trig, Player(i), whichEvent, filter)
+        set i=i + 1
+    endloop
+endfunction
+
 //library FuncForRegister ends
 //library FuncForToast:
 function toastInfoTextToPlayer takes player p,string msg returns nothing
-    call DisplayTimedTextToPlayer(p, 0.5, - 1, 2, "|cffffff00" + msg + "|r")
+    call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffffff00" + msg + "|r")
 endfunction
-function toastWarmingTextToPlayer takes player p,string msg returns nothing
-    call DisplayTimedTextToPlayer(p, 0.5, - 1, 2, "|cffff0000" + msg + "|r")
+function toastWarningTextToPlayer takes player p,string msg returns nothing
+    call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffff0000" + msg + "|r")
 endfunction
 
 //library FuncForToast ends
@@ -719,7 +939,159 @@ function YDWEEnumUnitsSelectedNull takes player whichPlayer,boolexpr enumFilter,
 endfunction
 
 //library YDWEEnumUnitsSelectedNull ends
+//library YDWETriggerEvent:
+	
+//===========================================================================  
+//���ⵥλ�˺��¼� 
+//===========================================================================
+function YDWEAnyUnitDamagedTriggerAction takes nothing returns nothing
+    local integer i= 0
+    
+    loop
+        exitwhen i >= YDWETriggerEvent___DamageEventNumber
+        if YDWETriggerEvent___DamageEventQueue[i] != null and IsTriggerEnabled(YDWETriggerEvent___DamageEventQueue[i]) and TriggerEvaluate(YDWETriggerEvent___DamageEventQueue[i]) then
+            call TriggerExecute(YDWETriggerEvent___DamageEventQueue[i])
+        endif
+        set i=i + 1
+    endloop
+endfunction
+function YDWEAnyUnitDamagedFilter takes nothing returns boolean
+    if GetUnitAbilityLevel(GetFilterUnit(), 'Aloc') <= 0 then
+        call TriggerRegisterUnitEvent(yd_DamageEventTrigger, GetFilterUnit(), EVENT_UNIT_DAMAGED)
+    endif
+    return false
+endfunction
+function YDWEAnyUnitDamagedEnumUnit takes nothing returns nothing
+    local trigger t= CreateTrigger()
+    local region r= CreateRegion()
+    local group g= CreateGroup()
+    call RegionAddRect(r, GetWorldBounds())
+    call TriggerRegisterEnterRegion(t, r, Condition(function YDWEAnyUnitDamagedFilter))
+    call GroupEnumUnitsInRect(g, GetWorldBounds(), Condition(function YDWEAnyUnitDamagedFilter))
+    call DestroyGroup(g)
+    set r=null
+    set t=null
+    set g=null
+endfunction
+	
+function YDWESyStemAnyUnitDamagedRegistTrigger takes trigger trg returns nothing
+    if trg == null then
+        return
+    endif
+        
+    if YDWETriggerEvent___DamageEventNumber == 0 then
+        set yd_DamageEventTrigger=CreateTrigger()
+        call TriggerAddAction(yd_DamageEventTrigger, function YDWEAnyUnitDamagedTriggerAction)
+        call YDWEAnyUnitDamagedEnumUnit()
+    endif
+    
+    set YDWETriggerEvent___DamageEventQueue[YDWETriggerEvent___DamageEventNumber]=trg
+    set YDWETriggerEvent___DamageEventNumber=YDWETriggerEvent___DamageEventNumber + 1
+endfunction
+//===========================================================================  
+//�ƶ���Ʒ�¼� 
+//===========================================================================  
+function YDWESyStemItemUnmovableTriggerAction takes nothing returns nothing
+    local integer i= 0
+    
+    if GetIssuedOrderId() >= 852002 and GetIssuedOrderId() <= 852007 then
+		set bj_lastMovedItemInItemSlot=GetOrderTargetItem()
+    	loop
+        	exitwhen i >= YDWETriggerEvent___MoveItemEventNumber
+        	if YDWETriggerEvent___MoveItemEventQueue[i] != null and IsTriggerEnabled(YDWETriggerEvent___MoveItemEventQueue[i]) and TriggerEvaluate(YDWETriggerEvent___MoveItemEventQueue[i]) then
+        	    call TriggerExecute(YDWETriggerEvent___MoveItemEventQueue[i])
+        	endif
+        	set i=i + 1
+    	endloop
+	endif
+endfunction
+function YDWESyStemItemUnmovableRegistTrigger takes trigger trg returns nothing
+    if trg == null then
+        return
+    endif
+        
+    if YDWETriggerEvent___MoveItemEventNumber == 0 then
+        set YDWETriggerEvent___MoveItemEventTrigger=CreateTrigger()
+        call TriggerAddAction(YDWETriggerEvent___MoveItemEventTrigger, function YDWESyStemItemUnmovableTriggerAction)
+        call TriggerRegisterAnyUnitEventBJ(YDWETriggerEvent___MoveItemEventTrigger, EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+    endif
+    
+    set YDWETriggerEvent___MoveItemEventQueue[YDWETriggerEvent___MoveItemEventNumber]=trg
+    set YDWETriggerEvent___MoveItemEventNumber=YDWETriggerEvent___MoveItemEventNumber + 1
+endfunction
+function GetLastMovedItemInItemSlot takes nothing returns item
+    return bj_lastMovedItemInItemSlot
+endfunction
+
+//library YDWETriggerEvent ends
+//library FuncForDamage:
+//计时器到期杀死单位
+function FuncForDamage_killUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0)
+    
+    call KillUnit(u)
+    call RemoveUnit(u)
+    
+    call FlushChildHashtable(FuncForDamage__FuncForDamage_ht, pKey)
+    call DestroyTimer(t)
+    set u=null
+    set t=null
+endfunction
+//创建指定玩家单位并对目标单位造成伤害
+function FuncForDamage_damageUnit takes player p,integer unitId,unit target,damagetype damageType,real damage returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit u= CreateUnit(p, unitId, x, y, 0)
+    call SaveUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0, u)
+    call UnitDamageTarget(u, target, damage, true, false, ATTACK_TYPE_MELEE, damageType, WEAPON_TYPE_WHOKNOWS)
+    call TimerStart(t, 0.1, false, function FuncForDamage_killUnit_timer)
+    
+    set u=null
+endfunction
+
+function hurtUnitByPhysicalSingleDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e008' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByPhysicalMultiDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e009' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByNoReversalPhysicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByMagicalSingleDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByMagicalMultiDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00B' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByNoReversalMagicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00D' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByHolyDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e007' , target , DAMAGE_TYPE_UNIVERSAL , damage)
+endfunction
+
+function hurtUnitByIgnorePhysicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByIgnoreMagicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+//library FuncForDamage ends
 //library FuncForItem:
+//===========================================================================
 
 function setItemOverlapById takes integer itId,boolean isOverlap,integer max returns nothing
     call SaveBoolean(itemNativeInfo_ht, itId, 0, isOverlap)
@@ -755,6 +1127,42 @@ endfunction
 function isItemOnlyById takes integer it returns boolean
     return LoadBoolean(itemNativeInfo_ht, it, 5)
 endfunction
+function setItemBuffById takes integer itId returns nothing
+    call SaveBoolean(itemNativeInfo_ht, itId, 6, true)
+    
+endfunction
+function isItemHasBuffById takes integer itId returns boolean
+    return LoadBoolean(itemNativeInfo_ht, itId, 6) //该物品是否具有buff效果
+endfunction
+//增加item的buff
+function itemIdAddBuff takes integer itId,integer buffType,integer buffId returns nothing
+ local integer buffCounts= 0
+	if ( not isItemHasBuffById(itId) ) then
+		call setItemBuffById(itId)
+	endif
+	set buffCounts=LoadInteger(itemNativeInfo_ht, itId, 7) //该物品的buff类型数量
+	call SaveInteger(itemNativeInfo_ht, itId, 8 + 2 * buffCounts, buffType) //该物品buff在 heroWeaponBuff_ht 的pKey
+	call SaveInteger(itemNativeInfo_ht, itId, 9 + 2 * buffCounts, buffId) //对应的其他概率
+	call SaveInteger(itemNativeInfo_ht, itId, 7, buffCounts + 1)
+endfunction
+//获取item具有的buff总数量
+function getItemBuffTypesById takes integer itId returns integer
+	return LoadInteger(itemNativeInfo_ht, itId, 7)
+endfunction
+//获取item指定位置的buff
+function getItemBuffTypeById takes integer itId,integer whichBuff returns integer
+	if ( not isItemHasBuffById(itId) ) then
+		return 0
+	endif
+	return LoadInteger(itemNativeInfo_ht, itId, 8 + 2 * whichBuff)
+endfunction
+//获取item指定位置的buff的数值
+function getItemBuffCountById takes integer itId,integer whichBuff returns integer
+	if ( not isItemHasBuffById(itId) ) then
+		return 0
+	endif
+	return LoadInteger(itemNativeInfo_ht, itId, 9 + 2 * whichBuff)
+endfunction
 function registerItemInfo takes integer it,boolean isOverlap,integer max,boolean isShared,boolean isFuse,boolean isFused,boolean isOnly returns nothing
    
     call SaveBoolean(itemNativeInfo_ht, it, 0, isOverlap)
@@ -765,10 +1173,12 @@ function registerItemInfo takes integer it,boolean isOverlap,integer max,boolean
     call SaveBoolean(itemNativeInfo_ht, it, 5, isOnly)
     
 endfunction
+//===========================================================================
 
 function isHasFillItems takes unit u returns boolean
     return ( UnitInventoryCount(u) == 6 )
 endfunction
+//===========================================================================
 
 function unitAddItemById takes unit u,integer itId returns item
     local real x= GetUnitX(u)
@@ -778,6 +1188,7 @@ function unitAddItemById takes unit u,integer itId returns item
     call UnitAddItem(u, newItem)
     return newItem
 endfunction
+//===========================================================================
 
 function unitAddPlayerItemById takes unit u,player p,integer itId returns item
     local real x= GetUnitX(u)
@@ -787,6 +1198,7 @@ function unitAddPlayerItemById takes unit u,player p,integer itId returns item
     call UnitAddItem(u, newItem)
     return newItem
 endfunction
+//===========================================================================
 
 function getItemNameById takes integer id returns string
     local item it= CreateItem(id, 0, 0)
@@ -795,6 +1207,7 @@ function getItemNameById takes integer id returns string
     set it=null
     return s
 endfunction
+//===========================================================================
 
 function getUnitItemChargesById takes unit u,integer itemId returns integer
     local integer i=0
@@ -811,6 +1224,7 @@ function getUnitItemChargesById takes unit u,integer itemId returns integer
     set it=null
     return - 1
 endfunction
+//===========================================================================
 
 function setUnitItemChargesById takes unit u,integer itId,integer count returns nothing
     local integer i= 0
@@ -843,6 +1257,7 @@ function setUnitItemChargesById takes unit u,integer itId,integer count returns 
         set i=i + 1
     endloop
 endfunction
+//===========================================================================
 
 function getUnitItemCount takes unit u,integer itemId returns integer
     local integer result= 0
@@ -867,6 +1282,7 @@ function getUnitItemCount takes unit u,integer itemId returns integer
     set it=null
     return result
 endfunction
+//===========================================================================
 
 function isUnitHasItemById takes unit u,integer itemId returns boolean
     
@@ -876,6 +1292,7 @@ function isUnitHasItemById takes unit u,integer itemId returns boolean
     
     return false
 endfunction
+//===========================================================================
 
 function removeUnitItemsById takes unit u,integer itemId,integer count returns nothing
     local item it= null
@@ -912,6 +1329,7 @@ function removeUnitItemsById takes unit u,integer itemId,integer count returns n
     
     set it=null
 endfunction
+//===========================================================================
 
 function setItemSurrenal takes integer origin,integer surrenal returns nothing
     
@@ -921,12 +1339,17 @@ function setItemSurrenal takes integer origin,integer surrenal returns nothing
     call SaveBoolean(itemSurrenal_ht, surrenal, 1, false)
     
 endfunction
+//===========================================================================
 
-function getOriginalItemId takes integer surrenalItem returns integer
+function getOriginalItemIdById takes integer surrenalItem returns integer
     return LoadInteger(itemSurrenal_ht, surrenalItem, 0)
 endfunction
-function getSurrenalItemId takes integer originalItem returns integer
+function getSurrenalItemIdById takes integer originalItem returns integer
     return LoadInteger(itemSurrenal_ht, originalItem, 0)
+endfunction
+//未知或者不需要知道该传进的item是原物品还是替身物品，返回其替换物品id
+function getExchangeItemIdById takes integer itemId returns integer
+    return LoadInteger(itemSurrenal_ht, itemId, 0)
 endfunction
 
 function isOriginalItemById takes integer it returns boolean
@@ -938,7 +1361,7 @@ function replaceSurrenalItem takes item surrenalItem returns item
     local real y= GetItemY(surrenalItem)
     local player itemP= GetItemPlayer(surrenalItem)
     local integer surrenalItemId= GetItemTypeId(surrenalItem)
-    local integer originalItemId= getOriginalItemId(surrenalItemId)
+    local integer originalItemId= getOriginalItemIdById(surrenalItemId)
     local integer useCount= GetItemCharges(surrenalItem)
     local item newItem= CreateItem(originalItemId, x, y)
     
@@ -954,13 +1377,14 @@ function replaceSurrenalItem takes item surrenalItem returns item
     set itemP=null
     return newItem
 endfunction
+//===========================================================================
 
 function replaceOriginalItem takes item originalItem returns item
     local real x= GetItemX(originalItem)
     local real y= GetItemY(originalItem)
     local player itemP= GetItemPlayer(originalItem)
     local integer originalItemId= GetItemTypeId(originalItem)
-    local integer surrenalItemId= getOriginalItemId(originalItemId)
+    local integer surrenalItemId= getOriginalItemIdById(originalItemId)
     local integer useCount= GetItemCharges(originalItem)
     local item newItem= CreateItem(surrenalItemId, x, y)
     
@@ -976,13 +1400,14 @@ function replaceOriginalItem takes item originalItem returns item
     set itemP=null
     return newItem
 endfunction
+//===========================================================================
 
 function replaceSurrenalItemToUnit takes item surrenalItem,unit u returns item
     local player itemP= GetItemPlayer(surrenalItem)
     local real x= GetUnitX(u)
     local real y= GetUnitY(u)
     local integer surrenalItemId= GetItemTypeId(surrenalItem)
-    local integer originalItemId= getOriginalItemId(surrenalItemId)
+    local integer originalItemId= getOriginalItemIdById(surrenalItemId)
     local item newItem= null
     local integer useCount= GetItemCharges(surrenalItem)
     
@@ -999,13 +1424,14 @@ function replaceSurrenalItemToUnit takes item surrenalItem,unit u returns item
     set itemP=null
     return newItem
 endfunction
+//===========================================================================
 
 function replaceOriginalItemToUnit takes item originalItem,unit u returns item
     local player itemP= GetItemPlayer(originalItem)
     local real x= GetUnitX(u)
     local real y= GetUnitY(u)
     local integer originalItemId= GetItemTypeId(originalItem)
-    local integer surrenalItemId= getOriginalItemId(originalItemId)
+    local integer surrenalItemId= getOriginalItemIdById(originalItemId)
     local item newItem= null
     local integer useCount= GetItemCharges(originalItem)
     
@@ -1022,6 +1448,7 @@ function replaceOriginalItemToUnit takes item originalItem,unit u returns item
     set itemP=null
     return newItem
 endfunction
+//===========================================================================
 
 function fuseItemUnfillSlot takes unit u,item it returns boolean
     local integer pKey= GetItemTypeId(it)
@@ -1174,9 +1601,9 @@ function registerFuseItem2 takes integer target,integer it1,integer i1,integer i
     call SaveInteger(itemFuseItems_ht, it2, i, target)
     
     //替代物品合成公式
-    set itId[0]=getSurrenalItemId(target)
-    set itId[1]=getSurrenalItemId(it1)
-    set itId[2]=getSurrenalItemId(it2)
+    set itId[0]=getSurrenalItemIdById(target)
+    set itId[1]=getSurrenalItemIdById(it1)
+    set itId[2]=getSurrenalItemIdById(it2)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 2)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
@@ -1222,10 +1649,10 @@ function registerFuseItem3 takes integer target,integer it1,integer i1,integer i
     call SaveInteger(itemFuseItems_ht, it3, i, target)
     
     //注册替代物品合成公式
-    set itId[0]=getSurrenalItemId(target)
-    set itId[1]=getSurrenalItemId(it1)
-    set itId[2]=getSurrenalItemId(it2)
-    set itId[3]=getSurrenalItemId(it3)
+    set itId[0]=getSurrenalItemIdById(target)
+    set itId[1]=getSurrenalItemIdById(it1)
+    set itId[2]=getSurrenalItemIdById(it2)
+    set itId[3]=getSurrenalItemIdById(it3)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 3)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
@@ -1283,11 +1710,11 @@ function registerFuseItem4 takes integer target,integer it1,integer i1,integer i
     call SaveInteger(itemFuseItems_ht, it4, i, target)
     
     //注册替代物品合成公式
-    set itId[0]=getSurrenalItemId(target)
-    set itId[1]=getSurrenalItemId(it1)
-    set itId[2]=getSurrenalItemId(it2)
-    set itId[3]=getSurrenalItemId(it3)
-    set itId[4]=getSurrenalItemId(it4)
+    set itId[0]=getSurrenalItemIdById(target)
+    set itId[1]=getSurrenalItemIdById(it1)
+    set itId[2]=getSurrenalItemIdById(it2)
+    set itId[3]=getSurrenalItemIdById(it3)
+    set itId[4]=getSurrenalItemIdById(it4)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
@@ -1357,12 +1784,12 @@ function registerFuseItem5 takes integer target,integer it1,integer i1,integer i
     call SaveInteger(itemFuseItems_ht, it5, i, target)
     
     //注册替代物品合成公式
-    set itId[0]=getSurrenalItemId(target)
-    set itId[1]=getSurrenalItemId(it1)
-    set itId[2]=getSurrenalItemId(it2)
-    set itId[3]=getSurrenalItemId(it3)
-    set itId[4]=getSurrenalItemId(it4)
-    set itId[5]=getSurrenalItemId(it5)
+    set itId[0]=getSurrenalItemIdById(target)
+    set itId[1]=getSurrenalItemIdById(it1)
+    set itId[2]=getSurrenalItemIdById(it2)
+    set itId[3]=getSurrenalItemIdById(it3)
+    set itId[4]=getSurrenalItemIdById(it4)
+    set itId[5]=getSurrenalItemIdById(it5)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
@@ -1442,13 +1869,13 @@ function registerFuseItem6 takes integer target,integer it1,integer i1,integer i
     call SaveInteger(itemFuseItems_ht, it6, i, target)
     
     //注册替代物品合成公式
-    set itId[0]=getSurrenalItemId(target)
-    set itId[1]=getSurrenalItemId(it1)
-    set itId[2]=getSurrenalItemId(it2)
-    set itId[3]=getSurrenalItemId(it3)
-    set itId[4]=getSurrenalItemId(it4)
-    set itId[5]=getSurrenalItemId(it5)
-    set itId[6]=getSurrenalItemId(it6)
+    set itId[0]=getSurrenalItemIdById(target)
+    set itId[1]=getSurrenalItemIdById(it1)
+    set itId[2]=getSurrenalItemIdById(it2)
+    set itId[3]=getSurrenalItemIdById(it3)
+    set itId[4]=getSurrenalItemIdById(it4)
+    set itId[5]=getSurrenalItemIdById(it5)
+    set itId[6]=getSurrenalItemIdById(it6)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
     call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
@@ -1487,626 +1914,7 @@ function registerFuseItem6 takes integer target,integer it1,integer i1,integer i
 endfunction
 
 //library FuncForItem ends
-//library japi:
-
-    
-    
-    
-     function Call takes string str returns nothing
-        call UnitId(str)
-    endfunction
-    //获取鼠标在地图中的x轴
-     function GetMouseX takes nothing returns real
-        call SaveStr(japi_ht, japi___key, 0, "()R")
-        call Call("GetMouseX")
-        return LoadReal(japi_ht, japi___key, 0)
-    endfunction
-    //获取鼠标在地图中的y轴
-     function GetMouseY takes nothing returns real
-        call SaveStr(japi_ht, japi___key, 0, "()R")
-        call Call("GetMouseY")
-        return LoadReal(japi_ht, japi___key, 0)
-    endfunction
-    
-    
-    
-    
-    //==========================================================================
-     function EXGetUnitAbility takes unit u,integer abilityId returns integer
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(u))
-        call SaveInteger(japi_ht, japi___key, 2, abilityId)
-        call SaveStr(japi_ht, japi___key, 0, "(II)I")
-        call Call("EXGetUnitAbility")
-        return LoadInteger(japi_ht, japi___key, 0)
-    endfunction
-    
-    // yd japi ==================================================================
-    // 技能----------------------------------------------------
-    
-    ///<summary>技能属性 [JAPI]</summary>
-  function YDWEGetUnitAbilityState takes unit u,integer abilcode,integer data_type returns real
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, data_type)
-        call SaveStr(japi_ht, japi___key, 0, "(II)R")
-        call Call("EXGetAbilityState")
-		return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-	///<summary>技能数据 (整数) [JAPI]</summary>
-  function YDWEGetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type returns integer
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveStr(japi_ht, japi___key, 0, "(III)I")
-        call Call("EXGetAbilityDataInteger")
-		return LoadInteger(japi_ht, japi___key, 0)
-	endfunction
-	///<summary>技能数据 (实数) [JAPI]</summary>
-  function YDWEGetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type returns real
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveStr(japi_ht, japi___key, 0, "(III)R")
-        call Call("EXGetAbilityDataReal")
-		return LoadReal(japi_ht, japi___key, 0)
-    endfunction
-	///<summary>技能数据 (字符串) [JAPI]</summary>
-  function YDWEGetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type returns string
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveStr(japi_ht, japi___key, 0, "(III)S")
-        call Call("EXGetAbilityDataString")
-		return LoadStr(japi_ht, japi___key, 0)
-	endfunction
-	///<summary>设置技能属性 [JAPI]</summary>
-  function YDWESetUnitAbilityState takes unit u,integer abilcode,integer data_type,real value returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, data_type)
-        call SaveReal(japi_ht, japi___key, 3, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIR)V")
-        call Call("EXSetAbilityState")
-    endfunction
-	///<summary>设置技能数据 (整数) [JAPI]</summary>
-  function YDWESetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type,integer value returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveInteger(japi_ht, japi___key, 4, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIII)V")
-        call Call("EXSetAbilityDataInteger")
-    endfunction
-	///<summary>设置技能数据 (实数) [JAPI]</summary>
-  function YDWESetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type,real value returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveReal(japi_ht, japi___key, 4, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIIR)V")
-        call Call("EXSetAbilityDataReal")
-    endfunction
-	///<summary>设置技能数据 (字符串) [JAPI]</summary>
-  function YDWESetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type,string value returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi___key, 2, level)
-        call SaveInteger(japi_ht, japi___key, 3, data_type)
-        call SaveStr(japi_ht, japi___key, 4, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIIS)V")
-        call Call("EXSetAbilityDataString")
-    endfunction
-	
-    
-    //设置技能变身数据A
-     function EXSetAbilityAEmeDataA takes integer ability_handle,integer value returns boolean
-        call SaveInteger(japi_ht, japi___key, 1, ability_handle)
-        call SaveInteger(japi_ht, japi___key, 2, value)
-        call SaveStr(japi_ht, japi___key, 0, "(II)B")
-        call Call("EXSetAbilityAEmeDataA")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    
-    //单位变身
-     function YDWEUnitTransform takes unit u,integer abilcode,integer targetid returns nothing
-		call UnitAddAbility(u, abilcode)
-		call YDWESetUnitAbilityDataInteger(u , abilcode , 1 , 117 , GetUnitTypeId(u))
-		call EXSetAbilityAEmeDataA(EXGetUnitAbility(u , abilcode) , GetUnitTypeId(u))
-		call UnitRemoveAbility(u, abilcode)
-		call UnitAddAbility(u, abilcode)
-		call EXSetAbilityAEmeDataA(EXGetUnitAbility(u , abilcode) , targetid)
-		call UnitRemoveAbility(u, abilcode)
-	endfunction
-    
-    // 单位-------------------------------------------------------
-    
-    //暂停单位
-     function EXPauseUnit takes unit unit_handle,boolean flag returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
-        call SaveBoolean(japi_ht, japi___key, 2, flag)
-        call SaveStr(japi_ht, japi___key, 0, "(IB)V")
-        call Call("EXPauseUnit")
-    endfunction
-    
-    //获取单位字符串
-     function EXGetUnitString takes integer unitcode,integer Type returns string
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(II)S")
-        call Call("EXGetUnitString")
-        return LoadStr(japi_ht, japi___key, 0)
-    endfunction
-    
-       //设置单位字符串
-     function EXSetUnitString takes integer unitcode,integer Type,string value returns boolean
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 3, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIS)B")
-        call Call("EXSetUnitString")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    
-    //获取单位实数
-     function EXGetUnitReal takes integer unitcode,integer Type returns real
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(II)R")
-        call Call("EXGetUnitReal")
-        return LoadReal(japi_ht, japi___key, 0)
-    endfunction
-    
-    //设置单位实数
-     function EXSetUnitReal takes integer unitcode,integer Type,real value returns boolean
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveReal(japi_ht, japi___key, 3, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIR)B")
-        call Call("EXSetUnitReal")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    
-    
-    //获取单位整数
-     function EXGetUnitInteger takes integer unitcode,integer Type returns integer
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(II)I")
-        call Call("EXGetUnitInteger")
-        return LoadInteger(japi_ht, japi___key, 0)
-    endfunction
-    
-    //设置单位整数
-     function EXSetUnitInteger takes integer unitcode,integer Type,integer value returns boolean
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveInteger(japi_ht, japi___key, 3, value)
-        call SaveStr(japi_ht, japi___key, 0, "(III)B")
-        call Call("EXSetUnitInteger")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    
-        //获取单位数组字符串
-     function EXGetUnitArrayString takes integer unitcode,integer Type,integer index returns string
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveInteger(japi_ht, japi___key, 3, index)
-        call SaveStr(japi_ht, japi___key, 0, "(III)S")
-        call Call("EXGetUnitArrayString")
-        return LoadStr(japi_ht, japi___key, 0)
-    endfunction
-    
-    //设置单位数组字符串
-     function EXSetUnitArrayString takes integer unitcode,integer Type,integer index,string value returns boolean
-        call SaveInteger(japi_ht, japi___key, 1, unitcode)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveInteger(japi_ht, japi___key, 3, index)
-        call SaveStr(japi_ht, japi___key, 4, value)
-        call SaveStr(japi_ht, japi___key, 0, "(IIIS)B")
-        call Call("EXSetUnitArrayString")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    //设置单位面向角度(立即转向)
-     function EXSetUnitFacing takes unit unit_handle,real angle returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
-        call SaveReal(japi_ht, japi___key, 2, angle)
-        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call Call("EXSetUnitFacing")
-    endfunction
-    
-    //设置单位碰撞类型
-     function EXSetUnitCollisionType takes boolean enable,unit unit_handle,integer Type returns nothing
-        call SaveBoolean(japi_ht, japi___key, 1, enable)
-        call SaveInteger(japi_ht, japi___key, 2, GetHandleId(unit_handle))
-        call SaveInteger(japi_ht, japi___key, 3, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(BII)V")
-        call Call("EXSetUnitCollisionType")
-    endfunction
-    
-    //设置单位移动类型
-     function EXSetUnitMoveType takes unit unit_handle,integer Type returns nothing
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(II)V")
-        call Call("EXSetUnitMoveType")
-    endfunction
-    
-    //单位添加眩晕
-     function YDWEUnitAddStun takes unit u returns nothing
-		call EXPauseUnit(u , true)
-	endfunction
-    
-    //单位删除眩晕
-  function YDWEUnitRemoveStun takes unit u returns nothing
-		call EXPauseUnit(u , false)
-	endfunction
-    
-    //获取伤害数据
-     function EXGetEventDamageData takes integer Type returns integer
-        call SaveInteger(japi_ht, japi___key, 1, Type)
-        call SaveStr(japi_ht, japi___key, 0, "(I)I")
-        call Call("EXGetEventDamageData")
-        return LoadInteger(japi_ht, japi___key, 0)
-    endfunction
-	
-    //设置伤害
-     function EXSetEventDamage takes real Damage returns boolean
-        call SaveReal(japi_ht, japi___key, 1, Damage)
-        call SaveStr(japi_ht, japi___key, 0, "(R)B")
-        call Call("EXSetEventDamage")
-        return LoadBoolean(japi_ht, japi___key, 0)
-    endfunction
-    
-    //判断是否是物理伤害
-     function YDWEIsEventPhysicalDamage takes nothing returns boolean
-		return 0 != EXGetEventDamageData(1)
-	endfunction
-    //判断是否是攻击伤害
-  function YDWEIsEventAttackDamage takes nothing returns boolean
-		return 0 != EXGetEventDamageData(2)
-	endfunction
-	
-    //判断是否是范围伤害
-  function YDWEIsEventRangedDamage takes nothing returns boolean
-		return 0 != EXGetEventDamageData(3)
-	endfunction
-	
-    //判断伤害类型
-  function YDWEIsEventDamageType takes damagetype damageType returns boolean
-		return damageType == ConvertDamageType(EXGetEventDamageData(4))
-	endfunction
-    
-    //判断武器类型
-  function YDWEIsEventWeaponType takes weapontype weaponType returns boolean
-		return weaponType == ConvertWeaponType(EXGetEventDamageData(5))
-	endfunction
-	
-    //判断攻击类型
-  function YDWEIsEventAttackType takes attacktype attackType returns boolean
-		return attackType == ConvertAttackType(EXGetEventDamageData(6))
-	endfunction
-	//设置伤害
-  function YDWESetEventDamage takes real amount returns boolean
-		return EXSetEventDamage(amount)
-	endfunction
-    
-    // 物品----------------------------------------------------
-    
-    ///<summary>设置物品数据 (字符串) [JAPI]</summary>
-     function YDWESetItemDataString takes integer ItemTypeId,integer Type,string Value returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IIS)V")
-        call SaveInteger(japi_ht, japi___key, 1, ItemTypeId)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call SaveStr(japi_ht, japi___key, 3, Value)
-        call Call("EXSetItemDataString")
-    endfunction
-    ///<summary>获取物品数据 (字符串) [JAPI]</summary>
-     function YDWEGetItemDataString takes integer ItemTypeId,integer Type returns string
-        call SaveStr(japi_ht, japi___key, 0, "(II)S")
-        call SaveInteger(japi_ht, japi___key, 1, ItemTypeId)
-        call SaveInteger(japi_ht, japi___key, 2, Type)
-        call Call("EXGetItemDataString")
-        return LoadStr(japi_ht, japi___key, 0)
-    endfunction
-    
-    //特效--------------------------------------------------------
-    
-    ///<summary>设置特效坐标 [JAPI]</summary>
-     function EXSetEffectXY takes effect Handle,real x,real y returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, x)
-        call SaveReal(japi_ht, japi___key, 3, y)
-        call Call("EXSetEffectXY")
-    endfunction
-    
-    ///<summary>设置特效Z轴 [JAPI]</summary>
-     function EXSetEffectZ takes effect Handle,real z returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, z)
-		call Call("EXSetEffectZ")
-	endfunction
-    
-    ///<summary>获取特效X轴 [JAPI]</summary>
-     function EXGetEffectX takes effect Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectX")
-        return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-    ///<summary>获取特效Y轴 [JAPI]</summary>
-  function EXGetEffectY takes effect Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectY")
-        return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-    ///<summary>获取特效Z轴 [JAPI]</summary>
-  function EXGetEffectZ takes effect Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectZ")
-		return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-    ///<summary>设置特效尺寸 [JAPI]</summary>
-  function EXSetEffectSize takes effect Handle,real size returns nothing
-		call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, size)
-        call Call("EXSetEffectSize")
-	endfunction
-    
-    ///<summary>获取特效尺寸 [JAPI]</summary>
-  function EXGetEffectSize takes effect Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectSize")
-		return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-    ///<summary>设置特效X旋转轴 [JAPI]</summary>
-  function EXEffectMatRotateX takes effect Handle,real x returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, x)
-        call Call("EXEffectMatRotateX")
-	endfunction
-    
-    ///<summary>设置特效Y旋转轴 [JAPI]</summary>
-  function EXEffectMatRotateY takes effect Handle,real y returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, y)
-        call Call("EXEffectMatRotateY")
-	endfunction
-    
-    ///<summary>设置特效Z旋转轴 [JAPI]</summary>
-  function EXEffectMatRotateZ takes effect Handle,real z returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, z)
-        call Call("EXEffectMatRotateZ")
-	endfunction
-    
-    ///<summary>设置特效比例 [JAPI]</summary>
-  function EXEffectMatScale takes effect Handle,real x,real y,real z returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IRRR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, x)
-        call SaveReal(japi_ht, japi___key, 3, y)
-        call SaveReal(japi_ht, japi___key, 4, z)
-        call Call("EXEffectMatScale")
-	endfunction
-    
-    ///<summary>设置特效重置 [JAPI]</summary>
-  function EXEffectMatReset takes effect Handle returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(I)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXEffectMatReset")
-	endfunction
-    
-    ///<summary>设置特效速率 [JAPI]</summary>
-  function EXSetEffectSpeed takes effect Handle,real speed returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, speed)
-        call Call("EXSetEffectSpeed")
-	endfunction
-    
-    ///<summary>设置可追踪物坐标 [JAPI]</summary>
-     function EXSetTrackableXY takes trackable Handle,real x,real y returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi___key, 2, x)
-        call SaveReal(japi_ht, japi___key, 3, y)
-        call Call("EXSetEffectXY")
-    endfunction
-    
-    
-    ///<summary>获取可追踪物X轴 [JAPI]</summary>
-     function EXGetTrackableX takes trackable Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectX")
-        return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-    ///<summary>获取可追踪物Y轴 [JAPI]</summary>
-  function EXGetTrackableY takes trackable Handle returns real
-        call SaveStr(japi_ht, japi___key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
-        call Call("EXGetEffectY")
-        return LoadReal(japi_ht, japi___key, 0)
-	endfunction
-    
-     function EXExecuteScript takes string str returns string
-        call SaveStr(japi_ht, japi___key, 0, "(S)S")
-        call SaveStr(japi_ht, japi___key, 1, str)
-        call Call("EXExecuteScript")
-        return LoadStr(japi_ht, japi___key, 0)
-    endfunction
-    //-----------------模拟聊天----------------------------
-     function EXDisplayChat takes player p,integer chat_recipient,string message returns nothing
-        call SaveStr(japi_ht, japi___key, 0, "(IIS)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(p))
-        call SaveInteger(japi_ht, japi___key, 2, chat_recipient)
-        call SaveStr(japi_ht, japi___key, 3, message)
-        call Call("EXDisplayChat")
-    endfunction
-  function YDWEDisplayChat takes player p,integer chat_recipient,string message returns nothing
-		call EXDisplayChat(p , chat_recipient , message)
-	endfunction
-    
-    //-----------版本描述-------------------------------------
-    
-    //获取魔兽版本
-     function GetGameVersion takes nothing returns integer
-        call SaveStr(japi_ht, japi___key, 0, "()I")
-        call Call("GetGameVersion")
-        return LoadInteger(japi_ht, japi___key, 0)
-    endfunction
-    
-    //获取插件版本
-     function GetPluginVersion takes nothing returns string
-        call SaveStr(japi_ht, japi___key, 0, "()S")
-        call Call("GetPluginVersion")
-        return LoadStr(japi_ht, japi___key, 0)
-    endfunction
-    
-     function GetFuncAddr takes code f returns integer
-        call SetHeroLevels(f)
-        return LoadInteger(japi_ht, japi___key, 0)
-    endfunction
-    
-     function japiDoNothing takes nothing returns nothing
-        
-    endfunction
-     function initializePlugin takes nothing returns integer
-        call ExecuteFunc("japiDoNothing")
-        call StartCampaignAI(Player(PLAYER_NEUTRAL_AGGRESSIVE), "callback")
-        call Call(I2S(GetHandleId(japi_ht)))
-        
-        call SaveStr(japi_ht, japi___key, 0, "(I)V")
-        call SaveInteger(japi_ht, japi___key, 1, GetFuncAddr(function japiDoNothing))
-        call Call("SaveFunc")
-        return 0
-    endfunction
-
-//library japi ends
-//library FuncForGame:
-//===========================================================================
-
-function getDistanceInPts takes real x0,real y0,real x1,real y1 returns real
-    
-    local real x= x0 - x1
-    local real y= y0 - y1
-    return SquareRoot(x * x + y * y)
-    
-endfunction
-//===========================================================================
-
-function unitCountInRectCallBack takes nothing returns nothing
-    set m_unitCountInRect=m_unitCountInRect + 1
-endfunction
-function unitCountInRect takes rect whichRect,boolexpr filter returns integer
-    local group g= CreateGroup()
-    set m_unitCountInRect=0
-    call GroupEnumUnitsInRect(g, whichRect, filter)
-    call ForGroup(g, function unitCountInRectCallBack)
-    call DestroyGroup(g)
-    
-    set g=null
-    call DestroyBoolExpr(filter)
-    set filter=null
-    return m_unitCountInRect
-endfunction
-//===========================================================================
-
-function unitCountInGpCallBack takes nothing returns nothing
-    set m_unitCountInGp=m_unitCountInGp + 1
-endfunction
-function unitCountInGp takes group g returns integer
-    set m_unitCountInGp=0
-    call ForGroup(g, function unitCountInGpCallBack)
-    return m_unitCountInGp
-endfunction
-//===========================================================================
-
-function isUnitDead takes unit whichUnit returns boolean
-    return GetUnitState(whichUnit, UNIT_STATE_LIFE) <= 0
-endfunction
-//===========================================================================
-
-function isUnitAlive takes unit whichUnit returns boolean
-    return GetUnitState(whichUnit, UNIT_STATE_LIFE) > 0
-endfunction
-//===========================================================================
-
-function GFHS_condition takes nothing returns boolean
-    return IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO)
-endfunction
-function getFirstHeroSelected takes player whichPlayer returns unit
- local group g= CreateGroup()
- local unit hero
-    
-	call SyncSelections()
-	call GroupEnumUnitsSelected(g, whichPlayer, Condition(function GFHS_condition))
-	set hero=FirstOfGroup(g)
-    call DestroyGroup(g)
-    set g=null
-	
-	return hero
-endfunction
-//===========================================================================
-
-function setHeroLevel takes unit hero,integer level,boolean showEyeCandy returns nothing
-    local integer oldLevel= 0
-    if ( not IsUnitType(hero, UNIT_TYPE_HERO) ) then
-        call DisplayTimedTextToPlayer(GetTriggerPlayer(), 0, 0, 1.5, "无法对非英雄单位进行升级操作")
-        return
-    endif
-    
-    set oldLevel=GetUnitLevel(hero)
-    if ( level > oldLevel ) then
-        call SetHeroLevel(hero, level, showEyeCandy)
-    else
-        call UnitStripHeroLevel(hero, oldLevel - level)
-    endif
-    
-    set hero=null
-    
-endfunction
-//===========================================================================
-
-function notifyHeroBuff takes unit hero returns nothing
-    local player p= GetOwningPlayer(hero)
-    local integer pId= GetPlayerId(p)
-    local integer ut= GetUnitTypeId(hero)
-    local integer abil= gainIInInteger("buffAbil" , ut)
-    local integer i= 0
-    local integer array j
-    local integer array k
-    local string array explain
-    loop
-        set j[i]=LoadInteger(heroWeaponBuff_ht, pId, i)
-        if ( j[i] < 10 ) then
-            set k[i]=2
-        elseif ( j[i] >= 100 ) then
-            set k[i]=0
-        endif
-        set i=i + 1
-        exitwhen i > 16 - 1
-    endloop
-    set explain[0]="溅射:" + I2S(j[0]) + "%" + space[k[0]] + "弹射:" + I2S(j[1]) + space[k[1]] + " 电击:" + I2S(j[2]) + "%" + space[k[2]] + "残废:" + I2S(j[3]) + "%" + space[k[3]] + "破魔:" + I2S(j[4]) + space[k[4]] + " 击晕:" + I2S(j[5]) + "%\n"
-    set explain[1]="物吸:" + I2S(j[6]) + "%" + space[k[6]] + "物暴:" + I2S(j[7]) + "%" + space[k[7]] + "破防:" + I2S(j[8]) + "%" + space[k[8]] + "法吸:" + I2S(j[9]) + "%" + space[k[9]] + "法暴:" + I2S(j[10]) + "%" + space[k[10]] + "法穿:" + I2S(j[10]) + "%\n"
-    set explain[2]="冷却:" + I2S(j[12]) + "%" + space[k[12]] + "闪避:" + I2S(j[13]) + space[k[13]] + " " + "法抗:" + I2S(j[14]) + "%" + space[k[14]] + "格挡:" + I2S(j[15]) + "%" + space[k[15]]
-    call debugPoint(ut , abil)
-    call debugText(explain[0] + explain[1])
-    call YDWESetUnitAbilityDataString(hero , 'A003' , 1 , 218 , explain[0] + explain[1] + explain[2])
-    set p=null
-    set hero=null
-endfunction
+//library FuncForPlayer:
 //===========================================================================
 
 function increasePlayerCurrentGold takes player p,integer count returns boolean
@@ -2221,154 +2029,995 @@ endfunction
 //===========================================================================
 
 function remindAllPlayers takes real duration,string message returns nothing
-    local integer i= 0
+    local player p= GetLocalPlayer()
+    local integer i= GetPlayerId(p)
     
+    if ( i <= 11 and ( GetPlayerController(p) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) ) then
+        call DisplayTimedTextToPlayer(p, 0, 0, duration, message)
+    endif
+        
+    set p=null
+endfunction
+
+//library FuncForPlayer ends
+//library japi:
+
+    
+    
+    
+     function Call takes string str returns nothing
+        call UnitId(str)
+    endfunction
+    //获取鼠标在地图中的x轴
+     function GetMouseX takes nothing returns real
+        call SaveStr(japi_ht, japi__key, 0, "()R")
+        call Call("GetMouseX")
+        return LoadReal(japi_ht, japi__key, 0)
+    endfunction
+    //获取鼠标在地图中的y轴
+     function GetMouseY takes nothing returns real
+        call SaveStr(japi_ht, japi__key, 0, "()R")
+        call Call("GetMouseY")
+        return LoadReal(japi_ht, japi__key, 0)
+    endfunction
+    
+    
+    
+    
+    //==========================================================================
+     function EXGetUnitAbility takes unit u,integer abilityId returns integer
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(u))
+        call SaveInteger(japi_ht, japi__key, 2, abilityId)
+        call SaveStr(japi_ht, japi__key, 0, "(II)I")
+        call Call("EXGetUnitAbility")
+        return LoadInteger(japi_ht, japi__key, 0)
+    endfunction
+    
+    // yd japi ==================================================================
+    // 技能----------------------------------------------------
+    
+    ///<summary>技能属性 [JAPI]</summary>
+  function YDWEGetUnitAbilityState takes unit u,integer abilcode,integer data_type returns real
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, data_type)
+        call SaveStr(japi_ht, japi__key, 0, "(II)R")
+        call Call("EXGetAbilityState")
+		return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+	///<summary>技能数据 (整数) [JAPI]</summary>
+  function YDWEGetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type returns integer
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveStr(japi_ht, japi__key, 0, "(III)I")
+        call Call("EXGetAbilityDataInteger")
+		return LoadInteger(japi_ht, japi__key, 0)
+	endfunction
+	///<summary>技能数据 (实数) [JAPI]</summary>
+  function YDWEGetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type returns real
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveStr(japi_ht, japi__key, 0, "(III)R")
+        call Call("EXGetAbilityDataReal")
+		return LoadReal(japi_ht, japi__key, 0)
+    endfunction
+	///<summary>技能数据 (字符串) [JAPI]</summary>
+  function YDWEGetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type returns string
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveStr(japi_ht, japi__key, 0, "(III)S")
+        call Call("EXGetAbilityDataString")
+		return LoadStr(japi_ht, japi__key, 0)
+	endfunction
+	///<summary>设置技能属性 [JAPI]</summary>
+  function YDWESetUnitAbilityState takes unit u,integer abilcode,integer data_type,real value returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, data_type)
+        call SaveReal(japi_ht, japi__key, 3, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIR)V")
+        call Call("EXSetAbilityState")
+    endfunction
+	///<summary>设置技能数据 (整数) [JAPI]</summary>
+  function YDWESetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type,integer value returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveInteger(japi_ht, japi__key, 4, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIII)V")
+        call Call("EXSetAbilityDataInteger")
+    endfunction
+	///<summary>设置技能数据 (实数) [JAPI]</summary>
+  function YDWESetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type,real value returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveReal(japi_ht, japi__key, 4, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIIR)V")
+        call Call("EXSetAbilityDataReal")
+    endfunction
+	///<summary>设置技能数据 (字符串) [JAPI]</summary>
+  function YDWESetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type,string value returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi__key, 2, level)
+        call SaveInteger(japi_ht, japi__key, 3, data_type)
+        call SaveStr(japi_ht, japi__key, 4, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIIS)V")
+        call Call("EXSetAbilityDataString")
+    endfunction
+	
+    
+    //设置技能变身数据A
+     function EXSetAbilityAEmeDataA takes integer ability_handle,integer value returns boolean
+        call SaveInteger(japi_ht, japi__key, 1, ability_handle)
+        call SaveInteger(japi_ht, japi__key, 2, value)
+        call SaveStr(japi_ht, japi__key, 0, "(II)B")
+        call Call("EXSetAbilityAEmeDataA")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    
+    //单位变身
+     function YDWEUnitTransform takes unit u,integer abilcode,integer targetid returns nothing
+		call UnitAddAbility(u, abilcode)
+		call YDWESetUnitAbilityDataInteger(u , abilcode , 1 , 117 , GetUnitTypeId(u))
+		call EXSetAbilityAEmeDataA(EXGetUnitAbility(u , abilcode) , GetUnitTypeId(u))
+		call UnitRemoveAbility(u, abilcode)
+		call UnitAddAbility(u, abilcode)
+		call EXSetAbilityAEmeDataA(EXGetUnitAbility(u , abilcode) , targetid)
+		call UnitRemoveAbility(u, abilcode)
+	endfunction
+    
+    // 单位-------------------------------------------------------
+    
+    //暂停单位
+     function EXPauseUnit takes unit unit_handle,boolean flag returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
+        call SaveBoolean(japi_ht, japi__key, 2, flag)
+        call SaveStr(japi_ht, japi__key, 0, "(IB)V")
+        call Call("EXPauseUnit")
+    endfunction
+    
+    //获取单位字符串
+     function EXGetUnitString takes integer unitcode,integer Type returns string
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(II)S")
+        call Call("EXGetUnitString")
+        return LoadStr(japi_ht, japi__key, 0)
+    endfunction
+    
+       //设置单位字符串
+     function EXSetUnitString takes integer unitcode,integer Type,string value returns boolean
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 3, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIS)B")
+        call Call("EXSetUnitString")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    
+    //获取单位实数
+     function EXGetUnitReal takes integer unitcode,integer Type returns real
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(II)R")
+        call Call("EXGetUnitReal")
+        return LoadReal(japi_ht, japi__key, 0)
+    endfunction
+    
+    //设置单位实数
+     function EXSetUnitReal takes integer unitcode,integer Type,real value returns boolean
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveReal(japi_ht, japi__key, 3, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIR)B")
+        call Call("EXSetUnitReal")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    
+    
+    //获取单位整数
+     function EXGetUnitInteger takes integer unitcode,integer Type returns integer
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(II)I")
+        call Call("EXGetUnitInteger")
+        return LoadInteger(japi_ht, japi__key, 0)
+    endfunction
+    
+    //设置单位整数
+     function EXSetUnitInteger takes integer unitcode,integer Type,integer value returns boolean
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveInteger(japi_ht, japi__key, 3, value)
+        call SaveStr(japi_ht, japi__key, 0, "(III)B")
+        call Call("EXSetUnitInteger")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    
+        //获取单位数组字符串
+     function EXGetUnitArrayString takes integer unitcode,integer Type,integer index returns string
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveInteger(japi_ht, japi__key, 3, index)
+        call SaveStr(japi_ht, japi__key, 0, "(III)S")
+        call Call("EXGetUnitArrayString")
+        return LoadStr(japi_ht, japi__key, 0)
+    endfunction
+    
+    //设置单位数组字符串
+     function EXSetUnitArrayString takes integer unitcode,integer Type,integer index,string value returns boolean
+        call SaveInteger(japi_ht, japi__key, 1, unitcode)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveInteger(japi_ht, japi__key, 3, index)
+        call SaveStr(japi_ht, japi__key, 4, value)
+        call SaveStr(japi_ht, japi__key, 0, "(IIIS)B")
+        call Call("EXSetUnitArrayString")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    //设置单位面向角度(立即转向)
+     function EXSetUnitFacing takes unit unit_handle,real angle returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
+        call SaveReal(japi_ht, japi__key, 2, angle)
+        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call Call("EXSetUnitFacing")
+    endfunction
+    
+    //设置单位碰撞类型
+     function EXSetUnitCollisionType takes boolean enable,unit unit_handle,integer Type returns nothing
+        call SaveBoolean(japi_ht, japi__key, 1, enable)
+        call SaveInteger(japi_ht, japi__key, 2, GetHandleId(unit_handle))
+        call SaveInteger(japi_ht, japi__key, 3, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(BII)V")
+        call Call("EXSetUnitCollisionType")
+    endfunction
+    
+    //设置单位移动类型
+     function EXSetUnitMoveType takes unit unit_handle,integer Type returns nothing
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(II)V")
+        call Call("EXSetUnitMoveType")
+    endfunction
+    
+    //单位添加眩晕
+     function YDWEUnitAddStun takes unit u returns nothing
+		call EXPauseUnit(u , true)
+	endfunction
+    
+    //单位删除眩晕
+  function YDWEUnitRemoveStun takes unit u returns nothing
+		call EXPauseUnit(u , false)
+	endfunction
+    
+    //获取伤害数据
+     function EXGetEventDamageData takes integer Type returns integer
+        call SaveInteger(japi_ht, japi__key, 1, Type)
+        call SaveStr(japi_ht, japi__key, 0, "(I)I")
+        call Call("EXGetEventDamageData")
+        return LoadInteger(japi_ht, japi__key, 0)
+    endfunction
+	
+    //设置伤害
+     function EXSetEventDamage takes real Damage returns boolean
+        call SaveReal(japi_ht, japi__key, 1, Damage)
+        call SaveStr(japi_ht, japi__key, 0, "(R)B")
+        call Call("EXSetEventDamage")
+        return LoadBoolean(japi_ht, japi__key, 0)
+    endfunction
+    
+    //判断是否是物理伤害
+     function YDWEIsEventPhysicalDamage takes nothing returns boolean
+		return 0 != EXGetEventDamageData(1)
+	endfunction
+    //判断是否是攻击伤害
+  function YDWEIsEventAttackDamage takes nothing returns boolean
+		return 0 != EXGetEventDamageData(2)
+	endfunction
+	
+    //判断是否是范围伤害
+  function YDWEIsEventRangedDamage takes nothing returns boolean
+		return 0 != EXGetEventDamageData(3)
+	endfunction
+	
+    //判断伤害类型
+  function YDWEIsEventDamageType takes damagetype damageType returns boolean
+		return damageType == ConvertDamageType(EXGetEventDamageData(4))
+	endfunction
+    
+    //判断武器类型
+  function YDWEIsEventWeaponType takes weapontype weaponType returns boolean
+		return weaponType == ConvertWeaponType(EXGetEventDamageData(5))
+	endfunction
+	
+    //判断攻击类型
+  function YDWEIsEventAttackType takes attacktype attackType returns boolean
+		return attackType == ConvertAttackType(EXGetEventDamageData(6))
+	endfunction
+	//设置伤害
+  function YDWESetEventDamage takes real amount returns boolean
+		return EXSetEventDamage(amount)
+	endfunction
+    
+    // 物品----------------------------------------------------
+    
+    ///<summary>设置物品数据 (字符串) [JAPI]</summary>
+     function YDWESetItemDataString takes integer ItemTypeId,integer Type,string Value returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IIS)V")
+        call SaveInteger(japi_ht, japi__key, 1, ItemTypeId)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi__key, 3, Value)
+        call Call("EXSetItemDataString")
+    endfunction
+    ///<summary>获取物品数据 (字符串) [JAPI]</summary>
+     function YDWEGetItemDataString takes integer ItemTypeId,integer Type returns string
+        call SaveStr(japi_ht, japi__key, 0, "(II)S")
+        call SaveInteger(japi_ht, japi__key, 1, ItemTypeId)
+        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call Call("EXGetItemDataString")
+        return LoadStr(japi_ht, japi__key, 0)
+    endfunction
+    
+    //特效--------------------------------------------------------
+    
+    ///<summary>设置特效坐标 [JAPI]</summary>
+     function EXSetEffectXY takes effect Handle,real x,real y returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, x)
+        call SaveReal(japi_ht, japi__key, 3, y)
+        call Call("EXSetEffectXY")
+    endfunction
+    
+    ///<summary>设置特效Z轴 [JAPI]</summary>
+     function EXSetEffectZ takes effect Handle,real z returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, z)
+		call Call("EXSetEffectZ")
+	endfunction
+    
+    ///<summary>获取特效X轴 [JAPI]</summary>
+     function EXGetEffectX takes effect Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectX")
+        return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+    ///<summary>获取特效Y轴 [JAPI]</summary>
+  function EXGetEffectY takes effect Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectY")
+        return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+    ///<summary>获取特效Z轴 [JAPI]</summary>
+  function EXGetEffectZ takes effect Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectZ")
+		return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+    ///<summary>设置特效尺寸 [JAPI]</summary>
+  function EXSetEffectSize takes effect Handle,real size returns nothing
+		call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, size)
+        call Call("EXSetEffectSize")
+	endfunction
+    
+    ///<summary>获取特效尺寸 [JAPI]</summary>
+  function EXGetEffectSize takes effect Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectSize")
+		return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+    ///<summary>设置特效X旋转轴 [JAPI]</summary>
+  function EXEffectMatRotateX takes effect Handle,real x returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, x)
+        call Call("EXEffectMatRotateX")
+	endfunction
+    
+    ///<summary>设置特效Y旋转轴 [JAPI]</summary>
+  function EXEffectMatRotateY takes effect Handle,real y returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, y)
+        call Call("EXEffectMatRotateY")
+	endfunction
+    
+    ///<summary>设置特效Z旋转轴 [JAPI]</summary>
+  function EXEffectMatRotateZ takes effect Handle,real z returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, z)
+        call Call("EXEffectMatRotateZ")
+	endfunction
+    
+    ///<summary>设置特效比例 [JAPI]</summary>
+  function EXEffectMatScale takes effect Handle,real x,real y,real z returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IRRR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, x)
+        call SaveReal(japi_ht, japi__key, 3, y)
+        call SaveReal(japi_ht, japi__key, 4, z)
+        call Call("EXEffectMatScale")
+	endfunction
+    
+    ///<summary>设置特效重置 [JAPI]</summary>
+  function EXEffectMatReset takes effect Handle returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(I)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXEffectMatReset")
+	endfunction
+    
+    ///<summary>设置特效速率 [JAPI]</summary>
+  function EXSetEffectSpeed takes effect Handle,real speed returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, speed)
+        call Call("EXSetEffectSpeed")
+	endfunction
+    
+    ///<summary>设置可追踪物坐标 [JAPI]</summary>
+     function EXSetTrackableXY takes trackable Handle,real x,real y returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi__key, 2, x)
+        call SaveReal(japi_ht, japi__key, 3, y)
+        call Call("EXSetEffectXY")
+    endfunction
+    
+    
+    ///<summary>获取可追踪物X轴 [JAPI]</summary>
+     function EXGetTrackableX takes trackable Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectX")
+        return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+    ///<summary>获取可追踪物Y轴 [JAPI]</summary>
+  function EXGetTrackableY takes trackable Handle returns real
+        call SaveStr(japi_ht, japi__key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call Call("EXGetEffectY")
+        return LoadReal(japi_ht, japi__key, 0)
+	endfunction
+    
+     function EXExecuteScript takes string str returns string
+        call SaveStr(japi_ht, japi__key, 0, "(S)S")
+        call SaveStr(japi_ht, japi__key, 1, str)
+        call Call("EXExecuteScript")
+        return LoadStr(japi_ht, japi__key, 0)
+    endfunction
+    //-----------------模拟聊天----------------------------
+     function EXDisplayChat takes player p,integer chat_recipient,string message returns nothing
+        call SaveStr(japi_ht, japi__key, 0, "(IIS)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(p))
+        call SaveInteger(japi_ht, japi__key, 2, chat_recipient)
+        call SaveStr(japi_ht, japi__key, 3, message)
+        call Call("EXDisplayChat")
+    endfunction
+  function YDWEDisplayChat takes player p,integer chat_recipient,string message returns nothing
+		call EXDisplayChat(p , chat_recipient , message)
+	endfunction
+    
+    //-----------版本描述-------------------------------------
+    
+    //获取魔兽版本
+     function GetGameVersion takes nothing returns integer
+        call SaveStr(japi_ht, japi__key, 0, "()I")
+        call Call("GetGameVersion")
+        return LoadInteger(japi_ht, japi__key, 0)
+    endfunction
+    
+    //获取插件版本
+     function GetPluginVersion takes nothing returns string
+        call SaveStr(japi_ht, japi__key, 0, "()S")
+        call Call("GetPluginVersion")
+        return LoadStr(japi_ht, japi__key, 0)
+    endfunction
+    
+     function GetFuncAddr takes code f returns integer
+        call SetHeroLevels(f)
+        return LoadInteger(japi_ht, japi__key, 0)
+    endfunction
+    
+     function japiDoNothing takes nothing returns nothing
+        
+    endfunction
+     function initializePlugin takes nothing returns integer
+        call ExecuteFunc("japiDoNothing")
+        call StartCampaignAI(Player(PLAYER_NEUTRAL_AGGRESSIVE), "callback")
+        call Call(I2S(GetHandleId(japi_ht)))
+        
+        call SaveStr(japi_ht, japi__key, 0, "(I)V")
+        call SaveInteger(japi_ht, japi__key, 1, GetFuncAddr(function japiDoNothing))
+        call Call("SaveFunc")
+        return 0
+    endfunction
+
+//library japi ends
+//library FuncForCreep:
+//=======================================
+
+function getCreepsBossTypes takes nothing returns integer
+    return CreepsBossTypes[0]
+    
+endfunction
+//=======================================
+
+function addCreepsBossType takes integer bossType returns nothing
+    local integer i= CreepsBossTypes[0] + 1
+    set CreepsBossTypes[i]=bossType
+    
+endfunction
+//=======================================
+
+function isCreepBoss takes integer unitType returns boolean
+    local integer i= 0
+    local integer count= CreepsBossTypes[0]
     loop
-        if ( ( GetPlayerController(Player(i)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(i)) == PLAYER_SLOT_STATE_PLAYING ) ) then
-            call DisplayTimedTextToPlayer(Player(i), 0, 0, duration, message)
+        exitwhen i > count - 1
+        
+        if ( unitType == CreepsBossTypes[1] ) then
+            return true
         endif
+        
         set i=i + 1
-        exitwhen i > 12 - 1
+    endloop
+    
+    return false
+endfunction
+
+//library FuncForCreep ends
+//library FuncForUnit:
+//===========================================================================
+
+//获取英雄的溅射伤害比例
+function getHeroSputteringBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 0)
+    endif
+    return 0
+endfunction
+//获取英雄的月刃数量
+function getHeroMoonGlaiveBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 1)
+    endif
+    return 0
+endfunction
+//获取英雄的闪电链概率
+function getHeroLightningBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 2)
+    endif
+    return 0
+endfunction
+//获取英雄的致残废概率
+function getHeroDisabledBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 3)
+    endif
+    return 0
+endfunction
+//获取英雄的削魔数量
+function getHeroCuttingManaBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 4)
+    endif
+    return 0
+endfunction
+//获取英雄的击晕概率
+function getHeroStunBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 5)
+    endif
+    return 0
+endfunction
+//获取英雄的物理吸血
+function getHeroPhysicalVampireBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 6)
+    endif
+    return 0
+endfunction
+//获取英雄的物理暴击
+function getHeroPhysicalCritBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 7)
+    endif
+    return 0
+endfunction
+//获取英雄的物理破防
+function getHeroBreakPhysicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 8)
+    endif
+    return 0
+endfunction
+//获取英雄的法术吸血
+function getHeroMagicalVampireBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 9)
+    endif
+    return 0
+endfunction
+//获取英雄的法术暴击
+function getHeroMagicalCritBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 10)
+    endif
+    return 0
+endfunction
+//获取英雄的法穿
+function getHeroBreakMagicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 11)
+    endif
+    return 0
+endfunction
+//获取英雄的CD冷却减免
+function getHeroReduceCDBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 12)
+    endif
+    return 0
+endfunction
+//获取英雄的闪避攻击概率
+function getHeroDodgeAttackBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 13)
+    endif
+    return 0
+endfunction
+//获取英雄的法抗
+function getHeroMagicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 14)
+    endif
+    return 0
+endfunction
+//获取英雄的格挡
+function getHeroParryBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 15)
+    endif
+    return 0
+endfunction
+//获取英雄的冰冻概率
+function getHeroFrozenBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 16)
+    endif
+    return 0
+endfunction
+//获取英雄的疾行概率
+function getHeroScudBuff takes unit target returns integer
+    local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 17)
+    endif
+    return 0
+endfunction
+//获取英雄的额外恢复
+function getHeroExtraRecoveryBuff takes unit target returns integer
+    local integer pId= GetPlayerId(GetOwningPlayer(target))
+    
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 18)
+    endif
+    
+    return 0
+endfunction
+    
+//===========================================================================
+
+function unitCountInRectCallBack takes nothing returns nothing
+    set m_unitCountInRect=m_unitCountInRect + 1
+endfunction
+function unitCountInRect takes rect whichRect,boolexpr filter returns integer
+    local group g= CreateGroup()
+    set m_unitCountInRect=0
+    call GroupEnumUnitsInRect(g, whichRect, filter)
+    call ForGroup(g, function unitCountInRectCallBack)
+    call DestroyGroup(g)
+    
+    set g=null
+    call DestroyBoolExpr(filter)
+    set filter=null
+    return m_unitCountInRect
+endfunction
+//===========================================================================
+
+function unitCountInGpCallBack takes nothing returns nothing
+    set m_unitCountInGp=m_unitCountInGp + 1
+endfunction
+function unitCountInGp takes group g returns integer
+    set m_unitCountInGp=0
+    call ForGroup(g, function unitCountInGpCallBack)
+    return m_unitCountInGp
+endfunction
+//===========================================================================
+
+function isUnitDead takes unit whichUnit returns boolean
+    return GetUnitState(whichUnit, UNIT_STATE_LIFE) <= 0
+endfunction
+//===========================================================================
+
+function isUnitAlive takes unit whichUnit returns boolean
+    return GetUnitState(whichUnit, UNIT_STATE_LIFE) > 0
+endfunction
+//===========================================================================
+
+function GFHS_condition takes nothing returns boolean
+    return IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO)
+endfunction
+function getFirstHeroSelected takes player whichPlayer returns unit
+ local group g= CreateGroup()
+ local unit hero
+    
+	call SyncSelections()
+	call GroupEnumUnitsSelected(g, whichPlayer, Condition(function GFHS_condition))
+	set hero=FirstOfGroup(g)
+    call DestroyGroup(g)
+    set g=null
+	
+	return hero
+endfunction
+//===========================================================================
+
+function setHeroLevel takes unit hero,integer level,boolean showEyeCandy returns nothing
+    local integer oldLevel= 0
+    if ( not IsUnitType(hero, UNIT_TYPE_HERO) ) then
+        call DisplayTimedTextToPlayer(GetTriggerPlayer(), 0, 0, 1.5, "无法对非英雄单位进行升级操作")
+        return
+    endif
+    
+    set oldLevel=GetUnitLevel(hero)
+    if ( level > oldLevel ) then
+        call SetHeroLevel(hero, level, showEyeCandy)
+    else
+        call UnitStripHeroLevel(hero, oldLevel - level)
+    endif
+    
+    set hero=null
+    
+endfunction
+//===========================================================================
+
+function resetHeroBuff takes integer playerId returns nothing
+    local integer j= 0
+    loop
+        exitwhen j > BUFF_TYPES - 1
+        call SaveInteger(heroWeaponBuff_ht, playerId, j, 0)
+        set j=j + 1
     endloop
 endfunction
-//===========================================================================
 
-function changeTextTagScale_timeDo takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local integer pKey= GetHandleId(t)
-    local string s= LoadStr(tag_ht, pKey, 0)
-    local texttag tag= LoadTextTagHandle(tag_ht, pKey, 2)
-    local real scale= LoadReal(tag_ht, pKey, 1)
-    call SetTextTagText(tag, s, scale)
-    call DestroyTimer(t)
-    set t=null
+function loadHeroAbilBuff takes integer playerId,integer unitType returns nothing
+    
 endfunction
-function changeTextTagScaleTime takes texttag tag,string s,real scale,real time returns nothing
-    local timer t= CreateTimer()
-    local integer pKey= GetHandleId(t)
-    call SaveStr(tag_ht, pKey, 0, s)
-    call SaveReal(tag_ht, pKey, 1, scale)
-    call SaveTextTagHandle(tag_ht, pKey, 2, tag)
-    call TimerStart(t, time, false, function changeTextTagScale_timeDo)
-    set t=null
+
+function resetAndloadHeroselfBuff takes integer playerId,integer unitType returns nothing
+    call resetHeroBuff(playerId)
+    call loadHeroAbilBuff(playerId , unitType)
 endfunction
 //===========================================================================
 
-function setStringPlayerIdColor takes integer pId,string s returns string
-    return playerColors[pId] + s + "|r"
+function flushHeroBuffCountByBuffType takes integer playerId,integer buffType,integer buffCount returns nothing
+    local integer originalBuffCount= LoadInteger(heroWeaponBuff_ht, playerId, buffType)
+    set buffCount=buffCount + originalBuffCount
+    call SaveInteger(heroWeaponBuff_ht, playerId, buffType, buffCount)
+    
 endfunction
 //===========================================================================
 
-function getPlayerColorNameById takes integer i returns string
-    local player p= Player(i)
-    local string s= GetPlayerName(p)
+function notifyHeroBuff takes unit hero returns nothing
+    local player p= GetOwningPlayer(hero)
+    local integer pId= GetPlayerId(p)
+    local integer ut= GetUnitTypeId(hero)
+    local integer abil= gainIInInteger("buffAbil" , ut)
+    local integer i= 0
+    local integer array j
+    local integer array k
+    local string array explain
+    loop
+        exitwhen i > BUFF_TYPES - 1
+        set j[i]=LoadInteger(heroWeaponBuff_ht, pId, i)
+        if ( j[i] < 10 ) then
+            set k[i]=2
+        elseif ( j[i] >= 100 ) then
+            set k[i]=0
+        endif
+        set i=i + 1
+    endloop
+    set explain[0]="溅射:" + I2S(j[0]) + "%" + space[k[0]] + "弹射:" + I2S(j[1]) + space[k[1]] + " 电击:" + I2S(j[2]) + "%" + space[k[2]] + "残废:" + I2S(j[3]) + "%" + space[k[3]] + "破魔:" + I2S(j[4]) + space[k[4]] + " 击晕:" + I2S(j[5]) + "%\n"
+    set explain[1]="物吸:" + I2S(j[6]) + "%" + space[k[6]] + "物暴:" + I2S(j[7]) + "%" + space[k[7]] + "破防:" + I2S(j[8]) + "%" + space[k[8]] + "法吸:" + I2S(j[9]) + "%" + space[k[9]] + "法暴:" + I2S(j[10]) + "%" + space[k[10]] + "法穿:" + I2S(j[10]) + "%\n"
+    set explain[2]="冷却:" + I2S(j[12]) + "%" + space[k[12]] + "闪避:" + I2S(j[13]) + space[k[13]] + " " + "法抗:" + I2S(j[14]) + "%" + space[k[14]] + "格挡:" + I2S(j[15]) + "%" + space[k[15]] + "冰冻:" + I2S(j[16]) + "%" + space[k[16]] + "疾行:" + I2S(j[17]) + "%" + space[k[17]]
+    call debugPoint(ut , abil)
+    call debugText(explain[0] + explain[1])
+    call YDWESetUnitAbilityDataString(hero , 'A003' , 1 , 218 , explain[0] + explain[1] + explain[2])
+    
     set p=null
-    return setStringPlayerIdColor(i , s)
+    set hero=null
+endfunction
+//===========================================================================
+
+function setUnitLife takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_LIFE, newVal)
 endfunction
 
-//library FuncForGame ends
+function setUnitMana takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MANA, newVal)
+endfunction
+
+function getUnitLife takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_LIFE)
+endfunction
+
+function getUnitMana takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MANA)
+endfunction
+
+function setUnitMaxLife takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MAX_LIFE, newVal)
+endfunction
+
+function setUnitMaxMana takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MAX_MANA, newVal)
+endfunction
+
+function getUnitMaxLife takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MAX_LIFE)
+endfunction
+
+function getUnitMaxMana takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MAX_MANA)
+endfunction
+
+function recoveryUnitLife takes unit target,real count returns nothing
+    local real life= getUnitLife(target)
+    set life=life + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
+    call setUnitLife(target , life)
+endfunction
+
+function recoveryUnitMana takes unit target,real count returns nothing
+    local real mana= getUnitMana(target)
+    set mana=mana + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
+    call setUnitMana(target , mana)
+endfunction
+
+//library FuncForUnit ends
 //library LocalActionLib:
-    function LocalActionLib___Call takes string str returns nothing
+    function LocalActionLib__Call takes string str returns nothing
         call UnitId(str)
     endfunction
     
     //本地发布无目标命令
     function LocalOrder takes integer order,integer flags returns nothing
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(II)V")
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, flags)
-        call LocalActionLib___Call("LocalOrder")
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(II)V")
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, flags)
+        call LocalActionLib__Call("LocalOrder")
     endfunction
     
     //本地发布坐标命令
     function LocalPointOrder takes integer order,real x,real y,integer flags returns nothing
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(IRRI)V")
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
-        call SaveReal(LocalActionLib___ht, LocalActionLib___key, 2, x)
-        call SaveReal(LocalActionLib___ht, LocalActionLib___key, 3, y)
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 4, flags)
-        call LocalActionLib___Call("LocalPointOrder")
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(IRRI)V")
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
+        call SaveReal(LocalActionLib__ht, LocalActionLib__key, 2, x)
+        call SaveReal(LocalActionLib__ht, LocalActionLib__key, 3, y)
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 4, flags)
+        call LocalActionLib__Call("LocalPointOrder")
     endfunction
     
     //本地发布目标命令
     function LocalTargetOrder takes integer order,unit u,integer flags returns nothing
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(III)V")
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, GetHandleId(u))
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 3, flags)
-        call LocalActionLib___Call("LocalTargetOrder")
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(III)V")
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, GetHandleId(u))
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 3, flags)
+        call LocalActionLib__Call("LocalTargetOrder")
     endfunction
     
     //获取玩家当前选择的单位
     function GetPlayerSelectedUnit takes player p returns unit
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(I)Hunit;")
-        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, GetHandleId(p))
-        call LocalActionLib___Call("GetPlayerSelectedUnit")
-        return LoadUnitHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(I)Hunit;")
+        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, GetHandleId(p))
+        call LocalActionLib__Call("GetPlayerSelectedUnit")
+        return LoadUnitHandle(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的单位
     function GetTargetUnit takes nothing returns unit
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hunit;")
-        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
-        call LocalActionLib___Call("GetTargetObject")
-        return LoadUnitHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hunit;")
+        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call LocalActionLib__Call("GetTargetObject")
+        return LoadUnitHandle(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的物品
     function GetTargetItem takes nothing returns item
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hitem;")
-        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
-        call LocalActionLib___Call("GetTargetObject")
-        return LoadItemHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hitem;")
+        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call LocalActionLib__Call("GetTargetObject")
+        return LoadItemHandle(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的 可选择的可破坏物
     function GetTargetDestructable takes nothing returns destructable
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hdestructable;")
-        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
-        call LocalActionLib___Call("GetTargetObject")
-        return LoadDestructableHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hdestructable;")
+        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call LocalActionLib__Call("GetTargetObject")
+        return LoadDestructableHandle(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
     
     // 设置单位技能按钮是否显示   false 即隐藏 隐藏之后无法发布命令 跟玩家禁用相同
     //使用不会打断命令  可以 在发布命令的时候  显示 发布命令 隐藏 即可
     function SetUnitAbilityButtonShow takes unit u,integer id,boolean show returns nothing
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(IIB)V")
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, GetHandleId(u))
-        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, id)
-        call SaveBoolean(LocalActionLib___ht, LocalActionLib___key, 3, show)
-        call LocalActionLib___Call("SetUnitAbilityButtonShow")
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(IIB)V")
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, GetHandleId(u))
+        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, id)
+        call SaveBoolean(LocalActionLib__ht, LocalActionLib__key, 3, show)
+        call LocalActionLib__Call("SetUnitAbilityButtonShow")
     endfunction
     
     //设置 是否显示FPS  显示状态下 调用false 可以隐藏 ，相反可以显示
     function ShowFpsText takes boolean Open returns nothing
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(B)V")
-        call SaveBoolean(LocalActionLib___ht, LocalActionLib___key, 1, Open)
-        call LocalActionLib___Call("ShowFpsText")
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(B)V")
+        call SaveBoolean(LocalActionLib__ht, LocalActionLib__key, 1, Open)
+        call LocalActionLib__Call("ShowFpsText")
     endfunction
     
     //获取当前游戏的 fps值  即 游戏画面的帧数
     function GetFps takes nothing returns real
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "()R")
-        call LocalActionLib___Call("GetFps")
-        return LoadReal(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "()R")
+        call LocalActionLib__Call("GetFps")
+        return LoadReal(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
     
     //获取聊天状态  有聊天输入框的情况下 返回true  没有返回false 
     //可以通过 d3d库里的模拟按键 模拟按下ESC 或者enter 来禁止玩家聊天
     function GetChatState takes nothing returns boolean
-        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "()B")
-        call LocalActionLib___Call("GetChatState")
-        return LoadBoolean(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "()B")
+        call LocalActionLib__Call("GetChatState")
+        return LoadBoolean(LocalActionLib__ht, LocalActionLib__key, 0)
     endfunction
   
 
 //library LocalActionLib ends
 //library d3d:
     
-    function d3d___Call takes string str returns nothing
+    function d3d__Call takes string str returns nothing
         call UnitId(str)
     endfunction
     
@@ -2377,376 +3026,376 @@ endfunction
     
     //获取鼠标在屏幕的x轴
     function GetMouseVectorX takes nothing returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "()R")
-        call d3d___Call("GetMouseVectorX")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()R")
+        call d3d__Call("GetMouseVectorX")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取鼠标在屏幕的y轴
     function GetMouseVectorY takes nothing returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "()R")
-        call d3d___Call("GetMouseVectorY")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()R")
+        call d3d__Call("GetMouseVectorY")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取魔兽窗口宽
     function GetWindowWidth takes nothing returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "()I")
-        call d3d___Call("GetWindowWidth")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()I")
+        call d3d__Call("GetWindowWidth")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取魔兽窗口高
     function GetWindowHeight takes nothing returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "()I")
-        call d3d___Call("GetWindowHeight")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()I")
+        call d3d__Call("GetWindowHeight")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //16进制函数
     function Hex takes integer i returns string
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
-        call SaveInteger(d3d___ht, d3d___key, 1, i)
-        call d3d___Call("Hex")
-    return LoadStr(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
+        call SaveInteger(d3d__ht, d3d__key, 1, i)
+        call d3d__Call("Hex")
+    return LoadStr(d3d__ht, d3d__key, 0)
     endfunction
     
     //==================字体类================================
     //创建字体
     function CreateFont takes nothing returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "()I")
-        call d3d___Call("CreateFont")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()I")
+        call d3d__Call("CreateFont")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //销毁字体
     function DestroyFont takes integer font returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)V")
-        call d3d___Call("DestroyFont")
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)V")
+        call d3d__Call("DestroyFont")
     endfunction
     
     //获取字体宽
     function GetFontWidth takes integer font returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call d3d___Call("GetFontWidth")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call d3d__Call("GetFontWidth")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置字体宽
     function SetFontWidth takes integer font,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetFontWidth")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetFontWidth")
     endfunction
     
     //获取字体高
     function GetFontHeight takes integer font returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call d3d___Call("GetFontHeight")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call d3d__Call("GetFontHeight")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置字体高
     function SetFontHeight takes integer font,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetFontHeight")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetFontHeight")
     endfunction
     
     //获取字体粗细
     function GetFontWeight takes integer font returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call d3d___Call("GetFontWeight")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call d3d__Call("GetFontWeight")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置字体粗细
     function SetFontWeight takes integer font,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetFontWeight")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetFontWeight")
     endfunction
     
     //设置字体是否倾斜
     function SetFontItalic takes integer font,boolean value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveBoolean(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetFontItalic")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveBoolean(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetFontItalic")
     endfunction
     
     //获取字体类型
     function GetFontFaceName takes integer font returns string
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call d3d___Call("GetFontFaceName")
-        return LoadStr(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call d3d__Call("GetFontFaceName")
+        return LoadStr(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置字体类型
     function SetFontFaceName takes integer font,string value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveStr(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetFontFaceName")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveStr(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetFontFaceName")
     endfunction
     
     //==============写字类===========================
     //创建文字 参数是 字体 内容 屏幕坐标x y 存活时间 颜色值
     function CreateText takes integer font,string str,real x,real y,real time,integer color returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(ISRRRI)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, font)
-        call SaveStr(d3d___ht, d3d___key, 2, str)
-        call SaveReal(d3d___ht, d3d___key, 3, x)
-        call SaveReal(d3d___ht, d3d___key, 4, y)
-        call SaveReal(d3d___ht, d3d___key, 5, time)
-        call SaveInteger(d3d___ht, d3d___key, 6, color)
-        call d3d___Call("CreateText")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(ISRRRI)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, font)
+        call SaveStr(d3d__ht, d3d__key, 2, str)
+        call SaveReal(d3d__ht, d3d__key, 3, x)
+        call SaveReal(d3d__ht, d3d__key, 4, y)
+        call SaveReal(d3d__ht, d3d__key, 5, time)
+        call SaveInteger(d3d__ht, d3d__key, 6, color)
+        call d3d__Call("CreateText")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取文字内容
     function GetTextString takes integer text returns string
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call d3d___Call("GetTextString")
-        return LoadStr(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call d3d__Call("GetTextString")
+        return LoadStr(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置文字内容
     function SetTextString takes integer text,string str returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call SaveStr(d3d___ht, d3d___key, 2, str)
-        call d3d___Call("SetTextString")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call SaveStr(d3d__ht, d3d__key, 2, str)
+        call d3d__Call("SetTextString")
     endfunction
     
     //获取文字坐标x轴
     function GetTextX takes integer text returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call d3d___Call("GetTextX")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call d3d__Call("GetTextX")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置文字坐标x轴
     function SetTextX takes integer text,real x returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call SaveReal(d3d___ht, d3d___key, 2, x)
-        call d3d___Call("SetTextX")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call SaveReal(d3d__ht, d3d__key, 2, x)
+        call d3d__Call("SetTextX")
     endfunction
     
     //获取文字坐标y轴
     function GetTextY takes integer text returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call d3d___Call("GetTextY")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call d3d__Call("GetTextY")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置文字坐标y轴
     function SetTextY takes integer text,real y returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call SaveReal(d3d___ht, d3d___key, 2, y)
-        call d3d___Call("SetTextY")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call SaveReal(d3d__ht, d3d__key, 2, y)
+        call d3d__Call("SetTextY")
     endfunction
     
     //获取文字剩余存活时间
     function GetTextTime takes integer text returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call d3d___Call("GetTextTime")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call d3d__Call("GetTextTime")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置文字剩余存活时间
     function SetTextTime takes integer text,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextTime")
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextTime")
     endfunction
     
     //获取文字颜色 16进制 0xFFFFFFFF 前2位表示透明 后6位表示 红绿蓝
     function GetTextColor takes integer text returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call d3d___Call("GetTextColor")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call d3d__Call("GetTextColor")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置文字颜色 16进制
     function SetTextColor takes integer text,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, text)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextColor")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, text)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextColor")
     endfunction
     
     //创建屏幕图像 图像路径 相对魔兽窗口x轴 相对魔兽窗口y轴 相对魔兽窗口 宽度 相对魔兽窗口 高度 等级
     function CreateTexture takes string path,real x,real y,real width,real height,integer color,integer level returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(SRRRRII)I")
-        call SaveStr(d3d___ht, d3d___key, 1, path)
-        call SaveReal(d3d___ht, d3d___key, 2, x)
-        call SaveReal(d3d___ht, d3d___key, 3, y)
-        call SaveReal(d3d___ht, d3d___key, 4, width)
-        call SaveReal(d3d___ht, d3d___key, 5, height)
-        call SaveInteger(d3d___ht, d3d___key, 6, color)
-        call SaveInteger(d3d___ht, d3d___key, 7, level)
-        call d3d___Call("CreateTexture")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(SRRRRII)I")
+        call SaveStr(d3d__ht, d3d__key, 1, path)
+        call SaveReal(d3d__ht, d3d__key, 2, x)
+        call SaveReal(d3d__ht, d3d__key, 3, y)
+        call SaveReal(d3d__ht, d3d__key, 4, width)
+        call SaveReal(d3d__ht, d3d__key, 5, height)
+        call SaveInteger(d3d__ht, d3d__key, 6, color)
+        call SaveInteger(d3d__ht, d3d__key, 7, level)
+        call d3d__Call("CreateTexture")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //删除图像
     function DestroyTexture takes integer texture returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("DestroyTexture")
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("DestroyTexture")
     endfunction
     
     //获取图像相对魔兽窗口坐标x轴
     function GetTextureX takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureX")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureX")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像相对魔兽窗口坐标x轴
     function SetTextureX takes integer texture,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureX")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureX")
     endfunction
     
     //获取图像相对魔兽窗口坐标y轴
     function GetTextureY takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureY")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureY")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像相对魔兽窗口坐标y轴
     function SetTextureY takes integer texture,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureY")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureY")
     endfunction
     
     //获取图像相对魔兽窗口 宽度
     function GetTextureWidth takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureWidth")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureWidth")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像相对魔兽窗口 宽度
     function SetTextureWidth takes integer texture,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureWidth")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureWidth")
     endfunction
     
     //获取图像相对魔兽窗口 高度
     function GetTextureHeight takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureHeight")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureHeight")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像相对魔兽窗口 高度
     function SetTextureHeight takes integer texture,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureHeight")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureHeight")
     endfunction
     
     //获取图像颜色
     function GetTextureColor takes integer texture returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureColor")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureColor")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像颜色
     function SetTextureColor takes integer texture,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureColor")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureColor")
     endfunction
     
     //获取图像级别 级别越高 越上层显示
     function GetTextureLevel takes integer texture returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureLevel")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureLevel")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像级别 级别越高越上层显示
     function SetTextureLevel takes integer texture,integer value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveInteger(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureLevel")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveInteger(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureLevel")
     endfunction
     
     //获取图像旋转角度
     function GetTextureRotation takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureRotation")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureRotation")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图像旋转角度  参数 图像,角度  角度制
     function SetTextureRotation takes integer texture,real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveReal(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureRotation")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveReal(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureRotation")
     endfunction
     
     //获取图像像素的 宽
     function GetTexturePixelWidth takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTexturePixelWidth")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTexturePixelWidth")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取图像像素的 高  可以在  宽 * 高的矩形里进行切割
     function GetTexturePixelHeight takes integer texture returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTexturePixelWidth")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTexturePixelWidth")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //获取图形切割区域 默认完整的图形区域
     //注意！ 返回的rect 是handle 记得用 RemoveRect 排泄
     function GetTextureSrcRect takes integer texture returns rect
-        call SaveStr(d3d___ht, d3d___key, 0, "(I)Hrect;")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call d3d___Call("GetTextureSrcRect")
-        return LoadRectHandle(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(I)Hrect;")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call d3d__Call("GetTextureSrcRect")
+        return LoadRectHandle(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置图形切割区域  在原图片上按 rect 矩形进行切割
@@ -2754,35 +3403,35 @@ endfunction
     //比如 128*256的图片 完整的图片的 矩形应该是 左=0 下=0 右=128 上=256
     // 左上右下 表示 图片像素里的 宽跟高的范围
     function SetTextureSrcRect takes integer texture,rect value returns nothing
-        call RemoveSavedHandle(d3d___ht, d3d___key, 0)
-        call SaveStr(d3d___ht, d3d___key, 0, "(IHrect;)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveRectHandle(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureSrcRect")
+        call RemoveSavedHandle(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(IHrect;)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveRectHandle(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureSrcRect")
     endfunction
     
     //更改图像图形  参数 图像句柄 新的图形路径
     function SetTexture takes integer texture,string value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveStr(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTexture")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveStr(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTexture")
     endfunction
     
     //设置图像是否显示 隐藏 true显示  false隐藏
     function SetTextureShow takes integer texture,boolean value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveBoolean(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureShow")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveBoolean(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureShow")
     endfunction
     
     //设置图像是否响应事件 默认true 为开启触发状态 false为关闭触发
     function SetTextureTrigger takes integer texture,boolean value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveBoolean(d3d___ht, d3d___key, 2, value)
-        call d3d___Call("SetTextureTrigger")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveBoolean(d3d__ht, d3d__key, 2, value)
+        call d3d__Call("SetTextureTrigger")
     endfunction
     
     //开启图像的触发器
@@ -2835,29 +3484,29 @@ endfunction
     //返回事件句柄
     //==================================================
     function TextureAddEvent takes integer texture,integer order,code wCallBack,code lCallBack returns integer
-        call SaveStr(d3d___ht, d3d___key, 0, "(IIII)I")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveInteger(d3d___ht, d3d___key, 2, order)
-        call SaveInteger(d3d___ht, d3d___key, 3, GetFuncAddr(wCallBack))
-        call SaveInteger(d3d___ht, d3d___key, 4, GetFuncAddr(lCallBack))
-        call d3d___Call("TextureAddEvent")
-        return LoadInteger(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "(IIII)I")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveInteger(d3d__ht, d3d__key, 2, order)
+        call SaveInteger(d3d__ht, d3d__key, 3, GetFuncAddr(wCallBack))
+        call SaveInteger(d3d__ht, d3d__key, 4, GetFuncAddr(lCallBack))
+        call d3d__Call("TextureAddEvent")
+        return LoadInteger(d3d__ht, d3d__key, 0)
     endfunction
     
     //图像删除事件 参数 图像句柄 事件句柄
     function TextureRemoveEvent takes integer texture,integer Event returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, texture)
-        call SaveInteger(d3d___ht, d3d___key, 2, Event)
-        call d3d___Call("TextureRemoveEvent")
+        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, texture)
+        call SaveInteger(d3d__ht, d3d__key, 2, Event)
+        call d3d__Call("TextureRemoveEvent")
     endfunction
     
     //设置键位状态 指定键位 按下或弹起状态  true为按下 false为弹起
     function SetKeyboard takes integer Key,boolean up returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
-        call SaveInteger(d3d___ht, d3d___key, 1, Key)
-        call SaveBoolean(d3d___ht, d3d___key, 2, up)
-        call d3d___Call("SetKeyboard")
+        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
+        call SaveInteger(d3d__ht, d3d__key, 1, Key)
+        call SaveBoolean(d3d__ht, d3d__key, 2, up)
+        call d3d__Call("SetKeyboard")
     endfunction
     
     // 模拟按键  按下 弹起 模拟1次点击
@@ -2874,22 +3523,22 @@ endfunction
     
     //获取响应的键位
     function GetTriggerKeyboard takes nothing returns integer
-        return LoadInteger(d3d___ht, GetEventIndex(), 0x100)
+        return LoadInteger(d3d__ht, GetEventIndex(), 0x100)
     endfunction
     
     //获取触发图像
     function GetTriggerTexture takes nothing returns integer
-        return LoadInteger(d3d___ht, GetEventIndex(), 0xff)
+        return LoadInteger(d3d__ht, GetEventIndex(), 0xff)
     endfunction
     
     //获取响应事件
     function GetTriggerEvent takes nothing returns integer
-        return LoadInteger(d3d___ht, GetEventIndex(), 0xfe)
+        return LoadInteger(d3d__ht, GetEventIndex(), 0xfe)
     endfunction
     
     // 获取响应的键盘操作 按下为true 弹起为false
     function GetTriggerKeyboardAction takes nothing returns boolean
-        if ( LoadInteger(d3d___ht, GetEventIndex(), 0x101) == 0 ) then
+        if ( LoadInteger(d3d__ht, GetEventIndex(), 0x101) == 0 ) then
             return false
         endif
         return true
@@ -2898,37 +3547,37 @@ endfunction
     //====================魔兽控制台UI=============================
     //设置是否隐藏控制台UI true为隐藏 false为恢复
     function ShowConsole takes boolean show returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(B)V")
-        call SaveBoolean(d3d___ht, d3d___key, 1, show)
-        call d3d___Call("ShowConsole")
+        call SaveStr(d3d__ht, d3d__key, 0, "(B)V")
+        call SaveBoolean(d3d__ht, d3d__key, 1, show)
+        call d3d__Call("ShowConsole")
     endfunction
     
     //获取小地图图形位置X轴向量
     function GetLittleMapX takes nothing returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "()R")
-        call d3d___Call("GetLittleMapX")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()R")
+        call d3d__Call("GetLittleMapX")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置小地图图形位置X轴向量
     function SetLittleMapX takes real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(R)V")
-        call SaveReal(d3d___ht, d3d___key, 1, value)
-        call d3d___Call("SetLittleMapX")
+        call SaveStr(d3d__ht, d3d__key, 0, "(R)V")
+        call SaveReal(d3d__ht, d3d__key, 1, value)
+        call d3d__Call("SetLittleMapX")
     endfunction
     
     //获取小地图图形位置y轴向量
     function GetLittleMapY takes nothing returns real
-        call SaveStr(d3d___ht, d3d___key, 0, "()R")
-        call d3d___Call("GetLittleMapY")
-        return LoadReal(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d__ht, d3d__key, 0, "()R")
+        call d3d__Call("GetLittleMapY")
+        return LoadReal(d3d__ht, d3d__key, 0)
     endfunction
     
     //设置小地图图形位置Y轴向量
     function SetLittleMapY takes real value returns nothing
-        call SaveStr(d3d___ht, d3d___key, 0, "(R)V")
-        call SaveReal(d3d___ht, d3d___key, 1, value)
-        call d3d___Call("SetLittleMapY")
+        call SaveStr(d3d__ht, d3d__key, 0, "(R)V")
+        call SaveReal(d3d__ht, d3d__key, 1, value)
+        call d3d__Call("SetLittleMapY")
     endfunction
     
     //====================字体结构体的封装=============================
@@ -2993,7 +3642,7 @@ endfunction
 // 
 //   Warcraft III map script
 //   Generated by the Warcraft III World Editor
-//   Date: Tue Oct 24 15:31:35 2017
+//   Date: Fri Nov 10 08:12:37 2017
 //   Map Author: 未知
 // 
 //===========================================================================
@@ -3026,19 +3675,25 @@ function InitGlobals takes nothing returns nothing
 endfunction
 //***************************************************************************
 //*
-//*  Items
-//*
-//***************************************************************************
-function CreateAllItems takes nothing returns nothing
-    local integer itemID
-    call CreateItem('desc', 590.1, - 936.0)
-    call CreateItem('desc', - 6248.7, - 6487.1)
-endfunction
-//***************************************************************************
-//*
 //*  Unit Creation
 //*
 //***************************************************************************
+//===========================================================================
+function CreateBuildingsForPlayer0 takes nothing returns nothing
+    local player p= Player(0)
+    local unit u
+    local integer unitID
+    local trigger t
+    local real life
+    set u=CreateUnit(p, 'h028', - 6912.0, - 6656.0, 270.000)
+    set u=CreateUnit(p, 'h024', - 6976.0, - 6784.0, 270.000)
+    set u=CreateUnit(p, 'h025', - 6976.0, - 6912.0, 270.000)
+    set u=CreateUnit(p, 'h026', - 6784.0, - 6848.0, 270.000)
+    set u=CreateUnit(p, 'h027', - 6656.0, - 6720.0, 270.000)
+    set u=CreateUnit(p, 'h029', - 6592.0, - 6848.0, 270.000)
+    set u=CreateUnit(p, 'h02A', - 6784.0, - 6656.0, 270.000)
+    set u=CreateUnit(p, 'h02B', - 6656.0, - 6912.0, 270.000)
+endfunction
 //===========================================================================
 function CreateUnitsForPlayer0 takes nothing returns nothing
     local player p= Player(0)
@@ -3122,6 +3777,7 @@ function CreateNeutralPassiveBuildings takes nothing returns nothing
 endfunction
 //===========================================================================
 function CreatePlayerBuildings takes nothing returns nothing
+    call CreateBuildingsForPlayer0()
     call CreateBuildingsForPlayer10()
     call CreateBuildingsForPlayer11()
 endfunction
@@ -3264,6 +3920,7 @@ function CreateRegions takes nothing returns nothing
     set gg_rct_NavyHeroBirth=Rect(- 6880.0, - 7360.0, - 6432.0, - 6976.0)
     set gg_rct_PirateHeroBirth=Rect(6144.0, 6144.0, 6656.0, 6592.0)
     set gg_rct_CreepMagmaBirth=Rect(3488.0, - 1216.0, 3936.0, - 800.0)
+    set gg_rct_BroadcastRct=Rect(7008.0, - 7552.0, 7328.0, - 7296.0)
 endfunction
 //***************************************************************************
 //*
@@ -3284,7 +3941,20 @@ endfunction
 //TESH.alwaysfold=0
 // Trigger: FuncForGame
 //===========================================================================
-//TESH.scrollpos=140
+//TESH.scrollpos=6
+//TESH.alwaysfold=0
+// Trigger: FuncForBroadcast
+//===========================================================================
+//TESH.scrollpos=18
+//TESH.alwaysfold=0
+
+// Trigger: FuncForPlayer
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+// Trigger: FuncForUnit
+//===========================================================================
+//TESH.scrollpos=155
 //TESH.alwaysfold=0
 // Trigger: DataSetAndGet
 //===========================================================================
@@ -3296,6 +3966,26 @@ endfunction
 //===========================================================================
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
+// Trigger: FuncForItem
+//===========================================================================
+//TESH.scrollpos=66
+//TESH.alwaysfold=0
+
+// Trigger: FuncForToast
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+
+// Trigger: FuncForDamage
+//===========================================================================
+//TESH.scrollpos=78
+//TESH.alwaysfold=0
+
+// Trigger: FuncForCreep
+//===========================================================================
+//TESH.scrollpos=24
+//TESH.alwaysfold=0
+
 // Trigger: japiConstant
 //===========================================================================
 //TESH.scrollpos=0
@@ -3438,23 +4128,23 @@ endfunction
 // 这4个消息标志可以相加组合
 //使用方法 本地坐标命令(命令id,坐标x轴,坐标y轴,FLAG_INSTANT + FLAG_ONLY) flag标签为   瞬发+独立
 //===========================================================================
-// Trigger: initData
+// Trigger: InitData
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=66
 //TESH.alwaysfold=0
 
-function Trig_initDataActions takes nothing returns nothing
-    
-    local integer i= 0
-    
- 
-    //开启全图视野
+//开启全图视野
+function ID_openAllFogs takes nothing returns nothing
     call FogEnable(false)
     call FogMaskEnable(false)
-    
+endfunction
 
-       
-    set i=0
+function ID_initDataForTesting takes nothing returns nothing
+    call ID_openAllFogs()
+endfunction
+
+function ID_initHerosLevel takes nothing returns nothing
+    local integer i= 0
     loop
          //初始化人物等级
         set unitLevel[i]=1
@@ -3465,8 +4155,10 @@ function Trig_initDataActions takes nothing returns nothing
         exitwhen i > 10 - 1
     endloop
     
-    //统计玩家在线人数
-    set i=0
+endfunction
+
+function ID_countPlayingPlayers takes nothing returns nothing
+    local integer i= 0
     loop
         if ( ( GetPlayerController(Player(i)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(i)) == PLAYER_SLOT_STATE_PLAYING ) ) then
             set PLAYING_PLAYER=PLAYING_PLAYER + 1
@@ -3482,14 +4174,10 @@ function Trig_initDataActions takes nothing returns nothing
     endloop
     //多面板 海军VS海贼 中立行
     set panelVSRow=PLAYING_NAVY_PLAYER + 1
-   
-    //初始化被反补时，小兵的话语
-    set denyWord[0]="!"
-    set denyWord[1]="Why?!"
-    set denyWord[2]="我恨啊！！"
-    
-    //初始化击杀助攻系统，玩家使用的hashtable
-    set i=0
+endfunction
+
+function ID_initKillAndAsisstSystem takes nothing returns nothing
+    local integer i= 0
     loop
         set playerkill_ht[i]=InitHashtable()
         set i=i + 1
@@ -3503,16 +4191,50 @@ function Trig_initDataActions takes nothing returns nothing
     call DisableTrigger(gg_trg_ClickConfirmByTurn)
     
 endfunction
+
+function ID_initBroadcast takes nothing returns nothing
+    set RECEIVER_REGION=CreateRegion()
+    set RECEIVER_RECT=gg_rct_BroadcastRct
+    call RegionAddRect(RECEIVER_REGION, gg_rct_BroadcastRct)
+endfunction 
+//initialize data for playing
+function ID_initDataForPlaying takes nothing returns nothing
+    
+    call ID_initHerosLevel()
+    
+    call ID_countPlayingPlayers()
+    
+    //初始化被反补时，小兵的话语
+    set denyWord[0]="!"
+    set denyWord[1]="Why?!"
+    set denyWord[2]="我恨啊！！"
+    
+    //初始化击杀助攻系统，玩家使用的hashtable
+    call ID_initKillAndAsisstSystem()
+    
+    call ID_initBroadcast()
+    
+endfunction
+//===================main动作
+function Trig_InitDataActions takes nothing returns nothing
+    
+ 
+    call ID_initDataForTesting()
+    
+
+    call ID_initDataForPlaying()
+    
+endfunction
 //===========================================================================
-function InitTrig_initData takes nothing returns nothing
-    set gg_trg_initData=CreateTrigger()
+function InitTrig_InitData takes nothing returns nothing
+    set gg_trg_InitData=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_initData, function Trig_initDataActions)
+    call TriggerAddAction(gg_trg_InitData, function Trig_InitDataActions)
 endfunction
 //===========================================================================
 // Trigger: AllianceSet
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=84
 //TESH.alwaysfold=0
 
 function Trig_AllianceSetActions takes nothing returns nothing
@@ -3630,7 +4352,6 @@ endfunction
 //===========================================================================
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
-
 function Trig_ForbidAbilityActions takes nothing returns nothing
     local integer i= 0
     //禁用魔法书
@@ -3646,6 +4367,7 @@ function Trig_ForbidAbilityActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
+
 function InitTrig_ForbidAbility takes nothing returns nothing
     set gg_trg_ForbidAbility=CreateTrigger()
     call DoNothing()
@@ -3654,7 +4376,7 @@ endfunction
 //===========================================================================
 // Trigger: GameInitData
 //===========================================================================
-//TESH.scrollpos=30
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 function GID_timerDo takes nothing returns nothing
     local timer t= GetExpiredTimer()
@@ -3714,7 +4436,7 @@ endfunction
 //===========================================================================
 // Trigger: Constant
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=11
 //TESH.alwaysfold=0
 // Trigger: UnitLevel
 //===========================================================================
@@ -3747,14 +4469,13 @@ endfunction
 //===========================================================================
 // Trigger: GameTime
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=46
 //TESH.alwaysfold=0
 
-function GT_flushTime takes nothing returns nothing
+//设置分钟数
+function GT_flushMinute takes nothing returns nothing
     local integer i= 0
-    local integer array iTemp
     
-    set Sys_second=Sys_second + 1
     if ( Sys_second == 60 ) then
         set Sys_second=0
         set Sys_minute=Sys_minute + 1
@@ -3768,9 +4489,10 @@ function GT_flushTime takes nothing returns nothing
             exitwhen i > 12 - 1
         endloop
     endif
-    
-    //设置秒钟数
-    set i=0
+endfunction
+//设置秒钟数
+function GT_flushSecond takes nothing returns nothing
+    local integer i= 0
     loop
         if ( GetPlayerSlotState(Player(i)) == PLAYER_SLOT_STATE_PLAYING ) then
             call SetPlayerState(Player(i), PLAYER_STATE_RESOURCE_FOOD_CAP, Sys_second)
@@ -3779,24 +4501,90 @@ function GT_flushTime takes nothing returns nothing
         exitwhen i > 12 - 1
     endloop
     
-    //每秒刷新玩家的金钱和木头
-    set i=0
+endfunction
+//更新多面板上的金钱木材显示
+function GT_flushGoldAndLumberPanel takes nothing returns nothing
+    local integer i= 0
+    local integer array iTemp
     loop
-        set iTemp[0]=GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_GOLD)
-        call SaveInteger(normalHeroPanel_ht, i, 11, iTemp[0])
-        set iTemp[0]=GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_LUMBER)
-        call SaveInteger(normalHeroPanel_ht, i, 12, iTemp[0])
-        set i=i + 1
         exitwhen i > 10 - 1
+        if ( GetPlayerSlotState(Player(i)) == PLAYER_SLOT_STATE_PLAYING ) then
+            set iTemp[0]=GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_GOLD)
+            call SaveInteger(normalHeroPanel_ht, i, 11, iTemp[0])
+            set iTemp[0]=GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_LUMBER)
+            call SaveInteger(normalHeroPanel_ht, i, 12, iTemp[0])
+        endif
+        set i=i + 1
     endloop
+endfunction
+//小兵的科技升级
+function GT_upgradeSolderScience takes nothing returns nothing
+    
+    if ( ModuloInteger(Sys_minute, 5) == 0 ) then
+        call AddPlayerTechResearched(Player(10), 'R000', 1)
+        call AddPlayerTechResearched(Player(10), 'R001', 1)
+        call AddPlayerTechResearched(Player(10), 'R002', 1)
+        call AddPlayerTechResearched(Player(11), 'R000', 1)
+        call AddPlayerTechResearched(Player(11), 'R001', 1)
+        call AddPlayerTechResearched(Player(11), 'R002', 1)
+    endif
     
 endfunction
+//野怪的科技升级
+function GT_upgradeCreepScience takes nothing returns nothing
+    if ( ModuloInteger(Sys_minute, 8) == 0 ) then
+        call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R003', 1)
+        call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R004', 1)
+        call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R005', 1)
+        call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R006', 1)
+    endif
+    
+endfunction
+//增加士兵的数量
+function GT_increaseSoldierCount takes nothing returns nothing
+    //近战
+    if ( ModuloInteger(Sys_minute, 12) == 0 ) then
+        set warriorCount[MAIN_ROAD]=warriorCount[MAIN_ROAD] + 1
+        set warriorCount[SIDE_ROAD]=warriorCount[MAIN_ROAD] + 1
+    endif
+    //远程
+    if ( ModuloInteger(Sys_minute, 15) == 0 ) then
+        set bowmanCount[MAIN_ROAD]=bowmanCount[MAIN_ROAD] + 1
+        set bowmanCount[SIDE_ROAD]=bowmanCount[SIDE_ROAD] + 1
+    endif
+    //炮车
+    if ( ModuloInteger(Sys_minute, 20) == 0 ) then
+        set artilleryCount[MAIN_ROAD]=artilleryCount[MAIN_ROAD] + 1
+        set artilleryCount[SIDE_ROAD]=artilleryCount[SIDE_ROAD] + 1
+    endif
+endfunction
+//每秒运行一次
+function GT_flushTime takes nothing returns nothing
+    
+    set Sys_second=Sys_second + 1
+    
+    call GT_flushMinute()
+    
+    call GT_flushSecond()
+    
+    call GT_flushGoldAndLumberPanel()
+    
+    if ( Sys_minute != 0 ) then
+        call GT_upgradeSolderScience()
+        call GT_upgradeCreepScience()
+        call GT_increaseSoldierCount()
+    endif
+    
+    
+endfunction
+//=============================main动作
 function Trig_GameTimeActions takes nothing returns nothing
     local timer t= CreateTimer()
     call TimerStart(t, 1, true, function GT_flushTime)
     set t=null
 endfunction
 //===========================================================================
+
 function InitTrig_GameTime takes nothing returns nothing
     set gg_trg_GameTime=CreateTrigger()
     call DoNothing()
@@ -3805,7 +4593,7 @@ endfunction
 //===========================================================================
 // Trigger: noteUnitMoney
 //===========================================================================
-//TESH.scrollpos=21
+//TESH.scrollpos=82
 //TESH.alwaysfold=0
 
 function Trig_noteUnitMoneyActions takes nothing returns nothing
@@ -3899,22 +4687,111 @@ function Trig_noteUnitMoneyActions takes nothing returns nothing
     call SaveInteger(unitMenoy_ht, 'h00K', 0, 20)
 endfunction
 //===========================================================================
+
 function InitTrig_noteUnitMoney takes nothing returns nothing
     set gg_trg_noteUnitMoney=CreateTrigger()
     call DoNothing()
     call TriggerAddAction(gg_trg_noteUnitMoney, function Trig_noteUnitMoneyActions)
 endfunction
 //===========================================================================
-// Trigger: Creeps
+// Trigger: SystemPayOff
 //===========================================================================
 //TESH.scrollpos=0
+//TESH.alwaysfold=0
+function SPO_payOffTimer takes nothing returns nothing
+    local integer i= 0
+    local player p= null
+    local integer surplus= 0
+    local integer playerCount= 0
+    
+    //海军
+    loop
+        exitwhen i > 5 - 1
+        set p=Player(i)
+        if ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) then
+            call increasePlayerCurrentGold(p , 10)
+            call increasePlayerCurrentLumber(p , 1)
+            set playerCount=playerCount + 1
+        else
+            set surplus=surplus + 10
+        endif
+        
+        set i=i + 1
+    endloop
+    //补助玩家离开的计算
+    if ( surplus != 0 and playerCount != 0 ) then
+    //有玩家离开游戏,队伍内还有玩家在
+        set surplus=R2I(I2R(surplus) / I2R(playerCount))
+        set i=0
+        loop
+            exitwhen i > 5 - 1
+            set p=Player(i)
+            if ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) then
+                call increasePlayerCurrentGold(p , surplus)
+            endif
+        endloop
+       
+    endif
+    
+    //海贼
+    set i=5
+    set surplus=0
+    set playerCount=0
+    loop
+        exitwhen i > 10 - 1
+        set p=Player(i)
+        if ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) then
+            call increasePlayerCurrentGold(p , 10)
+            call increasePlayerCurrentLumber(p , 1)
+            set playerCount=playerCount + 1
+        else
+            set surplus=surplus + 10
+        endif
+        
+        set i=i + 1
+    endloop
+    //补助玩家离开的计算
+    if ( surplus != 0 and playerCount != 0 ) then
+    //有玩家离开游戏,队伍内还有玩家在
+        set surplus=R2I(I2R(surplus) / I2R(playerCount))
+        set i=5
+        loop
+            exitwhen i > 10 - 1
+            set p=Player(i)
+            if ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) then
+                call increasePlayerCurrentGold(p , surplus)
+            endif
+        endloop
+       
+    endif
+    
+    set p=null
+endfunction
+//======================main动作
+function Trig_SystemPayOffActions takes nothing returns nothing
+    local timer t= CreateTimer()
+    
+    call TimerStart(t, 6, true, function SPO_payOffTimer)
+    
+    set t=null
+endfunction
+//===========================================================================
+
+function InitTrig_SystemPayOff takes nothing returns nothing
+    set gg_trg_SystemPayOff=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_SystemPayOff, function Trig_SystemPayOffActions)
+endfunction
+//===========================================================================
+// Trigger: RegisterCreeps
+//===========================================================================
+//TESH.scrollpos=66
 //TESH.alwaysfold=0
 //===========================================================================
 
 //===========================================================================
-function Trig_CreepsActions takes nothing returns nothing
-    local integer i= 0
 
+function recordCreepBothRect takes nothing returns nothing
     set udg_CreepsBirthRect[0]=gg_rct_CreepBirth_00
     set udg_CreepsBirthRect[1]=gg_rct_CreepBirth_01
     set udg_CreepsBirthRect[2]=gg_rct_CreepBirth_02
@@ -3932,16 +4809,22 @@ function Trig_CreepsActions takes nothing returns nothing
     set udg_CreepsBirthRect[12]=gg_rct_CreepSnowBirth
     set udg_CreepsBirthRect[13]=gg_rct_CreepBossBirth
     set udg_CreepsBirthRect[14]=gg_rct_CreepMagmaBirth
-    
+endfunction
 
+function initCreepsBothPoint takes nothing returns nothing
+    local integer i= 0
+    local integer creepsTypes= 13
     loop
+        exitwhen i > creepsTypes
+        
         set udg_CreepsBirthPointX[i]=GetRectCenterX(udg_CreepsBirthRect[i])
         set udg_CreepsBirthPointY[i]=GetRectCenterY(udg_CreepsBirthRect[i])
     
         set i=i + 1
-        exitwhen i > 13
     endloop
+endfunction
 
+function initAttractCreepsRange takes nothing returns nothing
     set udg_CreepsRefrushRect[0]=gg_rct_CreepCamp_00
     set udg_CreepsRefrushRect[1]=gg_rct_CreepCamp_01
     set udg_CreepsRefrushRect[2]=gg_rct_CreepCamp_02
@@ -3955,7 +4838,9 @@ function Trig_CreepsActions takes nothing returns nothing
     
     set udg_CreepsRefrushRect[10]=gg_rct_CreepAncCamp_00
     set udg_CreepsRefrushRect[11]=gg_rct_CreepAncCamp_01
+endfunction
 
+function recordCreepsTypes takes nothing returns nothing
     //海区10种普通野怪
     set udg_CreepsTypeBoss[0]='n006'
     set udg_CreepsTypeMinion[0]='n008'
@@ -3992,8 +4877,9 @@ function Trig_CreepsActions takes nothing returns nothing
     //岩浆野怪
     set udg_CreepsTypeBoss[14]='n00G'
     set udg_CreepsTypeMinion[14]='n00K'
-    
+endfunction
 
+function recordMinionsCounts takes nothing returns nothing
     //海区10种野怪
     set udg_CreepsMinionCount[0]=2
     set udg_CreepsMinionCount[1]=3
@@ -4012,15 +4898,38 @@ function Trig_CreepsActions takes nothing returns nothing
     set udg_CreepsMinionCount[12]=2
     //岩浆野怪
     set udg_CreepsMinionCount[14]=2
+endfunction
+
+function initBossTypes takes nothing returns nothing
     
+    call addCreepsBossType('n006')
+    call addCreepsBossType('n00D')
+    call addCreepsBossType('n004')
+    call addCreepsBossType('n00F')
+    call addCreepsBossType('n005')
+    call addCreepsBossType('n00G')
+    call addCreepsBossType('n007')
+    call addCreepsBossType('n003')
+    call addCreepsBossType('n002')
+    call addCreepsBossType('n00I')
     
+endfunction
+//========================main动作
+function Trig_CreepsActions takes nothing returns nothing
+    local integer i= 0
+    call recordCreepBothRect()
+    call initCreepsBothPoint()
+    call initAttractCreepsRange()
+    call recordCreepsTypes()
+    call recordMinionsCounts()
+    call initBossTypes()
     
 endfunction
 //===========================================================================
-function InitTrig_Creeps takes nothing returns nothing
-    set gg_trg_Creeps=CreateTrigger()
+function InitTrig_RegisterCreeps takes nothing returns nothing
+    set gg_trg_RegisterCreeps=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_Creeps, function Trig_CreepsActions)
+    call TriggerAddAction(gg_trg_RegisterCreeps, function Trig_CreepsActions)
 endfunction
 //===========================================================================
 // Trigger: InitCreep
@@ -4030,10 +4939,11 @@ endfunction
 function Trig_InitCreepActions takes nothing returns nothing
     
     call remindAllPlayers(2 , "初始化野区数据。")
-    call TriggerExecute(gg_trg_Creeps)
+    call TriggerExecute(gg_trg_RegisterCreeps)
     call remindAllPlayers(2 , "加载野区数据完成！")
 endfunction
 //===========================================================================
+
 function InitTrig_InitCreep takes nothing returns nothing
     set gg_trg_InitCreep=CreateTrigger()
     call DoNothing()
@@ -4053,6 +4963,7 @@ function Trig_StateCreepsFlushActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
+
 function InitTrig_StateCreepsFlush takes nothing returns nothing
     set gg_trg_StateCreepsFlush=CreateTrigger()
     call DoNothing()
@@ -4061,7 +4972,7 @@ endfunction
 //===========================================================================
 // Trigger: SeaRegionCreep
 //===========================================================================
-//TESH.scrollpos=21
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 function SRC_unitAlive takes nothing returns boolean
     return isUnitAlive(GetFilterUnit())
@@ -4171,7 +5082,8 @@ function SC_createSnowCreep takes nothing returns nothing
         exitwhen j >= udg_CreepsMinionCount[i]
     endloop
     
-    
+    call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R007', 1)
+    call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R008', 1)
     
     
 endfunction
@@ -4198,7 +5110,7 @@ endfunction
 //===========================================================================
 // Trigger: MagmaCreep
 //===========================================================================
-//TESH.scrollpos=17
+//TESH.scrollpos=11
 //TESH.alwaysfold=0
 function MC_createMagmaCreep takes nothing returns nothing
     local integer i= 14
@@ -4214,6 +5126,8 @@ function MC_createMagmaCreep takes nothing returns nothing
         exitwhen j >= udg_CreepsMinionCount[i]
     endloop
     
+    call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R00A', 1)
+    call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R00B', 1)
     
     
 endfunction
@@ -4240,28 +5154,103 @@ endfunction
 //===========================================================================
 // Trigger: BossCreep
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=76
 //TESH.alwaysfold=0
 function BC_CreateBoss takes nothing returns nothing
     
-    call CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE), udg_CreepsTypeBoss[13], udg_CreepsBirthPointX[13], udg_CreepsBirthPointY[13], 0)
+    local unit u= CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE), udg_CreepsTypeBoss[13], udg_CreepsBirthPointX[13], udg_CreepsBirthPointY[13], 0)
     
+    call AddPlayerTechResearched(Player(PLAYER_NEUTRAL_AGGRESSIVE), 'R009', 1)
     
+    //升级其技能
+    if ( roshanAbilLevel <= 5 ) then
+        call SetUnitAbilityLevel(u, 'A020', roshanAbilLevel)
+        call SetUnitAbilityLevel(u, 'A021', roshanAbilLevel)
+        call SetUnitAbilityLevel(u, 'A023', roshanAbilLevel)
+    endif
+                  
+    set u=null
+endfunction
+
+function BC_heroIncreaseAttrInGroup takes nothing returns nothing
+    local unit u= GetEnumUnit()
+    call SetHeroStr(u, GetHeroStr(u, false) + 4 + roshanAbilLevel, true)
+    call SetHeroAgi(u, GetHeroAgi(u, false) + 4 + roshanAbilLevel, true)
+    call SetHeroInt(u, GetHeroInt(u, false) + 4 + roshanAbilLevel, true)
+    set u=null
+endfunction
+function BC_increaseGroupAttributes takes group g returns nothing
+    call ForGroup(g, function BC_heroIncreaseAttrInGroup)
+    call DestroyGroup(g)
+endfunction
+
+function BC_chooseUnitsInGroup takes nothing returns boolean
+    return ( not IsUnitIllusion(GetFilterUnit()) ) and ( IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO) )
+endfunction
+
+function BC_dropFlag takes real x,real y returns nothing
+    call CreateItem('I009', x, y)
+endfunction
+
+function BC_playerIncreaseMoneyAndLumberInForce takes nothing returns nothing
+    local player p= GetEnumPlayer()
+    call increasePlayerCurrentGold(p , 100 + 100 * roshanAbilLevel)
+    call increasePlayerCurrentLumber(p , 300 + 200 * roshanAbilLevel)
+    set p=null
+endfunction
+function BC_increaseForceMoneyAndLumber takes force f returns nothing
+    call ForForce(f, function BC_playerIncreaseMoneyAndLumberInForce)
     
 endfunction
+
+function BC_getAllyForce takes unit u returns force
+    local integer i= 0
+    local force f= CreateForce()
+    loop
+        exitwhen i > 10 - 1
+        if ( IsUnitAlly(u, Player(i)) ) then
+            call ForceAddPlayer(f, Player(i))
+        endif
+        set i=i + 1
+    endloop
+    return f
+endfunction
+//=====================main动作
 function Trig_BossCreepActions takes nothing returns nothing
     local timer t= CreateTimer()
+    local unit killer= GetKillingUnit()
+    local unit killed= GetTriggerUnit()
+    local group g= null
+    local force f= null
+    local real x= 0
+    local real y= 0
     
     call TimerStart(t, 480, false, function BC_CreateBoss)
+    set roshanAbilLevel=roshanAbilLevel + 1
     
+    if ( roshanAbilLevel != 0 ) then
+        set x=GetUnitX(killed)
+        set y=GetUnitY(killed)
+        set g=CreateGroup()
+        call GroupEnumUnitsInRange(g, x, y, 500, Condition(function BC_chooseUnitsInGroup))
+        call BC_increaseGroupAttributes(g)
+        call BC_dropFlag(x , y)
+        set f=BC_getAllyForce(killer)
+        call BC_increaseForceMoneyAndLumber(f)
+    endif
+    
+    call DestroyForce(f)
+    call DestroyGroup(g)
+    set f=null
+    set g=null
+    set killed=null
+    set killer=null
     set t=null
 endfunction
 //===========================================================================
 
 function BC_EventCondition takes nothing returns boolean
-    
     return ( GetUnitTypeId(GetTriggerUnit()) == 'n00J' )
-    
 endfunction
 function InitTrig_BossCreep takes nothing returns nothing
     set gg_trg_BossCreep=CreateTrigger()
@@ -4271,13 +5260,93 @@ function InitTrig_BossCreep takes nothing returns nothing
     call TriggerAddAction(gg_trg_BossCreep, function Trig_BossCreepActions)
 endfunction
 //===========================================================================
-// Trigger: Soldiers
+// Trigger: CreepsDeath
 //===========================================================================
-//TESH.scrollpos=1
+//TESH.scrollpos=20
 //TESH.alwaysfold=0
+
+//=================================main动作
+function Trig_CreepsDeathActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local integer unitType= GetUnitTypeId(u)
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local integer random= R2I(GetRandomReal(0, 1) * 100)
+    
+    if ( unitType == 'n00I' or unitType == 'n00G' ) then
+    //雪地，炎地
+        if ( random <= 8 ) then
+            call CreateItem('I002', x, y)
+        elseif ( random <= 30 ) then
+            call CreateItem('I005', x, y)
+        elseif ( random <= 50 ) then
+            call CreateItem('I006', x, y)
+        elseif ( random <= 60 ) then
+            call CreateItem('I008', x, y)
+        elseif ( random <= 80 ) then
+            call CreateItem('I004', x, y)
+        else
+            call CreateItem('I007', x, y)
+        endif
+    elseif ( unitType == 'n006' or unitType == 'n002' or unitType == 'n00D' or unitType == 'n00f' ) then
+    //大型野怪
+        if ( random >= 30 ) then
+            if ( random <= 45 ) then
+                call CreateItem('I005', x, y)
+            elseif ( random <= 60 ) then
+                call CreateItem('I006', x, y)
+            elseif ( random <= 75 ) then
+                call CreateItem('I003', x, y)
+            elseif ( random <= 85 ) then
+                call CreateItem('I004', x, y)
+            elseif ( random <= 95 ) then
+                call CreateItem('I007', x, y)
+            else
+                call CreateItem('I008', x, y)
+            endif
+        endif
+    else
+    //小型野怪
+        if ( random >= 50 ) then
+            if ( random <= 70 ) then
+                call CreateItem('I000', x, y)
+            elseif ( random <= 85 ) then
+                call CreateItem('I001', x, y)
+            elseif ( random <= 92 ) then
+                call CreateItem('I004', x, y)
+            else
+                call CreateItem('I007', x, y)
+            endif
+        endif
+    endif
+    
+    set u=null
+endfunction
 //===========================================================================
 
+function Trig_CreepsDeathConditions takes nothing returns boolean
+    local unit u= GetTriggerUnit()
+    local integer unitType= GetUnitTypeId(u)
+    
+    if ( isCreepBoss(unitType) ) then
+        set u=null
+        return true
+    endif
+    
+    return false
+endfunction
+function InitTrig_CreepsDeath takes nothing returns nothing
+    set gg_trg_CreepsDeath=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerUnitEvent(gg_trg_CreepsDeath, Player(PLAYER_NEUTRAL_AGGRESSIVE), EVENT_PLAYER_UNIT_DEATH, null)
+    call TriggerAddCondition(gg_trg_CreepsDeath, Condition(function Trig_CreepsDeathConditions))
+    call TriggerAddAction(gg_trg_CreepsDeath, function Trig_CreepsDeathActions)
+endfunction
 //===========================================================================
+// Trigger: RegisterSoldiers
+//===========================================================================
+//TESH.scrollpos=39
+//TESH.alwaysfold=0
 function Trig_SoldiersActions takes nothing returns nothing
     
     
@@ -4316,19 +5385,17 @@ function Trig_SoldiersActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
-function InitTrig_Soldiers takes nothing returns nothing
-    set gg_trg_Soldiers=CreateTrigger()
+
+function InitTrig_RegisterSoldiers takes nothing returns nothing
+    set gg_trg_RegisterSoldiers=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_Soldiers, function Trig_SoldiersActions)
+    call TriggerAddAction(gg_trg_RegisterSoldiers, function Trig_SoldiersActions)
 endfunction
 //===========================================================================
-// Trigger: AttackDir
+// Trigger: RegisterAttackDir
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=147
 //TESH.alwaysfold=0
-//===========================================================================
-
-//===========================================================================
 //===========================================================================
 function AD_Condition takes nothing returns boolean
     return ( IsUnitOwnedByPlayer(GetFilterUnit(), Player(NAVY_PLAYER)) or IsUnitOwnedByPlayer(GetFilterUnit(), Player(PIRATE_PLAYER)) )
@@ -4476,15 +5543,16 @@ function Trig_AttackDirActions takes nothing returns nothing
     endloop
 endfunction
 //===========================================================================
-function InitTrig_AttackDir takes nothing returns nothing
-    set gg_trg_AttackDir=CreateTrigger()
+
+function InitTrig_RegisterAttackDir takes nothing returns nothing
+    set gg_trg_RegisterAttackDir=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_AttackDir, function Trig_AttackDirActions)
+    call TriggerAddAction(gg_trg_RegisterAttackDir, function Trig_AttackDirActions)
 endfunction
 //===========================================================================
-// Trigger: Towers
+// Trigger: RegisterTowers
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=13
 //TESH.alwaysfold=0
 function Trig_TowersActions takes nothing returns nothing
     //防御塔默认无敌
@@ -4520,10 +5588,11 @@ function Trig_TowersActions takes nothing returns nothing
     call SetUnitInvulnerable(gg_unit_h00D_0052, true)
 endfunction
 //===========================================================================
-function InitTrig_Towers takes nothing returns nothing
-    set gg_trg_Towers=CreateTrigger()
+
+function InitTrig_RegisterTowers takes nothing returns nothing
+    set gg_trg_RegisterTowers=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_Towers, function Trig_TowersActions)
+    call TriggerAddAction(gg_trg_RegisterTowers, function Trig_TowersActions)
 endfunction
 //===========================================================================
 // Trigger: InitAttackAndDef
@@ -4532,12 +5601,13 @@ endfunction
 //TESH.alwaysfold=0
 function Trig_InitAttackAndDefActions takes nothing returns nothing
     call remindAllPlayers(2 , "初始化工兵进攻。")
-    call TriggerExecute(gg_trg_Soldiers)
-    call TriggerExecute(gg_trg_AttackDir)
-    call TriggerExecute(gg_trg_Towers)
+    call TriggerExecute(gg_trg_RegisterSoldiers)
+    call TriggerExecute(gg_trg_RegisterAttackDir)
+    call TriggerExecute(gg_trg_RegisterTowers)
     call remindAllPlayers(2 , "加载工兵进攻完毕！")
 endfunction
 //===========================================================================
+
 function InitTrig_InitAttackAndDef takes nothing returns nothing
     set gg_trg_InitAttackAndDef=CreateTrigger()
     call DoNothing()
@@ -5150,6 +6220,7 @@ endfunction
 //===========================================================================
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
+//========================main动作
 function Trig_TowerDefendRelActions takes nothing returns nothing
     local unit u= GetTriggerUnit()
     //海军防御塔防御解除
@@ -5176,6 +6247,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00I_0061 ) then
         //海军上路兵营被摧毁
+        call AddPlayerTechResearched(Player(PIRATE_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h001_0024, false)
         call SetUnitInvulnerable(gg_unit_h001_0025, false)
         set u=null
@@ -5204,6 +6276,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00I_0060 ) then
         //海军中路兵营被摧毁
+        call AddPlayerTechResearched(Player(PIRATE_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h001_0024, false)
         call SetUnitInvulnerable(gg_unit_h001_0025, false)
         set u=null
@@ -5232,6 +6305,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00I_0062 ) then
         //海军下路路兵营被摧毁
+        call AddPlayerTechResearched(Player(PIRATE_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h001_0024, false)
         call SetUnitInvulnerable(gg_unit_h001_0025, false)
         set u=null
@@ -5239,14 +6313,20 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
   //解锁主基地
     if ( u == gg_unit_h001_0024 ) then
-        if ( isUnitDead(gg_unit_h001_0025) and isUnitDead(gg_unit_h00A_0036) and isUnitDead(gg_unit_h00A_0032) and isUnitDead(gg_unit_h00A_0034) ) then
-            call SetUnitInvulnerable(gg_unit_h002_0010, false)
+        //if(isUnitDead(gg_unit_h001_0025) and isUnitDead(gg_unit_h00A_0036) and isUnitDead(gg_unit_h00A_0032) and isUnitDead(gg_unit_h00A_0034))then
+        if ( isUnitDead(gg_unit_h001_0025) ) then
+           call SetUnitInvulnerable(gg_unit_h002_0010, false)
         endif
+        set u=null
+        return
     endif
     if ( u == gg_unit_h001_0025 ) then
-        if ( isUnitDead(gg_unit_h001_0024) and isUnitDead(gg_unit_h00A_0036) and isUnitDead(gg_unit_h00A_0032) and isUnitDead(gg_unit_h00A_0034) ) then
+        //if(isUnitDead(gg_unit_h001_0024) and isUnitDead(gg_unit_h00A_0036) and isUnitDead(gg_unit_h00A_0032) and isUnitDead(gg_unit_h00A_0034))then
+        if ( isUnitDead(gg_unit_h001_0024) ) then
             call SetUnitInvulnerable(gg_unit_h002_0010, false)
         endif
+        set u=null
+        return
     endif
     
     //海贼防御塔被摧毁
@@ -5273,6 +6353,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00J_0063 ) then
         //海军中路兵营被摧毁
+        call AddPlayerTechResearched(Player(NAVY_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h00F_0040, false)
         call SetUnitInvulnerable(gg_unit_h00F_0039, false)
         set u=null
@@ -5301,6 +6382,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00J_0064 ) then
         //海军中路兵营被摧毁
+        call AddPlayerTechResearched(Player(NAVY_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h00F_0040, false)
         call SetUnitInvulnerable(gg_unit_h00F_0039, false)
         set u=null
@@ -5329,6 +6411,7 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     if ( u == gg_unit_h00J_0065 ) then
         //海军中路兵营被摧毁
+        call AddPlayerTechResearched(Player(NAVY_PLAYER), 'R00C', 1)
         call SetUnitInvulnerable(gg_unit_h00F_0040, false)
         call SetUnitInvulnerable(gg_unit_h00F_0039, false)
         set u=null
@@ -5336,17 +6419,24 @@ function Trig_TowerDefendRelActions takes nothing returns nothing
     endif
     //解锁主基地
     if ( u == gg_unit_h00F_0040 ) then
-        if ( isUnitDead(gg_unit_h00F_0039) and isUnitDead(gg_unit_h00G_0051) and isUnitDead(gg_unit_h00G_0047) and isUnitDead(gg_unit_h00G_0049) ) then
+        //if(isUnitDead(gg_unit_h00F_0039) and isUnitDead(gg_unit_h00G_0051) and isUnitDead(gg_unit_h00G_0047) and isUnitDead(gg_unit_h00G_0049))then
+        if ( isUnitDead(gg_unit_h00F_0039) ) then
             call SetUnitInvulnerable(gg_unit_h000_0009, false)
         endif
+        set u=null
+        return
     endif
     if ( u == gg_unit_h00F_0039 ) then
-        if ( isUnitDead(gg_unit_h00F_0040) and isUnitDead(gg_unit_h00G_0051) and isUnitDead(gg_unit_h00G_0047) and isUnitDead(gg_unit_h00G_0049) ) then
+        //if(isUnitDead(gg_unit_h00F_0040) and isUnitDead(gg_unit_h00G_0051) and isUnitDead(gg_unit_h00G_0047) and isUnitDead(gg_unit_h00G_0049))then
+        if ( isUnitDead(gg_unit_h00F_0040) ) then
             call SetUnitInvulnerable(gg_unit_h000_0009, false)
         endif
+        set u=null
+        return
     endif
 endfunction
 //===========================================================================
+
 function InitTrig_TowerDefendRel takes nothing returns nothing
     set gg_trg_TowerDefendRel=CreateTrigger()
     call DoNothing()
@@ -5387,7 +6477,7 @@ function InitTrig_TowerDefendRel takes nothing returns nothing
     call TriggerAddAction(gg_trg_TowerDefendRel, function Trig_TowerDefendRelActions)
 endfunction
 //===========================================================================
-// Trigger: SeaAreas
+// Trigger: RegisterSeaAreas
 //===========================================================================
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
@@ -5479,13 +6569,14 @@ function Trig_SeaAreasActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
-function InitTrig_SeaAreas takes nothing returns nothing
-    set gg_trg_SeaAreas=CreateTrigger()
+
+function InitTrig_RegisterSeaAreas takes nothing returns nothing
+    set gg_trg_RegisterSeaAreas=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_SeaAreas, function Trig_SeaAreasActions)
+    call TriggerAddAction(gg_trg_RegisterSeaAreas, function Trig_SeaAreasActions)
 endfunction
 //===========================================================================
-// Trigger: UnitSeaDebuff
+// Trigger: RegisterUnitSeaDebuff
 //===========================================================================
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
@@ -5550,7 +6641,6 @@ function Trig_UnitSeaDebuffActions takes nothing returns nothing
     call saveIInInteger(SEAR_NEPTUNE , "SEAR_DEBUF" , 'n008')
     
     //浮空型
-    
     call saveIInInteger(SEAR_FLOAT , "SEAR_FLOAT" , 'n004')
     call saveIInInteger(SEAR_FLOAT , "SEAR_FLOAT" , 'n00c')
     
@@ -5558,10 +6648,11 @@ function Trig_UnitSeaDebuffActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
-function InitTrig_UnitSeaDebuff takes nothing returns nothing
-    set gg_trg_UnitSeaDebuff=CreateTrigger()
+
+function InitTrig_RegisterUnitSeaDebuff takes nothing returns nothing
+    set gg_trg_RegisterUnitSeaDebuff=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_UnitSeaDebuff, function Trig_UnitSeaDebuffActions)
+    call TriggerAddAction(gg_trg_RegisterUnitSeaDebuff, function Trig_UnitSeaDebuffActions)
 endfunction
 //===========================================================================
 // Trigger: InitSeaData
@@ -5571,8 +6662,8 @@ endfunction
 function Trig_InitSeaDataActions takes nothing returns nothing
     
     call remindAllPlayers(2 , "初始化海生存区数据。")
-    call TriggerExecute(gg_trg_SeaAreas)
-    call TriggerExecute(gg_trg_UnitSeaDebuff)
+    call TriggerExecute(gg_trg_RegisterSeaAreas)
+    call TriggerExecute(gg_trg_RegisterUnitSeaDebuff)
     call remindAllPlayers(2 , "加载海生存区数据完毕！")
     
 endfunction
@@ -5585,9 +6676,9 @@ endfunction
 //===========================================================================
 // Trigger: EnterSea
 //===========================================================================
-//TESH.scrollpos=9
+//TESH.scrollpos=90
 //TESH.alwaysfold=0
-
+ 
 //能力者海行类的计时器，每秒降低蓝
 function timerActions takes nothing returns nothing
     local timer t= GetExpiredTimer()
@@ -5623,15 +6714,14 @@ function Trig_EnterSeaActions takes nothing returns nothing
     local integer level= unitLevel[pId] / 10 + 1
     local real x= GetUnitX(triggerUnit)
     local real y= GetUnitY(triggerUnit)
-    
     if ( level == 4 ) then
         set level=3
     endif
     
     if ( seaDebuf == SEAR_FLOAT ) then
-        //浮空型
+    //浮空型
     elseif ( seaDebuf == SEAR_NORMAL ) then
-        //非能力者
+    //非能力者
         set doll[0]=CreateUnit(p, 'e001', x, y, 0)
         call UnitAddAbility(doll[0], 'A002')
         call SetUnitAbilityLevel(doll[0], 'A002', level)
@@ -5640,7 +6730,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
         set doll[0]=null
         
     elseif ( seaDebuf == SEAR_DEVILER ) then
-        //能力者重罚型
+    //能力者重罚型
         set doll[1]=CreateUnit(p, 'e001', x, y, 0)
         call UnitAddAbility(doll[1], 'A000')
         call IssueTargetOrder(doll[1], "doom", triggerUnit)
@@ -5656,7 +6746,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
         set doll[1]=null
         
     elseif ( seaDebuf == SEAR_DEVIL_WORLD ) then
-        //能力者海行型
+    //能力者海行型
         set doll[0]=CreateUnit(p, 'e001', x, y, 0)
         call UnitAddAbility(doll[0], 'A002')
         call SetUnitAbilityLevel(doll[0], 'A002', level)
@@ -5669,7 +6759,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
         call SaveUnitHandle(SPELL_HS, tId, StringHash("unit"), triggerUnit)
         
     elseif ( seaDebuf == SEAR_NEPTUNE ) then
-        //海族
+    //海族
         if ( level == 1 ) then
             call UnitAddAbility(triggerUnit, 'A004')
         elseif ( level == 2 ) then
@@ -5679,7 +6769,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
         endif
         
     elseif ( seaDebuf == SEAR_CORPSE ) then
-        //僵尸类
+    //僵尸类
         
     endif
     
@@ -5688,6 +6778,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
     set t=null
 endfunction
 //===========================================================================
+
 function InitTrig_EnterSea takes nothing returns nothing
     set gg_trg_EnterSea=CreateTrigger()
     call DoNothing()
@@ -5696,9 +6787,8 @@ endfunction
 //===========================================================================
 // Trigger: ExitSea
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=19
 //TESH.alwaysfold=0
-
 function Trig_ExitSeaActions takes nothing returns nothing
     local unit triggerUnit= GetTriggerUnit()
     local unit array doll
@@ -5737,15 +6827,16 @@ function Trig_ExitSeaActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
+
 function InitTrig_ExitSea takes nothing returns nothing
     set gg_trg_ExitSea=CreateTrigger()
     call DoNothing()
     call TriggerAddAction(gg_trg_ExitSea, function Trig_ExitSeaActions)
 endfunction
 //===========================================================================
-// Trigger: HeroInfo
+// Trigger: RegisterHeroInfo
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=3
 //TESH.alwaysfold=0
 function Trig_HeroInfoActions takes nothing returns nothing
     local integer i= 0
@@ -6898,15 +7989,16 @@ function Trig_HeroInfoActions takes nothing returns nothing
     endloop
 endfunction
 //===========================================================================
-function InitTrig_HeroInfo takes nothing returns nothing
-    set gg_trg_HeroInfo=CreateTrigger()
+
+function InitTrig_RegisterHeroInfo takes nothing returns nothing
+    set gg_trg_RegisterHeroInfo=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_HeroInfo, function Trig_HeroInfoActions)
+    call TriggerAddAction(gg_trg_RegisterHeroInfo, function Trig_HeroInfoActions)
 endfunction
 //===========================================================================
-// Trigger: PlayerHashInfo
+// Trigger: RegisterPlayerHashInfo
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=12
 //TESH.alwaysfold=0
 
 
@@ -6948,10 +8040,11 @@ function Trig_PlayerHashInfoActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
-function InitTrig_PlayerHashInfo takes nothing returns nothing
-    set gg_trg_PlayerHashInfo=CreateTrigger()
+
+function InitTrig_RegisterPlayerHashInfo takes nothing returns nothing
+    set gg_trg_RegisterPlayerHashInfo=CreateTrigger()
     call DoNothing()
-    call TriggerAddAction(gg_trg_PlayerHashInfo, function Trig_PlayerHashInfoActions)
+    call TriggerAddAction(gg_trg_RegisterPlayerHashInfo, function Trig_PlayerHashInfoActions)
 endfunction
 //===========================================================================
 // Trigger: InitChooseInterface
@@ -6960,12 +8053,13 @@ endfunction
 //TESH.alwaysfold=0
 function Trig_InitChooseInterfaceActions takes nothing returns nothing
     call remindAllPlayers(2 , "初始化英雄选择界面。")
-    call TriggerExecute(gg_trg_HeroInfo)
-    call TriggerExecute(gg_trg_PlayerHashInfo)
+    call TriggerExecute(gg_trg_RegisterHeroInfo)
+    call TriggerExecute(gg_trg_RegisterPlayerHashInfo)
     call remindAllPlayers(2 , "加载英雄选择界面完毕！")
     
 endfunction
 //===========================================================================
+
 function InitTrig_InitChooseInterface takes nothing returns nothing
     set gg_trg_InitChooseInterface=CreateTrigger()
     call DoNothing()
@@ -6983,6 +8077,7 @@ function Trig_startChosenInterfaceActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
+
 function InitTrig_startChosenInterface takes nothing returns nothing
     set gg_trg_startChosenInterface=CreateTrigger()
     call DoNothing()
@@ -6991,7 +8086,7 @@ endfunction
 //===========================================================================
 // Trigger: ChooseInterface
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=66
 //TESH.alwaysfold=0
 
 //控制玩家的可视窗口
@@ -7091,7 +8186,7 @@ function CI_createDest takes real centralX,real centralY,integer cols,integer ca
 	endloop
 	set u=null
 endfunction
-/////////-------------------------------
+//======================================main动作
 function Trig_ChooseInterfaceActions takes nothing returns nothing
     local real centralX= GetRectCenterX(gg_rct_HeroSelection)
     local real centralY= GetRectCenterY(gg_rct_HeroSelection)
@@ -7758,9 +8853,94 @@ function InitTrig_UseTurnChoose takes nothing returns nothing
     call TriggerAddAction(gg_trg_UseTurnChoose, function Trig_UseTurnChooseActions)
 endfunction
 //===========================================================================
+// Trigger: ClearChooseHeroData
+//===========================================================================
+//TESH.scrollpos=59
+//TESH.alwaysfold=0
+//============================main动作
+function Trig_ClearChooseHeroDataActions takes nothing returns nothing
+    local integer i= 0
+    local integer j= 0
+    local destructable dest= null
+    local unit u= null
+    
+    
+    //清楚玩家选人hashtable表 PlayerChosenHash
+    loop
+        exitwhen i > 10 - 1
+        
+        set dest=LoadDestructableHandle(PlayerChosenHash, i, 0)
+        call RemoveDestructable(dest)
+        set dest=LoadDestructableHandle(PlayerChosenHash, i, 1)
+        call RemoveDestructable(dest)
+        set dest=LoadDestructableHandle(PlayerChosenHash, i, 2)
+        call RemoveDestructable(dest)
+        set dest=LoadDestructableHandle(PlayerChosenHash, i, 3)
+        call RemoveDestructable(dest)
+        set dest=LoadDestructableHandle(PlayerChosenHash, i, 4)
+        call RemoveDestructable(dest)
+        call FlushChildHashtable(PlayerChosenHash, i)
+        
+        set i=i + 1
+    endloop
+    call FlushParentHashtable(PlayerChosenHash)
+    //
+    call RemoveDestructable(backgroundPict)
+    call RemoveDestructable(confirmEmptyFrame)
+    call RemoveDestructable(confirmPicture)
+    call RemoveDestructable(randomEmptyFrame)
+    call RemoveDestructable(randomPicture)
+    call RemoveDestructable(VSPicture)
+    set i=0
+    loop
+        exitwhen i > 10 - 1
+        call DestroyFogModifier(fogModifier[i])
+        set i=i + 1
+    endloop
+    
+    set i=0
+    loop
+        exitwhen i > 3 - 1
+        set j=0
+        loop
+            exitwhen j > HeroSelectedNum[i]
+            set dest=LoadDestructableHandle(heroPict_hash, i, j)
+            call RemoveDestructable(dest)
+            set j=j + 1
+        endloop
+        
+        set i=i + 1
+    endloop
+    set i=0
+    loop
+        exitwhen i > 3 - 1
+        set j=0
+        loop
+            exitwhen j > HeroSelectedNum[i]
+            set u=LoadUnitHandle(unitClick_hash, i, j)
+            call RemoveUnit(u)
+            set j=j + 1
+        endloop
+        
+        set i=i + 1
+    endloop
+    
+    call RemoveUnit(uCenter)
+    call RemoveUnit(uConfirm)
+    call RemoveUnit(uRandom)
+    set dest=null
+endfunction
+//===========================================================================
+
+function InitTrig_ClearChooseHeroData takes nothing returns nothing
+    set gg_trg_ClearChooseHeroData=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_ClearChooseHeroData, function Trig_ClearChooseHeroDataActions)
+endfunction
+//===========================================================================
 // Trigger: NotifyPanel
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=190
 //TESH.alwaysfold=0
 
 function NP_initAppelation takes nothing returns nothing
@@ -7970,7 +9150,7 @@ function flushPanel takes nothing returns nothing
             if ( IsPlayerAlly(Player(i), localP) ) then
                 if ( t != null ) then
                     set r=TimerGetRemaining(t)
-                    call MultiboardSetItemValue(mbi, R2S(r))
+                    call MultiboardSetItemValue(mbi, I2S(R2I(r)))
                 else
                     call MultiboardSetItemValue(mbi, "0")
                 endif
@@ -8019,93 +9199,13 @@ function flushPanel takes nothing returns nothing
         endif
         
         set i=i + 1
-        exitwhen i > 5 - 1
-    endloop
-    
-    //处理中间行
-    set row=row + 1
-    
-    //处理海贼阵营
-    //处理海军多面板部分
-    set i=5
-    loop
-        if ( isPlayer[i] ) then
+        if ( i == 5 ) then
             set row=row + 1
-            
-            //称号
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 13)
-            set iTemp[1]=LoadInteger(normalHeroPanel_ht, i, 2)
-            if ( iTemp[0] > iTemp[1] and iTemp[0] >= 4 and iTemp[0] <= 10 ) then
-                set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 1)
-                call MultiboardSetItemValue(mbi, appellation[iTemp[0] - 2])
-                call SaveInteger(normalHeroPanel_ht, i, 2, iTemp[0])
-            endif
-            //复活计时
-            set t=LoadTimerHandle(normalHeroPanel_ht, i, 3)
-            if ( t != null ) then
-                set r=TimerGetRemaining(t)
-                set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 2)
-                if ( r < 0.5 ) then
-                    call MultiboardSetItemValue(mbi, "Live")
-                else
-                    call MultiboardSetItemValue(mbi, R2S(r))
-                endif
-                
-            endif
-            
-            //大招CD
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 3)
-            set t=LoadTimerHandle(normalHeroPanel_ht, i, 4)
-            if ( IsPlayerAlly(Player(i), localP) ) then
-                if ( t != null ) then
-                    set r=TimerGetRemaining(t)
-                    call MultiboardSetItemValue(mbi, R2S(r))
-                endif
-            endif
-            
-            //击杀
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 5)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 4)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            
-            //死亡
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 6)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 5)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            
-            //助攻
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 7)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 6)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            
-            //连杀
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 8)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 7)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            
-            //正反补
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 9)
-            set iTemp[1]=LoadInteger(normalHeroPanel_ht, i, 10)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 8)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]) + "/" + I2S(iTemp[1]))
-            
-            //金币
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 11)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 9)
-            if ( IsPlayerAlly(Player(i), localP) ) then
-                call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            endif
-            
-            //赏金
-            set iTemp[0]=LoadInteger(normalHeroPanel_ht, i, 12)
-            set mbi=MultiboardGetItem(normalHeroPanel_mb, row, 10)
-            call MultiboardSetItemValue(mbi, I2S(iTemp[0]))
-            
         endif
-        
-        set i=i + 1
         exitwhen i > 10 - 1
     endloop
+    
+    
     
     set p=null
     set t=null
@@ -8139,7 +9239,7 @@ endfunction
 //===========================================================================
 // Trigger: InitPanel
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=21
 //TESH.alwaysfold=0
 function Trig_InitPanelActions takes nothing returns nothing
     local integer i= 0
@@ -8183,6 +9283,7 @@ function Trig_InitPanelActions takes nothing returns nothing
     set mbi=null
 endfunction
 //===========================================================================
+
 function InitTrig_InitPanel takes nothing returns nothing
     set gg_trg_InitPanel=CreateTrigger()
     call DoNothing()
@@ -8193,7 +9294,7 @@ endfunction
 //
 // 复活：等级*2 + 分钟/2 + 杀人数 - 死亡数*（1.5+分钟/120） - 最大连杀*1.2      1--150
 //===========================================================================
-//TESH.scrollpos=81
+//TESH.scrollpos=101
 //TESH.alwaysfold=0
 
 function HR_heroRelive takes nothing returns nothing
@@ -8287,6 +9388,7 @@ function Trig_HeroReliveActions takes nothing returns nothing
     set t=null
 endfunction
 //===========================================================================
+
 function HR_registerFilter takes nothing returns boolean
     local unit u= GetTriggerUnit()
     
@@ -8747,6 +9849,7 @@ function Trig_KillerHeroActions takes nothing returns nothing
     set f=null
 endfunction
 //===========================================================================
+
 function KH_condition takes nothing returns boolean
     local unit u= GetTriggerUnit()
     local boolean b= IsUnitType(u, UNIT_TYPE_HERO) and ( not IsUnitIllusion(u) ) and ( GetUnitAbilityLevel(u, 'A015') == 0 )
@@ -8786,6 +9889,7 @@ function Trig_AssistDamageActions takes nothing returns nothing
     call SaveReal(playerkill_ht[triggerPId], sourcePId, 1, damage)
 endfunction
 //===========================================================================
+
 function AD_eventCondition takes nothing returns boolean
     local unit u= GetEventDamageSource()
     local player p= GetOwningPlayer(u)
@@ -8809,7 +9913,7 @@ endfunction
 //===========================================================================
 // Trigger: killAndDeny
 //===========================================================================
-//TESH.scrollpos=78
+//TESH.scrollpos=89
 //TESH.alwaysfold=0
 
 function Trig_killAndDenyActions takes nothing returns nothing
@@ -8894,6 +9998,7 @@ function KAD_registerFilter takes nothing returns boolean
     
     return b
 endfunction
+
 function InitTrig_killAndDeny takes nothing returns nothing
     local integer i= 0
     set gg_trg_killAndDeny=CreateTrigger()
@@ -8909,7 +10014,7 @@ endfunction
 //===========================================================================
 // Trigger: AttackAlly
 //===========================================================================
-//TESH.scrollpos=9
+//TESH.scrollpos=25
 //TESH.alwaysfold=0
 function Trig_AttackAllyActions takes nothing returns nothing
     local unit atter= GetAttacker()
@@ -8987,7 +10092,7 @@ endfunction
 //===========================================================================
 // Trigger: DialogBox
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=14
 //TESH.alwaysfold=0
 function Trig_DialogBoxActions takes nothing returns nothing
     
@@ -9018,6 +10123,7 @@ function Trig_DialogBoxActions takes nothing returns nothing
     
 endfunction
 //===========================================================================
+
 function InitTrig_DialogBox takes nothing returns nothing
     set gg_trg_DialogBox=CreateTrigger()
     call DoNothing()
@@ -9026,7 +10132,7 @@ endfunction
 //===========================================================================
 // Trigger: DialogClick
 //===========================================================================
-//TESH.scrollpos=6
+//TESH.scrollpos=37
 //TESH.alwaysfold=0
 //=====================================main动作
 function Trig_DialogClickActions takes nothing returns nothing
@@ -9082,6 +10188,7 @@ function Trig_DialogClickActions takes nothing returns nothing
     set btn=null
 endfunction
 //===========================================================================
+
 function InitTrig_DialogClick takes nothing returns nothing
     set gg_trg_DialogClick=CreateTrigger()
     call DoNothing()
@@ -9124,7 +10231,7 @@ endfunction
 //===========================================================================
 // Trigger: GameStart
 //===========================================================================
-//TESH.scrollpos=6
+//TESH.scrollpos=69
 //TESH.alwaysfold=0
 
 function GS_forceChooseHero takes nothing returns nothing
@@ -9194,9 +10301,18 @@ function GS_forceChooseHero takes nothing returns nothing
     set uTemp[1]=null
 endfunction
 
-function GP_gameStart takes nothing returns nothing
+function GS_clearChooseHeroData_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
     
+    call TriggerExecute(gg_trg_ClearChooseHeroData)
+    
+    call DestroyTimer(t)
+    set t=null
+endfunction
+
+function GP_gameStart takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local timer t1= CreateTimer()
     call remindAllPlayers(3 , "|cffff0000全军出击！！|r")
     call TimerDialogDisplay(gamePrepare_td, false)
     //游戏时间开始记录
@@ -9207,11 +10323,18 @@ function GP_gameStart takes nothing returns nothing
         call TriggerExecute(gg_trg_StateCreepsFlush)
     endif
     
+    //开启系统发工资
+    call TriggerExecute(gg_trg_SystemPayOff)
+    
     //强行选择英雄
     call GS_forceChooseHero()
     
+    //一分钟后清理选择英雄头像模块的数据
+    call TimerStart(t1, 60, false, function GS_clearChooseHeroData_timer)
+    
     call DestroyTimer(t)
     set t=null
+    set t1=null
     call DestroyTimerDialog(gamePrepare_td)
     set gamePrepare_td=null
 endfunction
@@ -9232,6 +10355,7 @@ function GP_flushSoldier takes nothing returns nothing
     call DestroyTimer(t)
     set t=null
 endfunction
+//===================main动作
 function Trig_GameStartActions takes nothing returns nothing
     local timer t= CreateTimer()
     local timer t1= CreateTimer()
@@ -9256,9 +10380,778 @@ function InitTrig_GameStart takes nothing returns nothing
     call TriggerAddAction(gg_trg_GameStart, function Trig_GameStartActions)
 endfunction
 //===========================================================================
+// Trigger: RegisterItemFuse
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+
+function RIF_initPlayersBuffCount takes nothing returns nothing
+    local integer i= 0
+    local integer j= 0
+    loop
+        exitwhen i > 10 - 1
+        loop
+            set j=0
+            exitwhen j > BUFF_TYPES - 1
+            call SaveInteger(heroWeaponBuff_ht, i, j, 0)
+            set j=j + 1
+        endloop
+        set i=i + 1
+    endloop
+    
+endfunction
+
+function RIF_registerHasBuffItems takes nothing returns nothing
+    
+    
+    
+endfunction
+
+function RIF_registerAllItems takes nothing returns nothing
+    
+    call RIF_registerHasBuffItems()
+    
+endfunction
+//========================main动作
+function Trig_RegisterItemFuseActions takes nothing returns nothing
+    call RIF_initPlayersBuffCount()
+    
+    call RIF_registerAllItems()
+endfunction
+//===========================================================================
+
+function InitTrig_RegisterItemFuse takes nothing returns nothing
+    set gg_trg_RegisterItemFuse=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_RegisterItemFuse, function Trig_RegisterItemFuseActions)
+endfunction
+//===========================================================================
+// Trigger: InitItemData
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_InitItemDataActions takes nothing returns nothing
+    call remindAllPlayers(2 , "初始化游戏物品数据。")
+    call TriggerExecute(gg_trg_RegisterItemFuse)
+    call remindAllPlayers(2 , "加载游戏物品数据完毕！")
+endfunction
+//===========================================================================
+
+function InitTrig_InitItemData takes nothing returns nothing
+    set gg_trg_InitItemData=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_InitItemData, function Trig_InitItemDataActions)
+endfunction
+//===========================================================================
+// Trigger: UnitDropItem
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_UnitDropItemActions takes nothing returns nothing
+    local unit u= GetManipulatingUnit()
+    local item it= GetManipulatedItem()
+    
+    call debugText("EVENT_PLAYER_UNIT_DROP_ITEM-触发丢弃物品事件")
+    call debugText("丢弃物品的单位： " + GetUnitName(u))
+    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
+    set u=null
+    set it=null
+endfunction
+//===========================================================================
+
+function InitTrig_UnitDropItem takes nothing returns nothing
+    set gg_trg_UnitDropItem=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(0), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(1), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(2), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(3), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(4), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(5), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(6), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(7), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(8), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(9), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(10), EVENT_PLAYER_UNIT_DROP_ITEM, null)
+    
+    call TriggerAddAction(gg_trg_UnitDropItem, function Trig_UnitDropItemActions)
+endfunction
+//===========================================================================
+// Trigger: UnitPickUpItem
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+ 
+function Trig_UnitPickUpItemActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local item it= GetManipulatedItem()
+    local integer itId= GetItemTypeId(it)
+    local player itemP= GetItemPlayer(it)
+    local player triggerP= GetTriggerPlayer()
+    
+    call debugText("EVENT_PLAYER_UNIT_PICKUP_ITEM-单位拾取物品触发！")
+    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
+    
+    if ( itemP != triggerP ) then
+    //捡到者不是物品拥有者
+        if ( isOriginalItemById(itId) ) then
+            call replaceOriginalItemToUnit(it , u)
+        endif
+        set u=null
+        set it=null
+        set itemP=null
+        set triggerP=null
+        return
+    else
+    //捡到者是物品拥有者
+        if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
+            if ( not isOriginalItemById(itId) ) then
+                set it=replaceSurrenalItemToUnit(it , u)
+                set itId=GetItemTypeId(it)
+            endif
+        else
+            if ( isOriginalItemById(itId) ) then
+                set it=replaceOriginalItemToUnit(it , u)
+                set itId=GetItemTypeId(it)
+            endif
+        endif
+    endif
+    
+    if ( fuseItemUnfillSlot(u , it) ) then
+        call debugText("合成成功")
+    endif
+    
+    set it=null
+    set u=null
+    set itemP=null
+    set triggerP=null
+endfunction
+//===========================================================================
+
+function InitTrig_UnitPickUpItem takes nothing returns nothing
+    set gg_trg_UnitPickUpItem=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(0), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(1), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(2), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(3), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(4), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(5), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(6), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(7), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(8), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(9), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(10), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    
+    call TriggerAddAction(gg_trg_UnitPickUpItem, function Trig_UnitPickUpItemActions)
+endfunction
+//===========================================================================
+// Trigger: UnitSpellObtainItem
+//===========================================================================
+//TESH.scrollpos=96
+//TESH.alwaysfold=0
+function Trig_UnitSpellObtainItemConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A000' ) )
+endfunction
+function USBI_action_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local item it= LoadItemHandle(heroSpellObtainItem_ht, GetHandleId(t), 0)
+    local unit u= LoadUnitHandle(heroSpellObtainItem_ht, GetHandleId(t), 1)
+    
+    call UnitAddAbility(u, 'A000')
+    if ( it != null ) then
+        call SetItemVisible(it, true)
+    endif
+    
+    set u=null
+    set it=null
+    set t=null
+endfunction
+//======================main动作
+
+function Trig_UnitSpellObtainItemActions takes nothing returns nothing
+    local integer i= 0
+    local unit u= GetTriggerUnit()
+    local item it= GetSpellTargetItem()
+    local integer itId= GetItemTypeId(it)
+    local real x= GetItemX(it)
+    local real y= GetItemY(it)
+    local timer t= CreateTimer()
+    local player itemP= GetItemPlayer(it)
+    local player triggerP= GetTriggerPlayer()
+    local integer array charges
+    local integer array iTemp
+    
+    call debugText("EVENT_PLAYER_UNIT_SPELL_CHANNEL-捡到物品动作触发！")
+    
+    if ( isItemOnlyById(itId) ) then
+    //物品只能唯一
+        set iTemp[0]=getExchangeItemIdById(itId)
+        if ( isUnitHasItemById(u , itId) or isUnitHasItemById(u , iTemp[0]) ) then
+        //拥有原件或者其对应替身
+            call toastWarningTextToPlayer(triggerP , "该物品只能获得一件！")
+            set u=null
+            set it=null
+            set t=null
+            set itemP=null
+            set triggerP=null
+            return
+        endif
+    
+    endif
+    
+    if ( isItemShareById(itId) ) then
+    //这是共享物品
+        //call UnitAddItem(u,it)
+        call unitAddPlayerItemById(u , itemP , itId)
+        call RemoveItem(it)
+        set u=null
+        set it=null
+        set t=null
+        set itemP=null
+        set triggerP=null
+        return
+    endif
+    
+    if ( itemP == triggerP ) then
+    //物品拥有者捡到装备
+        if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
+        //捡到物品单位是英雄
+            if ( not isOriginalItemById(itId) ) then
+                set it=replaceSurrenalItem(it)
+                set itId=GetItemTypeId(it)
+            endif
+        else
+        //捡到物品单位是宝宝
+            if ( isOriginalItemById(itId) ) then
+                set it=replaceSurrenalItem(it)
+                set itId=GetItemTypeId(it)
+            endif
+        endif
+        if ( isHasFillItems(u) ) then
+        //物品栏已满
+            if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
+            //已经拥有该物品，且该物品需要叠加
+                set charges[0]=getUnitItemChargesById(u , itId)
+                if ( charges[0] == 0 ) then
+                    set charges[0]=1
+                endif
+                set charges[1]=GetItemCharges(it)
+                if ( charges[1] == 1 ) then
+                    set charges[1]=1
+                endif
+                call setUnitItemChargesById(u , itId , charges[0] + charges[1])
+            else
+                call debugText("没有拥有该物品，或者该物品无法叠加")
+                if ( fuseItemFillSlot(u , it) ) then
+                //合成成功
+                    call RemoveItem(it)
+                else
+                //合成失败
+                    call toastInfoTextToPlayer(triggerP , "物品格已满！")
+                    call SaveItemHandle(heroSpellObtainItem_ht, GetHandleId(t), 0, it)
+                    call SetItemVisible(it, false)
+                endif
+                call SaveUnitHandle(heroSpellObtainItem_ht, GetHandleId(t), 1, u)
+                call UnitRemoveAbility(u, 'A000')
+                call TimerStart(t, 0, false, function USBI_action_timer)
+            endif
+        else
+        //物品栏未满
+            call debugText("物品未满，捡起来")
+            call unitAddItemById(u , itId)
+            call SetItemVisible(it, false)
+            call RemoveItem(it)
+        endif
+            
+    else
+    //其他玩家捡到物品
+        call toastInfoTextToPlayer(triggerP , "该物品不属于您！")
+        if ( isOriginalItemById(itId) ) then
+        //捡到真实物品，请求进行替换
+            set it=replaceOriginalItem(it)
+            set itId=GetItemTypeId(it)
+        endif
+        if ( isHasFillItems(u) ) then
+        //物品格已满
+            if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
+            //已经拥有该物品，且该物品需要叠加
+                set charges[0]=getUnitItemChargesById(u , itId)
+                if ( charges[0] == 0 ) then
+                    set charges[0]=1
+                endif
+                set charges[1]=GetItemCharges(it)
+                if ( charges[1] == 1 ) then
+                    set charges[1]=1
+                endif
+                call setUnitItemChargesById(u , itId , charges[0] + charges[1])
+            else
+                call toastInfoTextToPlayer(triggerP , "物品格已满！")
+            endif
+        else
+            call UnitAddItem(u, it)
+        endif
+    
+    endif
+    
+    
+    set u=null
+    set it=null
+    set t=null
+    set itemP=null
+    set triggerP=null
+endfunction
+//===========================================================================
+
+//===========================================================================
+function InitTrig_UnitSpellObtainItem takes nothing returns nothing
+    set gg_trg_UnitSpellObtainItem=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(0), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(1), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(2), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(3), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(4), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(5), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(6), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(7), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(8), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(9), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(10), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
+    call TriggerAddCondition(gg_trg_UnitSpellObtainItem, Condition(function Trig_UnitSpellObtainItemConditions))
+    call TriggerAddAction(gg_trg_UnitSpellObtainItem, function Trig_UnitSpellObtainItemActions)
+endfunction
+//===========================================================================
+// Trigger: UnitPickUpBuffItem
+//===========================================================================
+//TESH.scrollpos=58
+//TESH.alwaysfold=0
+
+
+function UPUBI_flushHeroHasItemBuff takes integer playerId,integer itId returns nothing
+    local integer i= 0
+    local integer buffType= 0
+    local integer buffCount= 0
+    local integer buffTypes= getItemBuffTypesById(itId)
+    
+    loop
+        exitwhen i > buffTypes - 1
+        set buffType=getItemBuffTypeById(itId , i)
+        set buffCount=getItemBuffCountById(itId , i)
+        call flushHeroBuffCountByBuffType(playerId , buffType , buffCount)
+        
+        set i=i + 1
+    endloop
+endfunction
+
+function UPUBI_flushHeroBuff takes unit u returns nothing
+    local integer i= 0
+    local item it= null
+    local integer itId= 0
+    local integer unitType= GetUnitTypeId(u)
+    local player p= GetOwningPlayer(u)
+    local integer playerId= GetPlayerId(p)
+    
+    call resetAndloadHeroselfBuff(playerId , unitType)
+    
+    loop
+        exitwhen i > 6 - 1
+        set it=UnitItemInSlot(u, i)
+        if ( it != null ) then
+            set itId=GetItemTypeId(it)
+            if ( isItemHasBuffById(itId) ) then
+            //这是一件具有buff的物品，请进行数据刷新操作
+                call UPUBI_flushHeroHasItemBuff(playerId , itId)
+            endif
+        endif
+        set i=i + 1
+    endloop
+    set p=null
+endfunction
+//======================main动作
+
+function Trig_UnitPickUpBuffItemActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local integer itId= GetItemTypeId(it)
+    local unit triggerU= GetTriggerUnit()
+    local player triggerP= GetTriggerPlayer()
+    
+    local integer filter= 1
+    
+    if ( not isItemHasBuffById(itId) ) then
+        set triggerU=null
+        set triggerP=null
+        return
+    endif
+    
+    call UPUBI_flushHeroBuff(triggerU)
+    
+    //向外界跑出一个广播，单位的buff数据更新了，请做跟随操作
+    call sendBroadcastToPlayer('e00F' , filter , triggerP)
+    
+    set it=null
+    set triggerU=null
+    set triggerP=null
+endfunction
+//===========================================================================
+
+function Trig_UnitPickUpBuffItemConditions takes nothing returns boolean
+//必须是英雄捡到带有buff的物品才通过再次计算单位身上的buff属性
+    return IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) and isItemHasBuffById(GetItemTypeId(GetManipulatedItem()))
+endfunction
+function InitTrig_UnitPickUpBuffItem takes nothing returns nothing
+    set gg_trg_UnitPickUpBuffItem=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_UnitPickUpBuffItem, function Trig_UnitPickUpBuffItemActions)
+endfunction
+//===========================================================================
+// Trigger: JusticeFlagOfRoshan
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_JusticeFlagOfRoshanActions takes nothing returns nothing
+    local real x= GetSpellTargetX()
+    local real y= GetSpellTargetY()
+    local player p= GetTriggerPlayer()
+    local player allay= null
+    local unit flag= null
+    if ( IsPlayerAlly(p, Player(NAVY_PLAYER)) ) then
+        set allay=Player(NAVY_PLAYER)
+    else
+        set allay=Player(PIRATE_PLAYER)
+    endif
+    set flag=CreateUnit(allay, 'o000', x, y, 0)
+    call UnitApplyTimedLife(flag, 'Bhwd', 180)
+    
+    set flag=null
+    set p=null
+    set allay=null
+endfunction
+//===========================================================================
+
+function Trig_JusticeFlagOfRoshanConditions takes nothing returns boolean
+    return GetSpellAbilityId() == 'A02H'
+endfunction
+function InitTrig_JusticeFlagOfRoshan takes nothing returns nothing
+    set gg_trg_JusticeFlagOfRoshan=CreateTrigger()
+    call DoNothing()
+    call triggerRegisterPlayingPlayersEvent(gg_trg_Escaped_Dagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
+    call TriggerAddAction(gg_trg_JusticeFlagOfRoshan, function Trig_JusticeFlagOfRoshanActions)
+endfunction
+//===========================================================================
+// Trigger: Escaped Dagger
+//===========================================================================
+//TESH.scrollpos=6
+//TESH.alwaysfold=0
+//=========================main动作
+function Trig_Escaped_DaggerActions takes nothing returns nothing
+    local unit triggerU= GetTriggerUnit()
+    local real originX= GetUnitX(triggerU)
+    local real originY= GetUnitY(triggerU)
+    local real targetX= GetSpellTargetX()
+    local real targetY= GetSpellTargetY()
+    local real dist= getDistanceInPts(originX , originY , targetX , targetY)
+    local real maxDist= 850
+    local real angle= getAngleFormXY(originX , originY , targetX , targetY)
+    
+    if ( dist > maxDist ) then
+        set dist=maxDist
+    endif
+    set targetX=getPolarX(originX , dist , angle)
+    set targetY=getPolarY(originY , dist , angle)
+    
+    call SetUnitX(triggerU, targetX)
+    call SetUnitY(triggerU, targetY)
+    
+    set triggerU=null
+endfunction
+//===========================================================================
+
+function Trig_Escaped_DaggerConditions takes nothing returns boolean
+    return GetSpellAbilityId() == 'A02G' and IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO)
+endfunction
+function InitTrig_Escaped_Dagger takes nothing returns nothing
+    set gg_trg_Escaped_Dagger=CreateTrigger()
+    call DoNothing()
+    call triggerRegisterPlayingPlayersEvent(gg_trg_Escaped_Dagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
+    call TriggerAddCondition(gg_trg_Escaped_Dagger, Condition(function Trig_Escaped_DaggerConditions))
+    call TriggerAddAction(gg_trg_Escaped_Dagger, function Trig_Escaped_DaggerActions)
+endfunction
+//===========================================================================
+// Trigger: UnitBeDamaged
+//===========================================================================
+//TESH.scrollpos=178
+//TESH.alwaysfold=0
+
+function UBD_isHasBuff takes integer probability returns boolean
+    return probability > 0
+endfunction
+//溅射
+function UBD_heroSputteringBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroSputteringBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//月刃
+function UBD_heroMoonGlaiveBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroMoonGlaiveBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//闪电链
+function UBD_heroLightningBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroLightningBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//残废
+function UBD_heroDisabledBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroDisabledBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//削魔
+function UBD_heroCuttingManaBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroCuttingManaBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//击晕
+function UBD_heroStunBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroStunBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//物理吸血
+function UBD_heroPhysicalVampireBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroPhysicalVampireBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//物理暴击
+function UBD_heroPhysicalCritBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroPhysicalCritBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//物理破防
+function UBD_heroBreakPhysicalDefenseBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroBreakPhysicalDefenseBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//法术吸血
+function UBD_heroMagicalVampireBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroMagicalVampireBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//法术暴击
+function UBD_heroMagicalCritBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroMagicalCritBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//法术穿透
+function UBD_heroBreakMagicalDefenseBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroBreakMagicalDefenseBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//闪避普攻
+function UBD_heroDodgeAttackBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroDodgeAttackBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//法抗
+function UBD_heroMagicalDefenseBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroMagicalDefenseBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//格挡
+function UBD_heroParryBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroParryBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//冰冻
+function UBD_heroFrozenBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroFrozenBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//疾行
+function UBD_heroScudBuff takes unit origin returns boolean
+    local integer probability= 0
+    set probability=getHeroScudBuff(origin)
+    if ( UBD_isHasBuff(probability) ) then
+        
+        return true
+    endif
+    return false
+endfunction
+//伤害来源是英雄,即来自英雄的普攻
+function UBD_heroDamage takes unit target,unit origin,real damage returns nothing
+    local player targetP= GetOwningPlayer(target)
+    local integer targetPId= GetPlayerId(targetP)
+    
+    
+    //普攻闪避,成功闪避时，忽略一切伤害
+    if ( UBD_heroDodgeAttackBuff(origin) ) then
+    
+        set targetP=null
+        return
+    endif
+    
+endfunction
+//神圣伤害
+function UBD_holyDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//物理单体伤害
+function UBD_physicalSingleDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//物理群体伤害
+function UBD_physicalMultiDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//不被反弹的物理伤害
+function UBD_noReversalPhysicalDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//不被反弹的魔法伤害
+function UBD_noReversalMagicalDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//魔法单体伤害
+function UBD_magicalSingleDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//魔法群体伤害
+function UBD_magicalMultiDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//小兵，野怪，召唤物的伤害
+function UBD_minionsDamage takes unit target,unit origin,real damage returns nothing
+endfunction
+//========================main动作
+function Trig_UnitBeDamagedActions takes nothing returns nothing
+    local unit target= GetTriggerUnit()
+    local unit origin= GetEventDamageSource()
+    local integer originalType= GetUnitTypeId(origin)
+    local real damage= GetEventDamage()
+    if ( IsUnitType(origin, UNIT_TYPE_HERO) ) then
+    //伤害来源为英雄
+        call UBD_heroDamage(target , origin , damage)
+    elseif ( originalType == 'e007' ) then
+    //神圣伤害
+    
+    elseif ( originalType == 'e008' ) then
+    //物理单体伤害
+    
+    elseif ( originalType == 'e009' ) then
+    //物理群体伤害
+    
+    elseif ( originalType == 'e00A' ) then
+    //不被反弹的物理伤害
+    
+    elseif ( originalType == 'e00D' ) then
+    //不被反弹的魔法伤害
+    
+    elseif ( originalType == 'e00B' ) then
+    //魔法单体伤害
+    
+    elseif ( originalType == 'e00C' ) then
+    //魔法群体伤害
+    
+    elseif ( originalType == 'e00E' ) then
+    //不被触发的伤害，该伤害应该被忽略
+    
+    else
+    //来自小兵，野怪，召唤物的伤害
+    
+    endif
+    
+    
+    set target=null
+    set origin=null
+endfunction
+//===========================================================================
+
+function Trig_UnitBeDamagedConditions takes nothing returns boolean
+    return ( not IsUnitType(GetTriggerUnit(), UNIT_TYPE_STRUCTURE) ) and ( GetEventDamage() >= 1 )
+endfunction
+function InitTrig_UnitBeDamaged takes nothing returns nothing
+    set gg_trg_UnitBeDamaged=CreateTrigger()
+    call DoNothing()
+    call YDWESyStemAnyUnitDamagedRegistTrigger(gg_trg_UnitBeDamaged)
+    call TriggerAddCondition(gg_trg_UnitBeDamaged, Condition(function Trig_UnitBeDamagedConditions))
+    call TriggerAddAction(gg_trg_UnitBeDamaged, function Trig_UnitBeDamagedActions)
+endfunction
+//===========================================================================
 // Trigger: AbilityData
 //===========================================================================
-//TESH.scrollpos=83
+//TESH.scrollpos=69
 //TESH.alwaysfold=0
 
 function Trig_AbilityDataActions takes nothing returns nothing
@@ -9270,20 +11163,7 @@ function Trig_AbilityDataActions takes nothing returns nothing
     set space[1]="   "
     set space[2]="    "
     
-    //初始化玩家的英雄的武器buff数值
-    set i=0
-    loop
-        set j=0
-        loop
-            call SaveInteger(heroWeaponBuff_ht, i, j, 0)
-            set j=j + 1
-            exitwhen j > 16 - 1
-        endloop
-        set i=i + 1
-        exitwhen i > 10 - 1
-    endloop
-    
-    
+    //保存英雄头像技能进英雄类型中
     call saveIInInteger('A003' , "buffAbil" , 'H01E')
     call saveIInInteger('A00C' , "buffAbil" , 'H00L')
     call saveIInInteger('A00D' , "buffAbil" , 'H00M')
@@ -9631,286 +11511,23 @@ function InitTrig_ShowAction takes nothing returns nothing
     call TriggerAddAction(gg_trg_ShowAction, function Trig_ShowActionActions)
 endfunction
 //===========================================================================
-// Trigger: FuncForItem
-//===========================================================================
-//TESH.scrollpos=795
-//TESH.alwaysfold=0
-
-// Trigger: FuncForToast
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-
-// Trigger: UnitDropItem
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-function Trig_UnitDropItemActions takes nothing returns nothing
-    local unit u= GetManipulatingUnit()
-    local item it= GetManipulatedItem()
-    
-    call debugText("EVENT_PLAYER_UNIT_DROP_ITEM-触发丢弃物品事件")
-    call debugText("丢弃物品的单位： " + GetUnitName(u))
-    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
-    set u=null
-    set it=null
-endfunction
-//===========================================================================
-
-function InitTrig_UnitDropItem takes nothing returns nothing
-    set gg_trg_UnitDropItem=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(0), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(1), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(2), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(3), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(4), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(5), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(6), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(7), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(8), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(9), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(10), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    
-    call TriggerAddAction(gg_trg_UnitDropItem, function Trig_UnitDropItemActions)
-endfunction
-//===========================================================================
-// Trigger: UnitPickUpItem
-//===========================================================================
-//TESH.scrollpos=17
-//TESH.alwaysfold=0
- 
-function Trig_UnitPickUpItemActions takes nothing returns nothing
-    local unit u= GetTriggerUnit()
-    local item it= GetManipulatedItem()
-    local integer itId= GetItemTypeId(it)
-    local player itemP= GetItemPlayer(it)
-    local player triggerP= GetTriggerPlayer()
-    
-    call debugText("EVENT_PLAYER_UNIT_PICKUP_ITEM-单位拾取物品触发！")
-    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
-    
-    if ( itemP != triggerP ) then
-    //捡到者不是物品拥有者
-        if ( isOriginalItemById(itId) ) then
-            call replaceOriginalItemToUnit(it , u)
-        endif
-        set u=null
-        set it=null
-        set itemP=null
-        set triggerP=null
-        return
-    else
-    //捡到者是物品拥有者
-        if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
-            if ( not isOriginalItemById(itId) ) then
-                set it=replaceSurrenalItemToUnit(it , u)
-                set itId=GetItemTypeId(it)
-            endif
-        else
-            if ( isOriginalItemById(itId) ) then
-                set it=replaceOriginalItemToUnit(it , u)
-                set itId=GetItemTypeId(it)
-            endif
-        endif
-    endif
-    
-    if ( fuseItemUnfillSlot(u , it) ) then
-        call debugText("合成成功")
-    endif
-    
-    set it=null
-    set u=null
-    set itemP=null
-    set triggerP=null
-endfunction
-//===========================================================================
-
-function InitTrig_UnitPickUpItem takes nothing returns nothing
-    set gg_trg_UnitPickUpItem=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(0), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(1), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(2), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(3), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(4), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(5), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(6), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(7), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(8), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(9), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(10), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    
-    call TriggerAddAction(gg_trg_UnitPickUpItem, function Trig_UnitPickUpItemActions)
-endfunction
-//===========================================================================
-// Trigger: UnitSpellObtainItem
-//===========================================================================
-//TESH.scrollpos=80
-//TESH.alwaysfold=0
-function Trig_UnitSpellObtainItemConditions takes nothing returns boolean
-    return ( ( GetSpellAbilityId() == 'A000' ) )
-endfunction
-function USBI_action_timer takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local item it= LoadItemHandle(heroSpellObtainItem_ht, GetHandleId(t), 0)
-    local unit u= LoadUnitHandle(heroSpellObtainItem_ht, GetHandleId(t), 1)
-    
-    call UnitAddAbility(u, 'A000')
-    if ( it != null ) then
-        call SetItemVisible(it, true)
-    endif
-    
-    set u=null
-    set it=null
-    set t=null
-endfunction
-//======================main动作
-
-function Trig_UnitSpellObtainItemActions takes nothing returns nothing
-    local integer i= 0
-    local unit u= GetTriggerUnit()
-    local item it= GetSpellTargetItem()
-    local integer itId= GetItemTypeId(it)
-    local real x= GetItemX(it)
-    local real y= GetItemY(it)
-    local timer t= CreateTimer()
-    local player itemP= GetItemPlayer(it)
-    local player triggerP= GetTriggerPlayer()
-    local integer array charges
-    
-    call debugText("EVENT_PLAYER_UNIT_SPELL_CHANNEL-捡到物品动作触发！")
-    
-    if ( isItemShareById(itId) ) then
-    //这是共享物品
-        call UnitAddItem(u, it)
-        set u=null
-        set it=null
-        set t=null
-        set itemP=null
-        set triggerP=null
-        return
-    endif
-    
-    if ( itemP == triggerP ) then
-    //物品拥有者捡到装备
-        if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
-        //捡到物品单位是英雄
-            if ( not isOriginalItemById(itId) ) then
-                set it=replaceSurrenalItem(it)
-                set itId=GetItemTypeId(it)
-            endif
-        else
-        //捡到物品单位是宝宝
-            if ( isOriginalItemById(itId) ) then
-                set it=replaceSurrenalItem(it)
-                set itId=GetItemTypeId(it)
-            endif
-        endif
-        if ( isHasFillItems(u) ) then
-        //物品栏已满
-            if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
-            //已经拥有该物品，且该物品需要叠加
-                set charges[0]=getUnitItemChargesById(u , itId)
-                if ( charges[0] == 0 ) then
-                    set charges[0]=1
-                endif
-                set charges[1]=GetItemCharges(it)
-                if ( charges[1] == 1 ) then
-                    set charges[1]=1
-                endif
-                call setUnitItemChargesById(u , itId , charges[0] + charges[1])
-            else
-                call debugText("没有拥有该物品，或者该物品无法叠加")
-                if ( fuseItemFillSlot(u , it) ) then
-                //合成成功
-                    call RemoveItem(it)
-                else
-                //合成失败
-                    call toastInfoTextToPlayer(triggerP , "物品格已满！")
-                    call SaveItemHandle(heroSpellObtainItem_ht, GetHandleId(t), 0, it)
-                    call SetItemVisible(it, false)
-                endif
-                call SaveUnitHandle(heroSpellObtainItem_ht, GetHandleId(t), 1, u)
-                call UnitRemoveAbility(u, 'A000')
-                call TimerStart(t, 0, false, function USBI_action_timer)
-            endif
-        else
-        //物品栏未满
-            call debugText("物品未满，捡起来")
-            call unitAddItemById(u , itId)
-            call SetItemVisible(it, false)
-            call RemoveItem(it)
-        endif
-            
-    else
-    //其他玩家捡到物品
-        call toastInfoTextToPlayer(triggerP , "该物品不属于您！")
-        if ( isOriginalItemById(itId) ) then
-        //捡到真实物品，请求进行替换
-            set it=replaceOriginalItem(it)
-            set itId=GetItemTypeId(it)
-        endif
-        if ( isHasFillItems(u) ) then
-        //物品格已满
-            if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
-            //已经拥有该物品，且该物品需要叠加
-                set charges[0]=getUnitItemChargesById(u , itId)
-                if ( charges[0] == 0 ) then
-                    set charges[0]=1
-                endif
-                set charges[1]=GetItemCharges(it)
-                if ( charges[1] == 1 ) then
-                    set charges[1]=1
-                endif
-                call setUnitItemChargesById(u , itId , charges[0] + charges[1])
-            else
-                call toastInfoTextToPlayer(triggerP , "物品格已满！")
-            endif
-        else
-            call UnitAddItem(u, it)
-        endif
-    
-    endif
-    
-    
-    set u=null
-    set it=null
-    set t=null
-    set itemP=null
-    set triggerP=null
-endfunction
-//===========================================================================
-
-//===========================================================================
-function InitTrig_UnitSpellObtainItem takes nothing returns nothing
-    set gg_trg_UnitSpellObtainItem=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(0), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(1), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(2), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(3), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(4), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(5), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(6), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(7), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(8), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(9), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(10), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerAddCondition(gg_trg_UnitSpellObtainItem, Condition(function Trig_UnitSpellObtainItemConditions))
-    call TriggerAddAction(gg_trg_UnitSpellObtainItem, function Trig_UnitSpellObtainItemActions)
-endfunction
-//===========================================================================
 function InitCustomTriggers takes nothing returns nothing
     //Function not found: call InitTrig_FuncForDebug()
     //Function not found: call InitTrig_FuncForGame()
+    //Function not found: call InitTrig_FuncForBroadcast()
+    //Function not found: call InitTrig_FuncForPlayer()
+    //Function not found: call InitTrig_FuncForUnit()
     //Function not found: call InitTrig_DataSetAndGet()
     //Function not found: call InitTrig_FuncForRegister()
+    //Function not found: call InitTrig_FuncForItem()
+    //Function not found: call InitTrig_FuncForToast()
+    //Function not found: call InitTrig_FuncForDamage()
+    //Function not found: call InitTrig_FuncForCreep()
     //Function not found: call InitTrig_japiConstant()
     //Function not found: call InitTrig_newJapiLibrary()
     //Function not found: call InitTrig_d3dLibrary()
     //Function not found: call InitTrig_______japi___u()
-    call InitTrig_initData()
+    call InitTrig_InitData()
     call InitTrig_AllianceSet()
     call InitTrig_ForbidAbility()
     call InitTrig_GameInitData()
@@ -9918,7 +11535,8 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_UnitLevel()
     call InitTrig_GameTime()
     call InitTrig_noteUnitMoney()
-    call InitTrig_Creeps()
+    call InitTrig_SystemPayOff()
+    call InitTrig_RegisterCreeps()
     call InitTrig_InitCreep()
     call InitTrig_StateCreepsFlush()
     call InitTrig_SeaRegionCreep()
@@ -9926,9 +11544,10 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_SnowCreep()
     call InitTrig_MagmaCreep()
     call InitTrig_BossCreep()
-    call InitTrig_Soldiers()
-    call InitTrig_AttackDir()
-    call InitTrig_Towers()
+    call InitTrig_CreepsDeath()
+    call InitTrig_RegisterSoldiers()
+    call InitTrig_RegisterAttackDir()
+    call InitTrig_RegisterTowers()
     call InitTrig_InitAttackAndDef()
     call InitTrig_StateFlushSoldiersAll()
     call InitTrig_SoldierLeak()
@@ -9942,13 +11561,13 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_TowerProtect()
     call InitTrig_TowerAttack()
     call InitTrig_TowerDefendRel()
-    call InitTrig_SeaAreas()
-    call InitTrig_UnitSeaDebuff()
+    call InitTrig_RegisterSeaAreas()
+    call InitTrig_RegisterUnitSeaDebuff()
     call InitTrig_InitSeaData()
     call InitTrig_EnterSea()
     call InitTrig_ExitSea()
-    call InitTrig_HeroInfo()
-    call InitTrig_PlayerHashInfo()
+    call InitTrig_RegisterHeroInfo()
+    call InitTrig_RegisterPlayerHashInfo()
     call InitTrig_InitChooseInterface()
     call InitTrig_startChosenInterface()
     call InitTrig_ChooseInterface()
@@ -9960,6 +11579,7 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_ClickConfirmByTurn()
     call InitTrig_TurnToChoose()
     call InitTrig_UseTurnChoose()
+    call InitTrig_ClearChooseHeroData()
     call InitTrig_NotifyPanel()
     call InitTrig_InitPanel()
     call InitTrig_HeroRelive()
@@ -9972,6 +11592,15 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_DialogClick()
     call InitTrig_GamePrepare()
     call InitTrig_GameStart()
+    call InitTrig_RegisterItemFuse()
+    call InitTrig_InitItemData()
+    call InitTrig_UnitDropItem()
+    call InitTrig_UnitPickUpItem()
+    call InitTrig_UnitSpellObtainItem()
+    call InitTrig_UnitPickUpBuffItem()
+    call InitTrig_JusticeFlagOfRoshan()
+    call InitTrig_Escaped_Dagger()
+    call InitTrig_UnitBeDamaged()
     call InitTrig_AbilityData()
     call InitTrig_InitAbilTrg()
     call InitTrig_CameraUp()
@@ -9985,16 +11614,11 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_SetAgi()
     call InitTrig_SetInt()
     call InitTrig_ShowAction()
-    //Function not found: call InitTrig_FuncForItem()
-    //Function not found: call InitTrig_FuncForToast()
-    call InitTrig_UnitDropItem()
-    call InitTrig_UnitPickUpItem()
-    call InitTrig_UnitSpellObtainItem()
 endfunction
 //===========================================================================
 function RunInitializationTriggers takes nothing returns nothing
     call ConditionalTriggerExecute(gg_trg_FuncForGame)
-    call ConditionalTriggerExecute(gg_trg_initData)
+    call ConditionalTriggerExecute(gg_trg_InitData)
     call ConditionalTriggerExecute(gg_trg_AllianceSet)
     call ConditionalTriggerExecute(gg_trg_ForbidAbility)
     call ConditionalTriggerExecute(gg_trg_noteUnitMoney)
@@ -10243,11 +11867,10 @@ function main takes nothing returns nothing
     call SetAmbientNightSound("LordaeronSummerNight")
     call SetMapMusic("Music", true, 0)
     call CreateRegions()
-    call CreateAllItems()
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs23745656")
+call ExecuteFunc("jasshelper__initstructs4408703")
 
     call InitGlobals()
     call InitCustomTriggers()
@@ -10281,6 +11904,11 @@ function config takes nothing returns nothing
     call InitCustomTeams()
     call InitAllyPriorities()
 endfunction
+//===========================================================================  
+//===========================================================================  
+//�Զ����¼� 
+//===========================================================================
+//===========================================================================   
 
 
 
@@ -10292,7 +11920,7 @@ local integer this=f__arg_this
    return true
 endfunction
 
-function jasshelper__initstructs23745656 takes nothing returns nothing
+function jasshelper__initstructs4408703 takes nothing returns nothing
     set st__LOGFONT_onDestroy=CreateTrigger()
     call TriggerAddCondition(st__LOGFONT_onDestroy,Condition( function sa__LOGFONT_onDestroy))
 
