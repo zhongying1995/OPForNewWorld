@@ -8,14 +8,18 @@ constant boolean LIBRARY_FuncForBroadcast=true
 //globals from FuncForDebug:
 constant boolean LIBRARY_FuncForDebug=true
 //endglobals from FuncForDebug
-//globals from FuncForGame:
-constant boolean LIBRARY_FuncForGame=true
-//endglobals from FuncForGame
+//globals from FuncForEffect:
+constant boolean LIBRARY_FuncForEffect=true
+hashtable FuncForEffect__effect_ht= InitHashtable()
+    
+//endglobals from FuncForEffect
 //globals from FuncForRegister:
 constant boolean LIBRARY_FuncForRegister=true
 //endglobals from FuncForRegister
 //globals from FuncForToast:
 constant boolean LIBRARY_FuncForToast=true
+hashtable FuncForToast__toast_ht= InitHashtable()
+    
 //endglobals from FuncForToast
 //globals from JapiConstantLib:
 constant boolean LIBRARY_JapiConstantLib=true
@@ -53,9 +57,15 @@ integer array i_31
 integer array i_32
 
 //endglobals from JapiConstantLib
+//globals from YDWEEnumDestructablesInCircleBJFilterNull:
+constant boolean LIBRARY_YDWEEnumDestructablesInCircleBJFilterNull=true
+//endglobals from YDWEEnumDestructablesInCircleBJFilterNull
 //globals from YDWEEnumUnitsSelectedNull:
 constant boolean LIBRARY_YDWEEnumUnitsSelectedNull=true
 //endglobals from YDWEEnumUnitsSelectedNull
+//globals from YDWEGetInventoryIndexOfItemTypeBJNull:
+constant boolean LIBRARY_YDWEGetInventoryIndexOfItemTypeBJNull=true
+//endglobals from YDWEGetInventoryIndexOfItemTypeBJNull
 //globals from YDWETriggerEvent:
 constant boolean LIBRARY_YDWETriggerEvent=true
 trigger yd_DamageEventTrigger= null
@@ -68,37 +78,56 @@ trigger YDWETriggerEvent___MoveItemEventTrigger= null
 trigger array YDWETriggerEvent___MoveItemEventQueue
 integer YDWETriggerEvent___MoveItemEventNumber= 0
 //endglobals from YDWETriggerEvent
-//globals from FuncForDamage:
-constant boolean LIBRARY_FuncForDamage=true
-hashtable FuncForDamage__FuncForDamage_ht= InitHashtable()
-//endglobals from FuncForDamage
 //globals from FuncForItem:
 constant boolean LIBRARY_FuncForItem=true
+string array ssssss
+    //保存物品的合成公式
+hashtable FuncForItem__itemSyntheticFormula_ht= InitHashtable()
+    //保存物品的指向配方
+hashtable FuncForItem__itemFuseItems_ht= InitHashtable()
+    //保存物品的某些信息
+hashtable FuncForItem__itemNativeInfo_ht= InitHashtable()
+    //保存正牌物品和替身物品
+hashtable FuncForItem__itemSurrenal_ht= InitHashtable()
+    
+hashtable ITEM_HT= InitHashtable()
+    
 //endglobals from FuncForItem
-//globals from FuncForPlayer:
-constant boolean LIBRARY_FuncForPlayer=true
-//endglobals from FuncForPlayer
+//globals from YDWEEnumDestructablesInCircleBJNull:
+constant boolean LIBRARY_YDWEEnumDestructablesInCircleBJNull=true
+//endglobals from YDWEEnumDestructablesInCircleBJNull
 //globals from japi:
 constant boolean LIBRARY_japi=true
 hashtable japi_ht=InitHashtable()
 integer japi__key=StringHash("jass")
 //endglobals from japi
-//globals from FuncForCreep:
-constant boolean LIBRARY_FuncForCreep=true
-//endglobals from FuncForCreep
-//globals from FuncForUnit:
-constant boolean LIBRARY_FuncForUnit=true
-//endglobals from FuncForUnit
+//globals from FuncForGame:
+constant boolean LIBRARY_FuncForGame=true
+//endglobals from FuncForGame
 //globals from LocalActionLib:
 constant boolean LIBRARY_LocalActionLib=true
-constant hashtable LocalActionLib__ht=japi_ht
-constant integer LocalActionLib__key=StringHash("jass")
+constant hashtable LocalActionLib___ht=japi_ht
+constant integer LocalActionLib___key=StringHash("jass")
 //endglobals from LocalActionLib
 //globals from d3d:
 constant boolean LIBRARY_d3d=true
 constant hashtable d3d__ht=japi_ht
 constant integer d3d__key=StringHash("jass")
 //endglobals from d3d
+//globals from FuncForDamage:
+constant boolean LIBRARY_FuncForDamage=true
+hashtable FuncForDamage__FuncForDamage_ht= InitHashtable()
+//endglobals from FuncForDamage
+//globals from FuncForPlayer:
+constant boolean LIBRARY_FuncForPlayer=true
+//endglobals from FuncForPlayer
+//globals from FuncForCreep:
+constant boolean LIBRARY_FuncForCreep=true
+//endglobals from FuncForCreep
+//globals from FuncForUnit:
+constant boolean LIBRARY_FuncForUnit=true
+hashtable FuncForUnit__UNIT_HT= InitHashtable()
+//endglobals from FuncForUnit
     // User-defined
 real array udg_CreepsBirthPointX
 real array udg_CreepsBirthPointY
@@ -232,11 +261,14 @@ rect gg_rct_NavyHeroBirth= null
 rect gg_rct_PirateHeroBirth= null
 rect gg_rct_CreepMagmaBirth= null
 rect gg_rct_BroadcastRct= null
+rect gg_rct_NavyCampsite= null
+rect gg_rct_PirateCampsite= null
 trigger gg_trg_FuncForDebug= null
 trigger gg_trg_FuncForGame= null
 trigger gg_trg_FuncForBroadcast= null
 trigger gg_trg_FuncForPlayer= null
 trigger gg_trg_FuncForUnit= null
+trigger gg_trg_FuncForEffect= null
 trigger gg_trg_DataSetAndGet= null
 trigger gg_trg_FuncForRegister= null
 trigger gg_trg_FuncForItem= null
@@ -319,9 +351,64 @@ trigger gg_trg_UnitDropItem= null
 trigger gg_trg_UnitPickUpItem= null
 trigger gg_trg_UnitSpellObtainItem= null
 trigger gg_trg_UnitPickUpBuffItem= null
+trigger gg_trg_aaa= null
+trigger gg_trg_RegisterEventIntoSpring= null
 trigger gg_trg_JusticeFlagOfRoshan= null
-trigger gg_trg_Escaped_Dagger= null
+trigger gg_trg_EscapedDagger= null
+trigger gg_trg_ActorMask= null
+trigger gg_trg_KeKeYaXiOrange= null
+trigger gg_trg_Cheese= null
+trigger gg_trg_Sandwich= null
+trigger gg_trg_OctopusBarbecue= null
+trigger gg_trg_LuoLuoBottle= null
+trigger gg_trg_UesBottle= null
+trigger gg_trg_BottleIntoSpring= null
+trigger gg_trg_LizardSaliva= null
+trigger gg_trg_Flour= null
+trigger gg_trg_FreshwaterBarrel= null
+trigger gg_trg_SeaStone= null
+trigger gg_trg_SeaSnakeVenom= null
+trigger gg_trg_Rope= null
+trigger gg_trg_PrepareRope= null
+trigger gg_trg_Glove= null
+trigger gg_trg_PrepareGlove= null
+trigger gg_trg_QiLu= null
+trigger gg_trg_WeiBaSprint= null
+trigger gg_trg_BlackFoot_str= null
+trigger gg_trg_BlackFoot_agi= null
+trigger gg_trg_BlackFoot_int= null
+trigger gg_trg_ZhePuRedShoe_life= null
+trigger gg_trg_ZhePuRedShoe_heart= null
+trigger gg_trg_AutoIncreaTelephoneWormPackage= null
+trigger gg_trg_TelephoneWormPackageIntoSpring= null
+trigger gg_trg_WeiBei= null
+trigger gg_trg_GoldenArmour= null
+trigger gg_trg_TravelerCloth= null
+trigger gg_trg_Assistance= null
+trigger gg_trg_SunLoricae= null
+trigger gg_trg_Curse= null
+trigger gg_trg_Cutting= null
+trigger gg_trg_Purify= null
+trigger gg_trg_ThunderStrikeLv1= null
+trigger gg_trg_ThunderStrikeLv2= null
+trigger gg_trg_ThunderStrikeLv3= null
+trigger gg_trg_ThunderStrikeLv4= null
+trigger gg_trg_ThunderStrikeLv5= null
+trigger gg_trg_GetHaiGodHeart= null
+trigger gg_trg_Blindness= null
+trigger gg_trg_GetAoHaLaWand= null
+trigger gg_trg_UseAoHaLaWand= null
+trigger gg_trg_TransportHorn= null
+trigger gg_trg_TransportZhuiYun= null
+trigger gg_trg_TransportFeiNiao= null
+trigger gg_trg_TransportZhuiYunFeiNiao= null
+trigger gg_trg_SwordOfSoul= null
+trigger gg_trg_HeDaoYiWenZhi= null
+trigger gg_trg_GetHeiDou= null
+trigger gg_trg_DropHeiDou= null
+trigger gg_trg_QiuShui= null
 trigger gg_trg_UnitBeDamaged= null
+trigger gg_trg_HeroAttacking= null
 trigger gg_trg_AbilityData= null
 trigger gg_trg_InitAbilTrg= null
 trigger gg_trg_CameraUp= null
@@ -335,6 +422,7 @@ trigger gg_trg_SetStr= null
 trigger gg_trg_SetAgi= null
 trigger gg_trg_SetInt= null
 trigger gg_trg_ShowAction= null
+trigger gg_trg_CreateItem= null
 unit gg_unit_h00J_0065= null
 unit gg_unit_h00J_0064= null
 unit gg_unit_h00J_0063= null
@@ -371,6 +459,8 @@ unit gg_unit_h00G_0051= null
 unit gg_unit_h00D_0052= null
 unit gg_unit_h00I_0060= null
 unit gg_unit_h00I_0061= null
+unit gg_unit_Hpal_0067= null
+unit gg_unit_hpea_0077= null
     
     //该数仅用于求取矩形内单位的个数
 integer m_unitCountInRect= 0
@@ -384,25 +474,15 @@ hashtable tag_ht= InitHashtable()
 boolean array buyBack
     
     //地图边界
-real MAP_MIN_X= GetRectMinX(bj_mapInitialPlayableArea) + 50
-real MAP_MAX_X= GetRectMaxX(bj_mapInitialPlayableArea) - 50
-real MAP_MIN_Y= GetRectMinY(bj_mapInitialPlayableArea) + 50
-real MAP_MAX_Y= GetRectMaxY(bj_mapInitialPlayableArea) - 50
-    
-    
+real MAP_MIN_X= 0
+real MAP_MAX_X= 0
+real MAP_MIN_Y= 0
+real MAP_MAX_Y= 0
     
 region RECEIVER_REGION
 rect RECEIVER_RECT
 hashtable RECEIVER_HT= InitHashtable()
 hashtable SET_GET_HASH= InitHashtable()
-    //保存物品的合成公式
-hashtable itemSyntheticFormula_ht= InitHashtable()
-    //保存物品的指向配方
-hashtable itemFuseItems_ht= InitHashtable()
-    //保存物品的某些信息
-hashtable itemNativeInfo_ht= InitHashtable()
-    //保存正牌物品和替身物品
-hashtable itemSurrenal_ht= InitHashtable()
     //野怪boss的类型数组
 integer array CreepsBossTypes
     
@@ -436,7 +516,7 @@ integer MAIN_ROAD= 0
 integer SIDE_ROAD= 1
     //技能哈希表，存放释放技能时需要保存的数据
 hashtable SPELL_HS= InitHashtable()
-    
+hashtable SPELL_HT= InitHashtable()
     
     
     
@@ -579,6 +659,9 @@ integer BUFF_TYPES= 19
     
 hashtable heroSpellObtainItem_ht= InitHashtable()
     
+region SPRING_REGION
+integer array GoldenArmour_ueingTimes
+hashtable damage_ht= InitHashtable()
     //设置空格个数
 string array space
     
@@ -755,89 +838,73 @@ function debugPoint takes real x,real y returns nothing
 endfunction
 
 //library FuncForDebug ends
-//library FuncForGame:
-//===========================================================================
+//library FuncForEffect:
 
-function getDistanceInPts takes real x0,real y0,real x1,real y1 returns real
-    
-    local real x= x0 - x1
-    local real y= y0 - y1
-    return SquareRoot(x * x + y * y)
-    
-endfunction
-//===========================================================================
-
-function getPolarX takes real x,real dist,real angle returns real
-    return x + dist * Cos(angle * bj_DEGTORAD)
-endfunction
-function getPolarY takes real y,real dist,real angle returns real
-    return y + dist * Sin(angle * bj_DEGTORAD)
-endfunction
-//===========================================================================
-
-function getAngleFormXY takes real x,real y,real x1,real y1 returns real
-    return bj_RADTODEG * Atan2(y1 - y, x1 - x)
-endfunction
-//===========================================================================
-
-function getSafeX takes real x returns real
-     
-     if ( x < MAP_MIN_X ) then
-         return MAP_MIN_X
-     endif
-     
-     if ( x > MAP_MAX_X ) then
-         return MAP_MAX_X
-     endif
-     return x
-endfunction
-function getSafeY takes real y returns real
-     
-     if ( y < MAP_MIN_Y ) then
-         return MAP_MIN_Y
-     endif
-     
-     if ( y > MAP_MAX_Y ) then
-         return MAP_MAX_Y
-     endif
-     return y
-endfunction
-//===========================================================================
-
-function changeTextTagScale_timeDo takes nothing returns nothing
+function FuncForEffect_destroyEffect_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
-    local integer pKey= GetHandleId(t)
-    local string s= LoadStr(tag_ht, pKey, 0)
-    local texttag tag= LoadTextTagHandle(tag_ht, pKey, 2)
-    local real scale= LoadReal(tag_ht, pKey, 1)
-    call SetTextTagText(tag, s, scale)
+    local effect ef= LoadEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0)
+    call DestroyEffect(ef)
     call DestroyTimer(t)
     set t=null
+    set ef=null
 endfunction
-function changeTextTagScaleTime takes texttag tag,string s,real scale,real time returns nothing
+//=============================
+
+function createEffectOnUnitAndDeleteAfter takes string modelName,widget target,string attachPointName,real long returns effect
+    local effect ef= AddSpecialEffectTarget(modelName, target, attachPointName)
     local timer t= CreateTimer()
-    local integer pKey= GetHandleId(t)
-    call SaveStr(tag_ht, pKey, 0, s)
-    call SaveReal(tag_ht, pKey, 1, scale)
-    call SaveTextTagHandle(tag_ht, pKey, 2, tag)
-    call TimerStart(t, time, false, function changeTextTagScale_timeDo)
+    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
+    set t=null
+    return ef
+endfunction
+//=============================
+
+function createEffectOnCoordinateAndDeleteAfter takes string modelName,real x,real y,real long returns effect
+    local effect ef= AddSpecialEffect(modelName, x, y)
+    local timer t= CreateTimer()
+    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
+    set t=null
+    return ef
+endfunction
+//=============================
+
+function createEffectOnLocationAndDeleteAfter takes string modelName,location where,real long returns nothing
+    local effect ef= AddSpecialEffectLoc(modelName, where)
+    local timer t= CreateTimer()
+    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
+    set ef=null
     set t=null
 endfunction
-//===========================================================================
+//==============================
 
-function setStringPlayerIdColor takes integer pId,string s returns string
-    return playerColors[pId] + s + "|r"
+function addLightningBetweenTwoPointsAndDeleteAfter_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local lightning light= LoadLightningHandle(SPELL_HT, pKey, 0)
+    
+    call DestroyLightning(light)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    call DestroyTimer(t)
+    
+    set t=null
+    set light=null
 endfunction
-//===========================================================================
-
-function getPlayerColorNameById takes integer i returns string
-    local player p= Player(i)
-    local string s= GetPlayerName(p)
-    set p=null
-    return setStringPlayerIdColor(i , s)
+function addLightningBetweenTwoPointsAndDeleteAfter takes string codeName,boolean checkVisibility,real x1,real y1,real z1,real x2,real y2,real z2,real long returns lightning
+    local lightning light= AddLightningEx("FORK", true, x1, y1, z1, x2, y2, z2)
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    
+    call SaveLightningHandle(SPELL_HT, pKey, 0, light)
+    call TimerStart(t, long, false, function addLightningBetweenTwoPointsAndDeleteAfter_timer)
+    
+    set t=null
+    return light
 endfunction
 
-//library FuncForGame ends
+//library FuncForEffect ends
 //library FuncForRegister:
 //===========================================================================
 
@@ -877,11 +944,308 @@ endfunction
 
 //library FuncForRegister ends
 //library FuncForToast:
+
 function toastInfoTextToPlayer takes player p,string msg returns nothing
     call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffffff00" + msg + "|r")
 endfunction
+
 function toastWarningTextToPlayer takes player p,string msg returns nothing
     call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffff0000" + msg + "|r")
+endfunction
+
+function showMoneyTagToPlayerInPoint takes string s,real x,real y,real z,integer playerId returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, s, 0.024)
+	call SetTextTagPos(tag, x, y, z)
+    call SetTextTagColor(tag, 255, 255, 0, 255)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 1.2)
+    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
+        call SetTextTagVisibility(tag, true)
+    endif
+    set tag=null
+endfunction
+
+function showMoneyTagToPlayerOverUnit takes integer money,unit deader,integer playerId returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, "|cffffff00+ " + I2S(money) + "$|r", 0.024)
+    call SetTextTagPosUnit(tag, deader, 0.1)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 1.2)
+    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
+        call SetTextTagVisibility(tag, true)
+    endif
+	set tag=null
+endfunction
+
+function showMissTagToPlayerOverUnit takes unit deader returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, "|cffff0000Miss!|r", 0.024)
+    call SetTextTagPosUnit(tag, deader, 0.1)
+    call SetTextTagColor(tag, 255, 0, 0, 255)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.6)
+    call SetTextTagVisibility(tag, true)
+    
+	set tag=null
+endfunction
+//==============================暴击写在自己头上，伤害写在别人身上
+function changeTag_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local texttag tag= LoadTextTagHandle(FuncForToast__toast_ht, pKey, 0)
+    local string s= LoadStr(FuncForToast__toast_ht, pKey, 1)
+    local real scale= LoadReal(FuncForToast__toast_ht, pKey, 2)
+    
+    call SetTextTagText(tag, s, scale)
+    
+    call FlushChildHashtable(FuncForToast__toast_ht, pKey)
+    call DestroyTimer(t)
+    set t=null
+endfunction
+
+function showPhysicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, injureder, 0)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.8)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.050)
+    call TimerStart(t, 0.12, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
+    call TimerStart(t1, 0.25, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+
+function showMagicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, injureder, 0.1)
+    call SetTextTagVelocity(tag, 0.01, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.8)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.050)
+    call TimerStart(t, 0.12, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
+    call TimerStart(t1, 0.25, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+
+function showShieldTagToPlayerOverUnit takes unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffccffff-" + SubString(damageS, 0, StringLength(damageS) - 4) + "|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagVelocity(tag, 0.00, 0.032)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.6)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
+    call TimerStart(t, 0.1, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.024)
+    call TimerStart(t1, 0.20, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+//==================================================
+function changeTagCoordinate_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    
+    local integer times= LoadInteger(FuncForToast__toast_ht, pKey, 0)
+    local real timerOut= LoadInteger(FuncForToast__toast_ht, pKey, 1)
+    local texttag tag= LoadTextTagHandle(FuncForToast__toast_ht, pKey, 2)
+    local string msg= LoadStr(FuncForToast__toast_ht, pKey, 3)
+    local real scale= LoadReal(FuncForToast__toast_ht, pKey, 4)
+    local real x= LoadReal(FuncForToast__toast_ht, pKey, 5)
+    local real y= LoadReal(FuncForToast__toast_ht, pKey, 6)
+    local real angle= LoadReal(FuncForToast__toast_ht, pKey, 7)
+    local boolean isRight= LoadBoolean(FuncForToast__toast_ht, pKey, 8)
+    local real radius= LoadReal(FuncForToast__toast_ht, pKey, 9)
+    local real shiftX= LoadReal(FuncForToast__toast_ht, pKey, 10)
+    
+    
+    if ( times < timerOut ) then
+        set times=times + 1
+        set angle=angle + 180 / timerOut
+        if ( isRight ) then
+            set x=x + shiftX
+        else
+            set x=x - shiftX
+        endif
+        set y=y + radius * CosBJ(angle)
+        if ( angle <= 90 ) then
+            set scale=scale + 0.002
+        else
+            set scale=scale - 0.003
+        endif
+        call SetTextTagText(tag, msg, scale)
+        call SetTextTagPos(tag, x, y, 0)
+        call SaveInteger(FuncForToast__toast_ht, pKey, 0, times)
+        call SaveReal(FuncForToast__toast_ht, pKey, 4, scale)
+        call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
+        call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
+        call SaveReal(FuncForToast__toast_ht, pKey, 7, angle)
+        call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    else
+        call FlushChildHashtable(FuncForToast__toast_ht, pKey)
+        call DestroyTimer(t)
+        call DestroyTextTag(tag)
+    endif
+    
+    set tag=null
+    set t=null
+endfunction
+
+function showPhysicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    local real x1= GetUnitX(sourcer)
+    local real y1= GetUnitY(sourcer)
+    local boolean isRight= false
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagVisibility(tag, true)
+    
+    if ( x1 < x ) then
+        set isRight=true
+    endif
+    
+    set pKey=GetHandleId(t)
+    call SaveInteger(FuncForToast__toast_ht, pKey, 0, 0)
+    call SaveInteger(FuncForToast__toast_ht, pKey, 1, 12)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 2, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 3, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 4, 0.020)
+    call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
+    call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
+    call SaveReal(FuncForToast__toast_ht, pKey, 7, 0)
+    call SaveBoolean(FuncForToast__toast_ht, pKey, 8, isRight)
+    call SaveReal(FuncForToast__toast_ht, pKey, 9, 40)
+    call SaveReal(FuncForToast__toast_ht, pKey, 10, 10)
+    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    
+    set t=null
+	set tag=null
+endfunction
+
+function showMagicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    local real x1= GetUnitX(sourcer)
+    local real y1= GetUnitY(sourcer)
+    local boolean isRight= false
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagVisibility(tag, true)
+    
+    if ( x1 < x ) then
+        set isRight=true
+    endif
+    
+    set pKey=GetHandleId(t)
+    call SaveInteger(FuncForToast__toast_ht, pKey, 0, 0)
+    call SaveInteger(FuncForToast__toast_ht, pKey, 1, 12)
+    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 2, tag)
+    call SaveStr(FuncForToast__toast_ht, pKey, 3, s)
+    call SaveReal(FuncForToast__toast_ht, pKey, 4, 0.020)
+    call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
+    call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
+    call SaveReal(FuncForToast__toast_ht, pKey, 7, 0)
+    call SaveBoolean(FuncForToast__toast_ht, pKey, 8, isRight)
+    call SaveReal(FuncForToast__toast_ht, pKey, 9, 36)
+    call SaveReal(FuncForToast__toast_ht, pKey, 10, 5)
+    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    
+    set t=null
+	set tag=null
+endfunction
+//=====================================================治疗
+
+function showRecoveryLifeTagToPlayer takes unit target,real value returns nothing
+    local texttag tag= CreateTextTag()
+    local integer pKey= 0
+    local string valueS= R2S(value)
+    local string s= "|cff00ff00+" + SubString(valueS, 0, StringLength(valueS) - 4) + "|r"
+    
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, target, 0)
+    call SetTextTagVelocity(tag, 0.00, 0.022)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.24)
+    call SetTextTagVisibility(tag, true)
+    
+    set tag=null
 endfunction
 
 //library FuncForToast ends
@@ -927,6 +1291,14 @@ endfunction
     endfunction
 
 //library JapiConstantLib ends
+//library YDWEEnumDestructablesInCircleBJFilterNull:
+function YDWEEnumDestructablesInCircleBJFilterNull takes nothing returns boolean
+    local real dx= GetDestructableX(GetFilterDestructable()) - GetLocationX(bj_enumDestructableCenter)
+    local real dy= GetDestructableY(GetFilterDestructable()) - GetLocationY(bj_enumDestructableCenter)
+    return dx * dx + dy * dy <= bj_enumDestructableRadius * bj_enumDestructableRadius
+endfunction
+
+//library YDWEEnumDestructablesInCircleBJFilterNull ends
 //library YDWEEnumUnitsSelectedNull:
 function YDWEEnumUnitsSelectedNull takes player whichPlayer,boolexpr enumFilter,code enumAction returns nothing
     local group g= CreateGroup()
@@ -939,6 +1311,22 @@ function YDWEEnumUnitsSelectedNull takes player whichPlayer,boolexpr enumFilter,
 endfunction
 
 //library YDWEEnumUnitsSelectedNull ends
+//library YDWEGetInventoryIndexOfItemTypeBJNull:
+function YDWEGetInventoryIndexOfItemTypeBJNull takes unit whichUnit,integer itemId returns integer
+    local integer index= 0
+	if itemId != 0 then
+		loop
+			if GetItemTypeId(UnitItemInSlot(whichUnit, index)) == itemId then
+				return index + 1
+			endif
+			set index=index + 1
+			exitwhen index >= bj_MAX_INVENTORY
+		endloop
+	endif
+    return 0
+endfunction
+
+//library YDWEGetInventoryIndexOfItemTypeBJNull ends
 //library YDWETriggerEvent:
 	
 //===========================================================================  
@@ -1024,115 +1412,49 @@ function GetLastMovedItemInItemSlot takes nothing returns item
 endfunction
 
 //library YDWETriggerEvent ends
-//library FuncForDamage:
-//计时器到期杀死单位
-function FuncForDamage_killUnit_timer takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local integer pKey= GetHandleId(t)
-    local unit u= LoadUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0)
-    
-    call KillUnit(u)
-    call RemoveUnit(u)
-    
-    call FlushChildHashtable(FuncForDamage__FuncForDamage_ht, pKey)
-    call DestroyTimer(t)
-    set u=null
-    set t=null
-endfunction
-//创建指定玩家单位并对目标单位造成伤害
-function FuncForDamage_damageUnit takes player p,integer unitId,unit target,damagetype damageType,real damage returns nothing
-    local timer t= CreateTimer()
-    local integer pKey= GetHandleId(t)
-    local real x= GetUnitX(target)
-    local real y= GetUnitY(target)
-    local unit u= CreateUnit(p, unitId, x, y, 0)
-    call SaveUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0, u)
-    call UnitDamageTarget(u, target, damage, true, false, ATTACK_TYPE_MELEE, damageType, WEAPON_TYPE_WHOKNOWS)
-    call TimerStart(t, 0.1, false, function FuncForDamage_killUnit_timer)
-    
-    set u=null
-endfunction
-
-function hurtUnitByPhysicalSingleDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e008' , target , DAMAGE_TYPE_NORMAL , damage)
-endfunction
-
-function hurtUnitByPhysicalMultiDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e009' , target , DAMAGE_TYPE_NORMAL , damage)
-endfunction
-
-function hurtUnitByNoReversalPhysicalDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_NORMAL , damage)
-endfunction
-
-function hurtUnitByMagicalSingleDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_MAGIC , damage)
-endfunction
-
-function hurtUnitByMagicalMultiDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00B' , target , DAMAGE_TYPE_MAGIC , damage)
-endfunction
-
-function hurtUnitByNoReversalMagicalDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00D' , target , DAMAGE_TYPE_MAGIC , damage)
-endfunction
-
-function hurtUnitByHolyDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e007' , target , DAMAGE_TYPE_UNIVERSAL , damage)
-endfunction
-
-function hurtUnitByIgnorePhysicalDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_NORMAL , damage)
-endfunction
-
-function hurtUnitByIgnoreMagicalDamage takes player p,unit target,real damage returns nothing
-    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_MAGIC , damage)
-endfunction
-
-//library FuncForDamage ends
 //library FuncForItem:
 //===========================================================================
 
 function setItemOverlapById takes integer itId,boolean isOverlap,integer max returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 0, isOverlap)
-    call SaveInteger(itemNativeInfo_ht, itId, 1, max)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 0, isOverlap)
+    call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 1, max)
 endfunction
 function getItemMaxChargesById takes integer itId returns integer
-    return LoadInteger(itemNativeInfo_ht, itId, 1)
+    return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 1)
 endfunction
 function isItemOverlapById takes integer it returns boolean
-    return LoadBoolean(itemNativeInfo_ht, it, 0)
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 0)
 endfunction
 function setItemShareById takes integer itId,boolean isShared returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 2, isShared)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 2, isShared)
 endfunction
 function isItemShareById takes integer it returns boolean
-    return LoadBoolean(itemNativeInfo_ht, it, 2)
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 2)
 endfunction
 function setItemFuseById takes integer itId,boolean isFuse returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 3, isFuse)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 3, isFuse)
 endfunction
 function isItemFuseById takes integer it returns boolean
-    return LoadBoolean(itemNativeInfo_ht, it, 3)
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 3)
 endfunction
 function setItemFusedById takes integer itId,boolean isFused returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 4, isFused)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 4, isFused)
 endfunction
 function isItemFusedById takes integer it returns boolean
-    return LoadBoolean(itemNativeInfo_ht, it, 4)
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 4)
 endfunction
 function setItemOnlyById takes integer itId,boolean isOnly returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 5, isOnly)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 5, isOnly)
 endfunction
 function isItemOnlyById takes integer it returns boolean
-    return LoadBoolean(itemNativeInfo_ht, it, 5)
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 5)
 endfunction
 function setItemBuffById takes integer itId returns nothing
-    call SaveBoolean(itemNativeInfo_ht, itId, 6, true)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 6, true)
     
 endfunction
 function isItemHasBuffById takes integer itId returns boolean
-    return LoadBoolean(itemNativeInfo_ht, itId, 6) //该物品是否具有buff效果
+    return LoadBoolean(FuncForItem__itemNativeInfo_ht, itId, 6) //该物品是否具有buff效果
 endfunction
 //增加item的buff
 function itemIdAddBuff takes integer itId,integer buffType,integer buffId returns nothing
@@ -1140,37 +1462,37 @@ function itemIdAddBuff takes integer itId,integer buffType,integer buffId return
 	if ( not isItemHasBuffById(itId) ) then
 		call setItemBuffById(itId)
 	endif
-	set buffCounts=LoadInteger(itemNativeInfo_ht, itId, 7) //该物品的buff类型数量
-	call SaveInteger(itemNativeInfo_ht, itId, 8 + 2 * buffCounts, buffType) //该物品buff在 heroWeaponBuff_ht 的pKey
-	call SaveInteger(itemNativeInfo_ht, itId, 9 + 2 * buffCounts, buffId) //对应的其他概率
-	call SaveInteger(itemNativeInfo_ht, itId, 7, buffCounts + 1)
+	set buffCounts=LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 7) //该物品的buff类型数量
+	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 8 + 2 * buffCounts, buffType) //该物品buff在 heroWeaponBuff_ht 的pKey
+	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 9 + 2 * buffCounts, buffId) //对应的其他概率
+	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 7, buffCounts + 1)
 endfunction
 //获取item具有的buff总数量
 function getItemBuffTypesById takes integer itId returns integer
-	return LoadInteger(itemNativeInfo_ht, itId, 7)
+	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 7)
 endfunction
 //获取item指定位置的buff
 function getItemBuffTypeById takes integer itId,integer whichBuff returns integer
 	if ( not isItemHasBuffById(itId) ) then
 		return 0
 	endif
-	return LoadInteger(itemNativeInfo_ht, itId, 8 + 2 * whichBuff)
+	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 8 + 2 * whichBuff)
 endfunction
 //获取item指定位置的buff的数值
 function getItemBuffCountById takes integer itId,integer whichBuff returns integer
 	if ( not isItemHasBuffById(itId) ) then
 		return 0
 	endif
-	return LoadInteger(itemNativeInfo_ht, itId, 9 + 2 * whichBuff)
+	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 9 + 2 * whichBuff)
 endfunction
 function registerItemInfo takes integer it,boolean isOverlap,integer max,boolean isShared,boolean isFuse,boolean isFused,boolean isOnly returns nothing
    
-    call SaveBoolean(itemNativeInfo_ht, it, 0, isOverlap)
-    call SaveInteger(itemNativeInfo_ht, it, 1, max)
-    call SaveBoolean(itemNativeInfo_ht, it, 2, isShared)
-    call SaveBoolean(itemNativeInfo_ht, it, 3, isFuse)
-    call SaveBoolean(itemNativeInfo_ht, it, 4, isFused)
-    call SaveBoolean(itemNativeInfo_ht, it, 5, isOnly)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 0, isOverlap)
+    call SaveInteger(FuncForItem__itemNativeInfo_ht, it, 1, max)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 2, isShared)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 3, isFuse)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 4, isFused)
+    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 5, isOnly)
     
 endfunction
 //===========================================================================
@@ -1284,13 +1606,67 @@ function getUnitItemCount takes unit u,integer itemId returns integer
 endfunction
 //===========================================================================
 
+function getUnitItemCountById takes unit u,integer itemId returns integer
+    local integer result= 0
+    local integer i= 0
+    local item it= null
+    local player p= GetOwningPlayer(u)
+    
+    loop
+        exitwhen i > 5
+        set it=UnitItemInSlot(u, i)
+        if ( it != null and p == GetItemPlayer(it) and GetItemTypeId(it) == itemId ) then
+            set result=result + 1
+        endif
+        
+        set i=i + 1
+    endloop
+    
+    set p=null
+    set it=null
+    return result
+endfunction
+//===========================================================================
+
 function isUnitHasItemById takes unit u,integer itemId returns boolean
+    local integer i= 0
+    local item it= null
+    local player p= GetOwningPlayer(u)
     
-    if ( getUnitItemCount(u , itemId) > 0 ) then
-        return true
-    endif
+    loop
+        exitwhen i > 5
+        set it=UnitItemInSlot(u, i)
+        if ( it != null and p == GetItemPlayer(it) and GetItemTypeId(it) == itemId ) then
+            set p=null
+            set it=null
+            return true
+        endif
+        
+        set i=i + 1
+    endloop
     
+    set p=null
+    set it=null
     return false
+endfunction
+//===========================================================================
+
+function getInventoryIndexOfItemById takes unit u,integer itemId returns integer
+    return YDWEGetInventoryIndexOfItemTypeBJNull(u , itemId) - 1
+endfunction
+//===========================================================================
+
+function replaceUnitItemInSlotById takes unit u,item it,integer newItemId returns nothing
+    local integer itId= GetItemTypeId(it)
+    local integer index= getInventoryIndexOfItemById(u , itId)
+    local item newItem= CreateItem(newItemId, GetUnitX(u), GetUnitY(u))
+    
+    call SetItemPlayer(newItem, GetOwningPlayer(u), true)
+    call RemoveItem(it)
+    call UnitAddItem(u, newItem)
+    call UnitDropItemSlot(u, newItem, index)
+    
+    set newItem=null
 endfunction
 //===========================================================================
 
@@ -1333,27 +1709,27 @@ endfunction
 
 function setItemSurrenal takes integer origin,integer surrenal returns nothing
     
-    call SaveInteger(itemSurrenal_ht, origin, 0, surrenal)
-    call SaveBoolean(itemSurrenal_ht, origin, 1, true)
-    call SaveInteger(itemSurrenal_ht, surrenal, 0, origin)
-    call SaveBoolean(itemSurrenal_ht, surrenal, 1, false)
+    call SaveInteger(FuncForItem__itemSurrenal_ht, origin, 0, surrenal)
+    call SaveBoolean(FuncForItem__itemSurrenal_ht, origin, 1, true)
+    call SaveInteger(FuncForItem__itemSurrenal_ht, surrenal, 0, origin)
+    call SaveBoolean(FuncForItem__itemSurrenal_ht, surrenal, 1, false)
     
 endfunction
 //===========================================================================
 
 function getOriginalItemIdById takes integer surrenalItem returns integer
-    return LoadInteger(itemSurrenal_ht, surrenalItem, 0)
+    return LoadInteger(FuncForItem__itemSurrenal_ht, surrenalItem, 0)
 endfunction
 function getSurrenalItemIdById takes integer originalItem returns integer
-    return LoadInteger(itemSurrenal_ht, originalItem, 0)
+    return LoadInteger(FuncForItem__itemSurrenal_ht, originalItem, 0)
 endfunction
 //未知或者不需要知道该传进的item是原物品还是替身物品，返回其替换物品id
 function getExchangeItemIdById takes integer itemId returns integer
-    return LoadInteger(itemSurrenal_ht, itemId, 0)
+    return LoadInteger(FuncForItem__itemSurrenal_ht, itemId, 0)
 endfunction
 
 function isOriginalItemById takes integer it returns boolean
-    return LoadBoolean(itemSurrenal_ht, it, 1)
+    return LoadBoolean(FuncForItem__itemSurrenal_ht, it, 1)
 endfunction
 
 function replaceSurrenalItem takes item surrenalItem returns item
@@ -1452,7 +1828,7 @@ endfunction
 
 function fuseItemUnfillSlot takes unit u,item it returns boolean
     local integer pKey= GetItemTypeId(it)
-    local integer count= LoadInteger(itemFuseItems_ht, pKey, 0)
+    local integer count= LoadInteger(FuncForItem__itemFuseItems_ht, pKey, 0)
     local integer targetItemId= 0
     local integer materialTypeCount= 0
     local integer materialId= 0
@@ -1469,14 +1845,14 @@ function fuseItemUnfillSlot takes unit u,item it returns boolean
     loop
         exitwhen i > count
         
-        set targetItemId=LoadInteger(itemFuseItems_ht, pKey, i)
-        set materialTypeCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, 0)
+        set targetItemId=LoadInteger(FuncForItem__itemFuseItems_ht, pKey, i)
+        set materialTypeCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, 0)
         set j=1
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
             
             if ( getUnitItemCount(u , materialId) < materialIdCount ) then
             //单位拥有该物品的数量少于需求的数量
@@ -1491,8 +1867,8 @@ function fuseItemUnfillSlot takes unit u,item it returns boolean
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
             
             call removeUnitItemsById(u , materialId , materialIdCount)
             
@@ -1508,7 +1884,7 @@ endfunction
 
 function fuseItemFillSlot takes unit u,item it returns boolean
     local integer pKey= GetItemTypeId(it)
-    local integer count= LoadInteger(itemFuseItems_ht, pKey, 0)
+    local integer count= LoadInteger(FuncForItem__itemFuseItems_ht, pKey, 0)
     local integer targetItemId= 0
     local integer materialTypeCount= 0
     local integer materialId= 0
@@ -1528,14 +1904,14 @@ function fuseItemFillSlot takes unit u,item it returns boolean
     loop
         exitwhen i > count
         
-        set targetItemId=LoadInteger(itemFuseItems_ht, pKey, i)
-        set materialTypeCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, 0)
+        set targetItemId=LoadInteger(FuncForItem__itemFuseItems_ht, pKey, i)
+        set materialTypeCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, 0)
         set j=1
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
             
             if ( pKey == materialId ) then
                 call debugText("修正前的materialIdCount:" + I2S(materialIdCount))
@@ -1562,8 +1938,8 @@ function fuseItemFillSlot takes unit u,item it returns boolean
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
             
             call removeUnitItemsById(u , materialId , materialIdCount)
             
@@ -1582,132 +1958,132 @@ function registerFuseItem2 takes integer target,integer it1,integer i1,integer i
     local integer i= 0
     local integer array itId
     
-    if ( LoadInteger(itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(itemSyntheticFormula_ht, target, 0, 2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 4, i2)
-    set i=LoadInteger(itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(itemFuseItems_ht, it1, i, target)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
     
     //替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
     set itId[1]=getSurrenalItemIdById(it1)
     set itId[2]=getSurrenalItemIdById(it2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
     
-    set i=LoadInteger(itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem3 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(itemSyntheticFormula_ht, target, 0, 3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
     
-    set i=LoadInteger(itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
     set itId[1]=getSurrenalItemIdById(it1)
     set itId[2]=getSurrenalItemIdById(it2)
     set itId[3]=getSurrenalItemIdById(it3)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 3)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
     
-    set i=LoadInteger(itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem4 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(itemSyntheticFormula_ht, target, 0, 4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
     
-    set i=LoadInteger(itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -1715,73 +2091,73 @@ function registerFuseItem4 takes integer target,integer it1,integer i1,integer i
     set itId[2]=getSurrenalItemIdById(it2)
     set itId[3]=getSurrenalItemIdById(it3)
     set itId[4]=getSurrenalItemIdById(it4)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem5 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4,integer it5,integer i5 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(itemSyntheticFormula_ht, target, 0, 5)
-    call SaveInteger(itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 8, i4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 9, it5)
-    call SaveInteger(itemSyntheticFormula_ht, target, 10, i5)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 5)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 9, it5)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 10, i5)
     
-    set i=LoadInteger(itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it5, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it5, 0, i)
-    call SaveInteger(itemFuseItems_ht, it5, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it5, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -1790,83 +2166,83 @@ function registerFuseItem5 takes integer target,integer it1,integer i1,integer i
     set itId[3]=getSurrenalItemIdById(it3)
     set itId[4]=getSurrenalItemIdById(it4)
     set itId[5]=getSurrenalItemIdById(it5)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[5], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[5], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[5], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[5], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem6 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4,integer it5,integer i5,integer it6,integer i6 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(itemSyntheticFormula_ht, target, 0, 6)
-    call SaveInteger(itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 8, i4)
-    call SaveInteger(itemSyntheticFormula_ht, target, 9, it5)
-    call SaveInteger(itemSyntheticFormula_ht, target, 10, i5)
-    call SaveInteger(itemSyntheticFormula_ht, target, 11, it6)
-    call SaveInteger(itemSyntheticFormula_ht, target, 12, i6)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 6)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 9, it5)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 10, i5)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 11, it6)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 12, i6)
     
-    set i=LoadInteger(itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it5, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it5, 0, i)
-    call SaveInteger(itemFuseItems_ht, it5, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it5, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, i, target)
     
-    set i=LoadInteger(itemFuseItems_ht, it6, 0) + 1
-    call SaveInteger(itemFuseItems_ht, it6, 0, i)
-    call SaveInteger(itemFuseItems_ht, it6, i, target)
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it6, 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it6, 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, it6, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -1876,170 +2252,1411 @@ function registerFuseItem6 takes integer target,integer it1,integer i1,integer i
     set itId[4]=getSurrenalItemIdById(it4)
     set itId[5]=getSurrenalItemIdById(it5)
     set itId[6]=getSurrenalItemIdById(it6)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[5], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[5], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[5], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[5], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], i, itId[0])
     
-    set i=LoadInteger(itemFuseItems_ht, itId[6], 0) + 1
-    call SaveInteger(itemFuseItems_ht, itId[6], 0, i)
-    call SaveInteger(itemFuseItems_ht, itId[6], i, itId[0])
+    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[6], 0) + 1
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[6], 0, i)
+    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[6], i, itId[0])
     
     return true
+endfunction
+
+function saveAllItemIdInNameCode takes nothing returns nothing
+    local integer i= 0
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】左轮手枪"), 0, 'I041')
+                call SaveStr(ITEM_HT, 'I041', 1, SubString("【卷轴】左轮手枪", 0, StringLength("【卷轴】左轮手枪")))
+                set ssssss[i]="【卷轴】左轮手枪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("味贝"), 0, 'I02C')
+                call SaveStr(ITEM_HT, 'I02C', 1, SubString("味贝", 0, StringLength("味贝")))
+                set ssssss[i]="味贝"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】七尺十手"), 0, 'I03Q')
+                call SaveStr(ITEM_HT, 'I03Q', 1, SubString("【卷轴】七尺十手", 0, StringLength("【卷轴】七尺十手")))
+                set ssssss[i]="【卷轴】七尺十手"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("幽灵叹息"), 0, 'I029')
+                call SaveStr(ITEM_HT, 'I029', 1, SubString("幽灵叹息", 0, StringLength("幽灵叹息")))
+                set ssssss[i]="幽灵叹息"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|rPure Gold"), 0, 'I051')
+                call SaveStr(ITEM_HT, 'I051', 1, SubString("|cffff6800【伪】|rPure Gold", 0, StringLength("|cffff6800【伪】|rPure Gold")))
+                set ssssss[i]="|cffff6800【伪】|rPure Gold"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量拳套"), 0, 'I05X')
+                call SaveStr(ITEM_HT, 'I05X', 1, SubString("|cffff6800【伪】|r力量拳套", 0, StringLength("|cffff6800【伪】|r力量拳套")))
+                set ssssss[i]="|cffff6800【伪】|r力量拳套"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("面粉"), 0, 'I00Y')
+                call SaveStr(ITEM_HT, 'I00Y', 1, SubString("面粉", 0, StringLength("面粉")))
+                set ssssss[i]="面粉"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("力量戒指"), 0, 'I00C')
+                call SaveStr(ITEM_HT, 'I00C', 1, SubString("力量戒指", 0, StringLength("力量戒指")))
+                set ssssss[i]="力量戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("胜利旗帜"), 0, 'I01R')
+                call SaveStr(ITEM_HT, 'I01R', 1, SubString("胜利旗帜", 0, StringLength("胜利旗帜")))
+                set ssssss[i]="胜利旗帜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("樱十"), 0, 'I01A')
+                call SaveStr(ITEM_HT, 'I01A', 1, SubString("樱十", 0, StringLength("樱十")))
+                set ssssss[i]="樱十"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】正义之衣"), 0, 'I04Y')
+                call SaveStr(ITEM_HT, 'I04Y', 1, SubString("|cffff6800【伪】|r【卷轴】正义之衣", 0, StringLength("|cffff6800【伪】|r【卷轴】正义之衣")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】正义之衣"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv2"), 0, 'I044')
+                call SaveStr(ITEM_HT, 'I044', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv2", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv2")))
+                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv2"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】天龙人勋章"), 0, 'I039')
+                call SaveStr(ITEM_HT, 'I039', 1, SubString("【卷轴】天龙人勋章", 0, StringLength("【卷轴】天龙人勋章")))
+                set ssssss[i]="【卷轴】天龙人勋章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r味贝"), 0, 'I06L')
+                call SaveStr(ITEM_HT, 'I06L', 1, SubString("|cffff6800【伪】|r味贝", 0, StringLength("|cffff6800【伪】|r味贝")))
+                set ssssss[i]="|cffff6800【伪】|r味贝"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("枯木"), 0, 'I01B')
+                call SaveStr(ITEM_HT, 'I01B', 1, SubString("枯木", 0, StringLength("枯木")))
+                set ssssss[i]="枯木"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】晕锤"), 0, 'I04X')
+                call SaveStr(ITEM_HT, 'I04X', 1, SubString("|cffff6800【伪】|r【卷轴】晕锤", 0, StringLength("|cffff6800【伪】|r【卷轴】晕锤")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】晕锤"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("智力戒指"), 0, 'I00E')
+                call SaveStr(ITEM_HT, 'I00E', 1, SubString("智力戒指", 0, StringLength("智力戒指")))
+                set ssssss[i]="智力戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】触鬼"), 0, 'I03K')
+                call SaveStr(ITEM_HT, 'I03K', 1, SubString("【卷轴】触鬼", 0, StringLength("【卷轴】触鬼")))
+                set ssssss[i]="【卷轴】触鬼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("偃月大砍刀"), 0, 'I02L')
+                call SaveStr(ITEM_HT, 'I02L', 1, SubString("偃月大砍刀", 0, StringLength("偃月大砍刀")))
+                set ssssss[i]="偃月大砍刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("毒爪"), 0, 'I02E')
+                call SaveStr(ITEM_HT, 'I02E', 1, SubString("毒爪", 0, StringLength("毒爪")))
+                set ssssss[i]="毒爪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("小盾牌"), 0, 'I01C')
+                call SaveStr(ITEM_HT, 'I01C', 1, SubString("小盾牌", 0, StringLength("小盾牌")))
+                set ssssss[i]="小盾牌"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("草帽"), 0, 'I01M')
+                call SaveStr(ITEM_HT, 'I01M', 1, SubString("草帽", 0, StringLength("草帽")))
+                set ssssss[i]="草帽"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魂之丧剑"), 0, 'I02I')
+                call SaveStr(ITEM_HT, 'I02I', 1, SubString("魂之丧剑", 0, StringLength("魂之丧剑")))
+                set ssssss[i]="魂之丧剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("铁壁"), 0, 'I01D')
+                call SaveStr(ITEM_HT, 'I01D', 1, SubString("铁壁", 0, StringLength("铁壁")))
+                set ssssss[i]="铁壁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r血腥指环"), 0, 'I06R')
+                call SaveStr(ITEM_HT, 'I06R', 1, SubString("|cffff6800【伪】|r血腥指环", 0, StringLength("|cffff6800【伪】|r血腥指环")))
+                set ssssss[i]="|cffff6800【伪】|r血腥指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("监察电话虫"), 0, 'I034')
+                call SaveStr(ITEM_HT, 'I034', 1, SubString("监察电话虫", 0, StringLength("监察电话虫")))
+                set ssssss[i]="监察电话虫"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】毒爪"), 0, 'I04B')
+                call SaveStr(ITEM_HT, 'I04B', 1, SubString("|cffff6800【伪】|r【卷轴】毒爪", 0, StringLength("|cffff6800【伪】|r【卷轴】毒爪")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】毒爪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("触鬼"), 0, 'I02B')
+                call SaveStr(ITEM_HT, 'I02B', 1, SubString("触鬼", 0, StringLength("触鬼")))
+                set ssssss[i]="触鬼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv1】|r"), 0, 'I02Q')
+                call SaveStr(ITEM_HT, 'I02Q', 1, SubString("魔法天候棒|cffff0000【Lv1】|r", 0, StringLength("魔法天候棒|cffff0000【Lv1】|r")))
+                set ssssss[i]="魔法天候棒|cffff0000【Lv1】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r奥哈拉树枝"), 0, 'I052')
+                call SaveStr(ITEM_HT, 'I052', 1, SubString("|cffff6800【伪】|r奥哈拉树枝", 0, StringLength("|cffff6800【伪】|r奥哈拉树枝")))
+                set ssssss[i]="|cffff6800【伪】|r奥哈拉树枝"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r秋水"), 0, 'I06D')
+                call SaveStr(ITEM_HT, 'I06D', 1, SubString("|cffff6800【伪】|r秋水", 0, StringLength("|cffff6800【伪】|r秋水")))
+                set ssssss[i]="|cffff6800【伪】|r秋水"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("小戒指"), 0, 'I00B')
+                call SaveStr(ITEM_HT, 'I00B', 1, SubString("小戒指", 0, StringLength("小戒指")))
+                set ssssss[i]="小戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r历史正文-沉默的箴言"), 0, 'I05Y')
+                call SaveStr(ITEM_HT, 'I05Y', 1, SubString("|cffff6800【伪】|r历史正文-沉默的箴言", 0, StringLength("|cffff6800【伪】|r历史正文-沉默的箴言")))
+                set ssssss[i]="|cffff6800【伪】|r历史正文-沉默的箴言"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r洛泉结晶"), 0, 'I05Z')
+                call SaveStr(ITEM_HT, 'I05Z', 1, SubString("|cffff6800【伪】|r洛泉结晶", 0, StringLength("|cffff6800【伪】|r洛泉结晶")))
+                set ssssss[i]="|cffff6800【伪】|r洛泉结晶"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】七尺十手"), 0, 'I04N')
+                call SaveStr(ITEM_HT, 'I04N', 1, SubString("|cffff6800【伪】|r【卷轴】七尺十手", 0, StringLength("|cffff6800【伪】|r【卷轴】七尺十手")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】七尺十手"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r触鬼"), 0, 'I054')
+                call SaveStr(ITEM_HT, 'I054', 1, SubString("|cffff6800【伪】|r触鬼", 0, StringLength("|cffff6800【伪】|r触鬼")))
+                set ssssss[i]="|cffff6800【伪】|r触鬼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷戒指"), 0, 'I062')
+                call SaveStr(ITEM_HT, 'I062', 1, SubString("|cffff6800【伪】|r敏捷戒指", 0, StringLength("|cffff6800【伪】|r敏捷戒指")))
+                set ssssss[i]="|cffff6800【伪】|r敏捷戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("花边指环"), 0, 'I00F')
+                call SaveStr(ITEM_HT, 'I00F', 1, SubString("花边指环", 0, StringLength("花边指环")))
+                set ssssss[i]="花边指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("泡行车"), 0, 'I022')
+                call SaveStr(ITEM_HT, 'I022', 1, SubString("泡行车", 0, StringLength("泡行车")))
+                set ssssss[i]="泡行车"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv2"), 0, 'I01F')
+                call SaveStr(ITEM_HT, 'I01F', 1, SubString("|c00ff8040护贝|r Lv2", 0, StringLength("|c00ff8040护贝|r Lv2")))
+                set ssssss[i]="|c00ff8040护贝|r Lv2"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("森林之眼"), 0, 'I02D')
+                call SaveStr(ITEM_HT, 'I02D', 1, SubString("森林之眼", 0, StringLength("森林之眼")))
+                set ssssss[i]="森林之眼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】Pure Gold"), 0, 'I03A')
+                call SaveStr(ITEM_HT, 'I03A', 1, SubString("【卷轴】Pure Gold", 0, StringLength("【卷轴】Pure Gold")))
+                set ssssss[i]="【卷轴】Pure Gold"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【敏捷】|r"), 0, 'I01Z')
+                call SaveStr(ITEM_HT, 'I01Z', 1, SubString("黑足|cffff0000【敏捷】|r", 0, StringLength("黑足|cffff0000【敏捷】|r")))
+                set ssssss[i]="黑足|cffff0000【敏捷】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("硬皮手札"), 0, 'I019')
+                call SaveStr(ITEM_HT, 'I019', 1, SubString("硬皮手札", 0, StringLength("硬皮手札")))
+                set ssssss[i]="硬皮手札"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r追云"), 0, 'I075')
+                call SaveStr(ITEM_HT, 'I075', 1, SubString("|cffff6800【伪】|r追云", 0, StringLength("|cffff6800【伪】|r追云")))
+                set ssssss[i]="|cffff6800【伪】|r追云"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】泡行车"), 0, 'I04M')
+                call SaveStr(ITEM_HT, 'I04M', 1, SubString("|cffff6800【伪】|r【卷轴】泡行车", 0, StringLength("|cffff6800【伪】|r【卷轴】泡行车")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】泡行车"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("晕锤"), 0, 'I07D')
+                call SaveStr(ITEM_HT, 'I07D', 1, SubString("晕锤", 0, StringLength("晕锤")))
+                set ssssss[i]="晕锤"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黑兜"), 0, 'I02M')
+                call SaveStr(ITEM_HT, 'I02M', 1, SubString("黑兜", 0, StringLength("黑兜")))
+                set ssssss[i]="黑兜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】吸血剑"), 0, 'I04T')
+                call SaveStr(ITEM_HT, 'I04T', 1, SubString("|cffff6800【伪】|r【卷轴】吸血剑", 0, StringLength("|cffff6800【伪】|r【卷轴】吸血剑")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】吸血剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("正义旗帜"), 0, 'I009')
+                call SaveStr(ITEM_HT, 'I009', 1, SubString("正义旗帜", 0, StringLength("正义旗帜")))
+                set ssssss[i]="正义旗帜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("吸血剑"), 0, 'I07F')
+                call SaveStr(ITEM_HT, 'I07F', 1, SubString("吸血剑", 0, StringLength("吸血剑")))
+                set ssssss[i]="吸血剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("敏捷戒指"), 0, 'I00D')
+                call SaveStr(ITEM_HT, 'I00D', 1, SubString("敏捷戒指", 0, StringLength("敏捷戒指")))
+                set ssssss[i]="敏捷戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r泡行车"), 0, 'I06A')
+                call SaveStr(ITEM_HT, 'I06A', 1, SubString("|cffff6800【伪】|r泡行车", 0, StringLength("|cffff6800【伪】|r泡行车")))
+                set ssssss[i]="|cffff6800【伪】|r泡行车"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黄金钟"), 0, 'I07A')
+                call SaveStr(ITEM_HT, 'I07A', 1, SubString("|cffff6800【伪】|r黄金钟", 0, StringLength("|cffff6800【伪】|r黄金钟")))
+                set ssssss[i]="|cffff6800【伪】|r黄金钟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("力量拳套"), 0, 'I00G')
+                call SaveStr(ITEM_HT, 'I00G', 1, SubString("力量拳套", 0, StringLength("力量拳套")))
+                set ssssss[i]="力量拳套"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】时雨"), 0, 'I04Q')
+                call SaveStr(ITEM_HT, 'I04Q', 1, SubString("|cffff6800【伪】|r【卷轴】时雨", 0, StringLength("|cffff6800【伪】|r【卷轴】时雨")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】时雨"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv1"), 0, 'I01E')
+                call SaveStr(ITEM_HT, 'I01E', 1, SubString("|c00ff8040护贝|r Lv1", 0, StringLength("|c00ff8040护贝|r Lv1")))
+                set ssssss[i]="|c00ff8040护贝|r Lv1"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("恢复神符"), 0, 'I002')
+                call SaveStr(ITEM_HT, 'I002', 1, SubString("恢复神符", 0, StringLength("恢复神符")))
+                set ssssss[i]="恢复神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("天龙人勋章"), 0, 'I07B')
+                call SaveStr(ITEM_HT, 'I07B', 1, SubString("天龙人勋章", 0, StringLength("天龙人勋章")))
+                set ssssss[i]="天龙人勋章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("智慧头饰"), 0, 'I00I')
+                call SaveStr(ITEM_HT, 'I00I', 1, SubString("智慧头饰", 0, StringLength("智慧头饰")))
+                set ssssss[i]="智慧头饰"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r樱十"), 0, 'I06W')
+                call SaveStr(ITEM_HT, 'I06W', 1, SubString("|cffff6800【伪】|r樱十", 0, StringLength("|cffff6800【伪】|r樱十")))
+                set ssssss[i]="|cffff6800【伪】|r樱十"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv4"), 0, 'I01H')
+                call SaveStr(ITEM_HT, 'I01H', 1, SubString("|c00ff8040护贝|r Lv4", 0, StringLength("|c00ff8040护贝|r Lv4")))
+                set ssssss[i]="|c00ff8040护贝|r Lv4"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】三代鬼彻"), 0, 'I03Z')
+                call SaveStr(ITEM_HT, 'I03Z', 1, SubString("【卷轴】三代鬼彻", 0, StringLength("【卷轴】三代鬼彻")))
+                set ssssss[i]="【卷轴】三代鬼彻"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("淡水桶"), 0, 'I010')
+                call SaveStr(ITEM_HT, 'I010', 1, SubString("淡水桶", 0, StringLength("淡水桶")))
+                set ssssss[i]="淡水桶"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("敏捷丝靴"), 0, 'I00H')
+                call SaveStr(ITEM_HT, 'I00H', 1, SubString("敏捷丝靴", 0, StringLength("敏捷丝靴")))
+                set ssssss[i]="敏捷丝靴"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r正义大氅"), 0, 'I072')
+                call SaveStr(ITEM_HT, 'I072', 1, SubString("|cffff6800【伪】|r正义大氅", 0, StringLength("|cffff6800【伪】|r正义大氅")))
+                set ssssss[i]="|cffff6800【伪】|r正义大氅"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r铁壁"), 0, 'I06J')
+                call SaveStr(ITEM_HT, 'I06J', 1, SubString("|cffff6800【伪】|r铁壁", 0, StringLength("|cffff6800【伪】|r铁壁")))
+                set ssssss[i]="|cffff6800【伪】|r铁壁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r偃月大砍刀"), 0, 'I06T')
+                call SaveStr(ITEM_HT, 'I06T', 1, SubString("|cffff6800【伪】|r偃月大砍刀", 0, StringLength("|cffff6800【伪】|r偃月大砍刀")))
+                set ssssss[i]="|cffff6800【伪】|r偃月大砍刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】天龙人勋章"), 0, 'I04R')
+                call SaveStr(ITEM_HT, 'I04R', 1, SubString("|cffff6800【伪】|r【卷轴】天龙人勋章", 0, StringLength("|cffff6800【伪】|r【卷轴】天龙人勋章")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】天龙人勋章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("隐身神符"), 0, 'I007')
+                call SaveStr(ITEM_HT, 'I007', 1, SubString("隐身神符", 0, StringLength("隐身神符")))
+                set ssssss[i]="隐身神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv2】|r"), 0, 'I02R')
+                call SaveStr(ITEM_HT, 'I02R', 1, SubString("魔法天候棒|cffff0000【Lv2】|r", 0, StringLength("魔法天候棒|cffff0000【Lv2】|r")))
+                set ssssss[i]="魔法天候棒|cffff0000【Lv2】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r花边指环"), 0, 'I05L')
+                call SaveStr(ITEM_HT, 'I05L', 1, SubString("|cffff6800【伪】|r花边指环", 0, StringLength("|cffff6800【伪】|r花边指环")))
+                set ssssss[i]="|cffff6800【伪】|r花边指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】追云飞鸟"), 0, 'I04Z')
+                call SaveStr(ITEM_HT, 'I04Z', 1, SubString("|cffff6800【伪】|r【卷轴】追云飞鸟", 0, StringLength("|cffff6800【伪】|r【卷轴】追云飞鸟")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】追云飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r雪走"), 0, 'I06Q')
+                call SaveStr(ITEM_HT, 'I06Q', 1, SubString("|cffff6800【伪】|r雪走", 0, StringLength("|cffff6800【伪】|r雪走")))
+                set ssssss[i]="|cffff6800【伪】|r雪走"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r可可亚西之橘"), 0, 'I05R')
+                call SaveStr(ITEM_HT, 'I05R', 1, SubString("|cffff6800【伪】|r可可亚西之橘", 0, StringLength("|cffff6800【伪】|r可可亚西之橘")))
+                set ssssss[i]="|cffff6800【伪】|r可可亚西之橘"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("小型治疗神符"), 0, 'I000')
+                call SaveStr(ITEM_HT, 'I000', 1, SubString("小型治疗神符", 0, StringLength("小型治疗神符")))
+                set ssssss[i]="小型治疗神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r幽灵叹息"), 0, 'I06Z')
+                call SaveStr(ITEM_HT, 'I06Z', 1, SubString("|cffff6800【伪】|r幽灵叹息", 0, StringLength("|cffff6800【伪】|r幽灵叹息")))
+                set ssssss[i]="|cffff6800【伪】|r幽灵叹息"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("海楼石"), 0, 'I02Z')
+                call SaveStr(ITEM_HT, 'I02Z', 1, SubString("海楼石", 0, StringLength("海楼石")))
+                set ssssss[i]="海楼石"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r晕锤"), 0, 'I07E')
+                call SaveStr(ITEM_HT, 'I07E', 1, SubString("|cffff6800【伪】|r晕锤", 0, StringLength("|cffff6800【伪】|r晕锤")))
+                set ssssss[i]="|cffff6800【伪】|r晕锤"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海神之心【破损】"), 0, 'I05D')
+                call SaveStr(ITEM_HT, 'I05D', 1, SubString("|cffff6800【伪】|r海神之心【破损】", 0, StringLength("|cffff6800【伪】|r海神之心【破损】")))
+                set ssssss[i]="|cffff6800【伪】|r海神之心【破损】"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】魂之丧剑"), 0, 'I03T')
+                call SaveStr(ITEM_HT, 'I03T', 1, SubString("【卷轴】魂之丧剑", 0, StringLength("【卷轴】魂之丧剑")))
+                set ssssss[i]="【卷轴】魂之丧剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑刀夜"), 0, 'I04D')
+                call SaveStr(ITEM_HT, 'I04D', 1, SubString("|cffff6800【伪】|r【卷轴】黑刀夜", 0, StringLength("|cffff6800【伪】|r【卷轴】黑刀夜")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑刀夜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("三明治"), 0, 'I00W')
+                call SaveStr(ITEM_HT, 'I00W', 1, SubString("三明治", 0, StringLength("三明治")))
+                set ssssss[i]="三明治"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黑刀 夜"), 0, 'I02H')
+                call SaveStr(ITEM_HT, 'I02H', 1, SubString("黑刀 夜", 0, StringLength("黑刀 夜")))
+                set ssssss[i]="黑刀 夜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("海蛇毒液"), 0, 'I014')
+                call SaveStr(ITEM_HT, 'I014', 1, SubString("海蛇毒液", 0, StringLength("海蛇毒液")))
+                set ssssss[i]="海蛇毒液"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r登船斧"), 0, 'I055')
+                call SaveStr(ITEM_HT, 'I055', 1, SubString("|cffff6800【伪】|r登船斧", 0, StringLength("|cffff6800【伪】|r登船斧")))
+                set ssssss[i]="|cffff6800【伪】|r登船斧"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("艺人面罩"), 0, 'I00N')
+                call SaveStr(ITEM_HT, 'I00N', 1, SubString("艺人面罩", 0, StringLength("艺人面罩")))
+                set ssssss[i]="艺人面罩"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r旅行者之衣"), 0, 'I060')
+                call SaveStr(ITEM_HT, 'I060', 1, SubString("|cffff6800【伪】|r旅行者之衣", 0, StringLength("|cffff6800【伪】|r旅行者之衣")))
+                set ssssss[i]="|cffff6800【伪】|r旅行者之衣"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】泡行车"), 0, 'I03I')
+                call SaveStr(ITEM_HT, 'I03I', 1, SubString("【卷轴】泡行车", 0, StringLength("【卷轴】泡行车")))
+                set ssssss[i]="【卷轴】泡行车"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("洛泉之瓶 空瓶"), 0, 'I033')
+                call SaveStr(ITEM_HT, 'I033', 1, SubString("洛泉之瓶 空瓶", 0, StringLength("洛泉之瓶 空瓶")))
+                set ssssss[i]="洛泉之瓶 空瓶"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】偃月大砍刀"), 0, 'I04V')
+                call SaveStr(ITEM_HT, 'I04V', 1, SubString("|cffff6800【伪】|r【卷轴】偃月大砍刀", 0, StringLength("|cffff6800【伪】|r【卷轴】偃月大砍刀")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】偃月大砍刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("加速手套"), 0, 'I017')
+                call SaveStr(ITEM_HT, 'I017', 1, SubString("加速手套", 0, StringLength("加速手套")))
+                set ssssss[i]="加速手套"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("正义大氅"), 0, 'I01N')
+                call SaveStr(ITEM_HT, 'I01N', 1, SubString("正义大氅", 0, StringLength("正义大氅")))
+                set ssssss[i]="正义大氅"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量戒指"), 0, 'I05W')
+                call SaveStr(ITEM_HT, 'I05W', 1, SubString("|cffff6800【伪】|r力量戒指", 0, StringLength("|cffff6800【伪】|r力量戒指")))
+                set ssssss[i]="|cffff6800【伪】|r力量戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("速度之鞋"), 0, 'I01W')
+                call SaveStr(ITEM_HT, 'I01W', 1, SubString("速度之鞋", 0, StringLength("速度之鞋")))
+                set ssssss[i]="速度之鞋"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】诺诺大人棒"), 0, 'I03W')
+                call SaveStr(ITEM_HT, 'I03W', 1, SubString("【卷轴】诺诺大人棒", 0, StringLength("【卷轴】诺诺大人棒")))
+                set ssssss[i]="【卷轴】诺诺大人棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r丝滑披风"), 0, 'I06H')
+                call SaveStr(ITEM_HT, 'I06H', 1, SubString("|cffff6800【伪】|r丝滑披风", 0, StringLength("|cffff6800【伪】|r丝滑披风")))
+                set ssssss[i]="|cffff6800【伪】|r丝滑披风"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】正义之衣"), 0, 'I03D')
+                call SaveStr(ITEM_HT, 'I03D', 1, SubString("【卷轴】正义之衣", 0, StringLength("【卷轴】正义之衣")))
+                set ssssss[i]="【卷轴】正义之衣"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】黄金甲"), 0, 'I03B')
+                call SaveStr(ITEM_HT, 'I03B', 1, SubString("【卷轴】黄金甲", 0, StringLength("【卷轴】黄金甲")))
+                set ssssss[i]="【卷轴】黄金甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv1"), 0, 'I043')
+                call SaveStr(ITEM_HT, 'I043', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv1", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv1")))
+                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv1"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量护臂"), 0, 'I05V')
+                call SaveStr(ITEM_HT, 'I05V', 1, SubString("|cffff6800【伪】|r力量护臂", 0, StringLength("|cffff6800【伪】|r力量护臂")))
+                set ssssss[i]="|cffff6800【伪】|r力量护臂"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("历史正文-沉默的箴言"), 0, 'I02W')
+                call SaveStr(ITEM_HT, 'I02W', 1, SubString("历史正文-沉默的箴言", 0, StringLength("历史正文-沉默的箴言")))
+                set ssssss[i]="历史正文-沉默的箴言"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海楼石"), 0, 'I05B')
+                call SaveStr(ITEM_HT, 'I05B', 1, SubString("|cffff6800【伪】|r海楼石", 0, StringLength("|cffff6800【伪】|r海楼石")))
+                set ssssss[i]="|cffff6800【伪】|r海楼石"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r贤者宝石"), 0, 'I06N')
+                call SaveStr(ITEM_HT, 'I06N', 1, SubString("|cffff6800【伪】|r贤者宝石", 0, StringLength("|cffff6800【伪】|r贤者宝石")))
+                set ssssss[i]="|cffff6800【伪】|r贤者宝石"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】偃月大砍刀"), 0, 'I03V')
+                call SaveStr(ITEM_HT, 'I03V', 1, SubString("【卷轴】偃月大砍刀", 0, StringLength("【卷轴】偃月大砍刀")))
+                set ssssss[i]="【卷轴】偃月大砍刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r枯木"), 0, 'I05T')
+                call SaveStr(ITEM_HT, 'I05T', 1, SubString("|cffff6800【伪】|r枯木", 0, StringLength("|cffff6800【伪】|r枯木")))
+                set ssssss[i]="|cffff6800【伪】|r枯木"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("三代鬼彻"), 0, 'I02V')
+                call SaveStr(ITEM_HT, 'I02V', 1, SubString("三代鬼彻", 0, StringLength("三代鬼彻")))
+                set ssssss[i]="三代鬼彻"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r艺人面罩"), 0, 'I06V')
+                call SaveStr(ITEM_HT, 'I06V', 1, SubString("|cffff6800【伪】|r艺人面罩", 0, StringLength("|cffff6800【伪】|r艺人面罩")))
+                set ssssss[i]="|cffff6800【伪】|r艺人面罩"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("鬼哭"), 0, 'I02P')
+                call SaveStr(ITEM_HT, 'I02P', 1, SubString("鬼哭", 0, StringLength("鬼哭")))
+                set ssssss[i]="鬼哭"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("章鱼烧"), 0, 'I00X')
+                call SaveStr(ITEM_HT, 'I00X', 1, SubString("章鱼烧", 0, StringLength("章鱼烧")))
+                set ssssss[i]="章鱼烧"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑刀 夜"), 0, 'I05G')
+                call SaveStr(ITEM_HT, 'I05G', 1, SubString("|cffff6800【伪】|r黑刀 夜", 0, StringLength("|cffff6800【伪】|r黑刀 夜")))
+                set ssssss[i]="|cffff6800【伪】|r黑刀 夜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("时雨"), 0, 'I02F')
+                call SaveStr(ITEM_HT, 'I02F', 1, SubString("时雨", 0, StringLength("时雨")))
+                set ssssss[i]="时雨"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("威霸"), 0, 'I01X')
+                call SaveStr(ITEM_HT, 'I01X', 1, SubString("威霸", 0, StringLength("威霸")))
+                set ssssss[i]="威霸"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黄金甲"), 0, 'I05M')
+                call SaveStr(ITEM_HT, 'I05M', 1, SubString("|cffff6800【伪】|r黄金甲", 0, StringLength("|cffff6800【伪】|r黄金甲")))
+                set ssssss[i]="|cffff6800【伪】|r黄金甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】威霸"), 0, 'I03F')
+                call SaveStr(ITEM_HT, 'I03F', 1, SubString("【卷轴】威霸", 0, StringLength("【卷轴】威霸")))
+                set ssssss[i]="【卷轴】威霸"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r鬼哭"), 0, 'I059')
+                call SaveStr(ITEM_HT, 'I059', 1, SubString("|cffff6800【伪】|r鬼哭", 0, StringLength("|cffff6800【伪】|r鬼哭")))
+                set ssssss[i]="|cffff6800【伪】|r鬼哭"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("科勒恩的逃脱匕首"), 0, 'I035')
+                call SaveStr(ITEM_HT, 'I035', 1, SubString("科勒恩的逃脱匕首", 0, StringLength("科勒恩的逃脱匕首")))
+                set ssssss[i]="科勒恩的逃脱匕首"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("七尺十手"), 0, 'I02G')
+                call SaveStr(ITEM_HT, 'I02G', 1, SubString("七尺十手", 0, StringLength("七尺十手")))
+                set ssssss[i]="七尺十手"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷丝靴"), 0, 'I063')
+                call SaveStr(ITEM_HT, 'I063', 1, SubString("|cffff6800【伪】|r敏捷丝靴", 0, StringLength("|cffff6800【伪】|r敏捷丝靴")))
+                set ssssss[i]="|cffff6800【伪】|r敏捷丝靴"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】历史正文"), 0, 'I040')
+                call SaveStr(ITEM_HT, 'I040', 1, SubString("【卷轴】历史正文", 0, StringLength("【卷轴】历史正文")))
+                set ssssss[i]="【卷轴】历史正文"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】魔法天候棒"), 0, 'I03Y')
+                call SaveStr(ITEM_HT, 'I03Y', 1, SubString("【卷轴】魔法天候棒", 0, StringLength("【卷轴】魔法天候棒")))
+                set ssssss[i]="【卷轴】魔法天候棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r速度之鞋"), 0, 'I06I')
+                call SaveStr(ITEM_HT, 'I06I', 1, SubString("|cffff6800【伪】|r速度之鞋", 0, StringLength("|cffff6800【伪】|r速度之鞋")))
+                set ssssss[i]="|cffff6800【伪】|r速度之鞋"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】触鬼"), 0, 'I048')
+                call SaveStr(ITEM_HT, 'I048', 1, SubString("|cffff6800【伪】|r【卷轴】触鬼", 0, StringLength("|cffff6800【伪】|r【卷轴】触鬼")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】触鬼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】左轮手枪"), 0, 'I050')
+                call SaveStr(ITEM_HT, 'I050', 1, SubString("|cffff6800【伪】|r【卷轴】左轮手枪", 0, StringLength("|cffff6800【伪】|r【卷轴】左轮手枪")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】左轮手枪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("治疗神符"), 0, 'I005')
+                call SaveStr(ITEM_HT, 'I005', 1, SubString("治疗神符", 0, StringLength("治疗神符")))
+                set ssssss[i]="治疗神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r吸血剑"), 0, 'I07G')
+                call SaveStr(ITEM_HT, 'I07G', 1, SubString("|cffff6800【伪】|r吸血剑", 0, StringLength("|cffff6800【伪】|r吸血剑")))
+                set ssssss[i]="|cffff6800【伪】|r吸血剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv3"), 0, 'I045')
+                call SaveStr(ITEM_HT, 'I045', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv3", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv3")))
+                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv3"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑足"), 0, 'I03G')
+                call SaveStr(ITEM_HT, 'I03G', 1, SubString("【卷轴】黑足", 0, StringLength("【卷轴】黑足")))
+                set ssssss[i]="【卷轴】黑足"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("敏捷匕首"), 0, 'I00L')
+                call SaveStr(ITEM_HT, 'I00L', 1, SubString("敏捷匕首", 0, StringLength("敏捷匕首")))
+                set ssssss[i]="敏捷匕首"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑兜"), 0, 'I03P')
+                call SaveStr(ITEM_HT, 'I03P', 1, SubString("【卷轴】黑兜", 0, StringLength("【卷轴】黑兜")))
+                set ssssss[i]="【卷轴】黑兜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【力量】|r"), 0, 'I05I')
+                call SaveStr(ITEM_HT, 'I05I', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【力量】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【力量】|r")))
+                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【力量】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】鬼哭"), 0, 'I03X')
+                call SaveStr(ITEM_HT, 'I03X', 1, SubString("【卷轴】鬼哭", 0, StringLength("【卷轴】鬼哭")))
+                set ssssss[i]="【卷轴】鬼哭"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("登船斧"), 0, 'I015')
+                call SaveStr(ITEM_HT, 'I015', 1, SubString("登船斧", 0, StringLength("登船斧")))
+                set ssssss[i]="登船斧"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r空岛之云"), 0, 'I05S')
+                call SaveStr(ITEM_HT, 'I05S', 1, SubString("|cffff6800【伪】|r空岛之云", 0, StringLength("|cffff6800【伪】|r空岛之云")))
+                set ssssss[i]="|cffff6800【伪】|r空岛之云"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("破碎的古老纹章"), 0, 'I00J')
+                call SaveStr(ITEM_HT, 'I00J', 1, SubString("破碎的古老纹章", 0, StringLength("破碎的古老纹章")))
+                set ssssss[i]="破碎的古老纹章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("左轮手枪"), 0, 'I02Y')
+                call SaveStr(ITEM_HT, 'I02Y', 1, SubString("左轮手枪", 0, StringLength("左轮手枪")))
+                set ssssss[i]="左轮手枪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv4"), 0, 'I046')
+                call SaveStr(ITEM_HT, 'I046', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv4", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv4")))
+                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv4"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("摄魂之眼"), 0, 'I00S')
+                call SaveStr(ITEM_HT, 'I00S', 1, SubString("摄魂之眼", 0, StringLength("摄魂之眼")))
+                set ssssss[i]="摄魂之眼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("海神之心"), 0, 'I02X')
+                call SaveStr(ITEM_HT, 'I02X', 1, SubString("海神之心", 0, StringLength("海神之心")))
+                set ssssss[i]="海神之心"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黄金钟"), 0, 'I04H')
+                call SaveStr(ITEM_HT, 'I04H', 1, SubString("|cffff6800【伪】|r【卷轴】黄金钟", 0, StringLength("|cffff6800【伪】|r【卷轴】黄金钟")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】黄金钟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("贤者宝石"), 0, 'I00M')
+                call SaveStr(ITEM_HT, 'I00M', 1, SubString("贤者宝石", 0, StringLength("贤者宝石")))
+                set ssssss[i]="贤者宝石"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魂之丧剑"), 0, 'I05O')
+                call SaveStr(ITEM_HT, 'I05O', 1, SubString("|cffff6800【伪】|r魂之丧剑", 0, StringLength("|cffff6800【伪】|r魂之丧剑")))
+                set ssssss[i]="|cffff6800【伪】|r魂之丧剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r"), 0, 'I066')
+                call SaveStr(ITEM_HT, 'I066', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r")))
+                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r"), 0, 'I065')
+                call SaveStr(ITEM_HT, 'I065', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r")))
+                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r草帽"), 0, 'I053')
+                call SaveStr(ITEM_HT, 'I053', 1, SubString("|cffff6800【伪】|r草帽", 0, StringLength("|cffff6800【伪】|r草帽")))
+                set ssssss[i]="|cffff6800【伪】|r草帽"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】炎阳铠甲"), 0, 'I04U')
+                call SaveStr(ITEM_HT, 'I04U', 1, SubString("|cffff6800【伪】|r【卷轴】炎阳铠甲", 0, StringLength("|cffff6800【伪】|r【卷轴】炎阳铠甲")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】炎阳铠甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("浮蜥唾液"), 0, 'I013')
+                call SaveStr(ITEM_HT, 'I013', 1, SubString("浮蜥唾液", 0, StringLength("浮蜥唾液")))
+                set ssssss[i]="浮蜥唾液"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r左轮手枪"), 0, 'I077')
+                call SaveStr(ITEM_HT, 'I077', 1, SubString("|cffff6800【伪】|r左轮手枪", 0, StringLength("|cffff6800【伪】|r左轮手枪")))
+                set ssssss[i]="|cffff6800【伪】|r左轮手枪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r炎阳铠甲"), 0, 'I06S')
+                call SaveStr(ITEM_HT, 'I06S', 1, SubString("|cffff6800【伪】|r炎阳铠甲", 0, StringLength("|cffff6800【伪】|r炎阳铠甲")))
+                set ssssss[i]="|cffff6800【伪】|r炎阳铠甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】秋水"), 0, 'I04O')
+                call SaveStr(ITEM_HT, 'I04O', 1, SubString("|cffff6800【伪】|r【卷轴】秋水", 0, StringLength("|cffff6800【伪】|r【卷轴】秋水")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】秋水"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r追云飞鸟"), 0, 'I076')
+                call SaveStr(ITEM_HT, 'I076', 1, SubString("|cffff6800【伪】|r追云飞鸟", 0, StringLength("|cffff6800【伪】|r追云飞鸟")))
+                set ssssss[i]="|cffff6800【伪】|r追云飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r火烈鸟大氅"), 0, 'I05P')
+                call SaveStr(ITEM_HT, 'I05P', 1, SubString("|cffff6800【伪】|r火烈鸟大氅", 0, StringLength("|cffff6800【伪】|r火烈鸟大氅")))
+                set ssssss[i]="|cffff6800【伪】|r火烈鸟大氅"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("诺诺大人棒"), 0, 'I02O')
+                call SaveStr(ITEM_HT, 'I02O', 1, SubString("诺诺大人棒", 0, StringLength("诺诺大人棒")))
+                set ssssss[i]="诺诺大人棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】三代鬼彻"), 0, 'I04P')
+                call SaveStr(ITEM_HT, 'I04P', 1, SubString("|cffff6800【伪】|r【卷轴】三代鬼彻", 0, StringLength("|cffff6800【伪】|r【卷轴】三代鬼彻")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】三代鬼彻"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("炎阳铠甲"), 0, 'I01P')
+                call SaveStr(ITEM_HT, 'I01P', 1, SubString("炎阳铠甲", 0, StringLength("炎阳铠甲")))
+                set ssssss[i]="炎阳铠甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】毒爪"), 0, 'I03O')
+                call SaveStr(ITEM_HT, 'I03O', 1, SubString("【卷轴】毒爪", 0, StringLength("【卷轴】毒爪")))
+                set ssssss[i]="【卷轴】毒爪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv5】|r"), 0, 'I02U')
+                call SaveStr(ITEM_HT, 'I02U', 1, SubString("魔法天候棒|cffff0000【Lv5】|r", 0, StringLength("魔法天候棒|cffff0000【Lv5】|r")))
+                set ssssss[i]="魔法天候棒|cffff0000【Lv5】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("力量护臂"), 0, 'I00K')
+                call SaveStr(ITEM_HT, 'I00K', 1, SubString("力量护臂", 0, StringLength("力量护臂")))
+                set ssssss[i]="力量护臂"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("追云"), 0, 'I023')
+                call SaveStr(ITEM_HT, 'I023', 1, SubString("追云", 0, StringLength("追云")))
+                set ssssss[i]="追云"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r和道一文字"), 0, 'I05F')
+                call SaveStr(ITEM_HT, 'I05F', 1, SubString("|cffff6800【伪】|r和道一文字", 0, StringLength("|cffff6800【伪】|r和道一文字")))
+                set ssssss[i]="|cffff6800【伪】|r和道一文字"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("雪走"), 0, 'I018')
+                call SaveStr(ITEM_HT, 'I018', 1, SubString("雪走", 0, StringLength("雪走")))
+                set ssssss[i]="雪走"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("战斗神符"), 0, 'I008')
+                call SaveStr(ITEM_HT, 'I008', 1, SubString("战斗神符", 0, StringLength("战斗神符")))
+                set ssssss[i]="战斗神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r"), 0, 'I067')
+                call SaveStr(ITEM_HT, 'I067', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r")))
+                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("小型治愈神符"), 0, 'I001')
+                call SaveStr(ITEM_HT, 'I001', 1, SubString("小型治愈神符", 0, StringLength("小型治愈神符")))
+                set ssssss[i]="小型治愈神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r小盾牌"), 0, 'I06O')
+                call SaveStr(ITEM_HT, 'I06O', 1, SubString("|cffff6800【伪】|r小盾牌", 0, StringLength("|cffff6800【伪】|r小盾牌")))
+                set ssssss[i]="|cffff6800【伪】|r小盾牌"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("生命纸"), 0, 'I01U')
+                call SaveStr(ITEM_HT, 'I01U', 1, SubString("生命纸", 0, StringLength("生命纸")))
+                set ssssss[i]="生命纸"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("金币神符"), 0, 'I003')
+                call SaveStr(ITEM_HT, 'I003', 1, SubString("金币神符", 0, StringLength("金币神符")))
+                set ssssss[i]="金币神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r影遁"), 0, 'I06X')
+                call SaveStr(ITEM_HT, 'I06X', 1, SubString("|cffff6800【伪】|r影遁", 0, StringLength("|cffff6800【伪】|r影遁")))
+                set ssssss[i]="|cffff6800【伪】|r影遁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("恢复指环"), 0, 'I00O')
+                call SaveStr(ITEM_HT, 'I00O', 1, SubString("恢复指环", 0, StringLength("恢复指环")))
+                set ssssss[i]="恢复指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海神之心"), 0, 'I05C')
+                call SaveStr(ITEM_HT, 'I05C', 1, SubString("|cffff6800【伪】|r海神之心", 0, StringLength("|cffff6800【伪】|r海神之心")))
+                set ssssss[i]="|cffff6800【伪】|r海神之心"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("影遁"), 0, 'I021')
+                call SaveStr(ITEM_HT, 'I021', 1, SubString("影遁", 0, StringLength("影遁")))
+                set ssssss[i]="影遁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】秋水"), 0, 'I03S')
+                call SaveStr(ITEM_HT, 'I03S', 1, SubString("【卷轴】秋水", 0, StringLength("【卷轴】秋水")))
+                set ssssss[i]="【卷轴】秋水"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r三代鬼彻"), 0, 'I06E')
+                call SaveStr(ITEM_HT, 'I06E', 1, SubString("|cffff6800【伪】|r三代鬼彻", 0, StringLength("|cffff6800【伪】|r三代鬼彻")))
+                set ssssss[i]="|cffff6800【伪】|r三代鬼彻"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【智力】|r"), 0, 'I020')
+                call SaveStr(ITEM_HT, 'I020', 1, SubString("黑足|cffff0000【智力】|r", 0, StringLength("黑足|cffff0000【智力】|r")))
+                set ssssss[i]="黑足|cffff0000【智力】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r廓尔格弯刀"), 0, 'I05U')
+                call SaveStr(ITEM_HT, 'I05U', 1, SubString("|cffff6800【伪】|r廓尔格弯刀", 0, StringLength("|cffff6800【伪】|r廓尔格弯刀")))
+                set ssssss[i]="|cffff6800【伪】|r廓尔格弯刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("西洋剑"), 0, 'I031')
+                call SaveStr(ITEM_HT, 'I031', 1, SubString("西洋剑", 0, StringLength("西洋剑")))
+                set ssssss[i]="西洋剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】吸血剑"), 0, 'I03M')
+                call SaveStr(ITEM_HT, 'I03M', 1, SubString("【卷轴】吸血剑", 0, StringLength("【卷轴】吸血剑")))
+                set ssssss[i]="【卷轴】吸血剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑刀夜"), 0, 'I03R')
+                call SaveStr(ITEM_HT, 'I03R', 1, SubString("【卷轴】黑刀夜", 0, StringLength("【卷轴】黑刀夜")))
+                set ssssss[i]="【卷轴】黑刀夜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("鳍露"), 0, 'I01S')
+                call SaveStr(ITEM_HT, 'I01S', 1, SubString("鳍露", 0, StringLength("鳍露")))
+                set ssssss[i]="鳍露"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r西洋剑"), 0, 'I06M')
+                call SaveStr(ITEM_HT, 'I06M', 1, SubString("|cffff6800【伪】|r西洋剑", 0, StringLength("|cffff6800【伪】|r西洋剑")))
+                set ssssss[i]="|cffff6800【伪】|r西洋剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r鲨齿"), 0, 'I06F')
+                call SaveStr(ITEM_HT, 'I06F', 1, SubString("|cffff6800【伪】|r鲨齿", 0, StringLength("|cffff6800【伪】|r鲨齿")))
+                set ssssss[i]="|cffff6800【伪】|r鲨齿"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("洛树琼浆"), 0, 'I011')
+                call SaveStr(ITEM_HT, 'I011', 1, SubString("洛树琼浆", 0, StringLength("洛树琼浆")))
+                set ssssss[i]="洛树琼浆"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("海神之心【破损】"), 0, 'I038')
+                call SaveStr(ITEM_HT, 'I038', 1, SubString("海神之心【破损】", 0, StringLength("海神之心【破损】")))
+                set ssssss[i]="海神之心【破损】"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】追云飞鸟"), 0, 'I03J')
+                call SaveStr(ITEM_HT, 'I03J', 1, SubString("【卷轴】追云飞鸟", 0, StringLength("【卷轴】追云飞鸟")))
+                set ssssss[i]="【卷轴】追云飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("传送号角"), 0, 'I00P')
+                call SaveStr(ITEM_HT, 'I00P', 1, SubString("传送号角", 0, StringLength("传送号角")))
+                set ssssss[i]="传送号角"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("洛泉之瓶"), 0, 'I00Z')
+                call SaveStr(ITEM_HT, 'I00Z', 1, SubString("洛泉之瓶", 0, StringLength("洛泉之瓶")))
+                set ssssss[i]="洛泉之瓶"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv4】|r"), 0, 'I02T')
+                call SaveStr(ITEM_HT, 'I02T', 1, SubString("魔法天候棒|cffff0000【Lv4】|r", 0, StringLength("魔法天候棒|cffff0000【Lv4】|r")))
+                set ssssss[i]="魔法天候棒|cffff0000【Lv4】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r恢复指环"), 0, 'I05N')
+                call SaveStr(ITEM_HT, 'I05N', 1, SubString("|cffff6800【伪】|r恢复指环", 0, StringLength("|cffff6800【伪】|r恢复指环")))
+                set ssssss[i]="|cffff6800【伪】|r恢复指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑足"), 0, 'I04F')
+                call SaveStr(ITEM_HT, 'I04F', 1, SubString("|cffff6800【伪】|r【卷轴】黑足", 0, StringLength("|cffff6800【伪】|r【卷轴】黑足")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑足"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】魔法天候棒"), 0, 'I04K')
+                call SaveStr(ITEM_HT, 'I04K', 1, SubString("|cffff6800【伪】|r【卷轴】魔法天候棒", 0, StringLength("|cffff6800【伪】|r【卷轴】魔法天候棒")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】魔法天候棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("监视电话虫"), 0, 'I01Q')
+                call SaveStr(ITEM_HT, 'I01Q', 1, SubString("监视电话虫", 0, StringLength("监视电话虫")))
+                set ssssss[i]="监视电话虫"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黄金甲"), 0, 'I04G')
+                call SaveStr(ITEM_HT, 'I04G', 1, SubString("|cffff6800【伪】|r【卷轴】黄金甲", 0, StringLength("|cffff6800【伪】|r【卷轴】黄金甲")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】黄金甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("治愈神符"), 0, 'I006')
+                call SaveStr(ITEM_HT, 'I006', 1, SubString("治愈神符", 0, StringLength("治愈神符")))
+                set ssssss[i]="治愈神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【力量】|r"), 0, 'I01Y')
+                call SaveStr(ITEM_HT, 'I01Y', 1, SubString("黑足|cffff0000【力量】|r", 0, StringLength("黑足|cffff0000【力量】|r")))
+                set ssssss[i]="黑足|cffff0000【力量】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("空岛之云"), 0, 'I02A')
+                call SaveStr(ITEM_HT, 'I02A', 1, SubString("空岛之云", 0, StringLength("空岛之云")))
+                set ssssss[i]="空岛之云"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r加速手套"), 0, 'I05Q')
+                call SaveStr(ITEM_HT, 'I05Q', 1, SubString("|cffff6800【伪】|r加速手套", 0, StringLength("|cffff6800【伪】|r加速手套")))
+                set ssssss[i]="|cffff6800【伪】|r加速手套"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】诺诺大人棒"), 0, 'I04L')
+                call SaveStr(ITEM_HT, 'I04L', 1, SubString("|cffff6800【伪】|r【卷轴】诺诺大人棒", 0, StringLength("|cffff6800【伪】|r【卷轴】诺诺大人棒")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】诺诺大人棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r小戒指"), 0, 'I06P')
+                call SaveStr(ITEM_HT, 'I06P', 1, SubString("|cffff6800【伪】|r小戒指", 0, StringLength("|cffff6800【伪】|r小戒指")))
+                set ssssss[i]="|cffff6800【伪】|r小戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("飞鸟"), 0, 'I024')
+                call SaveStr(ITEM_HT, 'I024', 1, SubString("飞鸟", 0, StringLength("飞鸟")))
+                set ssssss[i]="飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("火烈鸟大氅"), 0, 'I01O')
+                call SaveStr(ITEM_HT, 'I01O', 1, SubString("火烈鸟大氅", 0, StringLength("火烈鸟大氅")))
+                set ssssss[i]="火烈鸟大氅"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("追云飞鸟"), 0, 'I036')
+                call SaveStr(ITEM_HT, 'I036', 1, SubString("追云飞鸟", 0, StringLength("追云飞鸟")))
+                set ssssss[i]="追云飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r时雨"), 0, 'I06G')
+                call SaveStr(ITEM_HT, 'I06G', 1, SubString("|cffff6800【伪】|r时雨", 0, StringLength("|cffff6800【伪】|r时雨")))
+                set ssssss[i]="|cffff6800【伪】|r时雨"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】历史正文"), 0, 'I04J')
+                call SaveStr(ITEM_HT, 'I04J', 1, SubString("|cffff6800【伪】|r【卷轴】历史正文", 0, StringLength("|cffff6800【伪】|r【卷轴】历史正文")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】历史正文"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r"), 0, 'I070')
+                call SaveStr(ITEM_HT, 'I070', 1, SubString("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r", 0, StringLength("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r")))
+                set ssssss[i]="|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r"), 0, 'I071')
+                call SaveStr(ITEM_HT, 'I071', 1, SubString("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r", 0, StringLength("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r")))
+                set ssssss[i]="|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("鲨齿"), 0, 'I042')
+                call SaveStr(ITEM_HT, 'I042', 1, SubString("鲨齿", 0, StringLength("鲨齿")))
+                set ssssss[i]="鲨齿"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r航海服"), 0, 'I05E')
+                call SaveStr(ITEM_HT, 'I05E', 1, SubString("|cffff6800【伪】|r航海服", 0, StringLength("|cffff6800【伪】|r航海服")))
+                set ssssss[i]="|cffff6800【伪】|r航海服"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】魂之丧剑"), 0, 'I04I')
+                call SaveStr(ITEM_HT, 'I04I', 1, SubString("|cffff6800【伪】|r【卷轴】魂之丧剑", 0, StringLength("|cffff6800【伪】|r【卷轴】魂之丧剑")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】魂之丧剑"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("速度神符"), 0, 'I004')
+                call SaveStr(ITEM_HT, 'I004', 1, SubString("速度神符", 0, StringLength("速度神符")))
+                set ssssss[i]="速度神符"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】电话虫口袋"), 0, 'I04A')
+                call SaveStr(ITEM_HT, 'I04A', 1, SubString("|cffff6800【伪】|r【卷轴】电话虫口袋", 0, StringLength("|cffff6800【伪】|r【卷轴】电话虫口袋")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】电话虫口袋"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r诺诺大人棒"), 0, 'I069')
+                call SaveStr(ITEM_HT, 'I069', 1, SubString("|cffff6800【伪】|r诺诺大人棒", 0, StringLength("|cffff6800【伪】|r诺诺大人棒")))
+                set ssssss[i]="|cffff6800【伪】|r诺诺大人棒"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】影遁"), 0, 'I03H')
+                call SaveStr(ITEM_HT, 'I03H', 1, SubString("【卷轴】影遁", 0, StringLength("【卷轴】影遁")))
+                set ssssss[i]="【卷轴】影遁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("Pure Gold"), 0, 'I00A')
+                call SaveStr(ITEM_HT, 'I00A', 1, SubString("Pure Gold", 0, StringLength("Pure Gold")))
+                set ssssss[i]="Pure Gold"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷匕首"), 0, 'I061')
+                call SaveStr(ITEM_HT, 'I061', 1, SubString("|cffff6800【伪】|r敏捷匕首", 0, StringLength("|cffff6800【伪】|r敏捷匕首")))
+                set ssssss[i]="|cffff6800【伪】|r敏捷匕首"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("霸气修行"), 0, 'I01V')
+                call SaveStr(ITEM_HT, 'I01V', 1, SubString("霸气修行", 0, StringLength("霸气修行")))
+                set ssssss[i]="霸气修行"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海皇类之心"), 0, 'I05A')
+                call SaveStr(ITEM_HT, 'I05A', 1, SubString("|cffff6800【伪】|r海皇类之心", 0, StringLength("|cffff6800【伪】|r海皇类之心")))
+                set ssssss[i]="|cffff6800【伪】|r海皇类之心"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("哲谱红靴|cffff0000【心灵形态】|r"), 0, 'I026')
+                call SaveStr(ITEM_HT, 'I026', 1, SubString("哲谱红靴|cffff0000【心灵形态】|r", 0, StringLength("哲谱红靴|cffff0000【心灵形态】|r")))
+                set ssssss[i]="哲谱红靴|cffff0000【心灵形态】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv3】|r"), 0, 'I02S')
+                call SaveStr(ITEM_HT, 'I02S', 1, SubString("魔法天候棒|cffff0000【Lv3】|r", 0, StringLength("魔法天候棒|cffff0000【Lv3】|r")))
+                set ssssss[i]="魔法天候棒|cffff0000【Lv3】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r硬皮手札"), 0, 'I06Y')
+                call SaveStr(ITEM_HT, 'I06Y', 1, SubString("|cffff6800【伪】|r硬皮手札", 0, StringLength("|cffff6800【伪】|r硬皮手札")))
+                set ssssss[i]="|cffff6800【伪】|r硬皮手札"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r"), 0, 'I064')
+                call SaveStr(ITEM_HT, 'I064', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r")))
+                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r监视电话虫口袋"), 0, 'I030')
+                call SaveStr(ITEM_HT, 'I030', 1, SubString("|cffff6800【伪】|r监视电话虫口袋", 0, StringLength("|cffff6800【伪】|r监视电话虫口袋")))
+                set ssssss[i]="|cffff6800【伪】|r监视电话虫口袋"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv3"), 0, 'I01G')
+                call SaveStr(ITEM_HT, 'I01G', 1, SubString("|c00ff8040护贝|r Lv3", 0, StringLength("|c00ff8040护贝|r Lv3")))
+                set ssssss[i]="|c00ff8040护贝|r Lv3"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("哲谱红靴|cffff0000【物理形态】|r"), 0, 'I025')
+                call SaveStr(ITEM_HT, 'I025', 1, SubString("哲谱红靴|cffff0000【物理形态】|r", 0, StringLength("哲谱红靴|cffff0000【物理形态】|r")))
+                set ssssss[i]="哲谱红靴|cffff0000【物理形态】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑兜"), 0, 'I05H')
+                call SaveStr(ITEM_HT, 'I05H', 1, SubString("|cffff6800【伪】|r黑兜", 0, StringLength("|cffff6800【伪】|r黑兜")))
+                set ssssss[i]="|cffff6800【伪】|r黑兜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("丝滑披风"), 0, 'I037')
+                call SaveStr(ITEM_HT, 'I037', 1, SubString("丝滑披风", 0, StringLength("丝滑披风")))
+                set ssssss[i]="丝滑披风"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("旅行者之衣"), 0, 'I01L')
+                call SaveStr(ITEM_HT, 'I01L', 1, SubString("旅行者之衣", 0, StringLength("旅行者之衣")))
+                set ssssss[i]="旅行者之衣"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("可可亚西之橘"), 0, 'I00U')
+                call SaveStr(ITEM_HT, 'I00U', 1, SubString("可可亚西之橘", 0, StringLength("可可亚西之橘")))
+                set ssssss[i]="可可亚西之橘"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("叶子"), 0, 'I027')
+                call SaveStr(ITEM_HT, 'I027', 1, SubString("叶子", 0, StringLength("叶子")))
+                set ssssss[i]="叶子"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】黄金钟"), 0, 'I03E')
+                call SaveStr(ITEM_HT, 'I03E', 1, SubString("【卷轴】黄金钟", 0, StringLength("【卷轴】黄金钟")))
+                set ssssss[i]="【卷轴】黄金钟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】电话虫口袋"), 0, 'I03L')
+                call SaveStr(ITEM_HT, 'I03L', 1, SubString("【卷轴】电话虫口袋", 0, StringLength("【卷轴】电话虫口袋")))
+                set ssssss[i]="【卷轴】电话虫口袋"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r天龙人勋章"), 0, 'I07C')
+                call SaveStr(ITEM_HT, 'I07C', 1, SubString("|cffff6800【伪】|r天龙人勋章", 0, StringLength("|cffff6800【伪】|r天龙人勋章")))
+                set ssssss[i]="|cffff6800【伪】|r天龙人勋章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】炎阳铠甲"), 0, 'I03C')
+                call SaveStr(ITEM_HT, 'I03C', 1, SubString("【卷轴】炎阳铠甲", 0, StringLength("【卷轴】炎阳铠甲")))
+                set ssssss[i]="【卷轴】炎阳铠甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r"), 0, 'I068')
+                call SaveStr(ITEM_HT, 'I068', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r")))
+                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】点金"), 0, 'I049')
+                call SaveStr(ITEM_HT, 'I049', 1, SubString("|cffff6800【伪】|r【卷轴】点金", 0, StringLength("|cffff6800【伪】|r【卷轴】点金")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】点金"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r飞鸟"), 0, 'I057')
+                call SaveStr(ITEM_HT, 'I057', 1, SubString("|cffff6800【伪】|r飞鸟", 0, StringLength("|cffff6800【伪】|r飞鸟")))
+                set ssssss[i]="|cffff6800【伪】|r飞鸟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r科勒恩的逃脱匕首"), 0, 'I078')
+                call SaveStr(ITEM_HT, 'I078', 1, SubString("|cffff6800【伪】|r科勒恩的逃脱匕首", 0, StringLength("|cffff6800【伪】|r科勒恩的逃脱匕首")))
+                set ssssss[i]="|cffff6800【伪】|r科勒恩的逃脱匕首"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黄金钟"), 0, 'I02N')
+                call SaveStr(ITEM_HT, 'I02N', 1, SubString("黄金钟", 0, StringLength("黄金钟")))
+                set ssssss[i]="黄金钟"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r"), 0, 'I05J')
+                call SaveStr(ITEM_HT, 'I05J', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r")))
+                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【敏捷】|r"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】时雨"), 0, 'I03U')
+                call SaveStr(ITEM_HT, 'I03U', 1, SubString("【卷轴】时雨", 0, StringLength("【卷轴】时雨")))
+                set ssssss[i]="【卷轴】时雨"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("人鱼精髓"), 0, 'I01T')
+                call SaveStr(ITEM_HT, 'I01T', 1, SubString("人鱼精髓", 0, StringLength("人鱼精髓")))
+                set ssssss[i]="人鱼精髓"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r七尺十手"), 0, 'I06C')
+                call SaveStr(ITEM_HT, 'I06C', 1, SubString("|cffff6800【伪】|r七尺十手", 0, StringLength("|cffff6800【伪】|r七尺十手")))
+                set ssssss[i]="|cffff6800【伪】|r七尺十手"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("秋水"), 0, 'I02J')
+                call SaveStr(ITEM_HT, 'I02J', 1, SubString("秋水", 0, StringLength("秋水")))
+                set ssssss[i]="秋水"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r甘迪披风"), 0, 'I058')
+                call SaveStr(ITEM_HT, 'I058', 1, SubString("|cffff6800【伪】|r甘迪披风", 0, StringLength("|cffff6800【伪】|r甘迪披风")))
+                set ssssss[i]="|cffff6800【伪】|r甘迪披风"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r智力戒指"), 0, 'I074')
+                call SaveStr(ITEM_HT, 'I074', 1, SubString("|cffff6800【伪】|r智力戒指", 0, StringLength("|cffff6800【伪】|r智力戒指")))
+                set ssssss[i]="|cffff6800【伪】|r智力戒指"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("【卷轴】晕锤"), 0, 'I03N')
+                call SaveStr(ITEM_HT, 'I03N', 1, SubString("【卷轴】晕锤", 0, StringLength("【卷轴】晕锤")))
+                set ssssss[i]="【卷轴】晕锤"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("海皇类之心"), 0, 'I028')
+                call SaveStr(ITEM_HT, 'I028', 1, SubString("海皇类之心", 0, StringLength("海皇类之心")))
+                set ssssss[i]="海皇类之心"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("甘迪披风"), 0, 'I00R')
+                call SaveStr(ITEM_HT, 'I00R', 1, SubString("甘迪披风", 0, StringLength("甘迪披风")))
+                set ssssss[i]="甘迪披风"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑兜"), 0, 'I04E')
+                call SaveStr(ITEM_HT, 'I04E', 1, SubString("|cffff6800【伪】|r【卷轴】黑兜", 0, StringLength("|cffff6800【伪】|r【卷轴】黑兜")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑兜"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("洛泉结晶"), 0, 'I00Q')
+                call SaveStr(ITEM_HT, 'I00Q', 1, SubString("洛泉结晶", 0, StringLength("洛泉结晶")))
+                set ssssss[i]="洛泉结晶"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("航海服"), 0, 'I01J')
+                call SaveStr(ITEM_HT, 'I01J', 1, SubString("航海服", 0, StringLength("航海服")))
+                set ssssss[i]="航海服"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r智慧头饰"), 0, 'I073')
+                call SaveStr(ITEM_HT, 'I073', 1, SubString("|cffff6800【伪】|r智慧头饰", 0, StringLength("|cffff6800【伪】|r智慧头饰")))
+                set ssssss[i]="|cffff6800【伪】|r智慧头饰"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r威霸"), 0, 'I06K')
+                call SaveStr(ITEM_HT, 'I06K', 1, SubString("|cffff6800【伪】|r威霸", 0, StringLength("|cffff6800【伪】|r威霸")))
+                set ssssss[i]="|cffff6800【伪】|r威霸"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("血腥指环"), 0, 'I00T')
+                call SaveStr(ITEM_HT, 'I00T', 1, SubString("血腥指环", 0, StringLength("血腥指环")))
+                set ssssss[i]="血腥指环"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r叶子"), 0, 'I06U')
+                call SaveStr(ITEM_HT, 'I06U', 1, SubString("|cffff6800【伪】|r叶子", 0, StringLength("|cffff6800【伪】|r叶子")))
+                set ssssss[i]="|cffff6800【伪】|r叶子"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv5"), 0, 'I01I')
+                call SaveStr(ITEM_HT, 'I01I', 1, SubString("|c00ff8040护贝|r Lv5", 0, StringLength("|c00ff8040护贝|r Lv5")))
+                set ssssss[i]="|c00ff8040护贝|r Lv5"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("和道一文字"), 0, 'I02K')
+                call SaveStr(ITEM_HT, 'I02K', 1, SubString("和道一文字", 0, StringLength("和道一文字")))
+                set ssssss[i]="和道一文字"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("奥哈拉树枝"), 0, 'I032')
+                call SaveStr(ITEM_HT, 'I032', 1, SubString("奥哈拉树枝", 0, StringLength("奥哈拉树枝")))
+                set ssssss[i]="奥哈拉树枝"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】威霸"), 0, 'I04S')
+                call SaveStr(ITEM_HT, 'I04S', 1, SubString("|cffff6800【伪】|r【卷轴】威霸", 0, StringLength("|cffff6800【伪】|r【卷轴】威霸")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】威霸"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("森林之眼"), 0, 'I079')
+                call SaveStr(ITEM_HT, 'I079', 1, SubString("森林之眼", 0, StringLength("森林之眼")))
+                set ssssss[i]="森林之眼"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("绳索"), 0, 'I012')
+                call SaveStr(ITEM_HT, 'I012', 1, SubString("绳索", 0, StringLength("绳索")))
+                set ssssss[i]="绳索"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("奶酪"), 0, 'I00V')
+                call SaveStr(ITEM_HT, 'I00V', 1, SubString("奶酪", 0, StringLength("奶酪")))
+                set ssssss[i]="奶酪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("廓尔格弯刀"), 0, 'I016')
+                call SaveStr(ITEM_HT, 'I016', 1, SubString("廓尔格弯刀", 0, StringLength("廓尔格弯刀")))
+                set ssssss[i]="廓尔格弯刀"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r破碎的古老纹章"), 0, 'I06B')
+                call SaveStr(ITEM_HT, 'I06B', 1, SubString("|cffff6800【伪】|r破碎的古老纹章", 0, StringLength("|cffff6800【伪】|r破碎的古老纹章")))
+                set ssssss[i]="|cffff6800【伪】|r破碎的古老纹章"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv5"), 0, 'I047')
+                call SaveStr(ITEM_HT, 'I047', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv5", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv5")))
+                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv5"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r毒爪"), 0, 'I056')
+                call SaveStr(ITEM_HT, 'I056', 1, SubString("|cffff6800【伪】|r毒爪", 0, StringLength("|cffff6800【伪】|r毒爪")))
+                set ssssss[i]="|cffff6800【伪】|r毒爪"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】鬼哭"), 0, 'I04C')
+                call SaveStr(ITEM_HT, 'I04C', 1, SubString("|cffff6800【伪】|r【卷轴】鬼哭", 0, StringLength("|cffff6800【伪】|r【卷轴】鬼哭")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】鬼哭"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("黄金甲"), 0, 'I01K')
+                call SaveStr(ITEM_HT, 'I01K', 1, SubString("黄金甲", 0, StringLength("黄金甲")))
+                set ssssss[i]="黄金甲"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】影遁"), 0, 'I04W')
+                call SaveStr(ITEM_HT, 'I04W', 1, SubString("|cffff6800【伪】|r【卷轴】影遁", 0, StringLength("|cffff6800【伪】|r【卷轴】影遁")))
+                set ssssss[i]="|cffff6800【伪】|r【卷轴】影遁"
+                set i=i + 1
+    
+                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【智力】|r"), 0, 'I05K')
+                call SaveStr(ITEM_HT, 'I05K', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【智力】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【智力】|r")))
+                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【智力】|r"
+                set i=i + 1
+    
+    
 endfunction
 
 //library FuncForItem ends
-//library FuncForPlayer:
-//===========================================================================
-
-function increasePlayerCurrentGold takes player p,integer count returns boolean
-    local integer array iTemp
-    if ( buyBack[GetPlayerId(p)] ) then
-        set count=count / 2
-    endif
-    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_GOLD_GATHERED) + count
-    call SetPlayerState(p, PLAYER_STATE_GOLD_GATHERED, iTemp[0])
-    set iTemp[1]=GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + count
-    call SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, iTemp[1])
-    
-    return true
-endfunction
-//===========================================================================
-
-function increasePlayerCurrentLumber takes player p,integer count returns boolean
-    local integer array iTemp
-    if ( buyBack[GetPlayerId(p)] ) then
-        set count=count / 2
-    endif
-    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED) + count
-    call SetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED, iTemp[0])
-    set iTemp[1]=GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER) + count
-    call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, iTemp[1])
-    
-    return true
-endfunction
-//===========================================================================
-
-function setPlayerCurrentGold takes player p,integer count returns boolean
-    local integer array iTemp
-    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_GOLD_GATHERED) + count
-    call SetPlayerState(p, PLAYER_STATE_GOLD_GATHERED, iTemp[0])
-    //set iTemp[1] = GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + count 
-    call SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, count)
-    
-    return true
-endfunction
-//===========================================================================
-
-function setPlayerCurrentLumber takes player p,integer count returns boolean
-    local integer array iTemp
-    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED) + count
-    call SetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED, iTemp[0])
-    //set iTemp[1] = GetPlayerState(p,PLAYER_STATE_RESOURCE_LUMBER) +count
-    call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, count)
-    
-    return true
-endfunction
-//===========================================================================
-
-function setHostileAlliance takes player sourcePlayer,player otherPlayer returns nothing
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_PASSIVE, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_REQUEST, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_RESPONSE, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_XP, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_SPELLS, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_VISION, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_CONTROL, false)
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_ADVANCED_CONTROL, false)
-endfunction
-//===========================================================================
-
-function setAlliedAlliance takes player sourcePlayer,player otherPlayer returns nothing
-    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_PASSIVE, true) //被动联盟
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_REQUEST, false) //联盟帮助要求
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_RESPONSE, true) //联盟帮助响应
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_XP, true) //联盟共享优先权
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_SPELLS, true) //联盟共享魔法
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_VISION, true) //联盟共享视野
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_CONTROL, false) //联盟共享控制
-call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_ADVANCED_CONTROL, false) //联盟共享高级控制
-endfunction 
-//===========================================================================
-
-//锁死玩家的视角在选择英雄界面
-function lockCameraChooseHero takes player p,unit u returns nothing
-    call SetCameraBoundsToRectForPlayerBJ(p, gg_rct_HeroSelection)
-    call SetCameraTargetControllerNoZForPlayer(p, u, 0, 0, false)
-endfunction
-//控制玩家视角
-function contralCameraChooseHero takes player p returns nothing
-    if ( GetLocalPlayer() == p ) then
-        call SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 269.00, 0)
-        call SetCameraField(CAMERA_FIELD_ROTATION, 90.00, 0)
-        call SetCameraField(CAMERA_FIELD_FARZ, 5000.00, 0)
-        call SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 150.00, 0)
-        call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 44.00, 0)
+//library YDWEEnumDestructablesInCircleBJNull:
+function YDWEEnumDestructablesInCircleBJNull takes real radius,location loc,code actionFunc returns nothing
+    local rect r
+    local real centerX= GetLocationX(loc)
+    local real centerY= GetLocationY(loc)
+    if radius >= 0 then
+        set bj_enumDestructableCenter=loc
+        set bj_enumDestructableRadius=radius
+        set r=Rect(centerX - radius, centerY - radius, centerX + radius, centerY + radius)
+        call EnumDestructablesInRect(r, Filter(function YDWEEnumDestructablesInCircleBJFilterNull), actionFunc)
+        call RemoveRect(r)
+    	set r=null
     endif
 endfunction
-//释放玩家视角
-function resetCameraAllMap takes player p returns nothing
-    if ( GetLocalPlayer() == p ) then
-        call ResetToGameCamera(0)
-        call SetCameraBoundsToRect(bj_mapInitialCameraBounds)
-    endif
-endfunction
-//===========================================================================
 
-function enterMovieMode takes boolean open,player p returns nothing
-    local force f= CreateForce()
-    
-    call ForceAddPlayer(f, p)
-    if ( IsPlayerInForce(GetLocalPlayer(), f) ) then
-        call EnableUserControl(not open)
-        call ShowInterface(not open, 0)
-    endif
-    
-    set f=null
-endfunction 
-//===========================================================================
-
-function remindAllPlayers takes real duration,string message returns nothing
-    local player p= GetLocalPlayer()
-    local integer i= GetPlayerId(p)
-    
-    if ( i <= 11 and ( GetPlayerController(p) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) ) then
-        call DisplayTimedTextToPlayer(p, 0, 0, duration, message)
-    endif
-        
-    set p=null
-endfunction
-
-//library FuncForPlayer ends
+//library YDWEEnumDestructablesInCircleBJNull ends
 //library japi:
 
     
@@ -2547,470 +4164,200 @@ endfunction
     endfunction
 
 //library japi ends
-//library FuncForCreep:
-//=======================================
-
-function getCreepsBossTypes takes nothing returns integer
-    return CreepsBossTypes[0]
-    
-endfunction
-//=======================================
-
-function addCreepsBossType takes integer bossType returns nothing
-    local integer i= CreepsBossTypes[0] + 1
-    set CreepsBossTypes[i]=bossType
-    
-endfunction
-//=======================================
-
-function isCreepBoss takes integer unitType returns boolean
-    local integer i= 0
-    local integer count= CreepsBossTypes[0]
-    loop
-        exitwhen i > count - 1
-        
-        if ( unitType == CreepsBossTypes[1] ) then
-            return true
-        endif
-        
-        set i=i + 1
-    endloop
-    
-    return false
-endfunction
-
-//library FuncForCreep ends
-//library FuncForUnit:
+//library FuncForGame:
 //===========================================================================
 
-//获取英雄的溅射伤害比例
-function getHeroSputteringBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 0)
-    endif
-    return 0
+function getDistanceInPts takes real x0,real y0,real x1,real y1 returns real
+    local real x= x0 - x1
+    local real y= y0 - y1
+    return SquareRoot(x * x + y * y)
 endfunction
-//获取英雄的月刃数量
-function getHeroMoonGlaiveBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 1)
-    endif
-    return 0
-endfunction
-//获取英雄的闪电链概率
-function getHeroLightningBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 2)
-    endif
-    return 0
-endfunction
-//获取英雄的致残废概率
-function getHeroDisabledBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 3)
-    endif
-    return 0
-endfunction
-//获取英雄的削魔数量
-function getHeroCuttingManaBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 4)
-    endif
-    return 0
-endfunction
-//获取英雄的击晕概率
-function getHeroStunBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 5)
-    endif
-    return 0
-endfunction
-//获取英雄的物理吸血
-function getHeroPhysicalVampireBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 6)
-    endif
-    return 0
-endfunction
-//获取英雄的物理暴击
-function getHeroPhysicalCritBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 7)
-    endif
-    return 0
-endfunction
-//获取英雄的物理破防
-function getHeroBreakPhysicalDefenseBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 8)
-    endif
-    return 0
-endfunction
-//获取英雄的法术吸血
-function getHeroMagicalVampireBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 9)
-    endif
-    return 0
-endfunction
-//获取英雄的法术暴击
-function getHeroMagicalCritBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 10)
-    endif
-    return 0
-endfunction
-//获取英雄的法穿
-function getHeroBreakMagicalDefenseBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 11)
-    endif
-    return 0
-endfunction
-//获取英雄的CD冷却减免
-function getHeroReduceCDBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 12)
-    endif
-    return 0
-endfunction
-//获取英雄的闪避攻击概率
-function getHeroDodgeAttackBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 13)
-    endif
-    return 0
-endfunction
-//获取英雄的法抗
-function getHeroMagicalDefenseBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 14)
-    endif
-    return 0
-endfunction
-//获取英雄的格挡
-function getHeroParryBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 15)
-    endif
-    return 0
-endfunction
-//获取英雄的冰冻概率
-function getHeroFrozenBuff takes unit target returns integer
- local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 16)
-    endif
-    return 0
-endfunction
-//获取英雄的疾行概率
-function getHeroScudBuff takes unit target returns integer
-    local integer pId= GetPlayerId(GetOwningPlayer(target))
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 17)
-    endif
-    return 0
-endfunction
-//获取英雄的额外恢复
-function getHeroExtraRecoveryBuff takes unit target returns integer
-    local integer pId= GetPlayerId(GetOwningPlayer(target))
-    
-    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
-        return LoadInteger(heroWeaponBuff_ht, pId, 18)
-    endif
-    
-    return 0
-endfunction
-    
-//===========================================================================
 
-function unitCountInRectCallBack takes nothing returns nothing
-    set m_unitCountInRect=m_unitCountInRect + 1
-endfunction
-function unitCountInRect takes rect whichRect,boolexpr filter returns integer
-    local group g= CreateGroup()
-    set m_unitCountInRect=0
-    call GroupEnumUnitsInRect(g, whichRect, filter)
-    call ForGroup(g, function unitCountInRectCallBack)
-    call DestroyGroup(g)
-    
-    set g=null
-    call DestroyBoolExpr(filter)
-    set filter=null
-    return m_unitCountInRect
+function getDistanceBetweenTwoUnits takes unit u1,unit u2 returns real
+    return getDistanceInPts(GetUnitX(u1) , GetUnitY(u1) , GetUnitX(u2) , GetUnitY(u2))
 endfunction
 //===========================================================================
 
-function unitCountInGpCallBack takes nothing returns nothing
-    set m_unitCountInGp=m_unitCountInGp + 1
+function getSafeX takes real x returns real
+     if ( x < MAP_MIN_X ) then
+         return MAP_MIN_X
+     endif
+     if ( x > MAP_MAX_X ) then
+         return MAP_MAX_X
+     endif
+     return x
 endfunction
-function unitCountInGp takes group g returns integer
-    set m_unitCountInGp=0
-    call ForGroup(g, function unitCountInGpCallBack)
-    return m_unitCountInGp
-endfunction
-//===========================================================================
-
-function isUnitDead takes unit whichUnit returns boolean
-    return GetUnitState(whichUnit, UNIT_STATE_LIFE) <= 0
-endfunction
-//===========================================================================
-
-function isUnitAlive takes unit whichUnit returns boolean
-    return GetUnitState(whichUnit, UNIT_STATE_LIFE) > 0
-endfunction
-//===========================================================================
-
-function GFHS_condition takes nothing returns boolean
-    return IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO)
-endfunction
-function getFirstHeroSelected takes player whichPlayer returns unit
- local group g= CreateGroup()
- local unit hero
-    
-	call SyncSelections()
-	call GroupEnumUnitsSelected(g, whichPlayer, Condition(function GFHS_condition))
-	set hero=FirstOfGroup(g)
-    call DestroyGroup(g)
-    set g=null
-	
-	return hero
+function getSafeY takes real y returns real
+     if ( y < MAP_MIN_Y ) then
+         return MAP_MIN_Y
+     endif
+     if ( y > MAP_MAX_Y ) then
+         return MAP_MAX_Y
+     endif
+     return y
 endfunction
 //===========================================================================
 
-function setHeroLevel takes unit hero,integer level,boolean showEyeCandy returns nothing
-    local integer oldLevel= 0
-    if ( not IsUnitType(hero, UNIT_TYPE_HERO) ) then
-        call DisplayTimedTextToPlayer(GetTriggerPlayer(), 0, 0, 1.5, "无法对非英雄单位进行升级操作")
-        return
-    endif
-    
-    set oldLevel=GetUnitLevel(hero)
-    if ( level > oldLevel ) then
-        call SetHeroLevel(hero, level, showEyeCandy)
-    else
-        call UnitStripHeroLevel(hero, oldLevel - level)
-    endif
-    
-    set hero=null
-    
+function getPolarSafeX takes real x,real dist,real angle returns real
+    set x=x + dist * Cos(angle * bj_DEGTORAD)
+    if ( x < MAP_MIN_X ) then
+         return MAP_MIN_X
+     endif
+     if ( x > MAP_MAX_X ) then
+         return MAP_MAX_X
+     endif
+     return x
+endfunction
+function getPolarSafeY takes real y,real dist,real angle returns real
+    set y=y + dist * Sin(angle * bj_DEGTORAD)
+    if ( y < MAP_MIN_Y ) then
+         return MAP_MIN_Y
+     endif
+     if ( y > MAP_MAX_Y ) then
+         return MAP_MAX_Y
+     endif
+     return y
 endfunction
 //===========================================================================
 
-function resetHeroBuff takes integer playerId returns nothing
-    local integer j= 0
-    loop
-        exitwhen j > BUFF_TYPES - 1
-        call SaveInteger(heroWeaponBuff_ht, playerId, j, 0)
-        set j=j + 1
-    endloop
+function getAngleFormXY takes real x,real y,real x1,real y1 returns real
+    return bj_RADTODEG * Atan2(y1 - y, x1 - x)
 endfunction
-
-function loadHeroAbilBuff takes integer playerId,integer unitType returns nothing
-    
-endfunction
-
-function resetAndloadHeroselfBuff takes integer playerId,integer unitType returns nothing
-    call resetHeroBuff(playerId)
-    call loadHeroAbilBuff(playerId , unitType)
+//获取单位1面向单位2的角度
+function getAngleBetweenTwoUnits takes unit u1,unit u2 returns real
+    return getAngleFormXY(GetUnitX(u1) , GetUnitY(u1) , GetUnitX(u2) , GetUnitY(u2))
 endfunction
 //===========================================================================
 
-function flushHeroBuffCountByBuffType takes integer playerId,integer buffType,integer buffCount returns nothing
-    local integer originalBuffCount= LoadInteger(heroWeaponBuff_ht, playerId, buffType)
-    set buffCount=buffCount + originalBuffCount
-    call SaveInteger(heroWeaponBuff_ht, playerId, buffType, buffCount)
-    
+function changeTextTagScale_timeDo takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local string s= LoadStr(tag_ht, pKey, 0)
+    local texttag tag= LoadTextTagHandle(tag_ht, pKey, 2)
+    local real scale= LoadReal(tag_ht, pKey, 1)
+    call SetTextTagText(tag, s, scale)
+    call DestroyTimer(t)
+    set t=null
+endfunction
+function changeTextTagScaleTime takes texttag tag,string s,real scale,real time returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    call SaveStr(tag_ht, pKey, 0, s)
+    call SaveReal(tag_ht, pKey, 1, scale)
+    call SaveTextTagHandle(tag_ht, pKey, 2, tag)
+    call TimerStart(t, time, false, function changeTextTagScale_timeDo)
+    set t=null
 endfunction
 //===========================================================================
 
-function notifyHeroBuff takes unit hero returns nothing
-    local player p= GetOwningPlayer(hero)
-    local integer pId= GetPlayerId(p)
-    local integer ut= GetUnitTypeId(hero)
-    local integer abil= gainIInInteger("buffAbil" , ut)
-    local integer i= 0
-    local integer array j
-    local integer array k
-    local string array explain
-    loop
-        exitwhen i > BUFF_TYPES - 1
-        set j[i]=LoadInteger(heroWeaponBuff_ht, pId, i)
-        if ( j[i] < 10 ) then
-            set k[i]=2
-        elseif ( j[i] >= 100 ) then
-            set k[i]=0
-        endif
-        set i=i + 1
-    endloop
-    set explain[0]="溅射:" + I2S(j[0]) + "%" + space[k[0]] + "弹射:" + I2S(j[1]) + space[k[1]] + " 电击:" + I2S(j[2]) + "%" + space[k[2]] + "残废:" + I2S(j[3]) + "%" + space[k[3]] + "破魔:" + I2S(j[4]) + space[k[4]] + " 击晕:" + I2S(j[5]) + "%\n"
-    set explain[1]="物吸:" + I2S(j[6]) + "%" + space[k[6]] + "物暴:" + I2S(j[7]) + "%" + space[k[7]] + "破防:" + I2S(j[8]) + "%" + space[k[8]] + "法吸:" + I2S(j[9]) + "%" + space[k[9]] + "法暴:" + I2S(j[10]) + "%" + space[k[10]] + "法穿:" + I2S(j[10]) + "%\n"
-    set explain[2]="冷却:" + I2S(j[12]) + "%" + space[k[12]] + "闪避:" + I2S(j[13]) + space[k[13]] + " " + "法抗:" + I2S(j[14]) + "%" + space[k[14]] + "格挡:" + I2S(j[15]) + "%" + space[k[15]] + "冰冻:" + I2S(j[16]) + "%" + space[k[16]] + "疾行:" + I2S(j[17]) + "%" + space[k[17]]
-    call debugPoint(ut , abil)
-    call debugText(explain[0] + explain[1])
-    call YDWESetUnitAbilityDataString(hero , 'A003' , 1 , 218 , explain[0] + explain[1] + explain[2])
-    
+function setStringPlayerIdColor takes integer pId,string s returns string
+    return playerColors[pId] + s + "|r"
+endfunction
+//===========================================================================
+
+function getPlayerColorNameById takes integer i returns string
+    local player p= Player(i)
+    local string s= GetPlayerName(p)
     set p=null
-    set hero=null
-endfunction
-//===========================================================================
-
-function setUnitLife takes unit target,real newVal returns nothing
-    call SetUnitState(target, UNIT_STATE_LIFE, newVal)
+    return setStringPlayerIdColor(i , s)
 endfunction
 
-function setUnitMana takes unit target,real newVal returns nothing
-    call SetUnitState(target, UNIT_STATE_MANA, newVal)
-endfunction
-
-function getUnitLife takes unit target returns real
-    return GetUnitState(target, UNIT_STATE_LIFE)
-endfunction
-
-function getUnitMana takes unit target returns real
-    return GetUnitState(target, UNIT_STATE_MANA)
-endfunction
-
-function setUnitMaxLife takes unit target,real newVal returns nothing
-    call SetUnitState(target, UNIT_STATE_MAX_LIFE, newVal)
-endfunction
-
-function setUnitMaxMana takes unit target,real newVal returns nothing
-    call SetUnitState(target, UNIT_STATE_MAX_MANA, newVal)
-endfunction
-
-function getUnitMaxLife takes unit target returns real
-    return GetUnitState(target, UNIT_STATE_MAX_LIFE)
-endfunction
-
-function getUnitMaxMana takes unit target returns real
-    return GetUnitState(target, UNIT_STATE_MAX_MANA)
-endfunction
-
-function recoveryUnitLife takes unit target,real count returns nothing
-    local real life= getUnitLife(target)
-    set life=life + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
-    call setUnitLife(target , life)
-endfunction
-
-function recoveryUnitMana takes unit target,real count returns nothing
-    local real mana= getUnitMana(target)
-    set mana=mana + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
-    call setUnitMana(target , mana)
-endfunction
-
-//library FuncForUnit ends
+//library FuncForGame ends
 //library LocalActionLib:
-    function LocalActionLib__Call takes string str returns nothing
+    function LocalActionLib___Call takes string str returns nothing
         call UnitId(str)
     endfunction
     
     //本地发布无目标命令
     function LocalOrder takes integer order,integer flags returns nothing
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(II)V")
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, flags)
-        call LocalActionLib__Call("LocalOrder")
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(II)V")
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, flags)
+        call LocalActionLib___Call("LocalOrder")
     endfunction
     
     //本地发布坐标命令
     function LocalPointOrder takes integer order,real x,real y,integer flags returns nothing
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(IRRI)V")
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
-        call SaveReal(LocalActionLib__ht, LocalActionLib__key, 2, x)
-        call SaveReal(LocalActionLib__ht, LocalActionLib__key, 3, y)
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 4, flags)
-        call LocalActionLib__Call("LocalPointOrder")
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(IRRI)V")
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
+        call SaveReal(LocalActionLib___ht, LocalActionLib___key, 2, x)
+        call SaveReal(LocalActionLib___ht, LocalActionLib___key, 3, y)
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 4, flags)
+        call LocalActionLib___Call("LocalPointOrder")
     endfunction
     
     //本地发布目标命令
     function LocalTargetOrder takes integer order,unit u,integer flags returns nothing
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(III)V")
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, order)
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, GetHandleId(u))
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 3, flags)
-        call LocalActionLib__Call("LocalTargetOrder")
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(III)V")
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, order)
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, GetHandleId(u))
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 3, flags)
+        call LocalActionLib___Call("LocalTargetOrder")
     endfunction
     
     //获取玩家当前选择的单位
     function GetPlayerSelectedUnit takes player p returns unit
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(I)Hunit;")
-        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, GetHandleId(p))
-        call LocalActionLib__Call("GetPlayerSelectedUnit")
-        return LoadUnitHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(I)Hunit;")
+        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, GetHandleId(p))
+        call LocalActionLib___Call("GetPlayerSelectedUnit")
+        return LoadUnitHandle(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的单位
     function GetTargetUnit takes nothing returns unit
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hunit;")
-        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
-        call LocalActionLib__Call("GetTargetObject")
-        return LoadUnitHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hunit;")
+        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call LocalActionLib___Call("GetTargetObject")
+        return LoadUnitHandle(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的物品
     function GetTargetItem takes nothing returns item
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hitem;")
-        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
-        call LocalActionLib__Call("GetTargetObject")
-        return LoadItemHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hitem;")
+        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call LocalActionLib___Call("GetTargetObject")
+        return LoadItemHandle(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
     
     //获取玩家当前鼠标指向的 可选择的可破坏物
     function GetTargetDestructable takes nothing returns destructable
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(V)Hdestructable;")
-        call RemoveSavedHandle(LocalActionLib__ht, LocalActionLib__key, 0)
-        call LocalActionLib__Call("GetTargetObject")
-        return LoadDestructableHandle(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(V)Hdestructable;")
+        call RemoveSavedHandle(LocalActionLib___ht, LocalActionLib___key, 0)
+        call LocalActionLib___Call("GetTargetObject")
+        return LoadDestructableHandle(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
     
     // 设置单位技能按钮是否显示   false 即隐藏 隐藏之后无法发布命令 跟玩家禁用相同
     //使用不会打断命令  可以 在发布命令的时候  显示 发布命令 隐藏 即可
     function SetUnitAbilityButtonShow takes unit u,integer id,boolean show returns nothing
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(IIB)V")
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 1, GetHandleId(u))
-        call SaveInteger(LocalActionLib__ht, LocalActionLib__key, 2, id)
-        call SaveBoolean(LocalActionLib__ht, LocalActionLib__key, 3, show)
-        call LocalActionLib__Call("SetUnitAbilityButtonShow")
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(IIB)V")
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 1, GetHandleId(u))
+        call SaveInteger(LocalActionLib___ht, LocalActionLib___key, 2, id)
+        call SaveBoolean(LocalActionLib___ht, LocalActionLib___key, 3, show)
+        call LocalActionLib___Call("SetUnitAbilityButtonShow")
     endfunction
     
     //设置 是否显示FPS  显示状态下 调用false 可以隐藏 ，相反可以显示
     function ShowFpsText takes boolean Open returns nothing
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "(B)V")
-        call SaveBoolean(LocalActionLib__ht, LocalActionLib__key, 1, Open)
-        call LocalActionLib__Call("ShowFpsText")
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "(B)V")
+        call SaveBoolean(LocalActionLib___ht, LocalActionLib___key, 1, Open)
+        call LocalActionLib___Call("ShowFpsText")
     endfunction
     
     //获取当前游戏的 fps值  即 游戏画面的帧数
     function GetFps takes nothing returns real
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "()R")
-        call LocalActionLib__Call("GetFps")
-        return LoadReal(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "()R")
+        call LocalActionLib___Call("GetFps")
+        return LoadReal(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
     
     //获取聊天状态  有聊天输入框的情况下 返回true  没有返回false 
     //可以通过 d3d库里的模拟按键 模拟按下ESC 或者enter 来禁止玩家聊天
     function GetChatState takes nothing returns boolean
-        call SaveStr(LocalActionLib__ht, LocalActionLib__key, 0, "()B")
-        call LocalActionLib__Call("GetChatState")
-        return LoadBoolean(LocalActionLib__ht, LocalActionLib__key, 0)
+        call SaveStr(LocalActionLib___ht, LocalActionLib___key, 0, "()B")
+        call LocalActionLib___Call("GetChatState")
+        return LoadBoolean(LocalActionLib___ht, LocalActionLib___key, 0)
     endfunction
   
 
@@ -3636,13 +4983,877 @@ endfunction
     
 
 //library d3d ends
+//library FuncForDamage:
+//计时器到期杀死单位
+function FuncForDamage_killUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0)
+    
+    call KillUnit(u)
+    call RemoveUnit(u)
+    
+    call FlushChildHashtable(FuncForDamage__FuncForDamage_ht, pKey)
+    call DestroyTimer(t)
+    set u=null
+    set t=null
+endfunction
+//创建指定玩家单位并对目标单位造成伤害
+function FuncForDamage_damageUnit takes player p,integer unitId,unit target,damagetype damageType,real damage returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit u= CreateUnit(p, unitId, x, y, 0)
+    call SaveUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0, u)
+    call UnitDamageTarget(u, target, damage, true, false, ATTACK_TYPE_MELEE, damageType, WEAPON_TYPE_WHOKNOWS)
+    call TimerStart(t, 0.1, false, function FuncForDamage_killUnit_timer)
+    
+    set u=null
+endfunction
+
+function hurtUnitByPhysicalSingleDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e008' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByPhysicalMultiDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e009' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByNoReversalPhysicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByMagicalSingleDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00A' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByMagicalMultiDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00B' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByNoReversalMagicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00D' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByHolyDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e007' , target , DAMAGE_TYPE_UNIVERSAL , damage)
+endfunction
+
+function hurtUnitByIgnorePhysicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_NORMAL , damage)
+endfunction
+
+function hurtUnitByIgnoreMagicalDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00I' , target , DAMAGE_TYPE_MAGIC , damage)
+endfunction
+
+function hurtUnitByIgnoreHolyDamage takes player p,unit target,real damage returns nothing
+    call FuncForDamage_damageUnit(p , 'e00E' , target , DAMAGE_TYPE_UNIVERSAL , damage)
+endfunction
+
+//library FuncForDamage ends
+//library FuncForPlayer:
+//===========================================================================
+
+function increasePlayerCurrentGold takes player p,integer count returns boolean
+    local integer array iTemp
+    if ( buyBack[GetPlayerId(p)] ) then
+        set count=count / 2
+    endif
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_GOLD_GATHERED) + count
+    call SetPlayerState(p, PLAYER_STATE_GOLD_GATHERED, iTemp[0])
+    set iTemp[1]=GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + count
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, iTemp[1])
+    
+    return true
+endfunction
+//===========================================================================
+
+function increasePlayerCurrentLumber takes player p,integer count returns boolean
+    local integer array iTemp
+    if ( buyBack[GetPlayerId(p)] ) then
+        set count=count / 2
+    endif
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED) + count
+    call SetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED, iTemp[0])
+    set iTemp[1]=GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER) + count
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, iTemp[1])
+    
+    return true
+endfunction
+//===========================================================================
+
+function setPlayerCurrentGold takes player p,integer count returns boolean
+    local integer array iTemp
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_GOLD_GATHERED) + count
+    call SetPlayerState(p, PLAYER_STATE_GOLD_GATHERED, iTemp[0])
+    //set iTemp[1] = GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + count 
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, count)
+    
+    return true
+endfunction
+//===========================================================================
+
+function setPlayerCurrentLumber takes player p,integer count returns boolean
+    local integer array iTemp
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED) + count
+    call SetPlayerState(p, PLAYER_STATE_LUMBER_GATHERED, iTemp[0])
+    //set iTemp[1] = GetPlayerState(p,PLAYER_STATE_RESOURCE_LUMBER) +count
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, count)
+    
+    return true
+endfunction
+//===========================================================================
+
+function setHostileAlliance takes player sourcePlayer,player otherPlayer returns nothing
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_PASSIVE, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_REQUEST, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_RESPONSE, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_XP, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_SPELLS, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_VISION, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_CONTROL, false)
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_ADVANCED_CONTROL, false)
+endfunction
+//===========================================================================
+
+function setAlliedAlliance takes player sourcePlayer,player otherPlayer returns nothing
+    call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_PASSIVE, true) //被动联盟
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_REQUEST, false) //联盟帮助要求
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_HELP_RESPONSE, true) //联盟帮助响应
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_XP, true) //联盟共享优先权
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_SPELLS, true) //联盟共享魔法
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_VISION, true) //联盟共享视野
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_CONTROL, false) //联盟共享控制
+call SetPlayerAlliance(sourcePlayer, otherPlayer, ALLIANCE_SHARED_ADVANCED_CONTROL, false) //联盟共享高级控制
+endfunction 
+//===========================================================================
+
+//锁死玩家的视角在选择英雄界面
+function lockCameraChooseHero takes player p,unit u returns nothing
+    call SetCameraBoundsToRectForPlayerBJ(p, gg_rct_HeroSelection)
+    call SetCameraTargetControllerNoZForPlayer(p, u, 0, 0, false)
+endfunction
+//控制玩家视角
+function contralCameraChooseHero takes player p returns nothing
+    if ( GetLocalPlayer() == p ) then
+        call SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 269.00, 0)
+        call SetCameraField(CAMERA_FIELD_ROTATION, 90.00, 0)
+        call SetCameraField(CAMERA_FIELD_FARZ, 5000.00, 0)
+        call SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 150.00, 0)
+        call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 44.00, 0)
+    endif
+endfunction
+//释放玩家视角
+function resetCameraAllMap takes player p returns nothing
+    if ( GetLocalPlayer() == p ) then
+        call ResetToGameCamera(0)
+        call SetCameraBoundsToRect(bj_mapInitialCameraBounds)
+    endif
+endfunction
+//===========================================================================
+
+function enterMovieMode takes boolean open,player p returns nothing
+    local force f= CreateForce()
+    
+    call ForceAddPlayer(f, p)
+    if ( IsPlayerInForce(GetLocalPlayer(), f) ) then
+        call EnableUserControl(not open)
+        call ShowInterface(not open, 0)
+    endif
+    
+    set f=null
+endfunction 
+//===========================================================================
+
+function remindAllPlayers takes real duration,string message returns nothing
+    local player p= GetLocalPlayer()
+    local integer i= GetPlayerId(p)
+    
+    if ( i <= 11 and ( GetPlayerController(p) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING ) ) then
+        call DisplayTimedTextToPlayer(p, 0, 0, duration, message)
+    endif
+        
+    set p=null
+endfunction
+
+//library FuncForPlayer ends
+//library FuncForCreep:
+//=======================================
+
+function getCreepsBossTypes takes nothing returns integer
+    return CreepsBossTypes[0]
+    
+endfunction
+//=======================================
+
+function addCreepsBossType takes integer bossType returns nothing
+    local integer i= CreepsBossTypes[0] + 1
+    set CreepsBossTypes[i]=bossType
+    
+endfunction
+//=======================================
+
+function isCreepBoss takes integer unitType returns boolean
+    local integer i= 0
+    local integer count= CreepsBossTypes[0]
+    loop
+        exitwhen i > count - 1
+        
+        if ( unitType == CreepsBossTypes[1] ) then
+            return true
+        endif
+        
+        set i=i + 1
+    endloop
+    
+    return false
+endfunction
+
+//library FuncForCreep ends
+//library FuncForUnit:
+//===================================
+
+function isHeroDodgeDesignatedAbil takes unit u returns boolean
+    return GetUnitAbilityLevel(u, 'B00F') > 0
+endfunction
+
+function cleanHeroDodgeDesignatedAbilBuff takes unit u returns nothing
+    call UnitRemoveAbility(u, 'B00F')
+endfunction
+//====================================
+
+function isUnitFakeIllusion takes unit u returns boolean
+    if ( IsUnitIllusion(u) ) then
+        return true
+    endif
+    
+    return false
+endfunction
+
+function isUnitRealIllusion takes unit u returns boolean
+    if ( IsUnitIllusion(u) ) then
+        return true
+    endif
+    
+    return false
+endfunction
+//=====================================
+
+function getHeroLevel takes player p returns integer
+    return unitLevel[GetPlayerId(p)]
+endfunction
+//=====================================
+
+function isUnitAlly takes unit u,unit u2 returns boolean
+    return IsUnitAlly(u, GetOwningPlayer(u2))
+endfunction
+//=============================================
+
+function removeUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local unit u= LoadUnitHandle(FuncForUnit__UNIT_HT, GetHandleId(t), 0)
+    call DestroyTimer(t)
+    call RemoveUnit(u)
+    set t=null
+    set u=null
+endfunction
+function removeUnitAfterTime takes unit u,real long returns nothing
+    local timer t= CreateTimer()
+    call SaveUnitHandle(FuncForUnit__UNIT_HT, GetHandleId(t), 0, u)
+    call TimerStart(t, long, false, function removeUnit_timer)
+    set t=null
+endfunction
+//===========================================================================
+
+function createUnitAndDeleteAfter takes player id,integer unitid,real x,real y,real face,real long returns unit
+    local timer t= CreateTimer()
+    local unit u= CreateUnit(id, unitid, x, y, face)
+    
+    call removeUnitAfterTime(u , long)
+    return u
+endfunction
+//===========================================================================
+
+//获取英雄的溅射伤害比例
+function getHeroSputteringBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 0)
+    endif
+    return 0
+endfunction
+//获取英雄的月刃数量
+function getHeroMoonGlaiveBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 1)
+    endif
+    return 0
+endfunction
+//获取英雄的闪电链概率
+function getHeroLightningBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 2)
+    endif
+    return 0
+endfunction
+//获取英雄的致残废概率
+function getHeroDisabledBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 3)
+    endif
+    return 0
+endfunction
+//获取英雄的削魔数量
+function getHeroCuttingManaBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 4)
+    endif
+    return 0
+endfunction
+//获取英雄的击晕概率
+function getHeroStunBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 5)
+    endif
+    return 0
+endfunction
+//获取英雄的物理吸血
+function getHeroPhysicalVampireBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 6)
+    endif
+    return 0
+endfunction
+//获取英雄的物理暴击
+function getHeroPhysicalCritBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 7)
+    endif
+    return 0
+endfunction
+//获取英雄的物理破防
+function getHeroBreakPhysicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 8)
+    endif
+    return 0
+endfunction
+//获取英雄的法术吸血
+function getHeroMagicalVampireBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 9)
+    endif
+    return 0
+endfunction
+//获取英雄的法术暴击
+function getHeroMagicalCritBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 10)
+    endif
+    return 0
+endfunction
+//获取英雄的法穿
+function getHeroBreakMagicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 11)
+    endif
+    return 0
+endfunction
+//获取英雄的CD冷却减免
+function getHeroReduceCDBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 12)
+    endif
+    return 0
+endfunction
+//获取英雄的闪避攻击概率
+function getHeroDodgeAttackBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 13)
+    endif
+    return 0
+endfunction
+//获取英雄的法抗
+function getHeroMagicalDefenseBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 14)
+    endif
+    return 0
+endfunction
+//获取英雄的格挡
+function getHeroParryBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 15)
+    endif
+    return 0
+endfunction
+//获取英雄的冰冻概率
+function getHeroFrozenBuff takes unit target returns integer
+ local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 16)
+    endif
+    return 0
+endfunction
+//获取英雄的疾行概率
+function getHeroScudBuff takes unit target returns integer
+    local integer pId= GetPlayerId(GetOwningPlayer(target))
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 17)
+    endif
+    return 0
+endfunction
+//获取英雄的额外恢复
+function getHeroExtraRecoveryBuff takes unit target returns integer
+    local integer pId= GetPlayerId(GetOwningPlayer(target))
+    
+    if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+        return LoadInteger(heroWeaponBuff_ht, pId, 18)
+    endif
+    
+    return 0
+endfunction
+    
+//===========================================================================
+
+function unitCountInRectCallBack takes nothing returns nothing
+    set m_unitCountInRect=m_unitCountInRect + 1
+endfunction
+function unitCountInRect takes rect whichRect,boolexpr filter returns integer
+    local group g= CreateGroup()
+    set m_unitCountInRect=0
+    call GroupEnumUnitsInRect(g, whichRect, filter)
+    call ForGroup(g, function unitCountInRectCallBack)
+    call DestroyGroup(g)
+    
+    set g=null
+    call DestroyBoolExpr(filter)
+    set filter=null
+    return m_unitCountInRect
+endfunction
+//===========================================================================
+
+function unitCountInGpCallBack takes nothing returns nothing
+    set m_unitCountInGp=m_unitCountInGp + 1
+endfunction
+function unitCountInGp takes group g returns integer
+    set m_unitCountInGp=0
+    call ForGroup(g, function unitCountInGpCallBack)
+    return m_unitCountInGp
+endfunction
+//===========================================================================
+
+function isUnitDead takes unit whichUnit returns boolean
+    return GetUnitState(whichUnit, UNIT_STATE_LIFE) <= 0
+endfunction
+//===========================================================================
+
+function isUnitAlive takes unit whichUnit returns boolean
+    return GetUnitState(whichUnit, UNIT_STATE_LIFE) > 0
+endfunction
+//===========================================================================
+
+function GFHS_condition takes nothing returns boolean
+    return IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO)
+endfunction
+function getFirstHeroSelected takes player whichPlayer returns unit
+ local group g= CreateGroup()
+ local unit hero
+    
+	call SyncSelections()
+	call GroupEnumUnitsSelected(g, whichPlayer, Condition(function GFHS_condition))
+	set hero=FirstOfGroup(g)
+    call DestroyGroup(g)
+    set g=null
+	
+	return hero
+endfunction
+//======================================================
+
+function GNAU_getUnit takes real x,real y,real range,unit u,player p,boolexpr e returns unit
+ local group g1= CreateGroup()
+ local group g2= CreateGroup()
+ local unit target= null
+	call GroupEnumUnitsInRange(g1, x, y, range, e)
+	loop
+        exitwhen FirstOfGroup(g1) == null
+        set target=FirstOfGroup(g1)
+        if ( IsUnitAlly(target, p) and target != u ) then
+            call GroupAddUnit(g2, target)
+        endif
+        call GroupRemoveUnit(g1, target)
+    endloop
+    set target=FirstOfGroup(g2)
+    
+    call DestroyGroup(g1)
+    call DestroyGroup(g2)
+    return target
+endfunction
+function getNearestAllyUnit takes real x,real y,unit u,player p,boolexpr e returns unit
+    local real range= 200
+    local real r= 200
+    local unit target= null
+    loop
+        exitwhen target != null
+        set target=GNAU_getUnit(x , y , range , u , p , e)
+        set range=range + r
+        set r=r + 100
+    endloop
+    return target
+endfunction
+//===========================================================================
+
+function setHeroLevel takes unit hero,integer level,boolean showEyeCandy returns nothing
+    local integer oldLevel= 0
+    if ( not IsUnitType(hero, UNIT_TYPE_HERO) ) then
+        call DisplayTimedTextToPlayer(GetTriggerPlayer(), 0, 0, 1.5, "无法对非英雄单位进行升级操作")
+        return
+    endif
+    
+    set oldLevel=GetUnitLevel(hero)
+    if ( level > oldLevel ) then
+        call SetHeroLevel(hero, level, showEyeCandy)
+    else
+        call UnitStripHeroLevel(hero, oldLevel - level)
+    endif
+    
+    set hero=null
+    
+endfunction
+//===========================================================================
+
+function resetHeroBuff takes integer playerId returns nothing
+    local integer j= 0
+    loop
+        exitwhen j > BUFF_TYPES - 1
+        call SaveInteger(heroWeaponBuff_ht, playerId, j, 0)
+        set j=j + 1
+    endloop
+endfunction
+//===========================================================================
+
+function increaHeroBuffCountByBuffType takes integer playerId,integer buffType,integer buffCount returns nothing
+    local integer originalBuffCount= LoadInteger(heroWeaponBuff_ht, playerId, buffType)
+    set buffCount=buffCount + originalBuffCount
+    call SaveInteger(heroWeaponBuff_ht, playerId, buffType, buffCount)
+endfunction
+
+function loadHeroAbilBuff takes integer playerId,integer unitType returns nothing
+    
+endfunction
+
+function resetAndloadHeroselfBuff takes integer playerId,integer unitType returns nothing
+    call resetHeroBuff(playerId)
+    call loadHeroAbilBuff(playerId , unitType)
+endfunction
+//    @function:刷新英雄具有指定的物品的buff
+function flushHeroBuffOfDesignatedItem takes integer playerId,integer itId returns nothing
+    local integer i= 0
+    local integer buffType= 0
+    local integer buffCount= 0
+    local integer buffTypes= getItemBuffTypesById(itId)
+    
+    loop
+        exitwhen i > buffTypes - 1
+        set buffType=getItemBuffTypeById(itId , i)
+        set buffCount=getItemBuffCountById(itId , i)
+        call increaHeroBuffCountByBuffType(playerId , buffType , buffCount)
+        
+        set i=i + 1
+    endloop
+endfunction
+
+function flushHeroAllBuff takes unit u returns boolean
+    local integer i= 0
+    local item it= null
+    local integer itId= 0
+    local integer unitType= GetUnitTypeId(u)
+    local player p= GetOwningPlayer(u)
+    local integer playerId= GetPlayerId(p)
+    local boolean isFlush= false
+    call resetAndloadHeroselfBuff(playerId , unitType)
+    loop
+        exitwhen i > 6 - 1
+        set it=UnitItemInSlot(u, i)
+        if ( it != null ) then
+            set itId=GetItemTypeId(it)
+            if ( isItemHasBuffById(itId) ) then
+            //这是一件具有buff的物品，请进行数据刷新操作
+                set isFlush=true
+                call flushHeroBuffOfDesignatedItem(playerId , itId)
+            endif
+        endif
+        set i=i + 1
+    endloop
+    set p=null
+    return isFlush
+endfunction
+//===========================================================================
+
+function notifyHeroBuffShow takes unit hero returns nothing
+    local player p= GetOwningPlayer(hero)
+    local integer pId= GetPlayerId(p)
+    local integer ut= GetUnitTypeId(hero)
+    local integer abil= gainIInInteger("buffAbil" , ut)
+    local integer i= 0
+    local integer array j
+    local integer array k
+    local string array explain
+    loop
+        exitwhen i > BUFF_TYPES - 1
+        set j[i]=LoadInteger(heroWeaponBuff_ht, pId, i)
+        if ( j[i] < 10 ) then
+            set k[i]=2
+        elseif ( j[i] >= 100 ) then
+            set k[i]=0
+        endif
+        set i=i + 1
+    endloop
+    set explain[0]="溅射:" + I2S(j[0]) + "%" + space[k[0]] + "疾行:" + I2S(j[17]) + "%" + space[k[17]] + "电击:" + I2S(j[2]) + "%" + space[k[2]] + "残废:" + I2S(j[3]) + "%" + space[k[3]] + "破魔:" + I2S(j[4]) + space[k[4]] + " 击晕:" + I2S(j[5]) + "%\n"
+    set explain[1]="物吸:" + I2S(j[6]) + "%" + space[k[6]] + "物暴:" + I2S(j[7]) + "%" + space[k[7]] + "破防:" + I2S(j[8]) + "%" + space[k[8]] + "法吸:" + I2S(j[9]) + "%" + space[k[9]] + "法暴:" + I2S(j[10]) + "%" + space[k[10]] + "法穿:" + I2S(j[10]) + "%\n"
+    set explain[2]="冷却:" + I2S(j[12]) + "%" + space[k[12]] + "闪避:" + I2S(j[13]) + space[k[13]] + " " + "法抗:" + I2S(j[14]) + "%" + space[k[14]] + "格挡:" + I2S(j[15]) + "%" + space[k[15]] + "冰冻:" + I2S(j[16]) + "%" + space[k[16]]
+    
+    call YDWESetUnitAbilityDataString(hero , 'A003' , 1 , 218 , explain[0] + explain[1] + explain[2])
+    
+    set p=null
+    set hero=null
+endfunction
+//===========================================================================
+
+function setUnitLife takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_LIFE, newVal)
+endfunction
+
+function setUnitMana takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MANA, newVal)
+endfunction
+
+function getUnitLife takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_LIFE)
+endfunction
+
+function getUnitMana takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MANA)
+endfunction
+
+function setUnitMaxLife takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MAX_LIFE, newVal)
+endfunction
+
+function setUnitMaxMana takes unit target,real newVal returns nothing
+    call SetUnitState(target, UNIT_STATE_MAX_MANA, newVal)
+endfunction
+
+function getUnitMaxLife takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MAX_LIFE)
+endfunction
+
+function getUnitMaxMana takes unit target returns real
+    return GetUnitState(target, UNIT_STATE_MAX_MANA)
+endfunction
+
+function addUnitLife takes unit target,real value returns nothing
+    call SetUnitState(target, UNIT_STATE_LIFE, value + getUnitLife(target))
+endfunction
+
+function addUnitMana takes unit target,real value returns nothing
+    call SetUnitState(target, UNIT_STATE_MANA, value + getUnitMana(target))
+endfunction
+
+function reduceUnitMana takes unit target,real value returns nothing
+    local real newVal= getUnitMana(target) - value
+    if ( newVal >= 0 ) then
+        call SetUnitState(target, UNIT_STATE_MANA, newVal)
+    else
+        call SetUnitState(target, UNIT_STATE_MANA, 0)
+    endif
+    
+endfunction
+
+function recoveryUnitLife takes unit target,real count returns nothing
+    local real life= getUnitLife(target)
+    set life=life + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
+    call setUnitLife(target , life)
+endfunction
+
+function recoveryUnitMana takes unit target,real count returns nothing
+    local real mana= getUnitMana(target)
+    set mana=mana + count * I2R(100 + getHeroExtraRecoveryBuff(target)) / 100
+    call setUnitMana(target , mana)
+endfunction
+//=======================================持续治疗
+
+function sustainedRecoveryUnitLife_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
+    
+    if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
+        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call DestroyTimer(t)
+        set target=null
+        set t=null
+        return
+    endif
+    call recoveryUnitLife(target , value)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe\\AIheTarget.mdl" , target , "chest" , 0.5)
+    call showRecoveryLifeTagToPlayer(target , value)
+    set currentTimes=currentTimes + 1
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLife_timer)
+endfunction
+function sustainedRecoveryUnitLife takes unit target,real second,real recoveryVal,integer abliCode returns nothing
+    //times:粗略型计算
+    local integer times= R2I(second / 0.5)
+    local real value= recoveryVal / I2R(times)
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    
+    call recoveryUnitLife(target , value)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe\\AIheTarget.mdl" , target , "chest" , 0.5)
+    call showRecoveryLifeTagToPlayer(target , value)
+    if ( times <= 1 ) then
+        call DestroyTimer(t)
+        set t=null
+        return
+    endif
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, value)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
+    
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLife_timer)
+endfunction
+
+function sustainedRecoveryUnitMana_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
+    
+    if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
+        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call DestroyTimer(t)
+        set target=null
+        set t=null
+        return
+    endif
+    call recoveryUnitMana(target , value)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
+    set currentTimes=currentTimes + 1
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitMana_timer)
+endfunction
+function sustainedRecoveryUnitMana takes unit target,real second,real recoveryVal,integer abliCode returns nothing
+    //times:粗略型计算
+    local integer times= R2I(second / 0.5)
+    local real value= recoveryVal / I2R(times)
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    
+    call recoveryUnitMana(target , value)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
+    if ( times <= 1 ) then
+        call DestroyTimer(t)
+        set t=null
+        return
+    endif
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, value)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
+    
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitMana_timer)
+endfunction
+
+function sustainedRecoveryUnitLifeAndMana_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
+    local real manaVal= LoadReal(FuncForUnit__UNIT_HT, pKey, 5)
+    
+    if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
+        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call DestroyTimer(t)
+        set target=null
+        set t=null
+        return
+    endif
+    call recoveryUnitLife(target , value)
+    call recoveryUnitMana(target , manaVal)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe\\AIheTarget.mdl" , target , "chest" , 0.5)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
+    call showRecoveryLifeTagToPlayer(target , value)
+    set currentTimes=currentTimes + 1
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLifeAndMana_timer)
+endfunction
+function sustainedRecoveryUnitLifeAndMana takes unit target,real second,real lifeVal,real manaVal,integer abliCode returns nothing
+    //times:粗略型计算
+    local integer times= R2I(second / 0.5)
+    
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    set lifeVal=lifeVal / I2R(times)
+    set manaVal=manaVal / I2R(times)
+    
+    call recoveryUnitLife(target , lifeVal)
+    call recoveryUnitMana(target , manaVal)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe\\AIheTarget.mdl" , target , "chest" , 0.5)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
+    if ( times <= 1 ) then
+        call DestroyTimer(t)
+        set t=null
+        return
+    endif
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, lifeVal)
+    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
+    call SaveReal(FuncForUnit__UNIT_HT, pKey, 5, manaVal)
+    
+    call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLifeAndMana_timer)
+endfunction
+
+//library FuncForUnit ends
 //===========================================================================
 // 
 // OPforNewWorld
 // 
 //   Warcraft III map script
 //   Generated by the Warcraft III World Editor
-//   Date: Fri Nov 10 08:12:37 2017
+//   Date: Tue Nov 28 23:00:50 2017
 //   Map Author: 未知
 // 
 //===========================================================================
@@ -3702,6 +5913,9 @@ function CreateUnitsForPlayer0 takes nothing returns nothing
     local trigger t
     local real life
     set u=CreateUnit(p, 'e006', - 1835.2, - 1648.8, 201.089)
+    set gg_unit_Hpal_0067=CreateUnit(p, 'Hpal', - 1207.4, 1082.9, 331.984)
+    set u=CreateUnit(p, 'Hmkg', - 1094.7, 1042.0, 288.301)
+    set u=CreateUnit(p, 'Hblm', - 994.1, 526.3, 97.397)
 endfunction
 //===========================================================================
 function CreateBuildingsForPlayer10 takes nothing returns nothing
@@ -3758,6 +5972,20 @@ function CreateBuildingsForPlayer11 takes nothing returns nothing
     set gg_unit_h00J_0065=CreateUnit(p, 'h00J', 5952.0, 3776.0, 270.000)
 endfunction
 //===========================================================================
+function CreateNeutralHostile takes nothing returns nothing
+    local player p= Player(PLAYER_NEUTRAL_AGGRESSIVE)
+    local unit u
+    local integer unitID
+    local trigger t
+    local real life
+    set u=CreateUnit(p, 'hpea', - 272.2, - 490.2, 285.730)
+    set u=CreateUnit(p, 'hpea', - 237.6, - 580.0, 81.400)
+    set u=CreateUnit(p, 'hpea', - 215.3, - 415.8, 290.806)
+    set u=CreateUnit(p, 'hpea', - 356.2, - 533.9, 286.203)
+    set u=CreateUnit(p, 'hpea', - 407.2, - 445.0, 23.852)
+    set gg_unit_hpea_0077=CreateUnit(p, 'hpea', - 395.1, - 329.7, 148.045)
+endfunction
+//===========================================================================
 function CreateNeutralPassiveBuildings takes nothing returns nothing
     local player p= Player(PLAYER_NEUTRAL_PASSIVE)
     local unit u
@@ -3789,6 +6017,7 @@ endfunction
 function CreateAllUnits takes nothing returns nothing
     call CreateNeutralPassiveBuildings()
     call CreatePlayerBuildings()
+    call CreateNeutralHostile()
     call CreatePlayerUnits()
 endfunction
 //***************************************************************************
@@ -3921,6 +6150,8 @@ function CreateRegions takes nothing returns nothing
     set gg_rct_PirateHeroBirth=Rect(6144.0, 6144.0, 6656.0, 6592.0)
     set gg_rct_CreepMagmaBirth=Rect(3488.0, - 1216.0, 3936.0, - 800.0)
     set gg_rct_BroadcastRct=Rect(7008.0, - 7552.0, 7328.0, - 7296.0)
+    set gg_rct_NavyCampsite=Rect(- 7424.0, - 7776.0, - 5920.0, - 6496.0)
+    set gg_rct_PirateCampsite=Rect(5312.0, 5824.0, 7328.0, 7136.0)
 endfunction
 //***************************************************************************
 //*
@@ -3929,6 +6160,17 @@ endfunction
 //***************************************************************************
 //TESH.scrollpos=0
 //TESH.alwaysfold=0
+
+
+function KDIC_killDestructure takes nothing returns nothing
+    call KillDestructable(GetEnumDestructable())
+endfunction
+function killDestructableInCircle takes real x,real y,real range returns nothing
+    local location locat= Location(x, y)
+    call YDWEEnumDestructablesInCircleBJNull(range , locat , function KDIC_killDestructure)
+    call RemoveLocation(locat)
+    set locat=null
+endfunction
 //***************************************************************************
 //*
 //*  Triggers
@@ -3937,11 +6179,11 @@ endfunction
 //===========================================================================
 // Trigger: FuncForDebug
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=1
 //TESH.alwaysfold=0
 // Trigger: FuncForGame
 //===========================================================================
-//TESH.scrollpos=6
+//TESH.scrollpos=69
 //TESH.alwaysfold=0
 // Trigger: FuncForBroadcast
 //===========================================================================
@@ -3954,7 +6196,11 @@ endfunction
 //TESH.alwaysfold=0
 // Trigger: FuncForUnit
 //===========================================================================
-//TESH.scrollpos=155
+//TESH.scrollpos=318
+//TESH.alwaysfold=0
+// Trigger: FuncForEffect
+//===========================================================================
+//TESH.scrollpos=27
 //TESH.alwaysfold=0
 // Trigger: DataSetAndGet
 //===========================================================================
@@ -3968,17 +6214,16 @@ endfunction
 //TESH.alwaysfold=0
 // Trigger: FuncForItem
 //===========================================================================
-//TESH.scrollpos=66
+//TESH.scrollpos=969
 //TESH.alwaysfold=0
-
 // Trigger: FuncForToast
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=6
 //TESH.alwaysfold=0
 
 // Trigger: FuncForDamage
 //===========================================================================
-//TESH.scrollpos=78
+//TESH.scrollpos=68
 //TESH.alwaysfold=0
 
 // Trigger: FuncForCreep
@@ -4130,19 +6375,23 @@ endfunction
 //===========================================================================
 // Trigger: InitData
 //===========================================================================
-//TESH.scrollpos=66
+//TESH.scrollpos=6
 //TESH.alwaysfold=0
 
-//开启全图视野
+function ID_initDataForAll takes nothing returns nothing
+    //地图边界
+    set MAP_MIN_X=GetRectMinX(bj_mapInitialPlayableArea) + 50
+    set MAP_MAX_X=GetRectMaxX(bj_mapInitialPlayableArea) - 50
+    set MAP_MIN_Y=GetRectMinY(bj_mapInitialPlayableArea) + 50
+    set MAP_MAX_Y=GetRectMaxY(bj_mapInitialPlayableArea) - 50
+endfunction
 function ID_openAllFogs takes nothing returns nothing
     call FogEnable(false)
     call FogMaskEnable(false)
 endfunction
-
 function ID_initDataForTesting takes nothing returns nothing
     call ID_openAllFogs()
 endfunction
-
 function ID_initHerosLevel takes nothing returns nothing
     local integer i= 0
     loop
@@ -4217,12 +6466,12 @@ function ID_initDataForPlaying takes nothing returns nothing
 endfunction
 //===================main动作
 function Trig_InitDataActions takes nothing returns nothing
-    
- 
+       
+    call ID_initDataForAll()
+  
     call ID_initDataForTesting()
     
-
-    call ID_initDataForPlaying()
+    //call ID_initDataForPlaying()
     
 endfunction
 //===========================================================================
@@ -4234,7 +6483,7 @@ endfunction
 //===========================================================================
 // Trigger: AllianceSet
 //===========================================================================
-//TESH.scrollpos=84
+//TESH.scrollpos=33
 //TESH.alwaysfold=0
 
 function Trig_AllianceSetActions takes nothing returns nothing
@@ -4361,6 +6610,15 @@ function Trig_ForbidAbilityActions takes nothing returns nothing
         call SetPlayerAbilityAvailable(Player(i), 'A006', false)
         call SetPlayerAbilityAvailable(Player(i), 'A007', false)
         call SetPlayerAbilityAvailable(Player(i), 'A004', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A041', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A04U', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A06Z', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A06T', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A05H', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A060', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A06M', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A080', false)
+        call SetPlayerAbilityAvailable(Player(i), 'A085', false)
         exitwhen i > 13
         set i=i + 1
     endloop
@@ -4374,73 +6632,13 @@ function InitTrig_ForbidAbility takes nothing returns nothing
     call TriggerAddAction(gg_trg_ForbidAbility, function Trig_ForbidAbilityActions)
 endfunction
 //===========================================================================
-// Trigger: GameInitData
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-function GID_timerDo takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local integer i= 0
-    
-    //开始初始化数据
-    //野区
-    call TriggerExecute(gg_trg_InitCreep)
-    //进攻防御
-    call TriggerExecute(gg_trg_InitAttackAndDef)
-    //海区域
-    call TriggerExecute(gg_trg_InitSeaData)
-    //选人系统
-    call TriggerExecute(gg_trg_InitChooseInterface)
-    //英雄技能
-    call TriggerExecute(gg_trg_InitAbilTrg)
-    
-    call remindAllPlayers(3 , "|cffff0000Game System had Initialized....\nGame is Coming!!!|r")
-    
-    //开启选择模式
-    call remindAllPlayers(3 , "请等待玩家选择游戏模式")
-    call TriggerExecute(gg_trg_DialogBox)
-    
-    //设置玩家的初始金钱
-    set i=0
-    loop
-        call increasePlayerCurrentLumber(Player(i) , INIT_MONEY)
-        set i=i + 1
-        exitwhen i > 10 - 1
-    endloop
-    
-    call DestroyTimer(t)
-    set t=null
-endfunction
-function Trig_GameInitDataActions takes nothing returns nothing
-    local integer i= 0
-    local timer t= CreateTimer()
-    
-    set i=0
-    loop
-        call DisplayTimedTextToPlayer(Player(i), 0, 0, 3, "|cffff0000Game System is Initializing....|r\n将产生正常卡顿，请耐心等待...")
-        set i=i + 1
-        exitwhen i > 12
-    endloop
-    
-    call TimerStart(t, 0.1, false, function GID_timerDo)
-    
-    set t=null
-endfunction
-//===========================================================================
-function InitTrig_GameInitData takes nothing returns nothing
-    set gg_trg_GameInitData=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterTimerEventSingle(gg_trg_GameInitData, 1.00)
-    call TriggerAddAction(gg_trg_GameInitData, function Trig_GameInitDataActions)
-endfunction
-//===========================================================================
 // Trigger: Constant
 //===========================================================================
-//TESH.scrollpos=11
+//TESH.scrollpos=13
 //TESH.alwaysfold=0
 // Trigger: UnitLevel
 //===========================================================================
-//TESH.scrollpos=11
+//TESH.scrollpos=2
 //TESH.alwaysfold=0
 
 function Trig_UnitLevelActions takes nothing returns nothing
@@ -6676,7 +8874,7 @@ endfunction
 //===========================================================================
 // Trigger: EnterSea
 //===========================================================================
-//TESH.scrollpos=90
+//TESH.scrollpos=48
 //TESH.alwaysfold=0
  
 //能力者海行类的计时器，每秒降低蓝
@@ -6718,7 +8916,7 @@ function Trig_EnterSeaActions takes nothing returns nothing
         set level=3
     endif
     
-    if ( seaDebuf == SEAR_FLOAT ) then
+    if ( seaDebuf == SEAR_FLOAT or isUnitHasItemById(triggerUnit , 'I022') ) then
     //浮空型
     elseif ( seaDebuf == SEAR_NORMAL ) then
     //非能力者
@@ -9913,7 +12111,7 @@ endfunction
 //===========================================================================
 // Trigger: killAndDeny
 //===========================================================================
-//TESH.scrollpos=89
+//TESH.scrollpos=44
 //TESH.alwaysfold=0
 
 function Trig_killAndDenyActions takes nothing returns nothing
@@ -10012,70 +12210,6 @@ function InitTrig_killAndDeny takes nothing returns nothing
     call TriggerAddAction(gg_trg_killAndDeny, function Trig_killAndDenyActions)
 endfunction
 //===========================================================================
-// Trigger: AttackAlly
-//===========================================================================
-//TESH.scrollpos=25
-//TESH.alwaysfold=0
-function Trig_AttackAllyActions takes nothing returns nothing
-    local unit atter= GetAttacker()
-    local unit atteder= GetTriggerUnit()
-    local player p= GetOwningPlayer(atteder)
-    local real array rTemp
-    
-    if ( IsUnitType(atteder, UNIT_TYPE_HERO) or IsUnitType(atteder, UNIT_TYPE_STRUCTURE) ) then
-    //被攻击者为英雄或者建筑
-        call IssueImmediateOrder(atter, "stop")
-        
-        set atter=null
-        set atteder=null
-        set p=null
-        return
-    endif
-    
-    set rTemp[0]=GetUnitState(atteder, UNIT_STATE_LIFE)
-    set rTemp[1]=GetUnitState(atteder, UNIT_STATE_MAX_LIFE)
-    if ( rTemp[0] > rTemp[1] * 0.3 ) then
-        call IssueImmediateOrder(atter, "stop")
-        
-        set atter=null
-        set atteder=null
-        set p=null
-        return
-    endif
-endfunction
-//===========================================================================
-
-
-function AK_triggerCondition takes nothing returns boolean
-    local unit atter= GetAttacker()
-    local unit atteder= GetTriggerUnit()
-    local player p= GetOwningPlayer(atteder)
-    local boolean b= false
-    
-    if ( IsUnitAlly(atter, p) ) then
-        
-        set b=true
-    endif
-    
-    set atter=null
-    set atteder=null
-    set p=null
-    
-    return b
-endfunction
-function InitTrig_AttackAlly takes nothing returns nothing
-    local integer i= 0
-    set gg_trg_AttackAlly=CreateTrigger()
-    call DoNothing()
-    loop
-        call TriggerRegisterPlayerUnitEvent(gg_trg_AttackAlly, Player(i), EVENT_PLAYER_UNIT_ATTACKED, null)
-        set i=i + 1
-        exitwhen i > 12 - 1
-    endloop
-    call TriggerAddCondition(gg_trg_AttackAlly, Condition(function AK_triggerCondition))
-    call TriggerAddAction(gg_trg_AttackAlly, function Trig_AttackAllyActions)
-endfunction
-//===========================================================================
 // Trigger: ForbidAttackTower
 //===========================================================================
 //TESH.scrollpos=0
@@ -10092,7 +12226,7 @@ endfunction
 //===========================================================================
 // Trigger: DialogBox
 //===========================================================================
-//TESH.scrollpos=14
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 function Trig_DialogBoxActions takes nothing returns nothing
     
@@ -10231,7 +12365,7 @@ endfunction
 //===========================================================================
 // Trigger: GameStart
 //===========================================================================
-//TESH.scrollpos=69
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 
 function GS_forceChooseHero takes nothing returns nothing
@@ -10382,7 +12516,7 @@ endfunction
 //===========================================================================
 // Trigger: RegisterItemFuse
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=257
 //TESH.alwaysfold=0
 
 function RIF_initPlayersBuffCount takes nothing returns nothing
@@ -10401,15 +12535,235 @@ function RIF_initPlayersBuffCount takes nothing returns nothing
     
 endfunction
 
-function RIF_registerHasBuffItems takes nothing returns nothing
+function RIF_registerAllItemOriginalAndSurrenal takes nothing returns nothing
+    //注册共享型
+    call setItemSurrenal('I00P' , 'I00P')
+    call setItemSurrenal('I010' , 'I010')
+    call setItemSurrenal('I013' , 'I013')
+    call setItemSurrenal('I014' , 'I014')
+    call setItemSurrenal('I034' , 'I034')
+    call setItemSurrenal('I01Q' , 'I01Q')
+    call setItemSurrenal('I00Z' , 'I00Z')
+    call setItemSurrenal('I033' , 'I033')
+    call setItemSurrenal('I011' , 'I011')
+    call setItemSurrenal('I00Y' , 'I00Y')
+    call setItemSurrenal('I00V' , 'I00V')
+    call setItemSurrenal('I01S' , 'I01S')
+    call setItemSurrenal('I01T' , 'I01T')
+    call setItemSurrenal('I00W' , 'I00W')
+    call setItemSurrenal('I00S' , 'I00S')
+    call setItemSurrenal('I01U' , 'I01U')
+    call setItemSurrenal('I012' , 'I012')
+    call setItemSurrenal('I01R' , 'I01R')
+    call setItemSurrenal('I00X' , 'I00X')
     
+    //注册非共享型
+    call setItemSurrenal('I035' , 'I078')
+    call setItemSurrenal('I02D' , 'I079')
+    
+    call setItemSurrenal('I01E' , 'I043')
+    call setItemSurrenal('I01F' , 'I044')
+    call setItemSurrenal('I01G' , 'I045')
+    call setItemSurrenal('I01H' , 'I046')
+    call setItemSurrenal('I03I' , 'I047')
+    
+    call setItemSurrenal('I03K' , 'I048')
+    call setItemSurrenal('I03A' , 'I048')
+    call setItemSurrenal('I03L' , 'I04A')
+    call setItemSurrenal('I03O' , 'I04B')
+    call setItemSurrenal('I03X' , 'I04C')
+    call setItemSurrenal('I03R' , 'I04D')
+    call setItemSurrenal('I03P' , 'I04E')
+    call setItemSurrenal('I03G' , 'I04F')
+    call setItemSurrenal('I03B' , 'I04G')
+    call setItemSurrenal('I03E' , 'I04H')
+    
+    call setItemSurrenal('I03T' , 'I04I')
+    call setItemSurrenal('I040' , 'I04J')
+    call setItemSurrenal('I03Y' , 'I04K')
+    call setItemSurrenal('I03W' , 'I04L')
+    call setItemSurrenal('I03I' , 'I04M')
+    call setItemSurrenal('I03Q' , 'I04N')
+    call setItemSurrenal('I03S' , 'I04O')
+    call setItemSurrenal('I03Z' , 'I04P')
+    call setItemSurrenal('I03U' , 'I04Q')
+    call setItemSurrenal('I039' , 'I04R')
+    
+    call setItemSurrenal('I03F' , 'I04S')
+    call setItemSurrenal('I03M' , 'I04T')
+    call setItemSurrenal('I03C' , 'I04U')
+    call setItemSurrenal('I03V' , 'I04V')
+    call setItemSurrenal('I03H' , 'I04W')
+    call setItemSurrenal('I03N' , 'I04X')
+    call setItemSurrenal('I03D' , 'I04Y')
+    call setItemSurrenal('I03J' , 'I04Z')
+    call setItemSurrenal('I041' , 'I050')
+    call setItemSurrenal('I00A' , 'I051')
+    
+    call setItemSurrenal('I031' , 'I052')
+    call setItemSurrenal('I01M' , 'I053')
+    call setItemSurrenal('I02B' , 'I054')
+    call setItemSurrenal('I015' , 'I055')
+    call setItemSurrenal('I02E' , 'I056')
+    call setItemSurrenal('I024' , 'I057')
+    call setItemSurrenal('I00R' , 'I058')
+    call setItemSurrenal('I02P' , 'I059')
+    call setItemSurrenal('I028' , 'I05A')
+    call setItemSurrenal('I02Z' , 'I05B')
+    
+    call setItemSurrenal('I02X' , 'I05C')
+    call setItemSurrenal('I038' , 'I05D')
+    call setItemSurrenal('I01J' , 'I05E')
+    call setItemSurrenal('I02K' , 'I05F')
+    call setItemSurrenal('I02H' , 'I05G')
+    call setItemSurrenal('I02M' , 'I05H')
+    call setItemSurrenal('I01Y' , 'I05I')
+    call setItemSurrenal('I01Z' , 'I05J')
+    call setItemSurrenal('I020' , 'I05K')
+    call setItemSurrenal('I00F' , 'I05L')
+    
+    call setItemSurrenal('I01K' , 'I05M')
+    call setItemSurrenal('I02N' , 'I07A')
+    call setItemSurrenal('I00O' , 'I05N')
+    call setItemSurrenal('I02I' , 'I05O')
+    call setItemSurrenal('I010' , 'I05P')
+    call setItemSurrenal('I017' , 'I05Q')
+    call setItemSurrenal('I00U' , 'I05R')
+    call setItemSurrenal('I02A' , 'I05S')
+    call setItemSurrenal('I01B' , 'I05T')
+    call setItemSurrenal('I016' , 'I05U')
+    
+    call setItemSurrenal('I00K' , 'I05V')
+    call setItemSurrenal('I00C' , 'I05W')
+    call setItemSurrenal('I00G' , 'I05X')
+    call setItemSurrenal('I02W' , 'I05Y')
+    call setItemSurrenal('I00Q' , 'I05Z')
+    call setItemSurrenal('I01L' , 'I060')
+    call setItemSurrenal('I00L' , 'I061')
+    call setItemSurrenal('I00D' , 'I062')
+    call setItemSurrenal('I00H' , 'I063')
+    call setItemSurrenal('I02Q' , 'I064')
+    
+    call setItemSurrenal('I02R' , 'I065')
+    call setItemSurrenal('I02S' , 'I066')
+    call setItemSurrenal('I02T' , 'I067')
+    call setItemSurrenal('I02U' , 'I068')
+    call setItemSurrenal('I02O' , 'I069')
+    call setItemSurrenal('I022' , 'I06A')
+    call setItemSurrenal('I00J' , 'I06B')
+    call setItemSurrenal('I02G' , 'I06C')
+    call setItemSurrenal('I02J' , 'I06D')
+    call setItemSurrenal('I02V' , 'I06E')
+    call setItemSurrenal('I042' , 'I06F')
+    call setItemSurrenal('I02F' , 'I06G')
+    call setItemSurrenal('I037' , 'I06H')
+    call setItemSurrenal('I01W' , 'I06I')
+    call setItemSurrenal('I01D' , 'I06J')
+    call setItemSurrenal('I01X' , 'I06K')
+    call setItemSurrenal('I02C' , 'I06L')
+    call setItemSurrenal('I031' , 'I06M')
+    call setItemSurrenal('I00M' , 'I06N')
+    call setItemSurrenal('I01C' , 'I06O')
+    
+    call setItemSurrenal('I00B' , 'I06P')
+    call setItemSurrenal('I018' , 'I06Q')
+    call setItemSurrenal('I00T' , 'I06R')
+    call setItemSurrenal('I01P' , 'I06S')
+    call setItemSurrenal('I02L' , 'I06T')
+    call setItemSurrenal('I027' , 'I06U')
+    call setItemSurrenal('I00N' , 'I06V')
+    call setItemSurrenal('I01A' , 'I06W')
+    call setItemSurrenal('I021' , 'I06X')
+    call setItemSurrenal('I019' , 'I06Y')
+    
+    call setItemSurrenal('I029' , 'I06Z')
+    call setItemSurrenal('I025' , 'I070')
+    call setItemSurrenal('I026' , 'I071')
+    call setItemSurrenal('I01N' , 'I072')
+    call setItemSurrenal('I00I' , 'I073')
+    call setItemSurrenal('I00E' , 'I074')
+    call setItemSurrenal('I023' , 'I075')
+    call setItemSurrenal('I036' , 'I076')
+    call setItemSurrenal('I02Y' , 'I077')
+    
+    call setItemSurrenal('I07D' , 'I07E')
+    call setItemSurrenal('I07F' , 'I07G')
+    call setItemSurrenal('I07B' , 'I07C')
+    
+    call setItemSurrenal('I039' , 'I04R')
+    call setItemSurrenal('I03M' , 'I04T')
+    call setItemSurrenal('I03N' , 'I04X')
+endfunction
+//注册所有物品的合成公式
+function RIF_registerAllItemFuseStyle takes nothing returns nothing
+    
+    call registerFuseItem3('I00A' , 'I00Q' , 1 , 'I02Z' , 1 , 'I03A' , 1)
+    call registerFuseItem4('I01M' , 'I00Q' , 1 , 'I02C' , 1 , 'I028' , 1 , 'I029' , 1)
+    call registerFuseItem3('I02B' , 'I017' , 1 , 'I00F' , 1 , 'I03K' , 1)
+    call registerFuseItem5('I02E' , 'I030' , 1 , 'I01A' , 1 , 'I031' , 1 , 'I028' , 1 , 'I014' , 1)
+    call registerFuseItem5('I02P' , 'I03X' , 1 , 'I01B' , 1 , 'I016' , 1 , 'I07B' , 1 , 'I010' , 1)
+    call registerFuseItem4('I02X' , 'I02A' , 1 , 'I00K' , 1 , 'I00J' , 1 , 'I00Q' , 1)
+    call registerFuseItem4('I02K' , 'I01B' , 1 , 'I00J' , 1 , 'I02A' , 1 , 'I01J' , 1)
+    call registerFuseItem5('I02H' , 'I016' , 1 , 'I031' , 1 , 'I00Q' , 1 , 'I00J' , 1 , 'I03R' , 1)
+    call registerFuseItem4('I02M' , 'I00J' , 1 , 'I01A' , 1 , 'I01B' , 1 , 'I03P' , 1)
+    
+    call registerFuseItem3('I01Y' , 'I01W' , 1 , 'I03G' , 1 , 'I00K' , 1)
+    call registerFuseItem3('I01Z' , 'I01W' , 1 , 'I03G' , 1 , 'I00L' , 1)
+    call registerFuseItem3('I020' , 'I01W' , 1 , 'I03G' , 1 , 'I00M' , 1)
+    call registerFuseItem4('I01K' , 'I00J' , 1 , 'I01J' , 1 , 'I028' , 1 , 'I03B' , 1)
+    call registerFuseItem4('I02N' , 'I00J' , 1 , 'I00Q' , 1 , 'I01J' , 1 , 'I03E' , 1)
+    call registerFuseItem4('I02I' , 'I03T' , 1 , 'I00K' , 1 , 'I031' , 1 , 'I07D' , 1)
+    call registerFuseItem3('I01O' , 'I07B' , 1 , 'I00M' , 1 , 'I01I' , 1)
+    call registerFuseItem5('I02W' , 'I00J' , 1 , 'I00M' , 1 , 'I019' , 1 , 'I02Z' , 1 , 'I040' , 1)
+    call registerFuseItem4('I01L' , 'I00Q' , 1 , 'I00R' , 1 , 'I028' , 1 , 'I02A' , 1)
+    
+    call registerFuseItem3('I02Q' , 'I00Q' , 1 , 'I019' , 1 , 'I064' , 1)
+    call registerFuseItem3('I02R' , 'I02Q' , 1 , 'I00M' , 1 , 'I065' , 1)
+    call registerFuseItem3('I02S' , 'I02R' , 1 , 'I00M' , 1 , 'I066' , 1)
+    call registerFuseItem3('I02T' , 'I02S' , 1 , 'I00M' , 1 , 'I067' , 1)
+    call registerFuseItem3('I02U' , 'I02T' , 1 , 'I00M' , 1 , 'I068' , 1)
+    
+    call registerFuseItem5('I02O' , 'I03W' , 1 , 'I01B' , 1 , 'I016' , 1 , 'I010' , 1 , 'I07B' , 1)
+    call registerFuseItem3('I022' , 'I01W' , 1 , 'I00Q' , 1 , 'I03I' , 1)
+    call registerFuseItem4('I02G' , 'I03Q' , 1 , 'I07B' , 1 , 'I02Z' , 1 , 'I00K' , 1)
+    call registerFuseItem4('I02J' , 'I03S' , 1 , 'I07B' , 1 , 'I01A' , 1 , 'I02A' , 1)
+    call registerFuseItem5('I02V' , 'I03Z' , 1 , 'I00M' , 1 , 'I019' , 1 , 'I031' , 1 , 'I02Z' , 1)
+    call registerFuseItem4('I042' , 'I015' , 1 , 'I01D' , 1 , 'I00N' , 1 , 'I00O' , 1)
+    call registerFuseItem4('I02F' , 'I03U' , 1 , 'I031' , 1 , 'I00L' , 1 , 'I07F' , 1)
+    
+    call registerFuseItem5('I07B' , 'I00F' , 1 , 'I00G' , 1 , 'I00H' , 1 , 'I00I' , 1 , 'I039' , 1)
+    call registerFuseItem2('I01D' , 'I01C' , 2 , 'I00B' , 1)
+    call registerFuseItem4('I01X' , 'I01W' , 1 , 'I00Q' , 1 , 'I011' , 1 , 'I03F' , 1)
+    call registerFuseItem4('I018' , 'I00M' , 1 , 'I01B' , 1 , 'I031' , 1 , 'I010' , 1)
+    call registerFuseItem4('I01P' , 'I028' , 1 , 'I01I' , 1 , 'I01J' , 1 , 'I03C' , 1)
+    call registerFuseItem5('I02L' , 'I07B' , 1 , 'I031' , 1 , 'I01A' , 1 , 'I00K' , 1 , 'I03V' , 1)
+    call registerFuseItem5('I021' , 'I01W' , 1 , 'I00F' , 1 , 'I00R' , 1 , 'I011' , 1 , 'I03H' , 1)
+    call registerFuseItem3('I025' , 'I00U' , 1 , 'I00N' , 1 , 'I00O' , 1)
+    //call registerFuseItem('I026')
+    call registerFuseItem4('I01N' , 'I01I' , 1 , 'I01J' , 1 , 'I01B' , 1 , 'I03D' , 1)
+    
+    call registerFuseItem3('I023' , 'I01W' , 1 , 'I00F' , 1 , 'I03J' , 1)
+    call registerFuseItem2('I024' , 'I023' , 1 , 'I03J' , 1)
+    call registerFuseItem2('I036' , 'I024' , 1 , 'I03J' , 1)
+    call registerFuseItem4('I02Y' , 'I00M' , 1 , 'I00J' , 1 , 'I07F' , 1 , 'I041' , 1)
+    call registerFuseItem4('I07F' , 'I00H' , 1 , 'I016' , 1 , 'I00T' , 1 , 'I03M' , 1)
+    call registerFuseItem4('I07D' , 'I00K' , 1 , 'I01A' , 1 , 'I016' , 1 , 'I03N' , 1)
+endfunction
+//注册所有物品的合成
+function RIF_registerAllItemsFuse takes nothing returns nothing
+    call RIF_registerAllItemOriginalAndSurrenal()
+    call RIF_registerAllItemFuseStyle()
+endfunction
+
+function RIF_registerItemsHasBuff takes nothing returns nothing
     
     
 endfunction
 
 function RIF_registerAllItems takes nothing returns nothing
     
-    call RIF_registerHasBuffItems()
+    call RIF_registerAllItemsFuse()
+    call RIF_registerItemsHasBuff()
     
 endfunction
 //========================main动作
@@ -10451,9 +12805,6 @@ function Trig_UnitDropItemActions takes nothing returns nothing
     local unit u= GetManipulatingUnit()
     local item it= GetManipulatedItem()
     
-    call debugText("EVENT_PLAYER_UNIT_DROP_ITEM-触发丢弃物品事件")
-    call debugText("丢弃物品的单位： " + GetUnitName(u))
-    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
     set u=null
     set it=null
 endfunction
@@ -10472,14 +12823,13 @@ function InitTrig_UnitDropItem takes nothing returns nothing
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(7), EVENT_PLAYER_UNIT_DROP_ITEM, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(8), EVENT_PLAYER_UNIT_DROP_ITEM, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(9), EVENT_PLAYER_UNIT_DROP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitDropItem, Player(10), EVENT_PLAYER_UNIT_DROP_ITEM, null)
     
     call TriggerAddAction(gg_trg_UnitDropItem, function Trig_UnitDropItemActions)
 endfunction
 //===========================================================================
 // Trigger: UnitPickUpItem
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=3
 //TESH.alwaysfold=0
  
 function Trig_UnitPickUpItemActions takes nothing returns nothing
@@ -10488,9 +12838,6 @@ function Trig_UnitPickUpItemActions takes nothing returns nothing
     local integer itId= GetItemTypeId(it)
     local player itemP= GetItemPlayer(it)
     local player triggerP= GetTriggerPlayer()
-    
-    call debugText("EVENT_PLAYER_UNIT_PICKUP_ITEM-单位拾取物品触发！")
-    call debugText("物品所属：玩家" + I2S(1 + GetPlayerId(GetItemPlayer(it))))
     
     if ( itemP != triggerP ) then
     //捡到者不是物品拥有者
@@ -10541,14 +12888,15 @@ function InitTrig_UnitPickUpItem takes nothing returns nothing
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(7), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(8), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(9), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(10), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
     
     call TriggerAddAction(gg_trg_UnitPickUpItem, function Trig_UnitPickUpItemActions)
 endfunction
 //===========================================================================
 // Trigger: UnitSpellObtainItem
+//
+// 共享物品，也就是真假物品为同一样东西
 //===========================================================================
-//TESH.scrollpos=96
+//TESH.scrollpos=71
 //TESH.alwaysfold=0
 function Trig_UnitSpellObtainItemConditions takes nothing returns boolean
     return ( ( GetSpellAbilityId() == 'A000' ) )
@@ -10582,8 +12930,6 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
     local integer array charges
     local integer array iTemp
     
-    call debugText("EVENT_PLAYER_UNIT_SPELL_CHANNEL-捡到物品动作触发！")
-    
     if ( isItemOnlyById(itId) ) then
     //物品只能唯一
         set iTemp[0]=getExchangeItemIdById(itId)
@@ -10600,38 +12946,22 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
     
     endif
     
-    if ( isItemShareById(itId) ) then
-    //这是共享物品
-        //call UnitAddItem(u,it)
-        call unitAddPlayerItemById(u , itemP , itId)
-        call RemoveItem(it)
-        set u=null
-        set it=null
-        set t=null
-        set itemP=null
-        set triggerP=null
-        return
-    endif
+    
     
     if ( itemP == triggerP ) then
-    //物品拥有者捡到装备
         if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
-        //捡到物品单位是英雄
             if ( not isOriginalItemById(itId) ) then
                 set it=replaceSurrenalItem(it)
                 set itId=GetItemTypeId(it)
             endif
         else
-        //捡到物品单位是宝宝
             if ( isOriginalItemById(itId) ) then
                 set it=replaceSurrenalItem(it)
                 set itId=GetItemTypeId(it)
             endif
         endif
         if ( isHasFillItems(u) ) then
-        //物品栏已满
             if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
-            //已经拥有该物品，且该物品需要叠加
                 set charges[0]=getUnitItemChargesById(u , itId)
                 if ( charges[0] == 0 ) then
                     set charges[0]=1
@@ -10642,12 +12972,9 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
                 endif
                 call setUnitItemChargesById(u , itId , charges[0] + charges[1])
             else
-                call debugText("没有拥有该物品，或者该物品无法叠加")
                 if ( fuseItemFillSlot(u , it) ) then
-                //合成成功
                     call RemoveItem(it)
                 else
-                //合成失败
                     call toastInfoTextToPlayer(triggerP , "物品格已满！")
                     call SaveItemHandle(heroSpellObtainItem_ht, GetHandleId(t), 0, it)
                     call SetItemVisible(it, false)
@@ -10658,7 +12985,6 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
             endif
         else
         //物品栏未满
-            call debugText("物品未满，捡起来")
             call unitAddItemById(u , itId)
             call SetItemVisible(it, false)
             call RemoveItem(it)
@@ -10668,14 +12994,11 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
     //其他玩家捡到物品
         call toastInfoTextToPlayer(triggerP , "该物品不属于您！")
         if ( isOriginalItemById(itId) ) then
-        //捡到真实物品，请求进行替换
             set it=replaceOriginalItem(it)
             set itId=GetItemTypeId(it)
         endif
         if ( isHasFillItems(u) ) then
-        //物品格已满
             if ( isItemOverlapById(itId) and isUnitHasItemById(u , itId) ) then
-            //已经拥有该物品，且该物品需要叠加
                 set charges[0]=getUnitItemChargesById(u , itId)
                 if ( charges[0] == 0 ) then
                     set charges[0]=1
@@ -10691,7 +13014,6 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
         else
             call UnitAddItem(u, it)
         endif
-    
     endif
     
     
@@ -10703,7 +13025,6 @@ function Trig_UnitSpellObtainItemActions takes nothing returns nothing
 endfunction
 //===========================================================================
 
-//===========================================================================
 function InitTrig_UnitSpellObtainItem takes nothing returns nothing
     set gg_trg_UnitSpellObtainItem=CreateTrigger()
     call DoNothing()
@@ -10717,59 +13038,17 @@ function InitTrig_UnitSpellObtainItem takes nothing returns nothing
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(7), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(8), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
     call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(9), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
-    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitSpellObtainItem, Player(10), EVENT_PLAYER_UNIT_SPELL_CHANNEL, null)
     call TriggerAddCondition(gg_trg_UnitSpellObtainItem, Condition(function Trig_UnitSpellObtainItemConditions))
     call TriggerAddAction(gg_trg_UnitSpellObtainItem, function Trig_UnitSpellObtainItemActions)
 endfunction
 //===========================================================================
 // Trigger: UnitPickUpBuffItem
 //===========================================================================
-//TESH.scrollpos=58
+//TESH.scrollpos=43
 //TESH.alwaysfold=0
 
-
-function UPUBI_flushHeroHasItemBuff takes integer playerId,integer itId returns nothing
-    local integer i= 0
-    local integer buffType= 0
-    local integer buffCount= 0
-    local integer buffTypes= getItemBuffTypesById(itId)
-    
-    loop
-        exitwhen i > buffTypes - 1
-        set buffType=getItemBuffTypeById(itId , i)
-        set buffCount=getItemBuffCountById(itId , i)
-        call flushHeroBuffCountByBuffType(playerId , buffType , buffCount)
-        
-        set i=i + 1
-    endloop
-endfunction
-
-function UPUBI_flushHeroBuff takes unit u returns nothing
-    local integer i= 0
-    local item it= null
-    local integer itId= 0
-    local integer unitType= GetUnitTypeId(u)
-    local player p= GetOwningPlayer(u)
-    local integer playerId= GetPlayerId(p)
-    
-    call resetAndloadHeroselfBuff(playerId , unitType)
-    
-    loop
-        exitwhen i > 6 - 1
-        set it=UnitItemInSlot(u, i)
-        if ( it != null ) then
-            set itId=GetItemTypeId(it)
-            if ( isItemHasBuffById(itId) ) then
-            //这是一件具有buff的物品，请进行数据刷新操作
-                call UPUBI_flushHeroHasItemBuff(playerId , itId)
-            endif
-        endif
-        set i=i + 1
-    endloop
-    set p=null
-endfunction
 //======================main动作
-
+//    @function:当获取物品后，都会重新计算一遍该单位具有的武器数值
 function Trig_UnitPickUpBuffItemActions takes nothing returns nothing
     local item it= GetManipulatedItem()
     local integer itId= GetItemTypeId(it)
@@ -10784,10 +13063,15 @@ function Trig_UnitPickUpBuffItemActions takes nothing returns nothing
         return
     endif
     
-    call UPUBI_flushHeroBuff(triggerU)
+    if ( not flushHeroAllBuff(triggerU) ) then
+    //没有刷新任何数据
+        set it=null
+        set triggerU=null
+        set triggerP=null
+        return
+    endif
     
-    //向外界跑出一个广播，单位的buff数据更新了，请做跟随操作
-    call sendBroadcastToPlayer('e00F' , filter , triggerP)
+    call notifyHeroBuffShow(triggerU)
     
     set it=null
     set triggerU=null
@@ -10796,13 +13080,62 @@ endfunction
 //===========================================================================
 
 function Trig_UnitPickUpBuffItemConditions takes nothing returns boolean
-//必须是英雄捡到带有buff的物品才通过再次计算单位身上的buff属性
+//英雄，物品带有buff效果
     return IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) and isItemHasBuffById(GetItemTypeId(GetManipulatedItem()))
 endfunction
 function InitTrig_UnitPickUpBuffItem takes nothing returns nothing
     set gg_trg_UnitPickUpBuffItem=CreateTrigger()
     call DoNothing()
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpItem, Player(0), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(1), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(2), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(3), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(4), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(5), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(6), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(7), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(8), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
+    call TriggerRegisterPlayerUnitEvent(gg_trg_UnitPickUpBuffItem, Player(9), EVENT_PLAYER_UNIT_PICKUP_ITEM, null)
     call TriggerAddAction(gg_trg_UnitPickUpBuffItem, function Trig_UnitPickUpBuffItemActions)
+endfunction
+//===========================================================================
+// Trigger: aaa
+//===========================================================================
+function Trig_aaaFunc001A takes nothing returns nothing
+    call SetItemPlayer(GetEnumItem(), Player(0), true)
+endfunction
+function Trig_aaaActions takes nothing returns nothing
+    call EnumItemsInRectBJ(GetPlayableMapRect(), function Trig_aaaFunc001A)
+endfunction
+//===========================================================================
+function InitTrig_aaa takes nothing returns nothing
+    set gg_trg_aaa=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_aaa, function Trig_aaaActions)
+endfunction
+//===========================================================================
+// Trigger: RegisterEventIntoSpring
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function REIS_initSpringRegion takes nothing returns nothing
+    set SPRING_REGION=CreateRegion()
+    call RegionAddRect(SPRING_REGION, gg_rct_NavyCampsite)
+    call RegionAddRect(SPRING_REGION, gg_rct_PirateCampsite)
+endfunction
+function Trig_RegisterEventIntoSpringActions takes nothing returns nothing
+    call REIS_initSpringRegion()
+    //洛洛之瓶
+    call TriggerRegisterEnterRegionSimple(gg_trg_BottleIntoSpring, SPRING_REGION)
+    //口袋电话虫
+    call TriggerRegisterEnterRegionSimple(gg_trg_TelephoneWormPackageIntoSpring, SPRING_REGION)
+endfunction
+//===========================================================================
+
+function InitTrig_RegisterEventIntoSpring takes nothing returns nothing
+    set gg_trg_RegisterEventIntoSpring=CreateTrigger()
+    call DoNothing()
+    call TriggerAddAction(gg_trg_RegisterEventIntoSpring, function Trig_RegisterEventIntoSpringActions)
 endfunction
 //===========================================================================
 // Trigger: JusticeFlagOfRoshan
@@ -10835,13 +13168,13 @@ endfunction
 function InitTrig_JusticeFlagOfRoshan takes nothing returns nothing
     set gg_trg_JusticeFlagOfRoshan=CreateTrigger()
     call DoNothing()
-    call triggerRegisterPlayingPlayersEvent(gg_trg_Escaped_Dagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
+    call triggerRegisterPlayingPlayersEvent(gg_trg_EscapedDagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
     call TriggerAddAction(gg_trg_JusticeFlagOfRoshan, function Trig_JusticeFlagOfRoshanActions)
 endfunction
 //===========================================================================
-// Trigger: Escaped Dagger
+// Trigger: EscapedDagger
 //===========================================================================
-//TESH.scrollpos=6
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 //=========================main动作
 function Trig_Escaped_DaggerActions takes nothing returns nothing
@@ -10857,8 +13190,8 @@ function Trig_Escaped_DaggerActions takes nothing returns nothing
     if ( dist > maxDist ) then
         set dist=maxDist
     endif
-    set targetX=getPolarX(originX , dist , angle)
-    set targetY=getPolarY(originY , dist , angle)
+    set targetX=getPolarSafeX(originX , dist , angle)
+    set targetY=getPolarSafeY(originY , dist , angle)
     
     call SetUnitX(triggerU, targetX)
     call SetUnitY(triggerU, targetY)
@@ -10870,36 +13203,2818 @@ endfunction
 function Trig_Escaped_DaggerConditions takes nothing returns boolean
     return GetSpellAbilityId() == 'A02G' and IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO)
 endfunction
-function InitTrig_Escaped_Dagger takes nothing returns nothing
-    set gg_trg_Escaped_Dagger=CreateTrigger()
+function InitTrig_EscapedDagger takes nothing returns nothing
+    set gg_trg_EscapedDagger=CreateTrigger()
     call DoNothing()
-    call triggerRegisterPlayingPlayersEvent(gg_trg_Escaped_Dagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
-    call TriggerAddCondition(gg_trg_Escaped_Dagger, Condition(function Trig_Escaped_DaggerConditions))
-    call TriggerAddAction(gg_trg_Escaped_Dagger, function Trig_Escaped_DaggerActions)
+    call triggerRegisterPlayingPlayersEvent(gg_trg_EscapedDagger , EVENT_PLAYER_UNIT_SPELL_EFFECT , null)
+    call TriggerAddCondition(gg_trg_EscapedDagger, Condition(function Trig_Escaped_DaggerConditions))
+    call TriggerAddAction(gg_trg_EscapedDagger, function Trig_Escaped_DaggerActions)
 endfunction
 //===========================================================================
-// Trigger: UnitBeDamaged
+// Trigger: ActorMask
 //===========================================================================
-//TESH.scrollpos=178
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
-
-function UBD_isHasBuff takes integer probability returns boolean
-    return probability > 0
+function AM_increMana_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local item it= LoadItemHandle(SPELL_HT, pKey, 1)
+    if ( UnitHasItem(target, it) ) then
+        call recoveryUnitMana(target , 1)
+        call TimerStart(t, 3, false, function AM_increMana_timer)
+    else
+        call DestroyTimer(t)
+        call FlushChildHashtable(SPELL_HT, pKey)
+    endif
+    
+    set target=null
+    set it=null
+    set t=null
 endfunction
-//溅射
-function UBD_heroSputteringBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroSputteringBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
+function Trig_ActorMaskActions takes nothing returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    
+    call SaveUnitHandle(SPELL_HT, pKey, 0, GetTriggerUnit())
+    call SaveItemHandle(SPELL_HT, pKey, 1, GetManipulatedItem())
+    call TimerStart(t, 3, false, function AM_increMana_timer)
+    
+    set t=null
+endfunction
+//===========================================================================
+function Trig_ActorMaskConditions takes nothing returns boolean
+    return GetItemTypeId(GetManipulatedItem()) == 'I00N' and IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO)
+endfunction
+function InitTrig_ActorMask takes nothing returns nothing
+    set gg_trg_ActorMask=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(0), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(1), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(2), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(3), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(4), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(5), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(6), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(7), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(8), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerRegisterPlayerUnitEventSimple(gg_trg_ActorMask, Player(9), EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_ActorMask, Condition(function Trig_ActorMaskConditions))
+    call TriggerAddAction(gg_trg_ActorMask, function Trig_ActorMaskActions)
+endfunction
+//===========================================================================
+// Trigger: KeKeYaXiOrange
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_KeKeYaXiOrangeConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02N' ) )
+endfunction
+function Trig_KeKeYaXiOrangeActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    call recoveryUnitLife(u , 100)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe" , u , "chest" , 0.4)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_KeKeYaXiOrange takes nothing returns nothing
+    set gg_trg_KeKeYaXiOrange=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_KeKeYaXiOrange, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_KeKeYaXiOrange, Condition(function Trig_KeKeYaXiOrangeConditions))
+    call TriggerAddAction(gg_trg_KeKeYaXiOrange, function Trig_KeKeYaXiOrangeActions)
+endfunction
+//===========================================================================
+// Trigger: Cheese
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_CheeseActions takes nothing returns nothing
+    call recoveryUnitLife(GetTriggerUnit() , 150)
+endfunction
+//===========================================================================
+function Trig_CheeseConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02T' ) )
+endfunction
+function InitTrig_Cheese takes nothing returns nothing
+    set gg_trg_Cheese=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Cheese, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Cheese, Condition(function Trig_CheeseConditions))
+    call TriggerAddAction(gg_trg_Cheese, function Trig_CheeseActions)
+endfunction
+//===========================================================================
+// Trigger: Sandwich
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_SandwichActions takes nothing returns nothing
+    
+    call sustainedRecoveryUnitLife(GetSpellTargetUnit() , 10 , 300 , 'B00G')
+endfunction
+//===========================================================================
+function Trig_SandwichConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02U' ) )
+endfunction
+function InitTrig_Sandwich takes nothing returns nothing
+    set gg_trg_Sandwich=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Sandwich, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Sandwich, Condition(function Trig_SandwichConditions))
+    call TriggerAddAction(gg_trg_Sandwich, function Trig_SandwichActions)
+endfunction
+//===========================================================================
+// Trigger: OctopusBarbecue
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_OctopusBarbecueActions takes nothing returns nothing
+    call sustainedRecoveryUnitLifeAndMana(GetSpellTargetUnit() , 10 , 50 , 180 , 'B00I')
+endfunction
+//===========================================================================
+function Trig_OctopusBarbecueConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02W' ) )
+endfunction
+function InitTrig_OctopusBarbecue takes nothing returns nothing
+    set gg_trg_OctopusBarbecue=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_OctopusBarbecue, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_OctopusBarbecue, Condition(function Trig_OctopusBarbecueConditions))
+    call TriggerAddAction(gg_trg_OctopusBarbecue, function Trig_OctopusBarbecueActions)
+endfunction
+//===========================================================================
+// Trigger: LuoLuoBottle
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_LuoLuoBottleConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02X' ) )
+endfunction
+function Trig_LuoLuoBottleActions takes nothing returns nothing
+    call sustainedRecoveryUnitLifeAndMana(GetSpellTargetUnit() , 3 , 125 , 255 , 'B00J')
+endfunction
+//===========================================================================
+function InitTrig_LuoLuoBottle takes nothing returns nothing
+    set gg_trg_LuoLuoBottle=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_LuoLuoBottle, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_LuoLuoBottle, Condition(function Trig_LuoLuoBottleConditions))
+    call TriggerAddAction(gg_trg_LuoLuoBottle, function Trig_LuoLuoBottleActions)
+endfunction
+//===========================================================================
+// Trigger: UesBottle
+//===========================================================================
+//TESH.scrollpos=6
+//TESH.alwaysfold=0
+function Trig_UesBottleConditions takes nothing returns boolean
+    return ( ( GetItemTypeId(GetManipulatedItem()) == 'I00Z' ) )
+endfunction
+function Trig_UesBottleActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local integer itId= GetItemTypeId(it)
+    local unit u= GetTriggerUnit()
+    local integer position= getInventoryIndexOfItemById(u , itId)
+    
+    if ( IsUnitInRegion(SPRING_REGION, u) ) then
+        call SetItemCharges(it, 3)
+    endif
+    
+    if ( GetItemCharges(it) == 0 ) then
+        call UnitAddItemToSlotById(u, 'I033', position)
+    endif
+    set u=null
+    set it=null
+endfunction
+//===========================================================================
+
+function InitTrig_UesBottle takes nothing returns nothing
+    set gg_trg_UesBottle=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_UesBottle, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_UesBottle, Condition(function Trig_UesBottleConditions))
+    call TriggerAddAction(gg_trg_UesBottle, function Trig_UesBottleActions)
+    
+endfunction
+//===========================================================================
+// Trigger: BottleIntoSpring
+//===========================================================================
+//TESH.scrollpos=5
+//TESH.alwaysfold=0
+function Trig_BottleIntoSpringActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local item it= null
+    local integer i= 0
+    loop
+        exitwhen i > 5
+        set it=UnitItemInSlot(u, i)
+        if ( it != null ) then
+            if ( GetItemTypeId(it) == 'I033' ) then
+                call UnitAddItemToSlotById(u, 'I00Z', i)
+            elseif ( GetItemTypeId(it) == 'I00Z' ) then
+                call SetItemCharges(it, 3)
+            endif
+        endif
+        set i=i + 1
+    endloop
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function Trig_BottleIntoSpringConditions takes nothing returns boolean
+    return isUnitHasItemById(GetFilterUnit() , 'I033') or isUnitHasItemById(GetFilterUnit() , 'I00Z')
+endfunction
+function InitTrig_BottleIntoSpring takes nothing returns nothing
+//事件，由触发统一注册
+    set gg_trg_BottleIntoSpring=CreateTrigger()
+    call DoNothing()
+    call TriggerAddCondition(gg_trg_BottleIntoSpring, Condition(function Trig_BottleIntoSpringConditions))
+    call TriggerAddAction(gg_trg_BottleIntoSpring, function Trig_BottleIntoSpringActions)
+endfunction
+//===========================================================================
+// Trigger: LizardSaliva
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_LizardSalivaConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A030' ) )
+endfunction
+function Trig_LizardSalivaActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local unit majia= createUnitAndDeleteAfter(GetTriggerPlayer() , 'e00E' , x , y , 0 , 0.2)
+    
+    call UnitAddAbility(majia, 'A02Z')
+    call IssueTargetOrder(majia, "rejuvination", u)
+    
+    set u=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_LizardSaliva takes nothing returns nothing
+    set gg_trg_LizardSaliva=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_LizardSaliva, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_LizardSaliva, Condition(function Trig_LizardSalivaConditions))
+    call TriggerAddAction(gg_trg_LizardSaliva, function Trig_LizardSalivaActions)
+endfunction
+//===========================================================================
+// Trigger: Flour
+//===========================================================================
+//TESH.scrollpos=13
+//TESH.alwaysfold=0
+function Trig_FlourConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A071' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) )
+endfunction
+function Trig_FlourActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    set x=GetUnitX(target)
+    set y=GetUnitY(target)
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00I' , x , y , 0 , 0.2)
+    call UnitAddAbility(majia, 'A070')
+    call IssueTargetOrder(majia, "curse", target)
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Flour takes nothing returns nothing
+    set gg_trg_Flour=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Flour, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Flour, Condition(function Trig_FlourConditions))
+    call TriggerAddAction(gg_trg_Flour, function Trig_FlourActions)
+endfunction
+//===========================================================================
+// Trigger: FreshwaterBarrel
+//===========================================================================
+//TESH.scrollpos=10
+//TESH.alwaysfold=0
+function Trig_FreshwaterBarrelConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetSpellAbilityId() == 'A072' ) )
+endfunction
+function Trig_FreshwaterBarrelActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl" , target , "chest" , 0.5)
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    if ( IsUnitAlly(target, p) ) then
+    //目标是友军
+        call UnitRemoveBuffs(target, false, true)
+        call PauseUnit(u, false)
+    else
+        if ( IsUnitType(target, UNIT_TYPE_SUMMONED) ) then
+            call hurtUnitByIgnoreMagicalDamage(p , target , getUnitLife(target))
+        else
+            call UnitRemoveBuffs(target, true, false)
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+            call UnitAddAbility(majia, 'A073')
+            call IssueTargetOrder(majia, "slow", target)
+        endif
         
+    endif
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_FreshwaterBarrel takes nothing returns nothing
+    set gg_trg_FreshwaterBarrel=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_FreshwaterBarrel, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_FreshwaterBarrel, Condition(function Trig_FreshwaterBarrelConditions))
+    call TriggerAddAction(gg_trg_FreshwaterBarrel, function Trig_FreshwaterBarrelActions)
+endfunction
+//===========================================================================
+// Trigger: SeaStone
+//===========================================================================
+//TESH.scrollpos=11
+//TESH.alwaysfold=0
+function Trig_SeaStoneConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetSpellAbilityId() == 'A07G' ) )
+endfunction
+function Trig_SeaStoneActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    set x=GetUnitX(target)
+    set y=GetUnitY(target)
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00I' , x , y , 0 , 0.2)
+    call UnitAddAbility(majia, 'A02V')
+    call IssueTargetOrder(majia, "cripple", target)
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_SeaStone takes nothing returns nothing
+    set gg_trg_SeaStone=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_SeaStone, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_SeaStone, Condition(function Trig_SeaStoneConditions))
+    call TriggerAddAction(gg_trg_SeaStone, function Trig_SeaStoneActions)
+endfunction
+//===========================================================================
+// Trigger: SeaSnakeVenom
+//===========================================================================
+//TESH.scrollpos=3
+//TESH.alwaysfold=0
+function Trig_SeaSnakeVenomConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetSpellAbilityId() == 'A075' ) )
+endfunction
+function Trig_SeaSnakeVenomActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    set x=GetUnitX(u)
+    set y=GetUnitY(u)
+    set majia=createUnitAndDeleteAfter(p , 'e00I' , x , y , 0 , 0.2)
+    call UnitAddAbility(majia, 'A074')
+    call IssueTargetOrder(majia, "shadowstrike", target)
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_SeaSnakeVenom takes nothing returns nothing
+    set gg_trg_SeaSnakeVenom=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_SeaSnakeVenom, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_SeaSnakeVenom, Condition(function Trig_SeaSnakeVenomConditions))
+    call TriggerAddAction(gg_trg_SeaSnakeVenom, function Trig_SeaSnakeVenomActions)
+endfunction
+//===========================================================================
+// Trigger: Rope
+//===========================================================================
+//TESH.scrollpos=93
+//TESH.alwaysfold=0
+function Trig_RopeConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetSpellAbilityId() == 'A07O' ) )
+endfunction
+function R_reduceEffect takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 1)
+    
+    call debugText("绳子断开了")
+    call UnitRemoveAbility(target, 'B00Y')
+    call RemoveUnit(majia)
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set majia=null
+    set trg=null
+    set target=null
+endfunction
+function R_moveUnit takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer timeout= LoadInteger(SPELL_HT, pKey, 0)
+    local integer times= LoadInteger(SPELL_HT, pKey, 1)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local real dist= LoadReal(SPELL_HT, pKey, 3)
+    local real angle= LoadReal(SPELL_HT, pKey, 4)
+    
+    set times=times + 1
+    if ( GetUnitAbilityLevel(target, 'B00Y') != 0 ) then
+        call SaveInteger(SPELL_HT, pKey, 1, times)
+        set x=getPolarSafeX(x , dist , angle)
+        set y=getPolarSafeY(y , dist , angle)
+        call SetUnitPosition(target, x, y)
+        call TimerStart(t, 1, false, function R_moveUnit)
+    else
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+    endif
+    if ( times >= timeout ) then
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+        set t=null
+        set target=null
+        return
+    endif
+    
+    set t=null
+    set target=null
+endfunction
+function R_isHit takes unit sourcer,unit target returns boolean
+    local integer prob= 0
+    local integer base= 50
+    local integer str= ( GetHeroStr(sourcer, true) - GetHeroStr(target, true) ) / 5
+    local integer vertigo= 0
+    local integer pasue= 0
+    local integer decelerate= 0
+    local integer cloth= 0
+    
+    if ( not IsUnitType(target, UNIT_TYPE_HERO) or IsUnitAlly(target, GetOwningPlayer(sourcer)) ) then
+        return true
+    endif
+    if ( GetUnitAbilityLevel(target, 'BSTN') > 0 or GetUnitAbilityLevel(target, 'BPSE') > 0 or GetUnitAbilityLevel(target, 'B001') > 0 ) then
+        set vertigo=30
+    endif
+    if ( IsUnitPaused(target) ) then
+        set pasue=30
+    endif
+    if ( GetUnitAbilityLevel(target, 'B002') > 0 ) then
+        set decelerate=10
+    endif
+    if ( GetUnitAbilityLevel(sourcer, 'B002') > 0 ) then
+        set decelerate=decelerate - 10
+    endif
+    if ( isUnitHasItemById(target , 'I037') ) then
+        set cloth=- 80
+    endif
+    set prob=base + str + vertigo + pasue + decelerate + cloth
+    if ( GetRandomReal(0, 1) * 100 <= prob ) then
         return true
     endif
     return false
 endfunction
-//月刃
-function UBD_heroMoonGlaiveBuff takes unit origin returns boolean
+function Trig_RopeActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local unit majia= null
+    local integer pKey= 0
+    local trigger trg= null
+    local timer t= null
+    local integer timeout= 0
+    local real allDist= getDistanceBetweenTwoUnits(u , target)
+    local real dist= 0
+    local real angle= getAngleBetweenTwoUnits(target , u)
+    
+    call debugText("angle" + R2S(angle))
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set p=null
+        set u=null
+        set target=null
+        return
+    endif
+    
+    if ( not R_isHit(u , target) ) then
+        call debugText("未命中")
+        set p=null
+        set u=null
+        set target=null
+        return
+    endif
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 4)
+    call UnitAddAbility(majia, 'A07P')
+    call IssueTargetOrder(majia, "magicleash", target)
+    
+    set trg=CreateTrigger()
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_SPELL_ENDCAST)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_SPELL_FINISH)
+    call TriggerAddAction(trg, function R_reduceEffect)
+    set pKey=GetHandleId(trg)
+    call SaveUnitHandle(SPELL_HT, pKey, 0, target)
+    call SaveUnitHandle(SPELL_HT, pKey, 1, majia)
+    
+    set t=CreateTimer()
+    if ( IsUnitAlly(target, p) ) then
+        set timeout=1
+        set dist=allDist - 100
+    else
+        set timeout=4
+        set dist=( allDist + 200 ) / I2R(timeout + 1)
+    endif
+    set pKey=GetHandleId(t)
+    call SaveInteger(SPELL_HT, pKey, 0, timeout)
+    call SaveInteger(SPELL_HT, pKey, 1, 0)
+    call SaveUnitHandle(SPELL_HT, pKey, 2, target)
+    call SaveReal(SPELL_HT, pKey, 3, dist)
+    call SaveReal(SPELL_HT, pKey, 4, angle)
+    call TimerStart(t, 0.1, false, function R_moveUnit)
+    
+    set p=null
+    set u=null
+    set trg=null
+    set t=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Rope takes nothing returns nothing
+    set gg_trg_Rope=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Rope, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Rope, Condition(function Trig_RopeConditions))
+    call TriggerAddAction(gg_trg_Rope, function Trig_RopeActions)
+endfunction
+//===========================================================================
+// Trigger: PrepareRope
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_PrepareRopeConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07O' ) ) and GetUnitAbilityLevel(GetSpellTargetUnit(), 'B00Y') > 0
+endfunction
+function Trig_PrepareRopeActions takes nothing returns nothing
+    call toastWarningTextToPlayer(GetTriggerPlayer() , "对方正在被束缚中！")
+    call IssueImmediateOrder(GetTriggerUnit(), "stop")
+endfunction
+//===========================================================================
+function InitTrig_PrepareRope takes nothing returns nothing
+    set gg_trg_PrepareRope=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_PrepareRope, EVENT_PLAYER_UNIT_SPELL_CHANNEL)
+    call TriggerAddCondition(gg_trg_PrepareRope, Condition(function Trig_PrepareRopeConditions))
+    call TriggerAddAction(gg_trg_PrepareRope, function Trig_PrepareRopeActions)
+endfunction
+//===========================================================================
+// Trigger: Glove
+//===========================================================================
+//TESH.scrollpos=136
+//TESH.alwaysfold=0
+function Trig_GloveConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07Q' ) )
+endfunction
+function G_reduceEffect takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 1)
+    
+    call UnitRemoveAbility(target, 'B00Y')
+    call RemoveUnit(majia)
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, 0)
+    
+    set majia=null
+    set trg=null
+    set target=null
+endfunction
+function G_moveUnit takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer timeout= LoadInteger(SPELL_HT, pKey, 0)
+    local integer times= LoadInteger(SPELL_HT, pKey, 1)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local real dist= LoadReal(SPELL_HT, pKey, 3)
+    local real angle= LoadReal(SPELL_HT, pKey, 4)
+    
+    set times=times + 1
+    if ( GetUnitAbilityLevel(target, 'B00Y') != 0 ) then
+        call SaveInteger(SPELL_HT, pKey, 1, times)
+        set x=getPolarSafeX(x , dist , angle)
+        set y=getPolarSafeY(y , dist , angle)
+        call SetUnitPosition(target, x, y)
+        call TimerStart(t, 1, false, function G_moveUnit)
+    else
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+    endif
+    if ( times >= timeout ) then
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+        set t=null
+        set target=null
+        return
+    endif
+    
+    set t=null
+    set target=null
+endfunction
+function G_isHit takes unit sourcer,unit target returns boolean
+    local integer prob= 0
+    local integer base= 60
+    local integer str= ( GetHeroStr(sourcer, true) - GetHeroStr(target, true) ) / 3
+    local integer vertigo= 0
+    local integer pasue= 0
+    local integer decelerate= 0
+    local integer cloth= 0
+    
+    if ( not IsUnitType(target, UNIT_TYPE_HERO) or IsUnitAlly(target, GetOwningPlayer(sourcer)) ) then
+        return true
+    endif
+    if ( GetUnitAbilityLevel(target, 'BSTN') > 0 or GetUnitAbilityLevel(target, 'BPSE') > 0 or GetUnitAbilityLevel(target, 'B001') > 0 ) then
+        set vertigo=30
+    endif
+    if ( IsUnitPaused(target) ) then
+        set pasue=30
+    endif
+    if ( GetUnitAbilityLevel(target, 'B002') > 0 ) then
+        set decelerate=10
+    endif
+    if ( GetUnitAbilityLevel(sourcer, 'B002') > 0 ) then
+        set decelerate=decelerate - 10
+    endif
+    if ( isUnitHasItemById(target , 'I037') ) then
+        set cloth=- 50
+    endif
+    set prob=base + str + vertigo + pasue + decelerate + cloth
+    if ( GetRandomReal(0, 1) * 100 <= prob ) then
+        return true
+    endif
+    return false
+endfunction
+function Trig_GloveActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local unit majia= null
+    local integer pKey= 0
+    local trigger trg= null
+    local timer t= null
+    local integer timeout= 0
+    local real allDist= getDistanceBetweenTwoUnits(u , target)
+    local real dist= 0
+    local real angle= getAngleBetweenTwoUnits(target , u)
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set p=null
+        set u=null
+        set target=null
+        return
+    endif
+    if ( not G_isHit(u , target) ) then
+        call debugText("未命中")
+        set p=null
+        set u=null
+        set target=null
+        return
+    endif
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 4)
+    call UnitAddAbility(majia, 'A07P')
+    call IssueTargetOrder(majia, "magicleash", target)
+    
+    set t=CreateTimer()
+    if ( IsUnitAlly(target, p) ) then
+        set timeout=1
+        set dist=allDist - 100
+    else
+        set timeout=4
+        set dist=( allDist + 200 ) / I2R(timeout + 1)
+    endif
+    
+    set pKey=GetHandleId(t)
+    call SaveInteger(SPELL_HT, pKey, 0, timeout)
+    call SaveInteger(SPELL_HT, pKey, 1, 0)
+    call SaveUnitHandle(SPELL_HT, pKey, 2, target)
+    call SaveReal(SPELL_HT, pKey, 3, dist)
+    call SaveReal(SPELL_HT, pKey, 4, angle)
+    call TimerStart(t, 0.1, false, function G_moveUnit)
+    
+    set trg=CreateTrigger()
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_SPELL_ENDCAST)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_SPELL_FINISH)
+    call TriggerAddAction(trg, function G_reduceEffect)
+    set pKey=GetHandleId(trg)
+    call SaveUnitHandle(SPELL_HT, pKey, 0, target)
+    call SaveUnitHandle(SPELL_HT, pKey, 1, majia)
+    
+    set p=null
+    set u=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Glove takes nothing returns nothing
+    set gg_trg_Glove=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Glove, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Glove, Condition(function Trig_GloveConditions))
+    call TriggerAddAction(gg_trg_Glove, function Trig_GloveActions)
+endfunction
+//===========================================================================
+// Trigger: PrepareGlove
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_PrepareGloveConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07Q' ) ) and GetUnitAbilityLevel(GetSpellTargetUnit(), 'B00Y') > 0
+endfunction
+function Trig_PrepareGloveActions takes nothing returns nothing
+    call toastWarningTextToPlayer(GetTriggerPlayer() , "对方正在被束缚中！")
+    call IssueImmediateOrder(GetTriggerUnit(), "stop")
+endfunction
+//===========================================================================
+function InitTrig_PrepareGlove takes nothing returns nothing
+    set gg_trg_PrepareGlove=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_PrepareGlove, EVENT_PLAYER_UNIT_SPELL_CHANNEL)
+    call TriggerAddCondition(gg_trg_PrepareGlove, Condition(function Trig_PrepareGloveConditions))
+    call TriggerAddAction(gg_trg_PrepareGlove, function Trig_PrepareGloveActions)
+endfunction
+//===========================================================================
+// Trigger: QiLu
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_QiLuConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07A' ) )
+endfunction
+function Trig_QiLuActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    
+    if ( IsUnitType(u, UNIT_TYPE_HERO) ) then
+        call toastWarningTextToPlayer(p , "请不要让宝宝使用该物品！")
+        call unitAddItemById(u , 'I01T')
+    else
+        call UnitResetCooldown(u)
+    endif
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_QiLu takes nothing returns nothing
+    set gg_trg_QiLu=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_QiLu, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_QiLu, Condition(function Trig_QiLuConditions))
+    call TriggerAddAction(gg_trg_QiLu, function Trig_QiLuActions)
+endfunction
+//===========================================================================
+// Trigger: WeiBaSprint
+//===========================================================================
+//TESH.scrollpos=62
+//TESH.alwaysfold=0
+function Trig_WeiBaSprintConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A036' ) )
+endfunction
+function WBS_sprint_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local integer timeout= LoadInteger(SPELL_HT, pKey, 0)
+    local integer times= LoadInteger(SPELL_HT, pKey, 1)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local real dist= LoadReal(SPELL_HT, pKey, 3)
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local real angle= GetUnitFacing(u)
+    local unit array majia
+    
+    
+    if ( times == timeout ) then
+        set majia[0]=LoadUnitHandle(SPELL_HT, pKey, 4)
+        call RemoveUnit(majia[0])
+        set x=getPolarSafeX(x , dist , angle)
+        set y=getPolarSafeY(y , dist , angle)
+        call SetUnitPosition(u, x, y)
+        if ( GetHeroInt(u, true) < 50 ) then
+            set majia[0]=createUnitAndDeleteAfter(GetOwningPlayer(u) , 'e00E' , x , y , 0 , 0.1)
+            call UnitAddAbility(majia[0], 'A037')
+            call IssueTargetOrder(majia[0], "thunderbolt", u)
+        endif
+        call DestroyTimer(t)
+        call FlushChildHashtable(SPELL_HT, pKey)
+        set majia[0]=null
+        set u=null
+        set t=null
+        return
+    endif
+    set majia[0]=LoadUnitHandle(SPELL_HT, pKey, 4)
+    set x=getPolarSafeX(x , dist , angle)
+    set y=getPolarSafeY(y , dist , angle)
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call SetUnitX(majia[0], x)
+    call SetUnitY(majia[0], y)
+    //call createEffectOnCoordinateAndDeleteAfter("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y,0.1)
+    
+    call SaveInteger(SPELL_HT, pKey, 1, 1 + times)
+    call TimerStart(t, 0.05, false, function WBS_sprint_timer)
+    
+    set t=null
+    set u=null
+    set majia[0]=null
+endfunction
+function Trig_WeiBaSprintActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    local real angle= GetUnitFacing(u)
+    local real dist= 80
+    local unit majia= createUnitAndDeleteAfter(GetOwningPlayer(u) , 'e00L' , x , y , angle , 1)
+    
+    call SetUnitTimeScale(majia, 0.5)
+    set x=getPolarSafeX(x , dist , angle)
+    set y=getPolarSafeY(y , dist , angle)
+    call SetUnitPosition(u, x, y)
+    call SetUnitPosition(majia, x, y)
+    
+    call SaveInteger(SPELL_HT, pKey, 0, 5)
+    call SaveInteger(SPELL_HT, pKey, 1, 0)
+    call SaveUnitHandle(SPELL_HT, pKey, 2, u)
+    call SaveReal(SPELL_HT, pKey, 3, dist)
+    call SaveUnitHandle(SPELL_HT, pKey, 4, majia)
+    call TimerStart(t, 0.05, false, function WBS_sprint_timer)
+    set majia=null
+    set t=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_WeiBaSprint takes nothing returns nothing
+    set gg_trg_WeiBaSprint=CreateTrigger()
+    call DoNothing()
+    //call TriggerRegisterAnyUnitEventBJ( gg_trg_WeiBaSprint, EVENT_PLAYER_UNIT_SPELL_EFFECT )
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_WeiBaSprint, EVENT_PLAYER_UNIT_SPELL_FINISH)
+    call TriggerAddCondition(gg_trg_WeiBaSprint, Condition(function Trig_WeiBaSprintConditions))
+    call TriggerAddAction(gg_trg_WeiBaSprint, function Trig_WeiBaSprintActions)
+endfunction
+//===========================================================================
+// Trigger: BlackFoot_str
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BlackFoot_strConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I01Y' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+endfunction
+function Trig_BlackFoot_strActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local unit u= GetTriggerUnit()
+   
+    call replaceUnitItemInSlotById(u , it , 'I01Z')
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BlackFoot_str takes nothing returns nothing
+    set gg_trg_BlackFoot_str=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_str, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_BlackFoot_str, Condition(function Trig_BlackFoot_strConditions))
+    call TriggerAddAction(gg_trg_BlackFoot_str, function Trig_BlackFoot_strActions)
+endfunction
+//===========================================================================
+// Trigger: BlackFoot_agi
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BlackFoot_agiConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I01Z' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+endfunction
+function Trig_BlackFoot_agiActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local unit u= GetTriggerUnit()
+    call replaceUnitItemInSlotById(u , it , 'I020')
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BlackFoot_agi takes nothing returns nothing
+    set gg_trg_BlackFoot_agi=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_agi, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_BlackFoot_agi, Condition(function Trig_BlackFoot_agiConditions))
+    call TriggerAddAction(gg_trg_BlackFoot_agi, function Trig_BlackFoot_agiActions)
+endfunction
+//===========================================================================
+// Trigger: BlackFoot_int
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BlackFoot_intConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I020' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+endfunction
+function Trig_BlackFoot_intActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local unit u= GetTriggerUnit()
+    call replaceUnitItemInSlotById(u , it , 'I01Y')
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BlackFoot_int takes nothing returns nothing
+    set gg_trg_BlackFoot_int=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_int, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_BlackFoot_int, Condition(function Trig_BlackFoot_intConditions))
+    call TriggerAddAction(gg_trg_BlackFoot_int, function Trig_BlackFoot_intActions)
+endfunction
+//===========================================================================
+// Trigger: ZhePuRedShoe_life
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ZhePuRedShoe_lifeConditions takes nothing returns boolean
+   return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I025' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+endfunction
+function Trig_ZhePuRedShoe_lifeActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local unit u= GetTriggerUnit()
+   
+    call replaceUnitItemInSlotById(u , it , 'I026')
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_ZhePuRedShoe_life takes nothing returns nothing
+    set gg_trg_ZhePuRedShoe_life=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuRedShoe_life, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_ZhePuRedShoe_life, Condition(function Trig_ZhePuRedShoe_lifeConditions))
+    call TriggerAddAction(gg_trg_ZhePuRedShoe_life, function Trig_ZhePuRedShoe_lifeActions)
+endfunction
+//===========================================================================
+// Trigger: ZhePuRedShoe_heart
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ZhePuRedShoe_heartConditions takes nothing returns boolean
+   return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I026' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+endfunction
+function Trig_ZhePuRedShoe_heartActions takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local unit u= GetTriggerUnit()
+   
+    call replaceUnitItemInSlotById(u , it , 'I025')
+    
+    set it=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_ZhePuRedShoe_heart takes nothing returns nothing
+    set gg_trg_ZhePuRedShoe_heart=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuRedShoe_heart, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_ZhePuRedShoe_heart, Condition(function Trig_ZhePuRedShoe_heartConditions))
+    call TriggerAddAction(gg_trg_ZhePuRedShoe_heart, function Trig_ZhePuRedShoe_heartActions)
+endfunction
+//===========================================================================
+// Trigger: AutoIncreaTelephoneWormPackage
+//===========================================================================
+//TESH.scrollpos=18
+//TESH.alwaysfold=0
+function Trig_AutoIncreaTelephoneWormPackageConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I030' ) )
+endfunction
+function AITWP_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local item it= LoadItemHandle(SPELL_HT, pKey, 1)
+    
+    if ( UnitHasItem(u, it) ) then
+        if ( GetItemCharges(it) < 3 ) then
+            call SetItemCharges(it, GetItemCharges(it) + 1)
+            call TimerStart(t, 100, false, function AITWP_timer)
+        else
+            call TimerStart(t, 10, false, function AITWP_timer)
+        endif
+        
+    else
+        call DestroyTimer(t)
+    endif
+    
+    set u=null
+    set t=null
+    set it=null
+endfunction
+function Trig_AutoIncreaTelephoneWormPackageActions takes nothing returns nothing
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= GetTriggerUnit()
+    local item it= GetManipulatedItem()
+    
+    call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+    call SaveItemHandle(SPELL_HT, pKey, 1, it)
+    call TimerStart(t, 100, false, function AITWP_timer)
+    
+    set u=null
+    set t=null
+endfunction
+//===========================================================================
+function InitTrig_AutoIncreaTelephoneWormPackage takes nothing returns nothing
+    set gg_trg_AutoIncreaTelephoneWormPackage=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_AutoIncreaTelephoneWormPackage, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_AutoIncreaTelephoneWormPackage, Condition(function Trig_AutoIncreaTelephoneWormPackageConditions))
+    call TriggerAddAction(gg_trg_AutoIncreaTelephoneWormPackage, function Trig_AutoIncreaTelephoneWormPackageActions)
+endfunction
+//===========================================================================
+// Trigger: TelephoneWormPackageIntoSpring
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TelephoneWormPackageIntoSpringConditions takes nothing returns boolean
+    return ( ( isUnitHasItemById(GetFilterUnit() , 'I030') ) )
+endfunction
+function Trig_TelephoneWormPackageIntoSpringActions takes nothing returns nothing
+    call SetItemCharges(GetManipulatedItem(), 3)
+endfunction
+//===========================================================================
+function InitTrig_TelephoneWormPackageIntoSpring takes nothing returns nothing
+    set gg_trg_TelephoneWormPackageIntoSpring=CreateTrigger()
+    call DoNothing()
+    call TriggerAddCondition(gg_trg_TelephoneWormPackageIntoSpring, Condition(function Trig_TelephoneWormPackageIntoSpringConditions))
+    call TriggerAddAction(gg_trg_TelephoneWormPackageIntoSpring, function Trig_TelephoneWormPackageIntoSpringActions)
+endfunction
+//===========================================================================
+// Trigger: WeiBei
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_WeiBeiConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A03O' ) )
+endfunction
+function Trig_WeiBeiActions takes nothing returns nothing
+    local player p= GetTriggerPlayer()
+    local unit target= GetTriggerUnit()
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+    
+    call UnitAddAbility(majia, 'A03P')
+    call IssueTargetOrder(majia, "rejuvination", target)
+    
+    set target=null
+    set majia=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_WeiBei takes nothing returns nothing
+    set gg_trg_WeiBei=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_WeiBei, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_WeiBei, Condition(function Trig_WeiBeiConditions))
+    call TriggerAddAction(gg_trg_WeiBei, function Trig_WeiBeiActions)
+endfunction
+//===========================================================================
+// Trigger: GoldenArmour
+//===========================================================================
+//TESH.scrollpos=54
+//TESH.alwaysfold=0
+function Trig_GoldenArmourConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A06H' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) )
+endfunction
+//单位受到伤害，对应的动作
+function GA_unitBeDamagedCondition takes nothing returns boolean
+    return not IsUnitType(GetEventDamageSource(), UNIT_TYPE_STRUCTURE)
+endfunction
+function GA_unitBeDamaged takes nothing returns nothing
+    local unit target= GetTriggerUnit()
+    local player p= GetOwningPlayer(target)
+    local unit sourcer= GetEventDamageSource()
+    local real damage= GetEventDamage()
+    
+    call hurtUnitByIgnoreMagicalDamage(p , sourcer , damage)
+    call createEffectOnUnitAndDeleteAfter("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodNecromancer.mdl" , sourcer , "chest" , 0.2)
+    set target=null
+    set p=null
+    set sourcer=null
+endfunction
+//时间到，去掉注册的触发器
+function GA_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= 0
+    local trigger trg= null
+    local effect ef= null
+    local integer pId= LoadInteger(SPELL_HT, pKey, 0)
+    
+    set GoldenArmour_ueingTimes[pId]=GoldenArmour_ueingTimes[pId] - 1
+    if ( GoldenArmour_ueingTimes[pId] == 0 ) then
+        set pKey=GetHandleId(t)
+        set trg=LoadTriggerHandle(SPELL_HT, pKey, 1)
+        set ef=LoadEffectHandle(SPELL_HT, pKey, 2)
+        call DestroyEffect(ef)
+        call DestroyTrigger(trg)
+        call DestroyTimer(t)
+        call FlushChildHashtable(SPELL_HT, pKey)
+    endif
+    
+    set ef=null
+    set t=null
+    set trg=null
+endfunction
+function Trig_GoldenArmourActions takes nothing returns nothing
+    local trigger trg= CreateTrigger()
+    local timer t= CreateTimer()
+    local integer timeout= 10
+    local integer pKey= GetHandleId(t)
+    local unit u= GetTriggerUnit()
+    local integer pId= GetPlayerId(GetTriggerPlayer())
+    local effect ef= AddSpecialEffectTarget("Abilities\\Spells\\Items\\StaffOfSanctuary\\Staff_Sanctuary_Target.mdl", u, "chest")
+    
+    set GoldenArmour_ueingTimes[pId]=GoldenArmour_ueingTimes[pId] + 1
+    call SaveInteger(SPELL_HT, pKey, 0, pId)
+    call SaveTriggerHandle(SPELL_HT, pKey, 1, trg)
+    call SaveEffectHandle(SPELL_HT, pKey, 2, ef)
+    
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_DAMAGED)
+    call TriggerAddCondition(trg, Condition(function GA_unitBeDamagedCondition))
+    call TriggerAddAction(trg, function GA_unitBeDamaged)
+    call TimerStart(t, timeout, false, function GA_timer)
+    
+    set ef=null
+    set trg=null
+    set t=null
+endfunction
+//===========================================================================
+function InitTrig_GoldenArmour takes nothing returns nothing
+    set gg_trg_GoldenArmour=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_GoldenArmour, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_GoldenArmour, Condition(function Trig_GoldenArmourConditions))
+    call TriggerAddAction(gg_trg_GoldenArmour, function Trig_GoldenArmourActions)
+endfunction
+//===========================================================================
+// Trigger: TravelerCloth
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TravelerClothActions takes nothing returns nothing
+    call UnitRemoveBuffsEx(GetTriggerUnit(), false, true, false, false, true, true, false)
+    call PauseUnit(GetTriggerUnit(), false)
+endfunction
+//===========================================================================
+function Trig_TravelerClothConditions takes nothing returns boolean
+    return ( ( GetIssuedOrderId() == 852008 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 0)) == 'I01L' ) ) or ( ( GetIssuedOrderId() == 852009 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 1)) == 'I01L' ) ) or ( ( GetIssuedOrderId() == 852010 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 2)) == 'I01L' ) ) or ( ( GetIssuedOrderId() == 852011 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 3)) == 'I01L' ) ) or ( ( GetIssuedOrderId() == 852012 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 4)) == 'I01L' ) ) or ( ( GetIssuedOrderId() == 852013 ) and ( GetItemTypeId(UnitItemInSlot(GetTriggerUnit(), 5)) == 'I01L' ) )
+endfunction
+function InitTrig_TravelerCloth takes nothing returns nothing
+    set gg_trg_TravelerCloth=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TravelerCloth, EVENT_PLAYER_UNIT_ISSUED_ORDER)
+    call TriggerAddAction(gg_trg_TravelerCloth, function Trig_TravelerClothActions)
+endfunction
+//===========================================================================
+// Trigger: Assistance
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_AssistanceConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02O' ) )
+endfunction
+function Trig_AssistanceActions takes nothing returns nothing
+    local player p= GetTriggerPlayer()
+    local unit target= GetSpellTargetUnit()
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+    
+    call UnitAddAbility(majia, 'A02Q')
+    call IssueTargetOrder(majia, "rejuvination", target)
+    
+    set target=null
+    set majia=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_Assistance takes nothing returns nothing
+    set gg_trg_Assistance=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Assistance, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Assistance, Condition(function Trig_AssistanceConditions))
+    call TriggerAddAction(gg_trg_Assistance, function Trig_AssistanceActions)
+endfunction
+//===========================================================================
+// Trigger: SunLoricae
+//===========================================================================
+//TESH.scrollpos=30
+//TESH.alwaysfold=0
+function SL_getAllUnit takes nothing returns boolean
+    //活着，非建筑,非古树
+    return IsUnitAliveBJ(GetFilterUnit()) and ( not IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) ) and not IsUnitType(GetFilterUnit(), UNIT_TYPE_ANCIENT)
+endfunction
+function SL_hurt_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local player p= GetOwningPlayer(u)
+    local group g= null
+    local group g1= null
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local unit target= null
+    local real damage= 20 + getHeroLevel(p)
+    
+    if ( not isUnitHasItemById(u , 'I01P') ) then
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+        set g=null
+        set g1=null
+        set target=null
+        set p=null
+        set u=null
+        set t=null
+        return
+    endif
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ImmolationRed\\ImmolationRedTarget.mdl" , u , "chest" , 1.1)
+    set g=CreateGroup()
+    set g1=CreateGroup()
+    call GroupEnumUnitsInRange(g, x, y, 300, Condition(function SL_getAllUnit))
+    loop
+        exitwhen FirstOfGroup(g) == null
+        set target=FirstOfGroup(g)
+        if ( not IsUnitAlly(target, p) ) then
+            call GroupAddUnit(g1, target)
+        endif
+        call GroupRemoveUnit(g, target)
+    endloop
+    loop
+        exitwhen FirstOfGroup(g1) == null
+        set target=FirstOfGroup(g1)
+        call hurtUnitByMagicalMultiDamage(p , target , damage)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ImmolationRed\\ImmolationRedDamage.mdl" , target , "chest" , 0.2)
+        call GroupRemoveUnit(g1, target)
+    endloop
+    
+    call TimerStart(t, 1.0, false, function SL_hurt_timer)
+    call DestroyGroup(g)
+    call DestroyGroup(g1)
+    set g=null
+    set g1=null
+    set target=null
+    set p=null
+    set u=null
+    set t=null
+endfunction
+function Trig_SunLoricaeActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local timer t= null
+    local integer pKey= 0
+    local item it=null
+    
+    if ( getUnitItemCountById(u , 'I01P') > 1 ) then
+        set u=null
+        return
+    endif
+    set t=CreateTimer()
+    set pKey=GetHandleId(t)
+    call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+    
+    call TimerStart(t, 1.0, false, function SL_hurt_timer)
+    
+    set it=null
+    set u=null
+    set t=null
+endfunction
+//===========================================================================
+//英雄，炎阳铠甲，
+function Trig_SunLoricaeConditions takes nothing returns boolean
+    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) ) and GetItemTypeId(GetManipulatedItem()) == 'I01P'
+endfunction
+function InitTrig_SunLoricae takes nothing returns nothing
+    set gg_trg_SunLoricae=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_SunLoricae, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_SunLoricae, Condition(function Trig_SunLoricaeConditions))
+    call TriggerAddAction(gg_trg_SunLoricae, function Trig_SunLoricaeActions)
+endfunction
+//===========================================================================
+// Trigger: Curse
+//===========================================================================
+//TESH.scrollpos=34
+//TESH.alwaysfold=0
+function Trig_CurseConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A059' ) )
+endfunction
+function C_untitBeDamaged takes nothing returns nothing
+    local unit damager= GetTriggerUnit()
+    local unit sourcer= GetEventDamageSource()
+    local real damage= GetEventDamage()
+    local trigger trg= null
+    if ( GetUnitAbilityLevel(damager, 'Bcrs') == 0 ) then
+        set trg=GetTriggeringTrigger()
+        call DestroyTrigger(trg)
+        set trg=null
+        set damager=null
+        set sourcer=null
+        return
+    endif
+    
+    if ( GetUnitTypeId(sourcer) == 'e00B' or GetUnitTypeId(sourcer) == 'e00C' ) then
+        set damage=damage * 0.2
+        call hurtUnitByIgnoreMagicalDamage(GetOwningPlayer(sourcer) , damager , damage)
+    endif
+    
+    set damager=null
+    set sourcer=null
+endfunction
+function C_deleteTrigger takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local trigger trg= LoadTriggerHandle(SPELL_HT, pKey, 0)
+    
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set trg=null
+endfunction
+function Trig_CurseActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local trigger trg= null
+    local integer pKey= 0
+    local unit majia= null
+    local timer t= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+    call UnitAddAbility(majia, 'A07S')
+    call IssueTargetOrder(majia, "rejuvination", target)
+    
+    set trg=CreateTrigger()
+    call TriggerRegisterUnitEvent(trg, target, EVENT_UNIT_DAMAGED)
+    call TriggerAddAction(trg, function C_untitBeDamaged)
+    
+    set t=CreateTimer()
+    set pKey=GetHandleId(t)
+    call TimerStart(t, 5, false, function C_deleteTrigger)
+    call SaveTriggerHandle(SPELL_HT, pKey, 0, trg)
+    
+    set u=null
+    set p=null
+    set target=null
+    set t=null
+    set trg=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Curse takes nothing returns nothing
+    set gg_trg_Curse=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Curse, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Curse, Condition(function Trig_CurseConditions))
+    call TriggerAddAction(gg_trg_Curse, function Trig_CurseActions)
+endfunction
+//===========================================================================
+// Trigger: Cutting
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_CuttingConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07R' ) )
+endfunction
+function Trig_CuttingActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local unit target= GetSpellTargetUnit()
+    
+    if ( IsUnitAlly(target, p) ) then
+        if ( GetUnitAbilityLevel(target, 'B00Y') > 0 ) then
+            call UnitRemoveAbility(target, 'B00Y')
+        endif
+    else
+        if ( isHeroDodgeDesignatedAbil(target) ) then
+            call cleanHeroDodgeDesignatedAbilBuff(target)
+            set p=null
+            set u=null
+            set target=null
+            return
+        endif
+        call IssueImmediateOrder(target, "stop")
+    endif
+    
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_Cutting takes nothing returns nothing
+    set gg_trg_Cutting=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Cutting, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Cutting, Condition(function Trig_CuttingConditions))
+    call TriggerAddAction(gg_trg_Cutting, function Trig_CuttingActions)
+endfunction
+//===========================================================================
+// Trigger: Purify
+//===========================================================================
+//TESH.scrollpos=6
+//TESH.alwaysfold=0
+function Trig_PurifyConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04P' ) )
+endfunction
+function Trig_PurifyActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl" , target , "chest" , 0.5)
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    if ( IsUnitAlly(target, p) ) then
+    //目标是友军
+        call UnitRemoveBuffs(target, false, true)
+        call PauseUnit(u, false)
+    else
+        if ( IsUnitType(target, UNIT_TYPE_SUMMONED) or isUnitFakeIllusion(target) ) then
+            call hurtUnitByIgnoreMagicalDamage(p , target , getUnitLife(target))
+        else
+            call UnitRemoveBuffs(target, true, false)
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+            call UnitAddAbility(majia, 'A073')
+            call IssueTargetOrder(majia, "slow", target)
+        endif
+    endif
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Purify takes nothing returns nothing
+    set gg_trg_Purify=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Purify, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Purify, Condition(function Trig_PurifyConditions))
+    call TriggerAddAction(gg_trg_Purify, function Trig_PurifyActions)
+endfunction
+//===========================================================================
+// Trigger: ThunderStrikeLv1
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ThunderStrikeLv1Conditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04W' ) )
+endfunction
+function Trig_ThunderStrikeLv1Actions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local real x1= GetUnitX(u)
+    local real y1= GetUnitY(u)
+    local real z= 50
+    local unit target= GetSpellTargetUnit()
+    local real x2= GetUnitX(target)
+    local real y2= GetUnitY(target)
+    local real damage= 300
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    call hurtUnitByMagicalSingleDamage(p , target , damage)
+    call addLightningBetweenTwoPointsAndDeleteAfter("FORK" , true , x1 , y1 , z , x2 , y2 , z , 0.3)
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_ThunderStrikeLv1 takes nothing returns nothing
+    set gg_trg_ThunderStrikeLv1=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ThunderStrikeLv1, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ThunderStrikeLv1, Condition(function Trig_ThunderStrikeLv1Conditions))
+    call TriggerAddAction(gg_trg_ThunderStrikeLv1, function Trig_ThunderStrikeLv1Actions)
+endfunction
+//===========================================================================
+// Trigger: ThunderStrikeLv2
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ThunderStrikeLv2Conditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04X' ) )
+endfunction
+function Trig_ThunderStrikeLv2Actions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local real x1= GetUnitX(u)
+    local real y1= GetUnitY(u)
+    local real z= 50
+    local unit target= GetSpellTargetUnit()
+    local real x2= GetUnitX(target)
+    local real y2= GetUnitY(target)
+    local real damage= 400
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    call hurtUnitByMagicalSingleDamage(p , target , damage)
+    call addLightningBetweenTwoPointsAndDeleteAfter("FORK" , true , x1 , y1 , z , x2 , y2 , z , 0.3)
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_ThunderStrikeLv2 takes nothing returns nothing
+    set gg_trg_ThunderStrikeLv2=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ThunderStrikeLv2, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ThunderStrikeLv2, Condition(function Trig_ThunderStrikeLv2Conditions))
+    call TriggerAddAction(gg_trg_ThunderStrikeLv2, function Trig_ThunderStrikeLv2Actions)
+endfunction
+//===========================================================================
+// Trigger: ThunderStrikeLv3
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ThunderStrikeLv3Conditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04Y' ) )
+endfunction
+function Trig_ThunderStrikeLv3Actions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local real x1= GetUnitX(u)
+    local real y1= GetUnitY(u)
+    local real z= 50
+    local unit target= GetSpellTargetUnit()
+    local real x2= GetUnitX(target)
+    local real y2= GetUnitY(target)
+    local real damage= 500
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    call hurtUnitByMagicalSingleDamage(p , target , damage)
+    call addLightningBetweenTwoPointsAndDeleteAfter("FORK" , true , x1 , y1 , z , x2 , y2 , z , 0.3)
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_ThunderStrikeLv3 takes nothing returns nothing
+    set gg_trg_ThunderStrikeLv3=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ThunderStrikeLv3, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ThunderStrikeLv3, Condition(function Trig_ThunderStrikeLv3Conditions))
+    call TriggerAddAction(gg_trg_ThunderStrikeLv3, function Trig_ThunderStrikeLv3Actions)
+endfunction
+//===========================================================================
+// Trigger: ThunderStrikeLv4
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ThunderStrikeLv4Conditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04Z' ) )
+endfunction
+function Trig_ThunderStrikeLv4Actions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local real x1= GetUnitX(u)
+    local real y1= GetUnitY(u)
+    local real z= 50
+    local unit target= GetSpellTargetUnit()
+    local real x2= GetUnitX(target)
+    local real y2= GetUnitY(target)
+    local real damage= 600
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    call hurtUnitByMagicalSingleDamage(p , target , damage)
+    call addLightningBetweenTwoPointsAndDeleteAfter("FORK" , true , x1 , y1 , z , x2 , y2 , z , 0.3)
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_ThunderStrikeLv4 takes nothing returns nothing
+    set gg_trg_ThunderStrikeLv4=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ThunderStrikeLv4, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ThunderStrikeLv4, Condition(function Trig_ThunderStrikeLv4Conditions))
+    call TriggerAddAction(gg_trg_ThunderStrikeLv4, function Trig_ThunderStrikeLv4Actions)
+endfunction
+//===========================================================================
+// Trigger: ThunderStrikeLv5
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ThunderStrikeLv5Conditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A050' ) )
+endfunction
+function Trig_ThunderStrikeLv5Actions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local real x1= GetUnitX(u)
+    local real y1= GetUnitY(u)
+    local real z= 50
+    local unit target= GetSpellTargetUnit()
+    local real x2= GetUnitX(target)
+    local real y2= GetUnitY(target)
+    local real damage= 700
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    call hurtUnitByMagicalSingleDamage(p , target , damage)
+    call addLightningBetweenTwoPointsAndDeleteAfter("FORK" , true , x1 , y1 , z , x2 , y2 , z , 0.3)
+    set u=null
+    set p=null
+    set target=null
+endfunction
+//===========================================================================
+function InitTrig_ThunderStrikeLv5 takes nothing returns nothing
+    set gg_trg_ThunderStrikeLv5=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ThunderStrikeLv5, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ThunderStrikeLv5, Condition(function Trig_ThunderStrikeLv5Conditions))
+    call TriggerAddAction(gg_trg_ThunderStrikeLv5, function Trig_ThunderStrikeLv5Actions)
+endfunction
+//===========================================================================
+// Trigger: GetHaiGodHeart
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_GetHaiGodHeartConditions takes nothing returns boolean
+    return ( GetItemTypeId(GetManipulatedItem()) == 'I02X' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) ) and ( GetItemPlayer(GetManipulatedItem()) == GetTriggerPlayer() )
+endfunction
+function GHGH_recoveryLife_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local item it= LoadItemHandle(SPELL_HT, pKey, 1)
+    local real life= getUnitLife(u)
+    local real maxLife= getUnitMaxLife(u)
+    local real recovery= ( maxLife - life ) * 0.025
+    
+    if ( UnitHasItem(u, it) ) then
+        call recoveryUnitLife(u , recovery)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Orc\\EtherealForm\\SpiritWalkerChange.mdl" , u , "chest" , 0.5)
+        call TimerStart(t, 0.5, false, function GHGH_recoveryLife_timer)
+    else
+        call DestroyTimer(t)
+        call FlushChildHashtable(SPELL_HT, pKey)
+    endif
+    
+    set t=null
+    set u=null
+endfunction
+function Trig_GetHaiGodHeartActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    local item it= GetManipulatedItem()
+    
+    call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+    call SaveItemHandle(SPELL_HT, pKey, 1, it)
+    call TimerStart(t, 0.5, false, function GHGH_recoveryLife_timer)
+    set u=null
+    set t=null
+    set it=null
+endfunction
+//===========================================================================
+function InitTrig_GetHaiGodHeart takes nothing returns nothing
+    set gg_trg_GetHaiGodHeart=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_GetHaiGodHeart, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_GetHaiGodHeart, Condition(function Trig_GetHaiGodHeartConditions))
+    call TriggerAddAction(gg_trg_GetHaiGodHeart, function Trig_GetHaiGodHeartActions)
+endfunction
+//===========================================================================
+// Trigger: Blindness
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BlindnessConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A04V' ) )
+endfunction
+function Trig_BlindnessActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetOwningPlayer(u)
+    local unit target= GetSpellTargetUnit()
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set p=null
+        set u=null
+        set target=null
+        return
+    endif
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.2)
+    call UnitAddAbility(majia, 'A07T')
+    call IssueTargetOrder(majia, "drunkenhaze", target)
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_Blindness takes nothing returns nothing
+    set gg_trg_Blindness=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Blindness, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_Blindness, Condition(function Trig_BlindnessConditions))
+    call TriggerAddAction(gg_trg_Blindness, function Trig_BlindnessActions)
+endfunction
+//===========================================================================
+// Trigger: GetAoHaLaWand
+//===========================================================================
+//TESH.scrollpos=27
+//TESH.alwaysfold=0
+function Trig_GetAoHaLaWandConditions takes nothing returns boolean
+    return ( GetItemTypeId(GetManipulatedItem()) == 'I032' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) ) and ( GetItemPlayer(GetManipulatedItem()) == GetTriggerPlayer() )
+endfunction
+function GAHLW_unitBeDamaged takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real damage= GetEventDamage()
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local item it= null
+    
+    if ( not isUnitHasItemById(u , 'I032') ) then
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTrigger(trg)
+        set trg=null
+        set u=null
+    endif
+    
+    if ( damage >= 100 ) then
+        set it=LoadItemHandle(SPELL_HT, pKey, 0)
+        call SetItemCharges(it, GetItemCharges(it) + 1)
+    endif
+    
+    set trg=null
+    set it=null
+    set u=null
+endfunction
+function Trig_GetAoHaLaWandActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local trigger trg= CreateTrigger()
+    local integer pKey= 0
+    local item it= GetManipulatedItem()
+    
+    if ( getUnitItemCountById(u , 'I032') == 1 ) then
+        set pKey=GetHandleId(trg)
+        call SaveItemHandle(SPELL_HT, pKey, 0, it)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_DAMAGED)
+        call TriggerAddAction(trg, function GAHLW_unitBeDamaged)
+    endif
+    
+    set u=null
+    set trg=null
+    set it=null
+endfunction
+//===========================================================================
+function InitTrig_GetAoHaLaWand takes nothing returns nothing
+    set gg_trg_GetAoHaLaWand=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_GetAoHaLaWand, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_GetAoHaLaWand, Condition(function Trig_GetAoHaLaWandConditions))
+    call TriggerAddAction(gg_trg_GetAoHaLaWand, function Trig_GetAoHaLaWandActions)
+endfunction
+//===========================================================================
+// Trigger: UseAoHaLaWand
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_UseAoHaLaWandConditions takes nothing returns boolean
+    return ( GetItemTypeId(GetManipulatedItem()) == 'I032' )
+endfunction
+function Trig_UseAoHaLaWandActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local item it= GetManipulatedItem()
+    local integer charges= GetItemCharges(it) + 1
+    local real life= I2R(charges) * 20
+    local real mana= I2R(charges) * 10
+    
+    call recoveryUnitLife(u , life)
+    call recoveryUnitMana(u , mana)
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl" , u , "chest" , 0.4)
+    
+    set u=null
+    set it=null
+endfunction
+//===========================================================================
+function InitTrig_UseAoHaLaWand takes nothing returns nothing
+    set gg_trg_UseAoHaLaWand=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_UseAoHaLaWand, EVENT_PLAYER_UNIT_USE_ITEM)
+    call TriggerAddCondition(gg_trg_UseAoHaLaWand, Condition(function Trig_UseAoHaLaWandConditions))
+    call TriggerAddAction(gg_trg_UseAoHaLaWand, function Trig_UseAoHaLaWandActions)
+endfunction
+//===========================================================================
+// Trigger: TransportHorn
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TransportHornConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07V' ) )
+endfunction
+function TH_enumIsStruct takes nothing returns boolean
+    return IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) and IsUnitAliveBJ(GetFilterUnit())
+endfunction
+function TH_moveUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local real x= LoadReal(SPELL_HT, pKey, 1)
+    local real y= LoadReal(SPELL_HT, pKey, 2)
+    local effect ef= createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , u , "origin" , 0.2)
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 3))
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 4))
+    call FlushChildHashtable(SPELL_HT, pKey)
+    call DestroyTimer(t)
+    set t=null
+    set u=null
+    set ef=null
+endfunction
+function TH_breakTP takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    call FlushChildHashtable(SPELL_HT, pKey)
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 3))
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 4))
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    call DestroyTimer(t)
+    call DestroyTrigger(trg)
+    set trg=null
+    set t=null
+endfunction
+function Trig_TransportHornActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local real array x
+    local real array y
+    local unit target= null
+    local unit array majia
+    local trigger trg= CreateTrigger()
+    local timer t= CreateTimer()
+    local integer pKey= 0
+    local real times= 2.5
+    local boolexpr e= Condition(function TH_enumIsStruct)
+    local real dist= 0
+    local real angle= 0
+    
+    set x[0]=GetSpellTargetX()
+    set y[0]=GetSpellTargetY()
+    set x[1]=GetUnitX(u)
+    set y[1]=GetUnitY(u)
+    set target=getNearestAllyUnit(x[0] , y[0] , u , p , e)
+    set x[2]=GetUnitX(target)
+    set y[2]=GetUnitY(target)
+    set dist=getDistanceInPts(x[0] , y[0] , x[2] , y[2])
+    if ( dist > 500 ) then
+        set dist=500
+    endif
+    set angle=getAngleFormXY(x[2] , y[2] , x[0] , y[0])
+    set x[0]=getPolarSafeX(x[2] , dist , angle)
+    set y[0]=getPolarSafeY(y[2] , dist , angle)
+    
+    set majia[0]=CreateUnit(p, 'e00J', x[0], y[0], 0)
+    set majia[1]=CreateUnit(p, 'e00K', x[1], y[1], 0)
+    set pKey=GetHandleId(t)
+    call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+    call SaveReal(SPELL_HT, pKey, 1, x[0])
+    call SaveReal(SPELL_HT, pKey, 2, y[0])
+    call SaveUnitHandle(SPELL_HT, pKey, 3, majia[0])
+    call SaveUnitHandle(SPELL_HT, pKey, 4, majia[1])
+    call TimerStart(t, times, false, function TH_moveUnit_timer)
+    
+    set pKey=GetHandleId(trg)
+    call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+    call TriggerAddAction(trg, function TH_breakTP)
+  
+    
+    set u=null
+    set p=null
+    set target=null
+    set trg=null
+    set t=null
+    set majia[0]=null
+    set majia[1]=null
+endfunction
+//===========================================================================
+function InitTrig_TransportHorn takes nothing returns nothing
+    set gg_trg_TransportHorn=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TransportHorn, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_TransportHorn, Condition(function Trig_TransportHornConditions))
+    call TriggerAddAction(gg_trg_TransportHorn, function Trig_TransportHornActions)
+endfunction//===========================================================================
+// Trigger: TransportZhuiYun
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TransportZhuiYunConditions takes nothing returns boolean
+    return ( GetSpellAbilityId() == 'A07W' )
+endfunction
+function TZY_enumUnit takes nothing returns boolean
+    return IsUnitAliveBJ(GetFilterUnit()) and not IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO) and not IsUnitType(GetFilterUnit(), UNIT_TYPE_ANCIENT) and not IsUnitType(GetTriggerUnit(), UNIT_TYPE_PEON)
+endfunction
+function TZY_moveUnitOnStruct_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local real x= LoadReal(SPELL_HT, pKey, 1)
+    local real y= LoadReal(SPELL_HT, pKey, 2)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 3)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 4)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TZY_breakTPOnStruct takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 3))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 4))
+    call DestroyTimer(t)
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set trg=null
+    set t=null
+endfunction
+function TZY_moveUnitOnUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 1)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 3)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set target=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TZY_breakTPOnUnit takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 2))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 3))
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    call DestroyTrigger(trg)
+    call DestroyTimer(t)
+    set trg=null
+    set t=null
+endfunction
+function Trig_TransportZhuiYunActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local unit target= null
+    local real array x
+    local real array y
+    local unit majia= null
+    local effect ef= null
+    local timer t= CreateTimer()
+    local real times= 2
+    local trigger trg= CreateTrigger()
+    local integer pKey= 0
+    local boolexpr e= Condition(function TZY_enumUnit)
+    local real dist= 0
+    local real angle= 0
+    
+    set x[0]=GetSpellTargetX()
+    set y[0]=GetSpellTargetY()
+    set target=getNearestAllyUnit(x[0] , y[0] , u , p , e)
+    set x[1]=GetUnitX(u)
+    set y[1]=GetUnitY(u)
+    set majia=CreateUnit(p, 'e00K', x[1], y[1], 0)
+    if ( IsUnitType(target, UNIT_TYPE_STRUCTURE) ) then
+        set x[2]=GetUnitX(target)
+        set y[2]=GetUnitY(target)
+        set dist=getDistanceInPts(x[0] , y[0] , x[2] , y[2])
+        if ( dist > 500 ) then
+            set dist=500
+        endif
+        set angle=getAngleFormXY(x[2] , y[2] , x[0] , y[0])
+        set x[0]=getPolarSafeX(x[2] , dist , angle)
+        set y[0]=getPolarSafeY(y[2] , dist , angle)
+        
+        set ef=AddSpecialEffect("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", x[0], y[0])
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveReal(SPELL_HT, pKey, 1, x[0])
+        call SaveReal(SPELL_HT, pKey, 2, y[0])
+        call SaveUnitHandle(SPELL_HT, pKey, 3, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 4, ef)
+        call TimerStart(t, times, false, function TZY_moveUnitOnStruct_timer)
+            
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TZY_breakTPOnStruct)
+    else
+        set ef=AddSpecialEffectTarget("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", target, "origin")
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveUnitHandle(SPELL_HT, pKey, 1, target)
+        call SaveUnitHandle(SPELL_HT, pKey, 2, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 3, ef)
+        call TimerStart(t, times, false, function TZY_moveUnitOnUnit_timer)
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TZY_breakTPOnUnit)
+    endif
+ 
+    set trg=null
+    set t=null
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+    set ef=null
+endfunction
+//===========================================================================
+function InitTrig_TransportZhuiYun takes nothing returns nothing
+    set gg_trg_TransportZhuiYun=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TransportZhuiYun, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_TransportZhuiYun, Condition(function Trig_TransportZhuiYunConditions))
+    call TriggerAddAction(gg_trg_TransportZhuiYun, function Trig_TransportZhuiYunActions)
+endfunction
+//===========================================================================
+// Trigger: TransportFeiNiao
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TransportFeiNiaoConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07X' ) )
+endfunction
+function TFN_enumUnit takes nothing returns boolean
+    return IsUnitAliveBJ(GetFilterUnit()) and not IsUnitType(GetFilterUnit(), UNIT_TYPE_ANCIENT) and not IsUnitType(GetTriggerUnit(), UNIT_TYPE_PEON)
+endfunction
+function TFN_moveUnitOnStruct_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local real x= LoadReal(SPELL_HT, pKey, 1)
+    local real y= LoadReal(SPELL_HT, pKey, 2)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 3)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 4)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TFN_breakTPOnStruct takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 3))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 4))
+    call DestroyTimer(t)
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set trg=null
+    set t=null
+endfunction
+function TFN_moveUnitOnUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 1)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 3)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set target=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TFN_breakTPOnUnit takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 2))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 3))
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    call DestroyTrigger(trg)
+    call DestroyTimer(t)
+    set trg=null
+    set t=null
+endfunction
+function Trig_TransportFeiNiaoActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local unit target= null
+    local real array x
+    local real array y
+    local unit majia= null
+    local effect ef= null
+    local timer t= CreateTimer()
+    local real times= 2
+    local trigger trg= CreateTrigger()
+    local integer pKey= 0
+    local boolexpr e= Condition(function TFN_enumUnit)
+    local real dist= 0
+    local real angle= 0
+    
+    set x[0]=GetSpellTargetX()
+    set y[0]=GetSpellTargetY()
+    set target=getNearestAllyUnit(x[0] , y[0] , u , p , e)
+    set x[1]=GetUnitX(u)
+    set y[1]=GetUnitY(u)
+    set majia=CreateUnit(p, 'e00K', x[1], y[1], 0)
+    if ( IsUnitType(target, UNIT_TYPE_STRUCTURE) ) then
+        set x[2]=GetUnitX(target)
+        set y[2]=GetUnitY(target)
+        set dist=getDistanceInPts(x[0] , y[0] , x[2] , y[2])
+        if ( dist > 500 ) then
+            set dist=500
+        endif
+        set angle=getAngleFormXY(x[2] , y[2] , x[0] , y[0])
+        set x[0]=getPolarSafeX(x[2] , dist , angle)
+        set y[0]=getPolarSafeY(y[2] , dist , angle)
+        
+        set ef=AddSpecialEffect("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", x[0], y[0])
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveReal(SPELL_HT, pKey, 1, x[0])
+        call SaveReal(SPELL_HT, pKey, 2, y[0])
+        call SaveUnitHandle(SPELL_HT, pKey, 3, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 4, ef)
+        call TimerStart(t, times, false, function TFN_moveUnitOnStruct_timer)
+            
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TFN_breakTPOnStruct)
+    else
+        set ef=AddSpecialEffectTarget("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", target, "origin")
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveUnitHandle(SPELL_HT, pKey, 1, target)
+        call SaveUnitHandle(SPELL_HT, pKey, 2, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 3, ef)
+        call TimerStart(t, times, false, function TFN_moveUnitOnUnit_timer)
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TFN_breakTPOnUnit)
+    endif
+ 
+    set trg=null
+    set t=null
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+    set ef=null
+endfunction
+//===========================================================================
+function InitTrig_TransportFeiNiao takes nothing returns nothing
+    set gg_trg_TransportFeiNiao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TransportFeiNiao, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_TransportFeiNiao, Condition(function Trig_TransportFeiNiaoConditions))
+    call TriggerAddAction(gg_trg_TransportFeiNiao, function Trig_TransportFeiNiaoActions)
+endfunction
+//===========================================================================
+// Trigger: TransportZhuiYunFeiNiao
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TransportZhuiYunFeiNiaoConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07Y' ) )
+endfunction
+function TZYFN_enumUnit takes nothing returns boolean
+    return IsUnitAliveBJ(GetFilterUnit()) and not IsUnitType(GetTriggerUnit(), UNIT_TYPE_PEON)
+endfunction
+function TZYFN_moveUnitOnStruct_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local real x= LoadReal(SPELL_HT, pKey, 1)
+    local real y= LoadReal(SPELL_HT, pKey, 2)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 3)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 4)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TZYFN_breakTPOnStruct takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 3))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 4))
+    call DestroyTimer(t)
+    call DestroyTrigger(trg)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set trg=null
+    set t=null
+endfunction
+function TZYFN_moveUnitOnUnit_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local unit target= LoadUnitHandle(SPELL_HT, pKey, 1)
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= LoadUnitHandle(SPELL_HT, pKey, 2)
+    local effect ef= LoadEffectHandle(SPELL_HT, pKey, 3)
+    local effect ef1= createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl" , x , y , 0.2)
+    
+    call SetUnitX(u, x)
+    call SetUnitY(u, y)
+    call killDestructableInCircle(250 , x , y)
+    call RemoveUnit(majia)
+    call DestroyEffect(ef)
+    call DestroyTimer(t)
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    set t=null
+    set u=null
+    set target=null
+    set majia=null
+    set ef=null
+    set ef1=null
+endfunction
+function TZYFN_breakTPOnUnit takes nothing returns nothing
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= LoadTimerHandle(SPELL_HT, pKey, 0)
+    
+    set pKey=GetHandleId(t)
+    call RemoveUnit(LoadUnitHandle(SPELL_HT, pKey, 2))
+    call DestroyEffect(LoadEffectHandle(SPELL_HT, pKey, 3))
+    call FlushChildHashtable(SPELL_HT, pKey)
+    
+    call DestroyTrigger(trg)
+    call DestroyTimer(t)
+    set trg=null
+    set t=null
+endfunction
+function Trig_TransportZhuiYunFeiNiaoActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local unit target= null
+    local real array x
+    local real array y
+    local unit majia= null
+    local effect ef= null
+    local timer t= CreateTimer()
+    local real times= 2
+    local trigger trg= CreateTrigger()
+    local integer pKey= 0
+    local boolexpr e= Condition(function TZYFN_enumUnit)
+    local real dist= 0
+    local real angle= 0
+    
+    set x[0]=GetSpellTargetX()
+    set y[0]=GetSpellTargetY()
+    set target=getNearestAllyUnit(x[0] , y[0] , u , p , e)
+    set x[1]=GetUnitX(u)
+    set y[1]=GetUnitY(u)
+    set majia=CreateUnit(p, 'e00K', x[1], y[1], 0)
+    if ( IsUnitType(target, UNIT_TYPE_STRUCTURE) ) then
+        set x[2]=GetUnitX(target)
+        set y[2]=GetUnitY(target)
+        set dist=getDistanceInPts(x[0] , y[0] , x[2] , y[2])
+        if ( dist > 500 ) then
+            set dist=500
+        endif
+        set angle=getAngleFormXY(x[2] , y[2] , x[0] , y[0])
+        set x[0]=getPolarSafeX(x[2] , dist , angle)
+        set y[0]=getPolarSafeY(y[2] , dist , angle)
+        
+        set ef=AddSpecialEffect("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", x[0], y[0])
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveReal(SPELL_HT, pKey, 1, x[0])
+        call SaveReal(SPELL_HT, pKey, 2, y[0])
+        call SaveUnitHandle(SPELL_HT, pKey, 3, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 4, ef)
+        call TimerStart(t, times, false, function TZYFN_moveUnitOnStruct_timer)
+            
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TZYFN_breakTPOnStruct)
+    else
+        set ef=AddSpecialEffectTarget("Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl", target, "origin")
+        set pKey=GetHandleId(t)
+        call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+        call SaveUnitHandle(SPELL_HT, pKey, 1, target)
+        call SaveUnitHandle(SPELL_HT, pKey, 2, majia)
+        call SaveEffectHandle(SPELL_HT, pKey, 3, ef)
+        call TimerStart(t, times, false, function TZYFN_moveUnitOnUnit_timer)
+        set pKey=GetHandleId(trg)
+        call SaveTimerHandle(SPELL_HT, pKey, 0, t)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_POINT_ORDER)
+        call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_ISSUED_TARGET_ORDER)
+        call TriggerAddAction(trg, function TZYFN_breakTPOnUnit)
+    endif
+ 
+    set trg=null
+    set t=null
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+    set ef=null
+endfunction
+//===========================================================================
+function InitTrig_TransportZhuiYunFeiNiao takes nothing returns nothing
+    set gg_trg_TransportZhuiYunFeiNiao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TransportZhuiYunFeiNiao, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_TransportZhuiYunFeiNiao, Condition(function Trig_TransportZhuiYunFeiNiaoConditions))
+    call TriggerAddAction(gg_trg_TransportZhuiYunFeiNiao, function Trig_TransportZhuiYunFeiNiaoActions)
+endfunction
+//===========================================================================
+// Trigger: SwordOfSoul
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_SwordOfSoulConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A02S' ) )
+endfunction
+function Trig_SwordOfSoulActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    local unit target= GetSpellTargetUnit()
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local unit majia= null
+    
+    if ( isHeroDodgeDesignatedAbil(target) ) then
+        call cleanHeroDodgeDesignatedAbilBuff(target)
+        set u=null
+        set p=null
+        set target=null
+        return
+    endif
+    
+    set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.1)
+    call UnitAddAbility(majia, 'A03Q')
+    call IssueTargetOrder(majia, "thunderbolt", target)
+    
+    set u=null
+    set p=null
+    set target=null
+    set majia=null
+endfunction
+//===========================================================================
+function InitTrig_SwordOfSoul takes nothing returns nothing
+    set gg_trg_SwordOfSoul=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_SwordOfSoul, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_SwordOfSoul, Condition(function Trig_SwordOfSoulConditions))
+    call TriggerAddAction(gg_trg_SwordOfSoul, function Trig_SwordOfSoulActions)
+endfunction
+//===========================================================================
+// Trigger: HeDaoYiWenZhi
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_HeDaoYiWenZhiConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A07Z' ) )
+endfunction
+function Trig_HeDaoYiWenZhiActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local player p= GetTriggerPlayer()
+    local unit array majia
+    
+    set majia[0]=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.1)
+    call UnitAddAbility(majia[0], 'A082')
+    call IssueTargetOrder(majia[0], "acidbomb", u)
+    set majia[0]=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.1)
+    call UnitAddAbility(majia[0], 'A081')
+    call IssueTargetOrder(majia[0], "bloodlust", u)
+    
+    set u=null
+    set p=null
+    set majia[0]=null
+    set majia[1]=null
+endfunction
+//===========================================================================
+function InitTrig_HeDaoYiWenZhi takes nothing returns nothing
+    set gg_trg_HeDaoYiWenZhi=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HeDaoYiWenZhi, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_HeDaoYiWenZhi, Condition(function Trig_HeDaoYiWenZhiConditions))
+    call TriggerAddAction(gg_trg_HeDaoYiWenZhi, function Trig_HeDaoYiWenZhiActions)
+endfunction
+//===========================================================================
+// Trigger: GetHeiDou
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_GetHeiDouConditions takes nothing returns boolean
+    return ( ( GetItemTypeId(GetManipulatedItem()) == 'I02M' ) ) and GetItemPlayer(GetManipulatedItem()) == GetTriggerPlayer()
+endfunction
+function Trig_GetHeiDouActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real range= GetUnitState(u, ConvertUnitState(0x16))
+    call DisplayTimedTextToPlayer(Player(0), 0, 0, 10, R2S(range))
+    call debugText("数量：" + I2S(getUnitItemCount(u , 'I02M')))
+    if ( IsUnitType(u, UNIT_TYPE_RANGED_ATTACKER) ) then
+        if ( getUnitItemCount(u , 'I02M') == 1 ) then
+            call SetUnitState(u, ConvertUnitState(0x16), range + 130)
+        endif
+    endif
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_GetHeiDou takes nothing returns nothing
+    set gg_trg_GetHeiDou=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_GetHeiDou, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddCondition(gg_trg_GetHeiDou, Condition(function Trig_GetHeiDouConditions))
+    call TriggerAddAction(gg_trg_GetHeiDou, function Trig_GetHeiDouActions)
+endfunction
+//===========================================================================
+// Trigger: DropHeiDou
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_DropHeiDouConditions takes nothing returns boolean
+    return ( ( GetItemTypeId(GetManipulatedItem()) == 'I02M' ) ) and GetItemPlayer(GetManipulatedItem()) == GetTriggerPlayer()
+endfunction
+function Trig_DropHeiDouActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real range= GetUnitState(u, ConvertUnitState(0x16))
+    call DisplayTimedTextToPlayer(Player(0), 0, 0, 10, R2S(range))
+    call debugText("数量：" + I2S(getUnitItemCount(u , 'I02M')))
+    if ( IsUnitType(u, UNIT_TYPE_RANGED_ATTACKER) ) then
+        if ( getUnitItemCount(u , 'I02M') == 1 ) then
+            call SetUnitState(u, ConvertUnitState(0x16), range - 130)
+        endif
+    endif
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_DropHeiDou takes nothing returns nothing
+    set gg_trg_DropHeiDou=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_DropHeiDou, EVENT_PLAYER_UNIT_DROP_ITEM)
+    call TriggerAddCondition(gg_trg_DropHeiDou, Condition(function Trig_DropHeiDouConditions))
+    call TriggerAddAction(gg_trg_DropHeiDou, function Trig_DropHeiDouActions)
+endfunction//===========================================================================
+// Trigger: QiuShui
+//===========================================================================
+//TESH.scrollpos=30
+//TESH.alwaysfold=0
+function Trig_QiuShuiConditions takes nothing returns boolean
+    return ( GetSpellAbilityId() == 'A083' )
+endfunction
+function QS_fenshen takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local unit u= LoadUnitHandle(SPELL_HT, pKey, 0)
+    local player p= GetOwningPlayer(u)
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local unit majia= null
+    local integer i= 0
+    local integer counts= getUnitItemCount(u , 'I02J') + 1
+    call debugText("秋水发动了啊")
+    call UnitRemoveBuffs(u, false, true)
+    call ShowUnit(u, true)
+    loop
+        exitwhen i > counts - 1
+        set majia=createUnitAndDeleteAfter(p , 'e00E' , x , y , 0 , 0.1)
+        call UnitAddAbility(majia, 'A084')
+        call IssueTargetOrderById(majia, 852274, u)
+        set i=i + 1
+    endloop
+    call FlushChildHashtable(SPELL_HT, pKey)
+    call DestroyTimer(t)
+    set t=null
+    set u=null
+endfunction
+function Trig_QiuShuiActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local real x= GetUnitX(u)
+    local real y= GetUnitY(u)
+    local player p= GetTriggerPlayer()
+    local timer t= CreateTimer()
+    local integer pKey= GetHandleId(t)
+    
+    call ShowUnit(u, false)
+    call createEffectOnCoordinateAndDeleteAfter("Abilities\\Spells\\Other\\Levelup\\LevelupCaster.mdl" , x , y , 0.22)
+    call SaveUnitHandle(SPELL_HT, pKey, 0, u)
+    call TimerStart(t, 0.2, false, function QS_fenshen)
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_QiuShui takes nothing returns nothing
+    set gg_trg_QiuShui=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_QiuShui, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_QiuShui, Condition(function Trig_QiuShuiConditions))
+    call TriggerAddAction(gg_trg_QiuShui, function Trig_QiuShuiActions)
+endfunction//===========================================================================
+// Trigger: UnitBeDamaged
+//===========================================================================
+//TESH.scrollpos=277
+//TESH.alwaysfold=0
+
+
+function UBD_isHasBuff takes integer probability returns boolean
+    return probability > 0
+endfunction
+
+function UBD_isTriggerBuff takes integer probability returns boolean
+    local integer i= R2I(GetRandomReal(0, 1) * 100)
+    if ( probability >= 100 and probability <= i ) then
+        return true
+    endif
+    return false
+endfunction
+
+function UBD_getSputedUnit takes nothing returns boolean
+    local unit sourcer= GetEventDamageSource()
+    local player p= GetOwningPlayer(sourcer)
+    local boolean b= ( not IsUnitAlly(GetFilterUnit(), p) ) and ( not IsUnitType(GetFilterUnit(), UNIT_TYPE_STRUCTURE) ) and ( not IsUnit(GetFilterUnit(), GetTriggerUnit()) )
+    set p=null
+    set sourcer=null
+    return b
+endfunction
+function UBD_sputtingForGroup takes nothing returns nothing
+    local real damage= GetEventDamage()
+    local unit sourcer= GetEventDamageSource()
+    local player p= GetOwningPlayer(sourcer)
+    local unit target= GetEnumUnit()
+    //计算溅射比例伤害
+    set damage=damage * I2R(getHeroSputteringBuff(sourcer)) / 100
+    call hurtUnitByIgnoreMagicalDamage(p , target , damage)
+    
+    set sourcer=null
+    set p=null
+    set target=null
+endfunction
+function UBD_heroSputteringBuff takes unit target,unit sourcer,real damage returns nothing
+    local integer proportion= 0
+    local real x= GetUnitX(target)
+    local real y= GetUnitY(target)
+    local group g= CreateGroup()
+    local boolexpr filter= null
+    local unit effectU= null
+    set proportion=getHeroSputteringBuff(sourcer)
+    if ( UBD_isHasBuff(proportion) ) then
+        set effectU=CreateUnit(GetOwningPlayer(sourcer), 'e00G', x, y, 0)
+        call SetUnitTimeScale(effectU, 2)
+        call removeUnitAfterTime(effectU , 0.7)
+        
+        set filter=Condition(function UBD_getSputedUnit)
+        call GroupEnumUnitsInRange(g, x, y, 200, filter)
+        call ForGroup(g, function UBD_sputtingForGroup)
+    endif
+    call DestroyGroup(g)
+    call DestroyBoolExpr(filter)
+    set effectU=null
+    set g=null
+    set filter=null
+endfunction
+//月刃，暂时不做了，感觉没什么用处
+function UBD_heroMoonGlaiveBuff takes unit target,unit sourcer,real damage returns boolean
     local integer probability= 0
-    set probability=getHeroMoonGlaiveBuff(origin)
+    set probability=getHeroMoonGlaiveBuff(sourcer)
     if ( UBD_isHasBuff(probability) ) then
         
         return true
@@ -10907,192 +16022,456 @@ function UBD_heroMoonGlaiveBuff takes unit origin returns boolean
     return false
 endfunction
 //闪电链
-function UBD_heroLightningBuff takes unit origin returns boolean
+function UBD_heroLightningBuff takes unit target,unit sourcer returns nothing
     local integer probability= 0
-    set probability=getHeroLightningBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+    local unit majia= null
+    local real x= 0
+    local real y= 0
+    set probability=getHeroLightningBuff(sourcer)
+    if ( UBD_isHasBuff(probability) and UBD_isTriggerBuff(probability) ) then
+        if ( not IsUnitType(target, UNIT_TYPE_MAGIC_IMMUNE) ) then
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=CreateUnit(GetOwningPlayer(sourcer), 'e00E', x, y, 0)
+            call UnitAddAbility(majia, 'A02B')
+            call IssueTargetOrder(majia, "chainlightning", target)
+            call removeUnitAfterTime(majia , 0.2)
+        endif
     endif
-    return false
+    set majia=null
 endfunction
 //残废
-function UBD_heroDisabledBuff takes unit origin returns boolean
+function UBD_heroDisabledBuff takes unit target,unit sourcer returns nothing
     local integer probability= 0
-    set probability=getHeroDisabledBuff(origin)
+    local unit majia= null
+    local real x= 0
+    local real y= 0
+    set probability=getHeroDisabledBuff(sourcer)
     if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+        if ( not IsUnitType(target, UNIT_TYPE_MAGIC_IMMUNE) ) then
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=CreateUnit(GetOwningPlayer(sourcer), 'e00E', x, y, 0)
+            call UnitAddAbility(majia, 'A02I')
+            call IssueTargetOrder(majia, "cripple", target)
+            call removeUnitAfterTime(majia , 0.2)
+        endif
     endif
-    return false
+    set majia=null
 endfunction
 //削魔
-function UBD_heroCuttingManaBuff takes unit origin returns boolean
+function UBD_heroCuttingManaBuff takes unit target,unit sourcer returns nothing
     local integer probability= 0
-    set probability=getHeroCuttingManaBuff(origin)
+    set probability=getHeroCuttingManaBuff(sourcer)
     if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+        call reduceUnitMana(target , probability)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Human\\Feedback" , target , "overhead" , 0.3)
     endif
-    return false
 endfunction
 //击晕
-function UBD_heroStunBuff takes unit origin returns boolean
+function UBD_heroStunBuff takes unit target,unit sourcer returns nothing
     local integer probability= 0
-    set probability=getHeroStunBuff(origin)
+    local unit majia= null
+    local real x= 0
+    local real y= 0
+    set probability=getHeroStunBuff(sourcer)
     if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+        if ( not IsUnitType(target, UNIT_TYPE_MAGIC_IMMUNE) ) then
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=CreateUnit(GetOwningPlayer(sourcer), 'e00E', x, y, 0)
+            call UnitAddAbility(majia, 'A02J')
+            call IssueTargetOrder(majia, "thunderbolt", target)
+            call removeUnitAfterTime(majia , 0.2)
+        endif
     endif
-    return false
+    set majia=null
 endfunction
 //物理吸血
-function UBD_heroPhysicalVampireBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroPhysicalVampireBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+function UBD_heroPhysicalVampireBuff takes unit sourcer,real damage returns nothing
+    local integer prob= 0
+    set prob=getHeroPhysicalVampireBuff(sourcer)
+    if ( UBD_isHasBuff(prob) ) then
+        set damage=damage * ( prob ) / 100
+        call recoveryUnitLife(sourcer , damage)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl" , sourcer , "chest" , 0.3)
     endif
-    return false
 endfunction
 //物理暴击
-function UBD_heroPhysicalCritBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroPhysicalCritBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
+function UBD_heroPhysicalCritBuff takes unit target,unit sourcer,real damage,boolean isAOE returns boolean
+    local integer prob= 0
+    local real newDamage= damage
+    set prob=getHeroPhysicalCritBuff(sourcer)
+    
+    if ( UBD_isHasBuff(prob) and UBD_isTriggerBuff(prob) ) then
+        if ( IsUnitType(sourcer, UNIT_TYPE_MELEE_ATTACKER) ) then
+            call SetUnitAnimation(sourcer, "attack slam")
+        endif
+        if ( isAOE ) then
+            set newDamage=damage * 0.3
+        endif
+        call hurtUnitByIgnoreHolyDamage(GetOwningPlayer(sourcer) , target , newDamage)
+        call showPhysicalCritTagToPlayerOverUnit(target , damage + newDamage)
         return true
     endif
     return false
 endfunction
 //物理破防
-function UBD_heroBreakPhysicalDefenseBuff takes unit origin returns boolean
+function UBD_heroBreakPhysicalDefenseBuff takes unit target,unit sourcer returns nothing
     local integer probability= 0
-    set probability=getHeroBreakPhysicalDefenseBuff(origin)
+    local real x= 0
+    local real y= 0
+    local unit majia= null
+    set probability=getHeroBreakPhysicalDefenseBuff(sourcer)
     if ( UBD_isHasBuff(probability) ) then
+        set x=GetUnitX(target)
+        set y=GetUnitY(target)
+        set majia=CreateUnit(GetOwningPlayer(sourcer), 'h02D', x, y, 0)
+        call UnitAddAbility(majia, 'A02M')
         
-        return true
+        if ( GetUnitAbilityLevel(target, 'B00D') == 1 ) then
+            call SetUnitAbilityLevel(majia, 'A02M', 6)
+        elseif ( GetUnitAbilityLevel(target, 'B00C') == 1 ) then
+            if ( probability > 30 ) then
+                call SetUnitAbilityLevel(majia, 'A02M', 6)
+            else
+                call SetUnitAbilityLevel(majia, 'A02M', 5)
+            endif
+        elseif ( GetUnitAbilityLevel(target, 'B00B') == 1 ) then
+            if ( probability > 26 ) then
+                call SetUnitAbilityLevel(majia, 'A02M', 5)
+            else
+                call SetUnitAbilityLevel(majia, 'A02M', 4)
+            endif
+        elseif ( GetUnitAbilityLevel(target, 'B00A') == 1 ) then
+            if ( probability > 21 ) then
+                call SetUnitAbilityLevel(majia, 'A02M', 4)
+            else
+                call SetUnitAbilityLevel(majia, 'A02M', 3)
+            endif
+        elseif ( GetUnitAbilityLevel(target, 'B009') == 1 ) then
+            if ( probability > 15 ) then
+                call SetUnitAbilityLevel(majia, 'A02M', 3)
+            else
+                call SetUnitAbilityLevel(majia, 'A02M', 2)
+            endif
+        elseif ( GetUnitAbilityLevel(target, 'B008') == 1 ) then
+            if ( probability > 8 ) then
+                call SetUnitAbilityLevel(majia, 'A02M', 2)
+            else
+                call SetUnitAbilityLevel(majia, 'A02M', 1)
+            endif
+        endif
+        call IssueTargetOrder(majia, "attack", target)
+        call removeUnitAfterTime(majia , 0.3)
     endif
-    return false
+    set majia=null
 endfunction
 //法术吸血
-function UBD_heroMagicalVampireBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroMagicalVampireBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+function UBD_heroMagicalVampireBuff takes unit target,unit sourcer,real damage returns nothing
+    local integer prob= 0
+    set prob=getHeroMagicalVampireBuff(sourcer)
+    if ( UBD_isHasBuff(prob) ) then
+        set damage=damage * I2R(prob) / 100
+        call recoveryUnitLife(sourcer , damage)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl" , sourcer , "chest" , 0.3)
     endif
-    return false
 endfunction
 //法术暴击
-function UBD_heroMagicalCritBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroMagicalCritBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
-    endif
-    return false
-endfunction
-//法术穿透
-function UBD_heroBreakMagicalDefenseBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroBreakMagicalDefenseBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
+function UBD_heroMagicalCritBuff takes unit target,unit sourcer,real damage,boolean isAOE returns boolean
+    local integer prob= 0
+    local real newDamage= damage
+    set prob=getHeroMagicalCritBuff(sourcer)
+    if ( UBD_isHasBuff(prob) and UBD_isTriggerBuff(prob) ) then
+        if ( isAOE ) then
+            set newDamage=damage * 0.3
+        endif
+        call hurtUnitByIgnoreHolyDamage(GetOwningPlayer(sourcer) , target , newDamage)
+        call showMagicalCritTagToPlayerOverUnit(target , damage + newDamage)
         return true
     endif
     return false
 endfunction
 //闪避普攻
-function UBD_heroDodgeAttackBuff takes unit origin returns boolean
+function UBD_heroDodgeAttackBuff takes unit target,unit sourcer,real damage returns boolean
     local integer probability= 0
-    set probability=getHeroDodgeAttackBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
+    set probability=getHeroDodgeAttackBuff(target)
+    if ( UBD_isHasBuff(probability) and UBD_isTriggerBuff(probability) ) then
+        call showMissTagToPlayerOverUnit(sourcer)
+        call addUnitLife(target , damage)
         return true
     endif
     return false
 endfunction
-//法抗
-function UBD_heroMagicalDefenseBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroMagicalDefenseBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+//法抗,返回恢复的生命，即抗性所起的作用
+function UBD_heroMagicalDefenseBuff takes unit target,unit sourcer,real damage returns real
+    local integer prob= getHeroMagicalDefenseBuff(target)
+    local integer break= getHeroBreakMagicalDefenseBuff(sourcer)
+    local real life= 0
+    if ( UBD_isHasBuff(prob) ) then
+        set prob=prob - break
+        if ( prob <= 0 ) then
+            return 0
+        endif
+        set life=damage * I2R(prob) / 100
+        call recoveryUnitLife(target , life)
+        return life
     endif
-    return false
+    return 0
 endfunction
-//格挡
-function UBD_heroParryBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroParryBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+//格挡,返回格挡掉的伤害
+function UBD_heroParryBuff takes unit target,unit sourcer,real damage returns real
+    local integer prob= 0
+    set prob=getHeroParryBuff(sourcer)
+    if ( UBD_isHasBuff(prob) ) then
+        if ( damage > prob ) then
+            set damage=prob
+        endif
+        call addUnitLife(target , damage)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Human\\Defend\\DefendCaster.mdl" , target , "chest" , 0.3)
+        return prob
     endif
-    return false
+    return 0
 endfunction
-//冰冻
-function UBD_heroFrozenBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroFrozenBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+//格挡：盾牌型格挡
+function UBD_shieldParry takes unit target,unit sourcer,real damage returns nothing
+    if ( isUnitHasItemById(target , 'I01D') or isUnitHasItemById(target , 'I042') ) then
+        if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+            if ( damage > 15 ) then
+                call addUnitLife(target , 15)
+            else
+                call addUnitLife(target , damage)
+            endif
+        else
+            if ( damage > 30 ) then
+                call addUnitLife(target , 30)
+            else
+                call addUnitLife(target , damage)
+            endif
+        endif
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Human\\Defend\\DefendCaster.mdl" , target , "chest" , 0.3)
+    elseif ( isUnitHasItemById(target , 'I01C') ) then
+        if ( IsUnitType(target, UNIT_TYPE_HERO) ) then
+            if ( damage > 5 ) then
+                call addUnitLife(target , 5)
+            else
+                call addUnitLife(target , damage)
+            endif
+        else
+            if ( damage > 15 ) then
+                call addUnitLife(target , 15)
+            else
+                call addUnitLife(target , damage)
+            endif
+        endif
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Human\\Defend\\DefendCaster.mdl" , target , "chest" , 0.3)
     endif
-    return false
 endfunction
-//疾行
-function UBD_heroScudBuff takes unit origin returns boolean
-    local integer probability= 0
-    set probability=getHeroScudBuff(origin)
-    if ( UBD_isHasBuff(probability) ) then
-        
-        return true
+//冰冻,区分单体技能和群体
+function UBD_heroFrozenBuff takes unit target,unit sourcer,boolean isAOE returns nothing
+    local integer prob= 0
+    local unit majia= null
+    local real x= 0
+    local real y= 0
+    set prob=getHeroFrozenBuff(sourcer)
+    if ( isAOE ) then
+        set prob=prob / 3
     endif
-    return false
+    if ( UBD_isHasBuff(prob) and UBD_isTriggerBuff(prob) ) then
+        if ( not IsUnitType(target, UNIT_TYPE_MAGIC_IMMUNE) ) then
+            set x=GetUnitX(target)
+            set y=GetUnitY(target)
+            set majia=CreateUnit(GetOwningPlayer(sourcer), 'e00E', x, y, 0)
+            call UnitAddAbility(majia, 'A02K')
+            call IssueTargetOrder(majia, "frostnova", target)
+            call removeUnitAfterTime(majia , 0.2)
+        endif
+    endif
+    set majia=null
 endfunction
-//伤害来源是英雄,即来自英雄的普攻
-function UBD_heroDamage takes unit target,unit origin,real damage returns nothing
-    local player targetP= GetOwningPlayer(target)
-    local integer targetPId= GetPlayerId(targetP)
-    
-    
+//登船斧
+function UBD_dengChuanFu takes unit target,unit sourcer,real damage returns nothing
+    if ( isUnitHasItemById(sourcer , 'I015') or isUnitHasItemById(sourcer , 'I042') ) then
+        if ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_RANGED_ATTACKER) ) then
+            call hurtUnitByIgnoreHolyDamage(GetOwningPlayer(sourcer) , target , damage * 0.15)
+        else
+            call hurtUnitByIgnoreHolyDamage(GetOwningPlayer(sourcer) , target , damage * 0.3)
+        endif
+    endif
+endfunction
+
+function UBD_hurtMinions takes unit target,unit sourcer,real damage returns nothing
+    //补刀斧
+    call UBD_dengChuanFu(target , sourcer , damage)
+endfunction
+//吸血：浮蜥唾液
+function UBD_lizardSalivaVampire takes unit sourcer returns nothing
+    if ( GetUnitAbilityLevel(sourcer, 'B00K') == 0 ) then
+        return
+    endif
+    if ( IsUnitType(sourcer, UNIT_TYPE_RANGED_ATTACKER) ) then
+        call recoveryUnitLife(sourcer , 10)
+    else
+        call recoveryUnitLife(sourcer , 20)
+    endif
+    call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl" , sourcer , "chest" , 0.2)
+endfunction
+//吸血：血脂戒指
+function UBD_bloodyRingVampire takes unit sourcer,real damage returns nothing
+    if ( isUnitHasItemById(sourcer , 'I00T') ) then
+        call recoveryUnitLife(sourcer , damage * 0.1)
+        call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl" , sourcer , "chest" , 0.2)
+    endif
+endfunction
+
+function UBD_itemBuff takes unit target,unit sourcer,real damage returns boolean
+    local boolean isShowed= false
     //普攻闪避,成功闪避时，忽略一切伤害
-    if ( UBD_heroDodgeAttackBuff(origin) ) then
+    if ( UBD_heroDodgeAttackBuff(target , sourcer , damage) ) then
+        return false
+    endif
+    //浮蜥唾液的固定吸血
+    call UBD_lizardSalivaVampire(sourcer)
+    //血脂戒指附带的吸血
+    call UBD_bloodyRingVampire(sourcer , damage)
+    //溅射
+    call UBD_heroSputteringBuff(target , sourcer , damage)
+    //物理吸血
+    call UBD_heroPhysicalVampireBuff(sourcer , damage)
+    //格挡
+    set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    //当格挡全部的伤害时，会忽略 吸血和暴击
+    if ( damage != 0 ) then
+        //盾牌格挡
+        call UBD_shieldParry(target , sourcer , damage)
+        //物理暴击
+        set isShowed=UBD_heroPhysicalCritBuff(target , sourcer , damage , false)
+    endif
+    //闪电链
+    call UBD_heroLightningBuff(target , sourcer)
+    //残废
+    call UBD_heroDisabledBuff(target , sourcer)
+    //削魔
+    call UBD_heroCuttingManaBuff(target , sourcer)
+    //击晕
+    call UBD_heroStunBuff(target , sourcer)
+    //物理破防
+    call UBD_heroBreakPhysicalDefenseBuff(target , sourcer)
+    //冰冻
+    call UBD_heroFrozenBuff(target , sourcer , false)
+    if ( not isShowed ) then
+        call showPhysicalDamageTagToPlayer(sourcer , target , damage)
+        set isShowed=true
+    endif
+    return true
+endfunction
+//===================================================
+//伤害来源是英雄,即来自英雄的普攻
+function UBD_heroDamage takes unit target,unit sourcer,real damage returns nothing
     
-        set targetP=null
+    if ( not UBD_itemBuff(target , sourcer , damage) ) then
         return
     endif
     
+    //受到伤害者为非英雄
+    if ( not IsUnitType(target, UNIT_TYPE_HERO) ) then
+        call UBD_hurtMinions(target , sourcer , damage)
+    endif
+    
+    
 endfunction
 //神圣伤害
-function UBD_holyDamage takes unit target,unit origin,real damage returns nothing
+function UBD_holyDamage takes unit target,unit sourcer,real damage returns nothing
 endfunction
-//物理单体伤害
-function UBD_physicalSingleDamage takes unit target,unit origin,real damage returns nothing
+//物理单体技能伤害
+function UBD_physicalSingleDamage takes unit target,unit sourcer,real damage returns nothing
+    local boolean isShowed= false
+    //格挡
+    set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    //当格挡全部的伤害时，会忽略 吸血和暴击
+    if ( damage != 0 ) then
+        //物理吸血
+        call UBD_heroPhysicalVampireBuff(sourcer , damage)
+        //物理暴击
+        set isShowed=UBD_heroPhysicalCritBuff(target , sourcer , damage , false)
+    endif
+    //物理破防
+    call UBD_heroBreakPhysicalDefenseBuff(target , sourcer)
+    
+    if ( not isShowed ) then
+        call showPhysicalDamageTagToPlayer(sourcer , target , damage)
+        set isShowed=true
+    endif
 endfunction
-//物理群体伤害
-function UBD_physicalMultiDamage takes unit target,unit origin,real damage returns nothing
+//物理群体技能伤害
+function UBD_physicalMultiDamage takes unit target,unit sourcer,real damage returns nothing
+    local boolean isShowed= false
+    //格挡
+    set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    //当格挡全部的伤害时，会忽略 吸血和暴击
+    if ( damage != 0 ) then
+        //物理吸血
+        call UBD_heroPhysicalVampireBuff(sourcer , damage)
+        //物理暴击
+        set isShowed=UBD_heroPhysicalCritBuff(target , sourcer , damage , true)
+    endif
+    
+    if ( not isShowed ) then
+        call showPhysicalDamageTagToPlayer(sourcer , target , damage)
+        set isShowed=true
+    endif
 endfunction
 //不被反弹的物理伤害
-function UBD_noReversalPhysicalDamage takes unit target,unit origin,real damage returns nothing
+function UBD_noReversalPhysicalDamage takes unit target,unit sourcer,real damage returns nothing
 endfunction
 //不被反弹的魔法伤害
-function UBD_noReversalMagicalDamage takes unit target,unit origin,real damage returns nothing
+function UBD_noReversalMagicalDamage takes unit target,unit sourcer,real damage returns nothing
 endfunction
 //魔法单体伤害
-function UBD_magicalSingleDamage takes unit target,unit origin,real damage returns nothing
+function UBD_magicalSingleDamage takes unit target,unit sourcer,real damage returns nothing
+    local boolean isShowed= false
+    //抗性
+    set damage=damage - UBD_heroMagicalDefenseBuff(target , sourcer , damage)
+    //格挡
+    set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    call UBD_heroFrozenBuff(target , sourcer , false)
+    //当格挡全部的伤害时，会忽略 吸血和暴击
+    if ( damage != 0 ) then
+        //法术吸血
+        call UBD_heroMagicalVampireBuff(target , sourcer , damage)
+        //法术暴击
+        set isShowed=UBD_heroMagicalCritBuff(target , sourcer , damage , false)
+    endif
+    
+    if ( not isShowed ) then
+        call showMagicalDamageTagToPlayer(sourcer , target , damage)
+        set isShowed=true
+    endif
 endfunction
 //魔法群体伤害
-function UBD_magicalMultiDamage takes unit target,unit origin,real damage returns nothing
+function UBD_magicalMultiDamage takes unit target,unit sourcer,real damage returns nothing
+    local boolean isShowed= false
+    //抗性
+    set damage=damage - UBD_heroMagicalDefenseBuff(target , sourcer , damage)
+    //格挡
+    set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    call UBD_heroFrozenBuff(target , sourcer , true)
+    //当格挡全部的伤害时，会忽略 吸血和暴击
+    if ( damage != 0 ) then
+        //法术吸血
+        call UBD_heroMagicalVampireBuff(target , sourcer , damage)
+        //法术暴击
+        set isShowed=UBD_heroMagicalCritBuff(target , sourcer , damage , true)
+    endif
+    
+    if ( not isShowed ) then
+        call showMagicalDamageTagToPlayer(sourcer , target , damage)
+        set isShowed=true
+    endif
 endfunction
 //小兵，野怪，召唤物的伤害
-function UBD_minionsDamage takes unit target,unit origin,real damage returns nothing
+function UBD_minionsDamage takes unit target,unit sourcer,real damage returns nothing
+    //展示英雄受到普通伤害
 endfunction
 //========================main动作
 function Trig_UnitBeDamagedActions takes nothing returns nothing
@@ -11107,11 +16486,11 @@ function Trig_UnitBeDamagedActions takes nothing returns nothing
     //神圣伤害
     
     elseif ( originalType == 'e008' ) then
-    //物理单体伤害
-    
+    //物理单体技能伤害
+        call UBD_physicalSingleDamage(target , origin , damage)
     elseif ( originalType == 'e009' ) then
-    //物理群体伤害
-    
+    //物理群体技能伤害
+        call UBD_physicalMultiDamage(target , origin , damage)
     elseif ( originalType == 'e00A' ) then
     //不被反弹的物理伤害
     
@@ -11120,33 +16499,80 @@ function Trig_UnitBeDamagedActions takes nothing returns nothing
     
     elseif ( originalType == 'e00B' ) then
     //魔法单体伤害
-    
+        call UBD_magicalSingleDamage(target , origin , damage)
     elseif ( originalType == 'e00C' ) then
     //魔法群体伤害
-    
+        call UBD_magicalMultiDamage(target , origin , damage)
     elseif ( originalType == 'e00E' ) then
     //不被触发的伤害，该伤害应该被忽略
-    
+    elseif ( originalType == 'e00I' ) then
+    //不被触发的魔法伤害，该伤害应该被忽略，但是计算法抗
     else
     //来自小兵，野怪，召唤物的伤害
-    
+        call UBD_minionsDamage(target , origin , damage)
     endif
-    
     
     set target=null
     set origin=null
 endfunction
 //===========================================================================
 
+//非建筑，非幻象，伤害大于0
 function Trig_UnitBeDamagedConditions takes nothing returns boolean
-    return ( not IsUnitType(GetTriggerUnit(), UNIT_TYPE_STRUCTURE) ) and ( GetEventDamage() >= 1 )
+    return ( not IsUnitType(GetTriggerUnit(), UNIT_TYPE_STRUCTURE) ) and ( not IsUnitIllusion(GetEventDamageSource()) ) and ( GetEventDamage() >= 1 )
 endfunction
 function InitTrig_UnitBeDamaged takes nothing returns nothing
     set gg_trg_UnitBeDamaged=CreateTrigger()
     call DoNothing()
-    call YDWESyStemAnyUnitDamagedRegistTrigger(gg_trg_UnitBeDamaged)
+    //call YDWESyStemAnyUnitDamagedRegistTrigger( gg_trg_UnitBeDamaged )
+    call TriggerRegisterUnitEvent(gg_trg_UnitBeDamaged, gg_unit_hpea_0077, EVENT_UNIT_DAMAGED)
+    call TriggerRegisterUnitEvent(gg_trg_UnitBeDamaged, gg_unit_Hpal_0067, EVENT_UNIT_DAMAGED)
     call TriggerAddCondition(gg_trg_UnitBeDamaged, Condition(function Trig_UnitBeDamagedConditions))
     call TriggerAddAction(gg_trg_UnitBeDamaged, function Trig_UnitBeDamagedActions)
+endfunction
+//===========================================================================
+// Trigger: HeroAttacking
+//===========================================================================
+//TESH.scrollpos=12
+//TESH.alwaysfold=0
+//疾行
+function UBD_heroScudBuff takes unit atter returns nothing
+    local integer probability= 0
+    local real x= GetUnitX(atter)
+    local real y= GetUnitY(atter)
+    local unit majia= null
+    set probability=getHeroScudBuff(atter)
+    if ( UBD_isHasBuff(probability) and UBD_isTriggerBuff(probability) ) then
+        set majia=CreateUnit(GetOwningPlayer(atter), 'e00E', x, y, 0)
+        call UnitAddAbility(majia, 'A02L')
+        if ( GetUnitAbilityLevel(atter, 'B005') == 1 or GetUnitAbilityLevel(atter, 'B007') == 1 ) then
+            call SetUnitAbilityLevel(majia, 'A02L', 3)
+        elseif ( GetUnitAbilityLevel(atter, 'B006') == 1 ) then
+            call SetUnitAbilityLevel(majia, 'A02L', 2)
+        endif
+        call IssueTargetOrder(majia, "bloodlust", atter)
+        call removeUnitAfterTime(majia , 0.2)
+    endif
+    set majia=null
+endfunction
+//======================================main动作
+function Trig_HeroAttackingActions takes nothing returns nothing
+    local unit atter= GetAttacker()
+    
+    call UBD_heroScudBuff(atter)
+endfunction
+//===========================================================================
+
+function Trig_HeroAttackingConditions takes nothing returns boolean
+    //是英雄、非镜像，与被攻击者非友军
+    return ( IsUnitType(GetAttacker(), UNIT_TYPE_HERO) ) and ( not IsUnitIllusion(GetAttacker()) ) and ( not IsUnitAlly(GetAttacker(), GetOwningPlayer(GetTriggerUnit())) )
+endfunction
+function InitTrig_HeroAttacking takes nothing returns nothing
+    set gg_trg_HeroAttacking=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HeroAttacking, EVENT_PLAYER_UNIT_ATTACKED)
+    call TriggerAddCondition(gg_trg_HeroAttacking, Condition(function Trig_HeroAttackingConditions))
+    call TriggerAddAction(gg_trg_HeroAttacking, function Trig_HeroAttackingActions)
 endfunction
 //===========================================================================
 // Trigger: AbilityData
@@ -11304,7 +16730,7 @@ endfunction
 //===========================================================================
 // Trigger: OpenDebuging
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=3
 //TESH.alwaysfold=0
 function Trig_OpenDebugingActions takes nothing returns nothing
     
@@ -11482,7 +16908,7 @@ endfunction
 //===========================================================================
 // Trigger: ShowAction
 //===========================================================================
-//TESH.scrollpos=1
+//TESH.scrollpos=0
 //TESH.alwaysfold=0
 function Trig_ShowActionConditions takes nothing returns boolean
     local string chat= GetEventPlayerChatString()
@@ -11511,12 +16937,52 @@ function InitTrig_ShowAction takes nothing returns nothing
     call TriggerAddAction(gg_trg_ShowAction, function Trig_ShowActionActions)
 endfunction
 //===========================================================================
+// Trigger: CreateItem
+//===========================================================================
+//TESH.scrollpos=3
+//TESH.alwaysfold=0
+function Trig_CreateItemConditions takes nothing returns boolean
+    local string chat= GetEventPlayerChatString()
+    local string s= SubString(chat, 0, 6)
+    return s == "-item "
+endfunction
+function Trig_CreateItemActions takes nothing returns nothing
+    local string chat= GetEventPlayerChatString()
+    local integer end= StringLength(chat)
+    local string itemName= SubString(chat, 6, end)
+    local integer itId= 0
+    local player p= GetTriggerPlayer()
+    local unit u= getFirstHeroSelected(p)
+    
+    call debugText("ssssss:" + ssssss[0])
+    call debugText("end:" + I2S(end))
+    call debugText("name:" + itemName)
+    if ( u != null ) then
+        set itId=LoadInteger(ITEM_HT, StringHash(itemName), 0)
+        call debugText("StringHash(itemName):" + I2S(StringHash(itemName)))
+        call debugText("登船斧:" + LoadStr(ITEM_HT, 'I015', 1))
+        call unitAddItemById(u , itId)
+    endif
+    
+    set p=null
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_CreateItem takes nothing returns nothing
+    set gg_trg_CreateItem=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerChatEvent(gg_trg_CreateItem, Player(0), "-item ", false)
+    call TriggerAddCondition(gg_trg_CreateItem, Condition(function Trig_CreateItemConditions))
+    call TriggerAddAction(gg_trg_CreateItem, function Trig_CreateItemActions)
+endfunction
+//===========================================================================
 function InitCustomTriggers takes nothing returns nothing
     //Function not found: call InitTrig_FuncForDebug()
     //Function not found: call InitTrig_FuncForGame()
     //Function not found: call InitTrig_FuncForBroadcast()
     //Function not found: call InitTrig_FuncForPlayer()
     //Function not found: call InitTrig_FuncForUnit()
+    //Function not found: call InitTrig_FuncForEffect()
     //Function not found: call InitTrig_DataSetAndGet()
     //Function not found: call InitTrig_FuncForRegister()
     //Function not found: call InitTrig_FuncForItem()
@@ -11530,7 +16996,6 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_InitData()
     call InitTrig_AllianceSet()
     call InitTrig_ForbidAbility()
-    call InitTrig_GameInitData()
     //Function not found: call InitTrig_Constant()
     call InitTrig_UnitLevel()
     call InitTrig_GameTime()
@@ -11586,7 +17051,6 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_KillerHero()
     call InitTrig_AssistDamage()
     call InitTrig_killAndDeny()
-    call InitTrig_AttackAlly()
     call InitTrig_ForbidAttackTower()
     call InitTrig_DialogBox()
     call InitTrig_DialogClick()
@@ -11598,9 +17062,64 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_UnitPickUpItem()
     call InitTrig_UnitSpellObtainItem()
     call InitTrig_UnitPickUpBuffItem()
+    call InitTrig_aaa()
+    call InitTrig_RegisterEventIntoSpring()
     call InitTrig_JusticeFlagOfRoshan()
-    call InitTrig_Escaped_Dagger()
+    call InitTrig_EscapedDagger()
+    call InitTrig_ActorMask()
+    call InitTrig_KeKeYaXiOrange()
+    call InitTrig_Cheese()
+    call InitTrig_Sandwich()
+    call InitTrig_OctopusBarbecue()
+    call InitTrig_LuoLuoBottle()
+    call InitTrig_UesBottle()
+    call InitTrig_BottleIntoSpring()
+    call InitTrig_LizardSaliva()
+    call InitTrig_Flour()
+    call InitTrig_FreshwaterBarrel()
+    call InitTrig_SeaStone()
+    call InitTrig_SeaSnakeVenom()
+    call InitTrig_Rope()
+    call InitTrig_PrepareRope()
+    call InitTrig_Glove()
+    call InitTrig_PrepareGlove()
+    call InitTrig_QiLu()
+    call InitTrig_WeiBaSprint()
+    call InitTrig_BlackFoot_str()
+    call InitTrig_BlackFoot_agi()
+    call InitTrig_BlackFoot_int()
+    call InitTrig_ZhePuRedShoe_life()
+    call InitTrig_ZhePuRedShoe_heart()
+    call InitTrig_AutoIncreaTelephoneWormPackage()
+    call InitTrig_TelephoneWormPackageIntoSpring()
+    call InitTrig_WeiBei()
+    call InitTrig_GoldenArmour()
+    call InitTrig_TravelerCloth()
+    call InitTrig_Assistance()
+    call InitTrig_SunLoricae()
+    call InitTrig_Curse()
+    call InitTrig_Cutting()
+    call InitTrig_Purify()
+    call InitTrig_ThunderStrikeLv1()
+    call InitTrig_ThunderStrikeLv2()
+    call InitTrig_ThunderStrikeLv3()
+    call InitTrig_ThunderStrikeLv4()
+    call InitTrig_ThunderStrikeLv5()
+    call InitTrig_GetHaiGodHeart()
+    call InitTrig_Blindness()
+    call InitTrig_GetAoHaLaWand()
+    call InitTrig_UseAoHaLaWand()
+    call InitTrig_TransportHorn()
+    call InitTrig_TransportZhuiYun()
+    call InitTrig_TransportFeiNiao()
+    call InitTrig_TransportZhuiYunFeiNiao()
+    call InitTrig_SwordOfSoul()
+    call InitTrig_HeDaoYiWenZhi()
+    call InitTrig_GetHeiDou()
+    call InitTrig_DropHeiDou()
+    call InitTrig_QiuShui()
     call InitTrig_UnitBeDamaged()
+    call InitTrig_HeroAttacking()
     call InitTrig_AbilityData()
     call InitTrig_InitAbilTrg()
     call InitTrig_CameraUp()
@@ -11614,6 +17133,7 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_SetAgi()
     call InitTrig_SetInt()
     call InitTrig_ShowAction()
+    call InitTrig_CreateItem()
 endfunction
 //===========================================================================
 function RunInitializationTriggers takes nothing returns nothing
@@ -11622,6 +17142,7 @@ function RunInitializationTriggers takes nothing returns nothing
     call ConditionalTriggerExecute(gg_trg_AllianceSet)
     call ConditionalTriggerExecute(gg_trg_ForbidAbility)
     call ConditionalTriggerExecute(gg_trg_noteUnitMoney)
+    call ConditionalTriggerExecute(gg_trg_aaa)
 endfunction
 //***************************************************************************
 //*
@@ -11804,51 +17325,58 @@ function InitCustomTeams takes nothing returns nothing
     call SetPlayerTeam(Player(11), 2)
 endfunction
 function InitAllyPriorities takes nothing returns nothing
-    call SetStartLocPrioCount(0, 3)
-    call SetStartLocPrio(0, 0, 1, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(0, 1, 10, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(0, 2, 11, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrioCount(1, 2)
-    call SetStartLocPrio(1, 0, 10, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(1, 1, 11, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(2, 2)
-    call SetStartLocPrio(2, 0, 8, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(2, 1, 9, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrioCount(3, 3)
-    call SetStartLocPrio(3, 0, 4, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(3, 1, 7, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(3, 2, 10, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrioCount(4, 5)
-    call SetStartLocPrio(4, 0, 1, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(4, 1, 6, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(4, 2, 7, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(4, 3, 10, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(4, 4, 11, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(5, 6)
-    call SetStartLocPrio(5, 0, 0, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(5, 1, 1, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(5, 2, 4, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(5, 3, 6, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(5, 4, 10, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(5, 5, 11, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(6, 4)
-    call SetStartLocPrio(6, 0, 1, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(6, 1, 4, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(6, 2, 10, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(6, 3, 11, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(7, 1)
-    call SetStartLocPrio(7, 0, 10, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(8, 1)
-    call SetStartLocPrio(8, 0, 9, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(9, 1)
-    call SetStartLocPrio(9, 0, 8, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrioCount(10, 3)
-    call SetStartLocPrio(10, 0, 1, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(10, 1, 7, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrio(10, 2, 11, MAP_LOC_PRIO_LOW)
-    call SetStartLocPrioCount(11, 2)
-    call SetStartLocPrio(11, 0, 1, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(11, 1, 10, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrioCount(0, 10)
+    call SetStartLocPrio(0, 0, 1, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(0, 1, 2, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(0, 2, 3, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(0, 3, 4, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(0, 4, 5, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(0, 5, 6, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(0, 6, 8, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(0, 7, 9, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(0, 8, 10, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(0, 9, 11, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(1, 1)
+    call SetStartLocPrio(1, 0, 3, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(2, 1)
+    call SetStartLocPrio(2, 0, 10, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(3, 1)
+    call SetStartLocPrio(3, 0, 1, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(4, 4)
+    call SetStartLocPrio(4, 0, 0, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(4, 1, 5, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(4, 2, 6, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(4, 3, 8, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(5, 1)
+    call SetStartLocPrio(5, 0, 6, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(6, 1)
+    call SetStartLocPrio(6, 0, 5, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(7, 3)
+    call SetStartLocPrio(7, 0, 2, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(7, 1, 9, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(7, 2, 10, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrioCount(8, 5)
+    call SetStartLocPrio(8, 0, 0, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(8, 1, 4, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(8, 2, 5, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(8, 3, 6, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(8, 4, 11, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrioCount(9, 6)
+    call SetStartLocPrio(9, 0, 0, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(9, 1, 2, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(9, 2, 5, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(9, 3, 6, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(9, 4, 7, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(9, 5, 10, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(10, 1)
+    call SetStartLocPrio(10, 0, 2, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrioCount(11, 6)
+    call SetStartLocPrio(11, 0, 0, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(11, 1, 1, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(11, 2, 2, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(11, 3, 3, MAP_LOC_PRIO_HIGH)
+    call SetStartLocPrio(11, 4, 8, MAP_LOC_PRIO_LOW)
+    call SetStartLocPrio(11, 5, 10, MAP_LOC_PRIO_LOW)
 endfunction
 //***************************************************************************
 //*
@@ -11870,7 +17398,7 @@ function main takes nothing returns nothing
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs4408703")
+call ExecuteFunc("jasshelper__initstructs55104406")
 
     call InitGlobals()
     call InitCustomTriggers()
@@ -11888,17 +17416,17 @@ function config takes nothing returns nothing
     call SetTeams(12)
     call SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
     call DefineStartLocation(0, - 960.0, - 1216.0)
-    call DefineStartLocation(1, - 1024.0, - 1088.0)
-    call DefineStartLocation(2, - 640.0, - 1280.0)
-    call DefineStartLocation(3, - 1024.0, - 768.0)
-    call DefineStartLocation(4, - 1152.0, - 960.0)
-    call DefineStartLocation(5, - 1216.0, - 1472.0)
-    call DefineStartLocation(6, - 1280.0, - 1088.0)
-    call DefineStartLocation(7, - 960.0, - 960.0)
-    call DefineStartLocation(8, - 640.0, - 1088.0)
-    call DefineStartLocation(9, - 704.0, - 1024.0)
-    call DefineStartLocation(10, - 1024.0, - 1024.0)
-    call DefineStartLocation(11, - 1088.0, - 1088.0)
+    call DefineStartLocation(1, - 896.0, - 1280.0)
+    call DefineStartLocation(2, - 896.0, - 1216.0)
+    call DefineStartLocation(3, - 896.0, - 1280.0)
+    call DefineStartLocation(4, - 1024.0, - 1152.0)
+    call DefineStartLocation(5, - 960.0, - 1152.0)
+    call DefineStartLocation(6, - 960.0, - 1152.0)
+    call DefineStartLocation(7, - 832.0, - 1152.0)
+    call DefineStartLocation(8, - 1024.0, - 1216.0)
+    call DefineStartLocation(9, - 896.0, - 1152.0)
+    call DefineStartLocation(10, - 896.0, - 1216.0)
+    call DefineStartLocation(11, - 960.0, - 1280.0)
     // Player setup
     call InitCustomPlayerSlots()
     call InitCustomTeams()
@@ -11920,7 +17448,7 @@ local integer this=f__arg_this
    return true
 endfunction
 
-function jasshelper__initstructs4408703 takes nothing returns nothing
+function jasshelper__initstructs55104406 takes nothing returns nothing
     set st__LOGFONT_onDestroy=CreateTrigger()
     call TriggerAddCondition(st__LOGFONT_onDestroy,Condition( function sa__LOGFONT_onDestroy))
 
