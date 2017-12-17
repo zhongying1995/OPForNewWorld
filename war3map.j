@@ -10,17 +10,12 @@ constant boolean LIBRARY_FuncForDebug=true
 //endglobals from FuncForDebug
 //globals from FuncForEffect:
 constant boolean LIBRARY_FuncForEffect=true
-hashtable FuncForEffect__effect_ht= InitHashtable()
+hashtable FuncForEffect___effect_ht= InitHashtable()
     
 //endglobals from FuncForEffect
 //globals from FuncForRegister:
 constant boolean LIBRARY_FuncForRegister=true
 //endglobals from FuncForRegister
-//globals from FuncForToast:
-constant boolean LIBRARY_FuncForToast=true
-hashtable FuncForToast__toast_ht= InitHashtable()
-    
-//endglobals from FuncForToast
 //globals from JapiConstantLib:
 constant boolean LIBRARY_JapiConstantLib=true
 integer array i_1
@@ -63,6 +58,10 @@ constant boolean LIBRARY_YDWEEnumDestructablesInCircleBJFilterNull=true
 //globals from YDWEEnumUnitsSelectedNull:
 constant boolean LIBRARY_YDWEEnumUnitsSelectedNull=true
 //endglobals from YDWEEnumUnitsSelectedNull
+//globals from YDWEGetForceOfPlayerNull:
+constant boolean LIBRARY_YDWEGetForceOfPlayerNull=true
+force yd_NullTempForce
+//endglobals from YDWEGetForceOfPlayerNull
 //globals from YDWEGetInventoryIndexOfItemTypeBJNull:
 constant boolean LIBRARY_YDWEGetInventoryIndexOfItemTypeBJNull=true
 //endglobals from YDWEGetInventoryIndexOfItemTypeBJNull
@@ -80,15 +79,14 @@ integer YDWETriggerEvent___MoveItemEventNumber= 0
 //endglobals from YDWETriggerEvent
 //globals from FuncForItem:
 constant boolean LIBRARY_FuncForItem=true
-string array ssssss
     //保存物品的合成公式
-hashtable FuncForItem__itemSyntheticFormula_ht= InitHashtable()
+hashtable FuncForItem___itemSyntheticFormula_ht= InitHashtable()
     //保存物品的指向配方
-hashtable FuncForItem__itemFuseItems_ht= InitHashtable()
+hashtable FuncForItem___itemFuseItems_ht= InitHashtable()
     //保存物品的某些信息
-hashtable FuncForItem__itemNativeInfo_ht= InitHashtable()
+hashtable FuncForItem___itemNativeInfo_ht= InitHashtable()
     //保存正牌物品和替身物品
-hashtable FuncForItem__itemSurrenal_ht= InitHashtable()
+hashtable FuncForItem___itemSurrenal_ht= InitHashtable()
     
 hashtable ITEM_HT= InitHashtable()
     
@@ -99,11 +97,16 @@ constant boolean LIBRARY_YDWEEnumDestructablesInCircleBJNull=true
 //globals from japi:
 constant boolean LIBRARY_japi=true
 hashtable japi_ht=InitHashtable()
-integer japi__key=StringHash("jass")
+integer japi___key=StringHash("jass")
 //endglobals from japi
 //globals from FuncForGame:
 constant boolean LIBRARY_FuncForGame=true
 //endglobals from FuncForGame
+//globals from FuncForToast:
+constant boolean LIBRARY_FuncForToast=true
+hashtable FuncForToast___toast_ht= InitHashtable()
+    
+//endglobals from FuncForToast
 //globals from LocalActionLib:
 constant boolean LIBRARY_LocalActionLib=true
 constant hashtable LocalActionLib___ht=japi_ht
@@ -111,12 +114,12 @@ constant integer LocalActionLib___key=StringHash("jass")
 //endglobals from LocalActionLib
 //globals from d3d:
 constant boolean LIBRARY_d3d=true
-constant hashtable d3d__ht=japi_ht
-constant integer d3d__key=StringHash("jass")
+constant hashtable d3d___ht=japi_ht
+constant integer d3d___key=StringHash("jass")
 //endglobals from d3d
 //globals from FuncForDamage:
 constant boolean LIBRARY_FuncForDamage=true
-hashtable FuncForDamage__FuncForDamage_ht= InitHashtable()
+hashtable FuncForDamage___FuncForDamage_ht= InitHashtable()
 //endglobals from FuncForDamage
 //globals from FuncForPlayer:
 constant boolean LIBRARY_FuncForPlayer=true
@@ -124,9 +127,13 @@ constant boolean LIBRARY_FuncForPlayer=true
 //globals from FuncForCreep:
 constant boolean LIBRARY_FuncForCreep=true
 //endglobals from FuncForCreep
+//globals from FuncForItemModule:
+constant boolean LIBRARY_FuncForItemModule=true
+string array NEEDING_ITEM_STATE
+//endglobals from FuncForItemModule
 //globals from FuncForUnit:
 constant boolean LIBRARY_FuncForUnit=true
-hashtable FuncForUnit__UNIT_HT= InitHashtable()
+hashtable FuncForUnit___UNIT_HT= InitHashtable()
 //endglobals from FuncForUnit
     // User-defined
 real array udg_CreepsBirthPointX
@@ -347,6 +354,7 @@ trigger gg_trg_GamePrepare= null
 trigger gg_trg_GameStart= null
 trigger gg_trg_RegisterItemFuse= null
 trigger gg_trg_InitItemData= null
+trigger gg_trg_StoreSoldItems= null
 trigger gg_trg_UnitDropItem= null
 trigger gg_trg_UnitPickUpItem= null
 trigger gg_trg_UnitSpellObtainItem= null
@@ -374,11 +382,8 @@ trigger gg_trg_Glove= null
 trigger gg_trg_PrepareGlove= null
 trigger gg_trg_QiLu= null
 trigger gg_trg_WeiBaSprint= null
-trigger gg_trg_BlackFoot_str= null
-trigger gg_trg_BlackFoot_agi= null
-trigger gg_trg_BlackFoot_int= null
-trigger gg_trg_ZhePuRedShoe_life= null
-trigger gg_trg_ZhePuRedShoe_heart= null
+trigger gg_trg_BlackFoot= null
+trigger gg_trg_ZhePuRedShoe= null
 trigger gg_trg_AutoIncreaTelephoneWormPackage= null
 trigger gg_trg_TelephoneWormPackageIntoSpring= null
 trigger gg_trg_WeiBei= null
@@ -407,12 +412,54 @@ trigger gg_trg_HeDaoYiWenZhi= null
 trigger gg_trg_GetHeiDou= null
 trigger gg_trg_DropHeiDou= null
 trigger gg_trg_QiuShui= null
+trigger gg_trg_PureGold= null
+trigger gg_trg_FuncForItemModule= null
+trigger gg_trg_BugHorn= null
+trigger gg_trg_BugCheese= null
+trigger gg_trg_BugSanMingZhi= null
+trigger gg_trg_BugZhangYuShao= null
+trigger gg_trg_BugTieBi= null
+trigger gg_trg_BuyHubei= null
+trigger gg_trg_GoldArmor= null
+trigger gg_trg_TravellerClothes= null
+trigger gg_trg_Straw= null
+trigger gg_trg_JusticeClothes= null
+trigger gg_trg_FlamingoClothes= null
+trigger gg_trg_SunClothes= null
+trigger gg_trg_WeiBa= null
+trigger gg_trg_HeiZu= null
+trigger gg_trg_ZhePuHongXie= null
+trigger gg_trg_YingDun= null
+trigger gg_trg_PaoXingChe= null
+trigger gg_trg_ZhuiYunFeiNiao= null
+trigger gg_trg_TianLongRenXunZhang= null
+trigger gg_trg_ChuGui= null
+trigger gg_trg_DianHuaChong= null
+trigger gg_trg_DuZhua= null
+trigger gg_trg_ShiYu= null
+trigger gg_trg_QiChiShiShou= null
+trigger gg_trg_HeiDao= null
+trigger gg_trg_HunZhiSangJian= null
+trigger gg_trg_BuyQiuShui= null
+trigger gg_trg_BuyXueZou= null
+trigger gg_trg_BuyHeDaoYiWenZhi= null
+trigger gg_trg_BuyDaKanDao= null
+trigger gg_trg_BuyHeiDou= null
+trigger gg_trg_HuangJinZhong= null
+trigger gg_trg_NuoNuoDaRenBang= null
+trigger gg_trg_BuyGuiKu= null
+trigger gg_trg_BuyTianHouBang= null
+trigger gg_trg_BuyGuiChe= null
+trigger gg_trg_BuyLiShiZhengWen= null
+trigger gg_trg_BuyHaiShenXin= null
+trigger gg_trg_BuyZuoLunShouQiang= null
 trigger gg_trg_UnitBeDamaged= null
 trigger gg_trg_HeroAttacking= null
 trigger gg_trg_AbilityData= null
 trigger gg_trg_InitAbilTrg= null
 trigger gg_trg_CameraUp= null
 trigger gg_trg_CameraDown= null
+trigger gg_trg_ClearScreen= null
 trigger gg_trg_CloseDebuging= null
 trigger gg_trg_OpenDebuging= null
 trigger gg_trg_OpenFog= null
@@ -423,6 +470,7 @@ trigger gg_trg_SetAgi= null
 trigger gg_trg_SetInt= null
 trigger gg_trg_ShowAction= null
 trigger gg_trg_CreateItem= null
+trigger gg_trg_SetMoney= null
 unit gg_unit_h00J_0065= null
 unit gg_unit_h00J_0064= null
 unit gg_unit_h00J_0063= null
@@ -461,6 +509,7 @@ unit gg_unit_h00I_0060= null
 unit gg_unit_h00I_0061= null
 unit gg_unit_Hpal_0067= null
 unit gg_unit_hpea_0077= null
+trigger gg_trg_BuyPureGold= null
     
     //该数仅用于求取矩形内单位的个数
 integer m_unitCountInRect= 0
@@ -662,10 +711,19 @@ hashtable heroSpellObtainItem_ht= InitHashtable()
 region SPRING_REGION
 integer array GoldenArmour_ueingTimes
 hashtable damage_ht= InitHashtable()
+    
+integer DEMAGE_TYPE_HOLY= 'e007'
+integer DEMAGE_TYPE_BE_IGNORED_ORIGINAL= 'e00E'
+integer DEMAGE_TYPE_BE_TGNORED_MAGICAL= 'e00I'
+integer DEMAGE_TYPE_PHYSICAL_SIGNAL= 'e008'
+integer DEMAGE_TYPE_PHYSICAL_MULTI= 'e009'
+integer DEMAGE_TYPE_MAGICAL_SIGNAL= 'e00B'
+integer DEMAGE_TYPE_MAGICAL_MULTI= 'e00C'
     //设置空格个数
 string array space
     
 
+trigger l__library_init
 
 //JASSHelper struct globals:
 constant integer si__LOGFONT=1
@@ -842,7 +900,7 @@ endfunction
 
 function FuncForEffect_destroyEffect_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
-    local effect ef= LoadEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0)
+    local effect ef= LoadEffectHandle(FuncForEffect___effect_ht, GetHandleId(t), 0)
     call DestroyEffect(ef)
     call DestroyTimer(t)
     set t=null
@@ -853,7 +911,7 @@ endfunction
 function createEffectOnUnitAndDeleteAfter takes string modelName,widget target,string attachPointName,real long returns effect
     local effect ef= AddSpecialEffectTarget(modelName, target, attachPointName)
     local timer t= CreateTimer()
-    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call SaveEffectHandle(FuncForEffect___effect_ht, GetHandleId(t), 0, ef)
     call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
     set t=null
     return ef
@@ -863,7 +921,7 @@ endfunction
 function createEffectOnCoordinateAndDeleteAfter takes string modelName,real x,real y,real long returns effect
     local effect ef= AddSpecialEffect(modelName, x, y)
     local timer t= CreateTimer()
-    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call SaveEffectHandle(FuncForEffect___effect_ht, GetHandleId(t), 0, ef)
     call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
     set t=null
     return ef
@@ -873,7 +931,7 @@ endfunction
 function createEffectOnLocationAndDeleteAfter takes string modelName,location where,real long returns nothing
     local effect ef= AddSpecialEffectLoc(modelName, where)
     local timer t= CreateTimer()
-    call SaveEffectHandle(FuncForEffect__effect_ht, GetHandleId(t), 0, ef)
+    call SaveEffectHandle(FuncForEffect___effect_ht, GetHandleId(t), 0, ef)
     call TimerStart(t, long, false, function FuncForEffect_destroyEffect_timer)
     set ef=null
     set t=null
@@ -943,312 +1001,6 @@ function triggerRegisterPlayingPlayersEvent takes trigger trig,playerunitevent w
 endfunction
 
 //library FuncForRegister ends
-//library FuncForToast:
-
-function toastInfoTextToPlayer takes player p,string msg returns nothing
-    call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffffff00" + msg + "|r")
-endfunction
-
-function toastWarningTextToPlayer takes player p,string msg returns nothing
-    call DisplayTimedTextToPlayer(p, 0.5, - 1, 1.2, "|cffff0000" + msg + "|r")
-endfunction
-
-function showMoneyTagToPlayerInPoint takes string s,real x,real y,real z,integer playerId returns nothing
- local texttag tag= CreateTextTag()
-	call SetTextTagText(tag, s, 0.024)
-	call SetTextTagPos(tag, x, y, z)
-    call SetTextTagColor(tag, 255, 255, 0, 255)
-    call SetTextTagVelocity(tag, 0, 0.064)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 1.2)
-    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
-        call SetTextTagVisibility(tag, true)
-    endif
-    set tag=null
-endfunction
-
-function showMoneyTagToPlayerOverUnit takes integer money,unit deader,integer playerId returns nothing
- local texttag tag= CreateTextTag()
-	call SetTextTagText(tag, "|cffffff00+ " + I2S(money) + "$|r", 0.024)
-    call SetTextTagPosUnit(tag, deader, 0.1)
-    call SetTextTagVelocity(tag, 0, 0.064)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 1.2)
-    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
-        call SetTextTagVisibility(tag, true)
-    endif
-	set tag=null
-endfunction
-
-function showMissTagToPlayerOverUnit takes unit deader returns nothing
- local texttag tag= CreateTextTag()
-	call SetTextTagText(tag, "|cffff0000Miss!|r", 0.024)
-    call SetTextTagPosUnit(tag, deader, 0.1)
-    call SetTextTagColor(tag, 255, 0, 0, 255)
-    call SetTextTagVelocity(tag, 0, 0.064)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 0.6)
-    call SetTextTagVisibility(tag, true)
-    
-	set tag=null
-endfunction
-//==============================暴击写在自己头上，伤害写在别人身上
-function changeTag_timer takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local integer pKey= GetHandleId(t)
-    local texttag tag= LoadTextTagHandle(FuncForToast__toast_ht, pKey, 0)
-    local string s= LoadStr(FuncForToast__toast_ht, pKey, 1)
-    local real scale= LoadReal(FuncForToast__toast_ht, pKey, 2)
-    
-    call SetTextTagText(tag, s, scale)
-    
-    call FlushChildHashtable(FuncForToast__toast_ht, pKey)
-    call DestroyTimer(t)
-    set t=null
-endfunction
-
-function showPhysicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
- local texttag tag= CreateTextTag()
-    local timer t= CreateTimer()
-    local timer t1= CreateTimer()
-    local integer pKey= 0
-    local string damageS= R2S(damage)
-    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPosUnit(tag, injureder, 0)
-    call SetTextTagVelocity(tag, 0, 0.064)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 0.8)
-    call SetTextTagVisibility(tag, true)
-    
-    set pKey=GetHandleId(t)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.050)
-    call TimerStart(t, 0.12, false, function changeTag_timer)
-    
-    set pKey=GetHandleId(t1)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
-    call TimerStart(t1, 0.25, false, function changeTag_timer)
-    
-    set t1=null
-    set t=null
-	set tag=null
-endfunction
-
-function showMagicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
- local texttag tag= CreateTextTag()
-    local timer t= CreateTimer()
-    local timer t1= CreateTimer()
-    local integer pKey= 0
-    local string damageS= R2S(damage)
-    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPosUnit(tag, injureder, 0.1)
-    call SetTextTagVelocity(tag, 0.01, 0.064)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 0.8)
-    call SetTextTagVisibility(tag, true)
-    
-    set pKey=GetHandleId(t)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.050)
-    call TimerStart(t, 0.12, false, function changeTag_timer)
-    
-    set pKey=GetHandleId(t1)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
-    call TimerStart(t1, 0.25, false, function changeTag_timer)
-    
-    set t1=null
-    set t=null
-	set tag=null
-endfunction
-
-function showShieldTagToPlayerOverUnit takes unit damageder,real damage returns nothing
- local texttag tag= CreateTextTag()
-    local timer t= CreateTimer()
-    local timer t1= CreateTimer()
-    local integer pKey= 0
-    local string damageS= R2S(damage)
-    local string s= "|cffccffff-" + SubString(damageS, 0, StringLength(damageS) - 4) + "|r"
-    local real x= GetUnitX(damageder)
-    local real y= GetUnitY(damageder)
-    
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPos(tag, x, y, 0)
-    call SetTextTagVelocity(tag, 0.00, 0.032)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 0.6)
-    call SetTextTagVisibility(tag, true)
-    
-    set pKey=GetHandleId(t)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.030)
-    call TimerStart(t, 0.1, false, function changeTag_timer)
-    
-    set pKey=GetHandleId(t1)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 0, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 1, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 2, 0.024)
-    call TimerStart(t1, 0.20, false, function changeTag_timer)
-    
-    set t1=null
-    set t=null
-	set tag=null
-endfunction
-//==================================================
-function changeTagCoordinate_timer takes nothing returns nothing
-    local timer t= GetExpiredTimer()
-    local integer pKey= GetHandleId(t)
-    
-    local integer times= LoadInteger(FuncForToast__toast_ht, pKey, 0)
-    local real timerOut= LoadInteger(FuncForToast__toast_ht, pKey, 1)
-    local texttag tag= LoadTextTagHandle(FuncForToast__toast_ht, pKey, 2)
-    local string msg= LoadStr(FuncForToast__toast_ht, pKey, 3)
-    local real scale= LoadReal(FuncForToast__toast_ht, pKey, 4)
-    local real x= LoadReal(FuncForToast__toast_ht, pKey, 5)
-    local real y= LoadReal(FuncForToast__toast_ht, pKey, 6)
-    local real angle= LoadReal(FuncForToast__toast_ht, pKey, 7)
-    local boolean isRight= LoadBoolean(FuncForToast__toast_ht, pKey, 8)
-    local real radius= LoadReal(FuncForToast__toast_ht, pKey, 9)
-    local real shiftX= LoadReal(FuncForToast__toast_ht, pKey, 10)
-    
-    
-    if ( times < timerOut ) then
-        set times=times + 1
-        set angle=angle + 180 / timerOut
-        if ( isRight ) then
-            set x=x + shiftX
-        else
-            set x=x - shiftX
-        endif
-        set y=y + radius * CosBJ(angle)
-        if ( angle <= 90 ) then
-            set scale=scale + 0.002
-        else
-            set scale=scale - 0.003
-        endif
-        call SetTextTagText(tag, msg, scale)
-        call SetTextTagPos(tag, x, y, 0)
-        call SaveInteger(FuncForToast__toast_ht, pKey, 0, times)
-        call SaveReal(FuncForToast__toast_ht, pKey, 4, scale)
-        call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
-        call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
-        call SaveReal(FuncForToast__toast_ht, pKey, 7, angle)
-        call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
-    else
-        call FlushChildHashtable(FuncForToast__toast_ht, pKey)
-        call DestroyTimer(t)
-        call DestroyTextTag(tag)
-    endif
-    
-    set tag=null
-    set t=null
-endfunction
-
-function showPhysicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
- local texttag tag= CreateTextTag()
-    local timer t= CreateTimer()
-    local integer pKey= 0
-    local string damageS= R2S(damage)
-    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
-    local real x= GetUnitX(damageder)
-    local real y= GetUnitY(damageder)
-    local real x1= GetUnitX(sourcer)
-    local real y1= GetUnitY(sourcer)
-    local boolean isRight= false
-    
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPos(tag, x, y, 0)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagVisibility(tag, true)
-    
-    if ( x1 < x ) then
-        set isRight=true
-    endif
-    
-    set pKey=GetHandleId(t)
-    call SaveInteger(FuncForToast__toast_ht, pKey, 0, 0)
-    call SaveInteger(FuncForToast__toast_ht, pKey, 1, 12)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 2, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 3, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 4, 0.020)
-    call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
-    call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
-    call SaveReal(FuncForToast__toast_ht, pKey, 7, 0)
-    call SaveBoolean(FuncForToast__toast_ht, pKey, 8, isRight)
-    call SaveReal(FuncForToast__toast_ht, pKey, 9, 40)
-    call SaveReal(FuncForToast__toast_ht, pKey, 10, 10)
-    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
-    
-    set t=null
-	set tag=null
-endfunction
-
-function showMagicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
- local texttag tag= CreateTextTag()
-    local timer t= CreateTimer()
-    local integer pKey= 0
-    local string damageS= R2S(damage)
-    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
-    local real x= GetUnitX(damageder)
-    local real y= GetUnitY(damageder)
-    local real x1= GetUnitX(sourcer)
-    local real y1= GetUnitY(sourcer)
-    local boolean isRight= false
-    
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPos(tag, x, y, 0)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagVisibility(tag, true)
-    
-    if ( x1 < x ) then
-        set isRight=true
-    endif
-    
-    set pKey=GetHandleId(t)
-    call SaveInteger(FuncForToast__toast_ht, pKey, 0, 0)
-    call SaveInteger(FuncForToast__toast_ht, pKey, 1, 12)
-    call SaveTextTagHandle(FuncForToast__toast_ht, pKey, 2, tag)
-    call SaveStr(FuncForToast__toast_ht, pKey, 3, s)
-    call SaveReal(FuncForToast__toast_ht, pKey, 4, 0.020)
-    call SaveReal(FuncForToast__toast_ht, pKey, 5, x)
-    call SaveReal(FuncForToast__toast_ht, pKey, 6, y)
-    call SaveReal(FuncForToast__toast_ht, pKey, 7, 0)
-    call SaveBoolean(FuncForToast__toast_ht, pKey, 8, isRight)
-    call SaveReal(FuncForToast__toast_ht, pKey, 9, 36)
-    call SaveReal(FuncForToast__toast_ht, pKey, 10, 5)
-    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
-    
-    set t=null
-	set tag=null
-endfunction
-//=====================================================治疗
-
-function showRecoveryLifeTagToPlayer takes unit target,real value returns nothing
-    local texttag tag= CreateTextTag()
-    local integer pKey= 0
-    local string valueS= R2S(value)
-    local string s= "|cff00ff00+" + SubString(valueS, 0, StringLength(valueS) - 4) + "|r"
-    
-    
-	call SetTextTagText(tag, s, 0.016)
-    call SetTextTagPosUnit(tag, target, 0)
-    call SetTextTagVelocity(tag, 0.00, 0.022)
-    call SetTextTagPermanent(tag, false)
-    call SetTextTagLifespan(tag, 0.24)
-    call SetTextTagVisibility(tag, true)
-    
-    set tag=null
-endfunction
-
-//library FuncForToast ends
 //library JapiConstantLib:
     function JapiConstantLib_init_memory takes nothing returns nothing
          set i_1[8191]=0
@@ -1311,6 +1063,16 @@ function YDWEEnumUnitsSelectedNull takes player whichPlayer,boolexpr enumFilter,
 endfunction
 
 //library YDWEEnumUnitsSelectedNull ends
+//library YDWEGetForceOfPlayerNull:
+function YDWEGetForceOfPlayerNull takes player whichPlayer returns force
+    local force f= CreateForce()
+    call ForceAddPlayer(f, whichPlayer)
+    set yd_NullTempForce=f
+    set f=null
+    return yd_NullTempForce
+endfunction
+
+//library YDWEGetForceOfPlayerNull ends
 //library YDWEGetInventoryIndexOfItemTypeBJNull:
 function YDWEGetInventoryIndexOfItemTypeBJNull takes unit whichUnit,integer itemId returns integer
     local integer index= 0
@@ -1416,45 +1178,45 @@ endfunction
 //===========================================================================
 
 function setItemOverlapById takes integer itId,boolean isOverlap,integer max returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 0, isOverlap)
-    call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 1, max)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 0, isOverlap)
+    call SaveInteger(FuncForItem___itemNativeInfo_ht, itId, 1, max)
 endfunction
 function getItemMaxChargesById takes integer itId returns integer
-    return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 1)
+    return LoadInteger(FuncForItem___itemNativeInfo_ht, itId, 1)
 endfunction
 function isItemOverlapById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 0)
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, it, 0)
 endfunction
 function setItemShareById takes integer itId,boolean isShared returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 2, isShared)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 2, isShared)
 endfunction
 function isItemShareById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 2)
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, it, 2)
 endfunction
 function setItemFuseById takes integer itId,boolean isFuse returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 3, isFuse)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 3, isFuse)
 endfunction
 function isItemFuseById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 3)
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, it, 3)
 endfunction
 function setItemFusedById takes integer itId,boolean isFused returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 4, isFused)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 4, isFused)
 endfunction
 function isItemFusedById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 4)
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, it, 4)
 endfunction
 function setItemOnlyById takes integer itId,boolean isOnly returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 5, isOnly)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 5, isOnly)
 endfunction
 function isItemOnlyById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, it, 5)
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, it, 5)
 endfunction
 function setItemBuffById takes integer itId returns nothing
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, itId, 6, true)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, itId, 6, true)
     
 endfunction
 function isItemHasBuffById takes integer itId returns boolean
-    return LoadBoolean(FuncForItem__itemNativeInfo_ht, itId, 6) //该物品是否具有buff效果
+    return LoadBoolean(FuncForItem___itemNativeInfo_ht, itId, 6) //该物品是否具有buff效果
 endfunction
 //增加item的buff
 function itemIdAddBuff takes integer itId,integer buffType,integer buffId returns nothing
@@ -1462,37 +1224,37 @@ function itemIdAddBuff takes integer itId,integer buffType,integer buffId return
 	if ( not isItemHasBuffById(itId) ) then
 		call setItemBuffById(itId)
 	endif
-	set buffCounts=LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 7) //该物品的buff类型数量
-	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 8 + 2 * buffCounts, buffType) //该物品buff在 heroWeaponBuff_ht 的pKey
-	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 9 + 2 * buffCounts, buffId) //对应的其他概率
-	call SaveInteger(FuncForItem__itemNativeInfo_ht, itId, 7, buffCounts + 1)
+	set buffCounts=LoadInteger(FuncForItem___itemNativeInfo_ht, itId, 7) //该物品的buff类型数量
+	call SaveInteger(FuncForItem___itemNativeInfo_ht, itId, 8 + 2 * buffCounts, buffType) //该物品buff在 heroWeaponBuff_ht 的pKey
+	call SaveInteger(FuncForItem___itemNativeInfo_ht, itId, 9 + 2 * buffCounts, buffId) //对应的其他概率
+	call SaveInteger(FuncForItem___itemNativeInfo_ht, itId, 7, buffCounts + 1)
 endfunction
 //获取item具有的buff总数量
 function getItemBuffTypesById takes integer itId returns integer
-	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 7)
+	return LoadInteger(FuncForItem___itemNativeInfo_ht, itId, 7)
 endfunction
 //获取item指定位置的buff
 function getItemBuffTypeById takes integer itId,integer whichBuff returns integer
 	if ( not isItemHasBuffById(itId) ) then
 		return 0
 	endif
-	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 8 + 2 * whichBuff)
+	return LoadInteger(FuncForItem___itemNativeInfo_ht, itId, 8 + 2 * whichBuff)
 endfunction
 //获取item指定位置的buff的数值
 function getItemBuffCountById takes integer itId,integer whichBuff returns integer
 	if ( not isItemHasBuffById(itId) ) then
 		return 0
 	endif
-	return LoadInteger(FuncForItem__itemNativeInfo_ht, itId, 9 + 2 * whichBuff)
+	return LoadInteger(FuncForItem___itemNativeInfo_ht, itId, 9 + 2 * whichBuff)
 endfunction
 function registerItemInfo takes integer it,boolean isOverlap,integer max,boolean isShared,boolean isFuse,boolean isFused,boolean isOnly returns nothing
    
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 0, isOverlap)
-    call SaveInteger(FuncForItem__itemNativeInfo_ht, it, 1, max)
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 2, isShared)
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 3, isFuse)
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 4, isFused)
-    call SaveBoolean(FuncForItem__itemNativeInfo_ht, it, 5, isOnly)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, it, 0, isOverlap)
+    call SaveInteger(FuncForItem___itemNativeInfo_ht, it, 1, max)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, it, 2, isShared)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, it, 3, isFuse)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, it, 4, isFused)
+    call SaveBoolean(FuncForItem___itemNativeInfo_ht, it, 5, isOnly)
     
 endfunction
 //===========================================================================
@@ -1528,6 +1290,16 @@ function getItemNameById takes integer id returns string
     call RemoveItem(it)
     set it=null
     return s
+endfunction
+//===========================================================================
+
+function getItemSoldGoldById takes integer itId returns integer
+    return LoadInteger(ITEM_HT, itId, 2)
+endfunction
+//===========================================================================
+
+function getItemSoldLumberById takes integer itId returns integer
+    return LoadInteger(ITEM_HT, itId, 3)
 endfunction
 //===========================================================================
 
@@ -1628,6 +1400,23 @@ function getUnitItemCountById takes unit u,integer itemId returns integer
 endfunction
 //===========================================================================
 
+function getUnitFirstItemById takes unit u,integer itemId returns item
+    local integer i= 0
+    local item it= null
+    
+    loop
+        exitwhen i >= 6
+        set it=UnitItemInSlot(u, i)
+        if ( GetItemTypeId(it) == itemId ) then
+            return it
+        endif
+        set i=i + 1
+    endloop
+    
+    return null
+endfunction
+//===========================================================================
+
 function isUnitHasItemById takes unit u,integer itemId returns boolean
     local integer i= 0
     local item it= null
@@ -1670,6 +1459,27 @@ function replaceUnitItemInSlotById takes unit u,item it,integer newItemId return
 endfunction
 //===========================================================================
 
+function removeUnitItemsIgnoreUsingTimesById takes unit u,integer itId,integer count returns nothing
+    local item it= null
+    local integer i= 0
+    local integer j= 0
+    
+    loop
+        exitwhen i >= 6 or j >= count
+        set it=UnitItemInSlot(u, i)
+        
+        if ( GetItemTypeId(it) == itId ) then
+            call RemoveItem(it)
+            set j=j + 1
+        endif
+        
+        set i=i + 1
+    endloop
+    
+    set it=null
+endfunction
+//===========================================================================
+
 function removeUnitItemsById takes unit u,integer itemId,integer count returns nothing
     local item it= null
     local integer i= 0
@@ -1709,27 +1519,27 @@ endfunction
 
 function setItemSurrenal takes integer origin,integer surrenal returns nothing
     
-    call SaveInteger(FuncForItem__itemSurrenal_ht, origin, 0, surrenal)
-    call SaveBoolean(FuncForItem__itemSurrenal_ht, origin, 1, true)
-    call SaveInteger(FuncForItem__itemSurrenal_ht, surrenal, 0, origin)
-    call SaveBoolean(FuncForItem__itemSurrenal_ht, surrenal, 1, false)
+    call SaveInteger(FuncForItem___itemSurrenal_ht, origin, 0, surrenal)
+    call SaveBoolean(FuncForItem___itemSurrenal_ht, origin, 1, true)
+    call SaveInteger(FuncForItem___itemSurrenal_ht, surrenal, 0, origin)
+    call SaveBoolean(FuncForItem___itemSurrenal_ht, surrenal, 1, false)
     
 endfunction
 //===========================================================================
 
 function getOriginalItemIdById takes integer surrenalItem returns integer
-    return LoadInteger(FuncForItem__itemSurrenal_ht, surrenalItem, 0)
+    return LoadInteger(FuncForItem___itemSurrenal_ht, surrenalItem, 0)
 endfunction
 function getSurrenalItemIdById takes integer originalItem returns integer
-    return LoadInteger(FuncForItem__itemSurrenal_ht, originalItem, 0)
+    return LoadInteger(FuncForItem___itemSurrenal_ht, originalItem, 0)
 endfunction
 //未知或者不需要知道该传进的item是原物品还是替身物品，返回其替换物品id
 function getExchangeItemIdById takes integer itemId returns integer
-    return LoadInteger(FuncForItem__itemSurrenal_ht, itemId, 0)
+    return LoadInteger(FuncForItem___itemSurrenal_ht, itemId, 0)
 endfunction
 
 function isOriginalItemById takes integer it returns boolean
-    return LoadBoolean(FuncForItem__itemSurrenal_ht, it, 1)
+    return LoadBoolean(FuncForItem___itemSurrenal_ht, it, 1)
 endfunction
 
 function replaceSurrenalItem takes item surrenalItem returns item
@@ -1828,7 +1638,7 @@ endfunction
 
 function fuseItemUnfillSlot takes unit u,item it returns boolean
     local integer pKey= GetItemTypeId(it)
-    local integer count= LoadInteger(FuncForItem__itemFuseItems_ht, pKey, 0)
+    local integer count= LoadInteger(FuncForItem___itemFuseItems_ht, pKey, 0)
     local integer targetItemId= 0
     local integer materialTypeCount= 0
     local integer materialId= 0
@@ -1845,14 +1655,14 @@ function fuseItemUnfillSlot takes unit u,item it returns boolean
     loop
         exitwhen i > count
         
-        set targetItemId=LoadInteger(FuncForItem__itemFuseItems_ht, pKey, i)
-        set materialTypeCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, 0)
+        set targetItemId=LoadInteger(FuncForItem___itemFuseItems_ht, pKey, i)
+        set materialTypeCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, 0)
         set j=1
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j + 1)
             
             if ( getUnitItemCount(u , materialId) < materialIdCount ) then
             //单位拥有该物品的数量少于需求的数量
@@ -1867,8 +1677,8 @@ function fuseItemUnfillSlot takes unit u,item it returns boolean
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j + 1)
             
             call removeUnitItemsById(u , materialId , materialIdCount)
             
@@ -1884,7 +1694,7 @@ endfunction
 
 function fuseItemFillSlot takes unit u,item it returns boolean
     local integer pKey= GetItemTypeId(it)
-    local integer count= LoadInteger(FuncForItem__itemFuseItems_ht, pKey, 0)
+    local integer count= LoadInteger(FuncForItem___itemFuseItems_ht, pKey, 0)
     local integer targetItemId= 0
     local integer materialTypeCount= 0
     local integer materialId= 0
@@ -1904,14 +1714,14 @@ function fuseItemFillSlot takes unit u,item it returns boolean
     loop
         exitwhen i > count
         
-        set targetItemId=LoadInteger(FuncForItem__itemFuseItems_ht, pKey, i)
-        set materialTypeCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, 0)
+        set targetItemId=LoadInteger(FuncForItem___itemFuseItems_ht, pKey, i)
+        set materialTypeCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, 0)
         set j=1
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j + 1)
             
             if ( pKey == materialId ) then
                 call debugText("修正前的materialIdCount:" + I2S(materialIdCount))
@@ -1938,8 +1748,8 @@ function fuseItemFillSlot takes unit u,item it returns boolean
         loop
             exitwhen j > materialTypeCount * 2
             
-            set materialId=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j)
-            set materialIdCount=LoadInteger(FuncForItem__itemSyntheticFormula_ht, targetItemId, j + 1)
+            set materialId=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j)
+            set materialIdCount=LoadInteger(FuncForItem___itemSyntheticFormula_ht, targetItemId, j + 1)
             
             call removeUnitItemsById(u , materialId , materialIdCount)
             
@@ -1953,137 +1763,155 @@ function fuseItemFillSlot takes unit u,item it returns boolean
     return true
 endfunction
 
+function getFuseItemElementTypeCounts takes integer fusedItem returns integer
+    return LoadInteger(FuncForItem___itemSyntheticFormula_ht, fusedItem, 0)
+endfunction
+
+function getFusedItemElementItemId takes integer fusedItem,integer index returns integer
+    if ( ModuloInteger(index, 2) == 0 ) then
+        return 0
+    endif
+    return LoadInteger(FuncForItem___itemSyntheticFormula_ht, fusedItem, index)
+endfunction
+
+function getFusedItemElementItemCounts takes integer fusedItem,integer index returns integer
+    if ( ModuloInteger(index, 2) == 0 ) then
+        return LoadInteger(FuncForItem___itemSyntheticFormula_ht, fusedItem, index)
+    endif
+    return 0
+endfunction
+
 
 function registerFuseItem2 takes integer target,integer it1,integer i1,integer it2,integer i2 returns boolean
     local integer i= 0
     local integer array itId
     
-    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem___itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 0, 2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 4, i2)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, i, target)
     
     //替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
     set itId[1]=getSurrenalItemIdById(it1)
     set itId[2]=getSurrenalItemIdById(it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 0, 2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 4, i2)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem3 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem___itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 0, 3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 6, i3)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
     set itId[1]=getSurrenalItemIdById(it1)
     set itId[2]=getSurrenalItemIdById(it2)
     set itId[3]=getSurrenalItemIdById(it3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 0, 3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 6, i3)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem4 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem___itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 0, 4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 8, i4)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -2091,73 +1919,73 @@ function registerFuseItem4 takes integer target,integer it1,integer i1,integer i
     set itId[2]=getSurrenalItemIdById(it2)
     set itId[3]=getSurrenalItemIdById(it3)
     set itId[4]=getSurrenalItemIdById(it4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem5 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4,integer it5,integer i5 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem___itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 5)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 9, it5)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 10, i5)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 0, 5)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 9, it5)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 10, i5)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it5, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it5, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it5, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it5, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -2166,83 +1994,83 @@ function registerFuseItem5 takes integer target,integer it1,integer i1,integer i
     set itId[3]=getSurrenalItemIdById(it3)
     set itId[4]=getSurrenalItemIdById(it4)
     set itId[5]=getSurrenalItemIdById(it5)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[5], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[5], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[5], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[5], i, itId[0])
     
     return true
 endfunction
 function registerFuseItem6 takes integer target,integer it1,integer i1,integer it2,integer i2,integer it3,integer i3,integer it4,integer i4,integer it5,integer i5,integer it6,integer i6 returns boolean
     local integer i= 0
     local integer array itId
-    if ( LoadInteger(FuncForItem__itemSyntheticFormula_ht, target, 0) != 0 ) then
+    if ( LoadInteger(FuncForItem___itemSyntheticFormula_ht, target, 0) != 0 ) then
         call debugText("物品：" + getItemNameById(target) + "已被注册，请检查！")
         return false
     endif
     
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 0, 6)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 1, it1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 3, it2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 5, it3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 7, it4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 8, i4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 9, it5)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 10, i5)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 11, it6)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, target, 12, i6)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 0, 6)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 1, it1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 3, it2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 5, it3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 7, it4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 9, it5)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 10, i5)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 11, it6)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, target, 12, i6)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it1, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it1, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it1, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it1, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it2, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it2, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it2, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it2, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it3, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it3, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it3, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it3, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it4, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it4, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it4, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it4, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it5, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it5, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it5, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it5, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it5, i, target)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, it6, 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it6, 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, it6, i, target)
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, it6, 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it6, 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, it6, i, target)
     
     //注册替代物品合成公式
     set itId[0]=getSurrenalItemIdById(target)
@@ -2252,1390 +2080,1938 @@ function registerFuseItem6 takes integer target,integer it1,integer i1,integer i
     set itId[4]=getSurrenalItemIdById(it4)
     set itId[5]=getSurrenalItemIdById(it5)
     set itId[6]=getSurrenalItemIdById(it6)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 0, 4)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 1, itId[1])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 2, i1)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 3, itId[2])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 4, i2)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 5, itId[3])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 6, i3)
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 7, itId[4])
-    call SaveInteger(FuncForItem__itemSyntheticFormula_ht, itId[0], 8, i4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 0, 4)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 1, itId[1])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 2, i1)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 3, itId[2])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 4, i2)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 5, itId[3])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 6, i3)
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 7, itId[4])
+    call SaveInteger(FuncForItem___itemSyntheticFormula_ht, itId[0], 8, i4)
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[1], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[1], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[1], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[1], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[2], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[2], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[2], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[2], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[3], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[3], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[3], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[3], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[4], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[4], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[4], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[4], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[5], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[5], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[5], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[5], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[5], i, itId[0])
     
-    set i=LoadInteger(FuncForItem__itemFuseItems_ht, itId[6], 0) + 1
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[6], 0, i)
-    call SaveInteger(FuncForItem__itemFuseItems_ht, itId[6], i, itId[0])
+    set i=LoadInteger(FuncForItem___itemFuseItems_ht, itId[6], 0) + 1
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[6], 0, i)
+    call SaveInteger(FuncForItem___itemFuseItems_ht, itId[6], i, itId[0])
     
     return true
 endfunction
 
-function saveAllItemIdInNameCode takes nothing returns nothing
-    local integer i= 0
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】左轮手枪"), 0, 'I041')
-                call SaveStr(ITEM_HT, 'I041', 1, SubString("【卷轴】左轮手枪", 0, StringLength("【卷轴】左轮手枪")))
-                set ssssss[i]="【卷轴】左轮手枪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("味贝"), 0, 'I02C')
-                call SaveStr(ITEM_HT, 'I02C', 1, SubString("味贝", 0, StringLength("味贝")))
-                set ssssss[i]="味贝"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】七尺十手"), 0, 'I03Q')
-                call SaveStr(ITEM_HT, 'I03Q', 1, SubString("【卷轴】七尺十手", 0, StringLength("【卷轴】七尺十手")))
-                set ssssss[i]="【卷轴】七尺十手"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("幽灵叹息"), 0, 'I029')
-                call SaveStr(ITEM_HT, 'I029', 1, SubString("幽灵叹息", 0, StringLength("幽灵叹息")))
-                set ssssss[i]="幽灵叹息"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|rPure Gold"), 0, 'I051')
-                call SaveStr(ITEM_HT, 'I051', 1, SubString("|cffff6800【伪】|rPure Gold", 0, StringLength("|cffff6800【伪】|rPure Gold")))
-                set ssssss[i]="|cffff6800【伪】|rPure Gold"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量拳套"), 0, 'I05X')
-                call SaveStr(ITEM_HT, 'I05X', 1, SubString("|cffff6800【伪】|r力量拳套", 0, StringLength("|cffff6800【伪】|r力量拳套")))
-                set ssssss[i]="|cffff6800【伪】|r力量拳套"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("面粉"), 0, 'I00Y')
-                call SaveStr(ITEM_HT, 'I00Y', 1, SubString("面粉", 0, StringLength("面粉")))
-                set ssssss[i]="面粉"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("力量戒指"), 0, 'I00C')
-                call SaveStr(ITEM_HT, 'I00C', 1, SubString("力量戒指", 0, StringLength("力量戒指")))
-                set ssssss[i]="力量戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("胜利旗帜"), 0, 'I01R')
-                call SaveStr(ITEM_HT, 'I01R', 1, SubString("胜利旗帜", 0, StringLength("胜利旗帜")))
-                set ssssss[i]="胜利旗帜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("樱十"), 0, 'I01A')
-                call SaveStr(ITEM_HT, 'I01A', 1, SubString("樱十", 0, StringLength("樱十")))
-                set ssssss[i]="樱十"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】正义之衣"), 0, 'I04Y')
-                call SaveStr(ITEM_HT, 'I04Y', 1, SubString("|cffff6800【伪】|r【卷轴】正义之衣", 0, StringLength("|cffff6800【伪】|r【卷轴】正义之衣")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】正义之衣"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv2"), 0, 'I044')
-                call SaveStr(ITEM_HT, 'I044', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv2", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv2")))
-                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv2"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】天龙人勋章"), 0, 'I039')
-                call SaveStr(ITEM_HT, 'I039', 1, SubString("【卷轴】天龙人勋章", 0, StringLength("【卷轴】天龙人勋章")))
-                set ssssss[i]="【卷轴】天龙人勋章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r味贝"), 0, 'I06L')
-                call SaveStr(ITEM_HT, 'I06L', 1, SubString("|cffff6800【伪】|r味贝", 0, StringLength("|cffff6800【伪】|r味贝")))
-                set ssssss[i]="|cffff6800【伪】|r味贝"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("枯木"), 0, 'I01B')
-                call SaveStr(ITEM_HT, 'I01B', 1, SubString("枯木", 0, StringLength("枯木")))
-                set ssssss[i]="枯木"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】晕锤"), 0, 'I04X')
-                call SaveStr(ITEM_HT, 'I04X', 1, SubString("|cffff6800【伪】|r【卷轴】晕锤", 0, StringLength("|cffff6800【伪】|r【卷轴】晕锤")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】晕锤"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("智力戒指"), 0, 'I00E')
-                call SaveStr(ITEM_HT, 'I00E', 1, SubString("智力戒指", 0, StringLength("智力戒指")))
-                set ssssss[i]="智力戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】触鬼"), 0, 'I03K')
-                call SaveStr(ITEM_HT, 'I03K', 1, SubString("【卷轴】触鬼", 0, StringLength("【卷轴】触鬼")))
-                set ssssss[i]="【卷轴】触鬼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("偃月大砍刀"), 0, 'I02L')
-                call SaveStr(ITEM_HT, 'I02L', 1, SubString("偃月大砍刀", 0, StringLength("偃月大砍刀")))
-                set ssssss[i]="偃月大砍刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("毒爪"), 0, 'I02E')
-                call SaveStr(ITEM_HT, 'I02E', 1, SubString("毒爪", 0, StringLength("毒爪")))
-                set ssssss[i]="毒爪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("小盾牌"), 0, 'I01C')
-                call SaveStr(ITEM_HT, 'I01C', 1, SubString("小盾牌", 0, StringLength("小盾牌")))
-                set ssssss[i]="小盾牌"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("草帽"), 0, 'I01M')
-                call SaveStr(ITEM_HT, 'I01M', 1, SubString("草帽", 0, StringLength("草帽")))
-                set ssssss[i]="草帽"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魂之丧剑"), 0, 'I02I')
-                call SaveStr(ITEM_HT, 'I02I', 1, SubString("魂之丧剑", 0, StringLength("魂之丧剑")))
-                set ssssss[i]="魂之丧剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("铁壁"), 0, 'I01D')
-                call SaveStr(ITEM_HT, 'I01D', 1, SubString("铁壁", 0, StringLength("铁壁")))
-                set ssssss[i]="铁壁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r血腥指环"), 0, 'I06R')
-                call SaveStr(ITEM_HT, 'I06R', 1, SubString("|cffff6800【伪】|r血腥指环", 0, StringLength("|cffff6800【伪】|r血腥指环")))
-                set ssssss[i]="|cffff6800【伪】|r血腥指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("监察电话虫"), 0, 'I034')
-                call SaveStr(ITEM_HT, 'I034', 1, SubString("监察电话虫", 0, StringLength("监察电话虫")))
-                set ssssss[i]="监察电话虫"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】毒爪"), 0, 'I04B')
-                call SaveStr(ITEM_HT, 'I04B', 1, SubString("|cffff6800【伪】|r【卷轴】毒爪", 0, StringLength("|cffff6800【伪】|r【卷轴】毒爪")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】毒爪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("触鬼"), 0, 'I02B')
-                call SaveStr(ITEM_HT, 'I02B', 1, SubString("触鬼", 0, StringLength("触鬼")))
-                set ssssss[i]="触鬼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv1】|r"), 0, 'I02Q')
-                call SaveStr(ITEM_HT, 'I02Q', 1, SubString("魔法天候棒|cffff0000【Lv1】|r", 0, StringLength("魔法天候棒|cffff0000【Lv1】|r")))
-                set ssssss[i]="魔法天候棒|cffff0000【Lv1】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r奥哈拉树枝"), 0, 'I052')
-                call SaveStr(ITEM_HT, 'I052', 1, SubString("|cffff6800【伪】|r奥哈拉树枝", 0, StringLength("|cffff6800【伪】|r奥哈拉树枝")))
-                set ssssss[i]="|cffff6800【伪】|r奥哈拉树枝"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r秋水"), 0, 'I06D')
-                call SaveStr(ITEM_HT, 'I06D', 1, SubString("|cffff6800【伪】|r秋水", 0, StringLength("|cffff6800【伪】|r秋水")))
-                set ssssss[i]="|cffff6800【伪】|r秋水"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("小戒指"), 0, 'I00B')
-                call SaveStr(ITEM_HT, 'I00B', 1, SubString("小戒指", 0, StringLength("小戒指")))
-                set ssssss[i]="小戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r历史正文-沉默的箴言"), 0, 'I05Y')
-                call SaveStr(ITEM_HT, 'I05Y', 1, SubString("|cffff6800【伪】|r历史正文-沉默的箴言", 0, StringLength("|cffff6800【伪】|r历史正文-沉默的箴言")))
-                set ssssss[i]="|cffff6800【伪】|r历史正文-沉默的箴言"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r洛泉结晶"), 0, 'I05Z')
-                call SaveStr(ITEM_HT, 'I05Z', 1, SubString("|cffff6800【伪】|r洛泉结晶", 0, StringLength("|cffff6800【伪】|r洛泉结晶")))
-                set ssssss[i]="|cffff6800【伪】|r洛泉结晶"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】七尺十手"), 0, 'I04N')
-                call SaveStr(ITEM_HT, 'I04N', 1, SubString("|cffff6800【伪】|r【卷轴】七尺十手", 0, StringLength("|cffff6800【伪】|r【卷轴】七尺十手")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】七尺十手"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r触鬼"), 0, 'I054')
-                call SaveStr(ITEM_HT, 'I054', 1, SubString("|cffff6800【伪】|r触鬼", 0, StringLength("|cffff6800【伪】|r触鬼")))
-                set ssssss[i]="|cffff6800【伪】|r触鬼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷戒指"), 0, 'I062')
-                call SaveStr(ITEM_HT, 'I062', 1, SubString("|cffff6800【伪】|r敏捷戒指", 0, StringLength("|cffff6800【伪】|r敏捷戒指")))
-                set ssssss[i]="|cffff6800【伪】|r敏捷戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("花边指环"), 0, 'I00F')
-                call SaveStr(ITEM_HT, 'I00F', 1, SubString("花边指环", 0, StringLength("花边指环")))
-                set ssssss[i]="花边指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("泡行车"), 0, 'I022')
-                call SaveStr(ITEM_HT, 'I022', 1, SubString("泡行车", 0, StringLength("泡行车")))
-                set ssssss[i]="泡行车"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv2"), 0, 'I01F')
-                call SaveStr(ITEM_HT, 'I01F', 1, SubString("|c00ff8040护贝|r Lv2", 0, StringLength("|c00ff8040护贝|r Lv2")))
-                set ssssss[i]="|c00ff8040护贝|r Lv2"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("森林之眼"), 0, 'I02D')
-                call SaveStr(ITEM_HT, 'I02D', 1, SubString("森林之眼", 0, StringLength("森林之眼")))
-                set ssssss[i]="森林之眼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】Pure Gold"), 0, 'I03A')
-                call SaveStr(ITEM_HT, 'I03A', 1, SubString("【卷轴】Pure Gold", 0, StringLength("【卷轴】Pure Gold")))
-                set ssssss[i]="【卷轴】Pure Gold"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【敏捷】|r"), 0, 'I01Z')
-                call SaveStr(ITEM_HT, 'I01Z', 1, SubString("黑足|cffff0000【敏捷】|r", 0, StringLength("黑足|cffff0000【敏捷】|r")))
-                set ssssss[i]="黑足|cffff0000【敏捷】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("硬皮手札"), 0, 'I019')
-                call SaveStr(ITEM_HT, 'I019', 1, SubString("硬皮手札", 0, StringLength("硬皮手札")))
-                set ssssss[i]="硬皮手札"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r追云"), 0, 'I075')
-                call SaveStr(ITEM_HT, 'I075', 1, SubString("|cffff6800【伪】|r追云", 0, StringLength("|cffff6800【伪】|r追云")))
-                set ssssss[i]="|cffff6800【伪】|r追云"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】泡行车"), 0, 'I04M')
-                call SaveStr(ITEM_HT, 'I04M', 1, SubString("|cffff6800【伪】|r【卷轴】泡行车", 0, StringLength("|cffff6800【伪】|r【卷轴】泡行车")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】泡行车"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("晕锤"), 0, 'I07D')
-                call SaveStr(ITEM_HT, 'I07D', 1, SubString("晕锤", 0, StringLength("晕锤")))
-                set ssssss[i]="晕锤"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黑兜"), 0, 'I02M')
-                call SaveStr(ITEM_HT, 'I02M', 1, SubString("黑兜", 0, StringLength("黑兜")))
-                set ssssss[i]="黑兜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】吸血剑"), 0, 'I04T')
-                call SaveStr(ITEM_HT, 'I04T', 1, SubString("|cffff6800【伪】|r【卷轴】吸血剑", 0, StringLength("|cffff6800【伪】|r【卷轴】吸血剑")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】吸血剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("正义旗帜"), 0, 'I009')
-                call SaveStr(ITEM_HT, 'I009', 1, SubString("正义旗帜", 0, StringLength("正义旗帜")))
-                set ssssss[i]="正义旗帜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("吸血剑"), 0, 'I07F')
-                call SaveStr(ITEM_HT, 'I07F', 1, SubString("吸血剑", 0, StringLength("吸血剑")))
-                set ssssss[i]="吸血剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("敏捷戒指"), 0, 'I00D')
-                call SaveStr(ITEM_HT, 'I00D', 1, SubString("敏捷戒指", 0, StringLength("敏捷戒指")))
-                set ssssss[i]="敏捷戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r泡行车"), 0, 'I06A')
-                call SaveStr(ITEM_HT, 'I06A', 1, SubString("|cffff6800【伪】|r泡行车", 0, StringLength("|cffff6800【伪】|r泡行车")))
-                set ssssss[i]="|cffff6800【伪】|r泡行车"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黄金钟"), 0, 'I07A')
-                call SaveStr(ITEM_HT, 'I07A', 1, SubString("|cffff6800【伪】|r黄金钟", 0, StringLength("|cffff6800【伪】|r黄金钟")))
-                set ssssss[i]="|cffff6800【伪】|r黄金钟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("力量拳套"), 0, 'I00G')
-                call SaveStr(ITEM_HT, 'I00G', 1, SubString("力量拳套", 0, StringLength("力量拳套")))
-                set ssssss[i]="力量拳套"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】时雨"), 0, 'I04Q')
-                call SaveStr(ITEM_HT, 'I04Q', 1, SubString("|cffff6800【伪】|r【卷轴】时雨", 0, StringLength("|cffff6800【伪】|r【卷轴】时雨")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】时雨"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv1"), 0, 'I01E')
-                call SaveStr(ITEM_HT, 'I01E', 1, SubString("|c00ff8040护贝|r Lv1", 0, StringLength("|c00ff8040护贝|r Lv1")))
-                set ssssss[i]="|c00ff8040护贝|r Lv1"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("恢复神符"), 0, 'I002')
-                call SaveStr(ITEM_HT, 'I002', 1, SubString("恢复神符", 0, StringLength("恢复神符")))
-                set ssssss[i]="恢复神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("天龙人勋章"), 0, 'I07B')
-                call SaveStr(ITEM_HT, 'I07B', 1, SubString("天龙人勋章", 0, StringLength("天龙人勋章")))
-                set ssssss[i]="天龙人勋章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("智慧头饰"), 0, 'I00I')
-                call SaveStr(ITEM_HT, 'I00I', 1, SubString("智慧头饰", 0, StringLength("智慧头饰")))
-                set ssssss[i]="智慧头饰"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r樱十"), 0, 'I06W')
-                call SaveStr(ITEM_HT, 'I06W', 1, SubString("|cffff6800【伪】|r樱十", 0, StringLength("|cffff6800【伪】|r樱十")))
-                set ssssss[i]="|cffff6800【伪】|r樱十"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv4"), 0, 'I01H')
-                call SaveStr(ITEM_HT, 'I01H', 1, SubString("|c00ff8040护贝|r Lv4", 0, StringLength("|c00ff8040护贝|r Lv4")))
-                set ssssss[i]="|c00ff8040护贝|r Lv4"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】三代鬼彻"), 0, 'I03Z')
-                call SaveStr(ITEM_HT, 'I03Z', 1, SubString("【卷轴】三代鬼彻", 0, StringLength("【卷轴】三代鬼彻")))
-                set ssssss[i]="【卷轴】三代鬼彻"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("淡水桶"), 0, 'I010')
-                call SaveStr(ITEM_HT, 'I010', 1, SubString("淡水桶", 0, StringLength("淡水桶")))
-                set ssssss[i]="淡水桶"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("敏捷丝靴"), 0, 'I00H')
-                call SaveStr(ITEM_HT, 'I00H', 1, SubString("敏捷丝靴", 0, StringLength("敏捷丝靴")))
-                set ssssss[i]="敏捷丝靴"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r正义大氅"), 0, 'I072')
-                call SaveStr(ITEM_HT, 'I072', 1, SubString("|cffff6800【伪】|r正义大氅", 0, StringLength("|cffff6800【伪】|r正义大氅")))
-                set ssssss[i]="|cffff6800【伪】|r正义大氅"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r铁壁"), 0, 'I06J')
-                call SaveStr(ITEM_HT, 'I06J', 1, SubString("|cffff6800【伪】|r铁壁", 0, StringLength("|cffff6800【伪】|r铁壁")))
-                set ssssss[i]="|cffff6800【伪】|r铁壁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r偃月大砍刀"), 0, 'I06T')
-                call SaveStr(ITEM_HT, 'I06T', 1, SubString("|cffff6800【伪】|r偃月大砍刀", 0, StringLength("|cffff6800【伪】|r偃月大砍刀")))
-                set ssssss[i]="|cffff6800【伪】|r偃月大砍刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】天龙人勋章"), 0, 'I04R')
-                call SaveStr(ITEM_HT, 'I04R', 1, SubString("|cffff6800【伪】|r【卷轴】天龙人勋章", 0, StringLength("|cffff6800【伪】|r【卷轴】天龙人勋章")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】天龙人勋章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("隐身神符"), 0, 'I007')
-                call SaveStr(ITEM_HT, 'I007', 1, SubString("隐身神符", 0, StringLength("隐身神符")))
-                set ssssss[i]="隐身神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv2】|r"), 0, 'I02R')
-                call SaveStr(ITEM_HT, 'I02R', 1, SubString("魔法天候棒|cffff0000【Lv2】|r", 0, StringLength("魔法天候棒|cffff0000【Lv2】|r")))
-                set ssssss[i]="魔法天候棒|cffff0000【Lv2】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r花边指环"), 0, 'I05L')
-                call SaveStr(ITEM_HT, 'I05L', 1, SubString("|cffff6800【伪】|r花边指环", 0, StringLength("|cffff6800【伪】|r花边指环")))
-                set ssssss[i]="|cffff6800【伪】|r花边指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】追云飞鸟"), 0, 'I04Z')
-                call SaveStr(ITEM_HT, 'I04Z', 1, SubString("|cffff6800【伪】|r【卷轴】追云飞鸟", 0, StringLength("|cffff6800【伪】|r【卷轴】追云飞鸟")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】追云飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r雪走"), 0, 'I06Q')
-                call SaveStr(ITEM_HT, 'I06Q', 1, SubString("|cffff6800【伪】|r雪走", 0, StringLength("|cffff6800【伪】|r雪走")))
-                set ssssss[i]="|cffff6800【伪】|r雪走"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r可可亚西之橘"), 0, 'I05R')
-                call SaveStr(ITEM_HT, 'I05R', 1, SubString("|cffff6800【伪】|r可可亚西之橘", 0, StringLength("|cffff6800【伪】|r可可亚西之橘")))
-                set ssssss[i]="|cffff6800【伪】|r可可亚西之橘"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("小型治疗神符"), 0, 'I000')
-                call SaveStr(ITEM_HT, 'I000', 1, SubString("小型治疗神符", 0, StringLength("小型治疗神符")))
-                set ssssss[i]="小型治疗神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r幽灵叹息"), 0, 'I06Z')
-                call SaveStr(ITEM_HT, 'I06Z', 1, SubString("|cffff6800【伪】|r幽灵叹息", 0, StringLength("|cffff6800【伪】|r幽灵叹息")))
-                set ssssss[i]="|cffff6800【伪】|r幽灵叹息"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("海楼石"), 0, 'I02Z')
-                call SaveStr(ITEM_HT, 'I02Z', 1, SubString("海楼石", 0, StringLength("海楼石")))
-                set ssssss[i]="海楼石"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r晕锤"), 0, 'I07E')
-                call SaveStr(ITEM_HT, 'I07E', 1, SubString("|cffff6800【伪】|r晕锤", 0, StringLength("|cffff6800【伪】|r晕锤")))
-                set ssssss[i]="|cffff6800【伪】|r晕锤"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海神之心【破损】"), 0, 'I05D')
-                call SaveStr(ITEM_HT, 'I05D', 1, SubString("|cffff6800【伪】|r海神之心【破损】", 0, StringLength("|cffff6800【伪】|r海神之心【破损】")))
-                set ssssss[i]="|cffff6800【伪】|r海神之心【破损】"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】魂之丧剑"), 0, 'I03T')
-                call SaveStr(ITEM_HT, 'I03T', 1, SubString("【卷轴】魂之丧剑", 0, StringLength("【卷轴】魂之丧剑")))
-                set ssssss[i]="【卷轴】魂之丧剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑刀夜"), 0, 'I04D')
-                call SaveStr(ITEM_HT, 'I04D', 1, SubString("|cffff6800【伪】|r【卷轴】黑刀夜", 0, StringLength("|cffff6800【伪】|r【卷轴】黑刀夜")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑刀夜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("三明治"), 0, 'I00W')
-                call SaveStr(ITEM_HT, 'I00W', 1, SubString("三明治", 0, StringLength("三明治")))
-                set ssssss[i]="三明治"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黑刀 夜"), 0, 'I02H')
-                call SaveStr(ITEM_HT, 'I02H', 1, SubString("黑刀 夜", 0, StringLength("黑刀 夜")))
-                set ssssss[i]="黑刀 夜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("海蛇毒液"), 0, 'I014')
-                call SaveStr(ITEM_HT, 'I014', 1, SubString("海蛇毒液", 0, StringLength("海蛇毒液")))
-                set ssssss[i]="海蛇毒液"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r登船斧"), 0, 'I055')
-                call SaveStr(ITEM_HT, 'I055', 1, SubString("|cffff6800【伪】|r登船斧", 0, StringLength("|cffff6800【伪】|r登船斧")))
-                set ssssss[i]="|cffff6800【伪】|r登船斧"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("艺人面罩"), 0, 'I00N')
-                call SaveStr(ITEM_HT, 'I00N', 1, SubString("艺人面罩", 0, StringLength("艺人面罩")))
-                set ssssss[i]="艺人面罩"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r旅行者之衣"), 0, 'I060')
-                call SaveStr(ITEM_HT, 'I060', 1, SubString("|cffff6800【伪】|r旅行者之衣", 0, StringLength("|cffff6800【伪】|r旅行者之衣")))
-                set ssssss[i]="|cffff6800【伪】|r旅行者之衣"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】泡行车"), 0, 'I03I')
-                call SaveStr(ITEM_HT, 'I03I', 1, SubString("【卷轴】泡行车", 0, StringLength("【卷轴】泡行车")))
-                set ssssss[i]="【卷轴】泡行车"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("洛泉之瓶 空瓶"), 0, 'I033')
-                call SaveStr(ITEM_HT, 'I033', 1, SubString("洛泉之瓶 空瓶", 0, StringLength("洛泉之瓶 空瓶")))
-                set ssssss[i]="洛泉之瓶 空瓶"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】偃月大砍刀"), 0, 'I04V')
-                call SaveStr(ITEM_HT, 'I04V', 1, SubString("|cffff6800【伪】|r【卷轴】偃月大砍刀", 0, StringLength("|cffff6800【伪】|r【卷轴】偃月大砍刀")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】偃月大砍刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("加速手套"), 0, 'I017')
-                call SaveStr(ITEM_HT, 'I017', 1, SubString("加速手套", 0, StringLength("加速手套")))
-                set ssssss[i]="加速手套"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("正义大氅"), 0, 'I01N')
-                call SaveStr(ITEM_HT, 'I01N', 1, SubString("正义大氅", 0, StringLength("正义大氅")))
-                set ssssss[i]="正义大氅"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量戒指"), 0, 'I05W')
-                call SaveStr(ITEM_HT, 'I05W', 1, SubString("|cffff6800【伪】|r力量戒指", 0, StringLength("|cffff6800【伪】|r力量戒指")))
-                set ssssss[i]="|cffff6800【伪】|r力量戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("速度之鞋"), 0, 'I01W')
-                call SaveStr(ITEM_HT, 'I01W', 1, SubString("速度之鞋", 0, StringLength("速度之鞋")))
-                set ssssss[i]="速度之鞋"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】诺诺大人棒"), 0, 'I03W')
-                call SaveStr(ITEM_HT, 'I03W', 1, SubString("【卷轴】诺诺大人棒", 0, StringLength("【卷轴】诺诺大人棒")))
-                set ssssss[i]="【卷轴】诺诺大人棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r丝滑披风"), 0, 'I06H')
-                call SaveStr(ITEM_HT, 'I06H', 1, SubString("|cffff6800【伪】|r丝滑披风", 0, StringLength("|cffff6800【伪】|r丝滑披风")))
-                set ssssss[i]="|cffff6800【伪】|r丝滑披风"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】正义之衣"), 0, 'I03D')
-                call SaveStr(ITEM_HT, 'I03D', 1, SubString("【卷轴】正义之衣", 0, StringLength("【卷轴】正义之衣")))
-                set ssssss[i]="【卷轴】正义之衣"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】黄金甲"), 0, 'I03B')
-                call SaveStr(ITEM_HT, 'I03B', 1, SubString("【卷轴】黄金甲", 0, StringLength("【卷轴】黄金甲")))
-                set ssssss[i]="【卷轴】黄金甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv1"), 0, 'I043')
-                call SaveStr(ITEM_HT, 'I043', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv1", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv1")))
-                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv1"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r力量护臂"), 0, 'I05V')
-                call SaveStr(ITEM_HT, 'I05V', 1, SubString("|cffff6800【伪】|r力量护臂", 0, StringLength("|cffff6800【伪】|r力量护臂")))
-                set ssssss[i]="|cffff6800【伪】|r力量护臂"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("历史正文-沉默的箴言"), 0, 'I02W')
-                call SaveStr(ITEM_HT, 'I02W', 1, SubString("历史正文-沉默的箴言", 0, StringLength("历史正文-沉默的箴言")))
-                set ssssss[i]="历史正文-沉默的箴言"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海楼石"), 0, 'I05B')
-                call SaveStr(ITEM_HT, 'I05B', 1, SubString("|cffff6800【伪】|r海楼石", 0, StringLength("|cffff6800【伪】|r海楼石")))
-                set ssssss[i]="|cffff6800【伪】|r海楼石"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r贤者宝石"), 0, 'I06N')
-                call SaveStr(ITEM_HT, 'I06N', 1, SubString("|cffff6800【伪】|r贤者宝石", 0, StringLength("|cffff6800【伪】|r贤者宝石")))
-                set ssssss[i]="|cffff6800【伪】|r贤者宝石"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】偃月大砍刀"), 0, 'I03V')
-                call SaveStr(ITEM_HT, 'I03V', 1, SubString("【卷轴】偃月大砍刀", 0, StringLength("【卷轴】偃月大砍刀")))
-                set ssssss[i]="【卷轴】偃月大砍刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r枯木"), 0, 'I05T')
-                call SaveStr(ITEM_HT, 'I05T', 1, SubString("|cffff6800【伪】|r枯木", 0, StringLength("|cffff6800【伪】|r枯木")))
-                set ssssss[i]="|cffff6800【伪】|r枯木"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("三代鬼彻"), 0, 'I02V')
-                call SaveStr(ITEM_HT, 'I02V', 1, SubString("三代鬼彻", 0, StringLength("三代鬼彻")))
-                set ssssss[i]="三代鬼彻"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r艺人面罩"), 0, 'I06V')
-                call SaveStr(ITEM_HT, 'I06V', 1, SubString("|cffff6800【伪】|r艺人面罩", 0, StringLength("|cffff6800【伪】|r艺人面罩")))
-                set ssssss[i]="|cffff6800【伪】|r艺人面罩"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("鬼哭"), 0, 'I02P')
-                call SaveStr(ITEM_HT, 'I02P', 1, SubString("鬼哭", 0, StringLength("鬼哭")))
-                set ssssss[i]="鬼哭"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("章鱼烧"), 0, 'I00X')
-                call SaveStr(ITEM_HT, 'I00X', 1, SubString("章鱼烧", 0, StringLength("章鱼烧")))
-                set ssssss[i]="章鱼烧"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑刀 夜"), 0, 'I05G')
-                call SaveStr(ITEM_HT, 'I05G', 1, SubString("|cffff6800【伪】|r黑刀 夜", 0, StringLength("|cffff6800【伪】|r黑刀 夜")))
-                set ssssss[i]="|cffff6800【伪】|r黑刀 夜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("时雨"), 0, 'I02F')
-                call SaveStr(ITEM_HT, 'I02F', 1, SubString("时雨", 0, StringLength("时雨")))
-                set ssssss[i]="时雨"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("威霸"), 0, 'I01X')
-                call SaveStr(ITEM_HT, 'I01X', 1, SubString("威霸", 0, StringLength("威霸")))
-                set ssssss[i]="威霸"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黄金甲"), 0, 'I05M')
-                call SaveStr(ITEM_HT, 'I05M', 1, SubString("|cffff6800【伪】|r黄金甲", 0, StringLength("|cffff6800【伪】|r黄金甲")))
-                set ssssss[i]="|cffff6800【伪】|r黄金甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】威霸"), 0, 'I03F')
-                call SaveStr(ITEM_HT, 'I03F', 1, SubString("【卷轴】威霸", 0, StringLength("【卷轴】威霸")))
-                set ssssss[i]="【卷轴】威霸"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r鬼哭"), 0, 'I059')
-                call SaveStr(ITEM_HT, 'I059', 1, SubString("|cffff6800【伪】|r鬼哭", 0, StringLength("|cffff6800【伪】|r鬼哭")))
-                set ssssss[i]="|cffff6800【伪】|r鬼哭"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("科勒恩的逃脱匕首"), 0, 'I035')
-                call SaveStr(ITEM_HT, 'I035', 1, SubString("科勒恩的逃脱匕首", 0, StringLength("科勒恩的逃脱匕首")))
-                set ssssss[i]="科勒恩的逃脱匕首"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("七尺十手"), 0, 'I02G')
-                call SaveStr(ITEM_HT, 'I02G', 1, SubString("七尺十手", 0, StringLength("七尺十手")))
-                set ssssss[i]="七尺十手"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷丝靴"), 0, 'I063')
-                call SaveStr(ITEM_HT, 'I063', 1, SubString("|cffff6800【伪】|r敏捷丝靴", 0, StringLength("|cffff6800【伪】|r敏捷丝靴")))
-                set ssssss[i]="|cffff6800【伪】|r敏捷丝靴"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】历史正文"), 0, 'I040')
-                call SaveStr(ITEM_HT, 'I040', 1, SubString("【卷轴】历史正文", 0, StringLength("【卷轴】历史正文")))
-                set ssssss[i]="【卷轴】历史正文"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】魔法天候棒"), 0, 'I03Y')
-                call SaveStr(ITEM_HT, 'I03Y', 1, SubString("【卷轴】魔法天候棒", 0, StringLength("【卷轴】魔法天候棒")))
-                set ssssss[i]="【卷轴】魔法天候棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r速度之鞋"), 0, 'I06I')
-                call SaveStr(ITEM_HT, 'I06I', 1, SubString("|cffff6800【伪】|r速度之鞋", 0, StringLength("|cffff6800【伪】|r速度之鞋")))
-                set ssssss[i]="|cffff6800【伪】|r速度之鞋"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】触鬼"), 0, 'I048')
-                call SaveStr(ITEM_HT, 'I048', 1, SubString("|cffff6800【伪】|r【卷轴】触鬼", 0, StringLength("|cffff6800【伪】|r【卷轴】触鬼")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】触鬼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】左轮手枪"), 0, 'I050')
-                call SaveStr(ITEM_HT, 'I050', 1, SubString("|cffff6800【伪】|r【卷轴】左轮手枪", 0, StringLength("|cffff6800【伪】|r【卷轴】左轮手枪")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】左轮手枪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("治疗神符"), 0, 'I005')
-                call SaveStr(ITEM_HT, 'I005', 1, SubString("治疗神符", 0, StringLength("治疗神符")))
-                set ssssss[i]="治疗神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r吸血剑"), 0, 'I07G')
-                call SaveStr(ITEM_HT, 'I07G', 1, SubString("|cffff6800【伪】|r吸血剑", 0, StringLength("|cffff6800【伪】|r吸血剑")))
-                set ssssss[i]="|cffff6800【伪】|r吸血剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv3"), 0, 'I045')
-                call SaveStr(ITEM_HT, 'I045', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv3", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv3")))
-                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv3"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑足"), 0, 'I03G')
-                call SaveStr(ITEM_HT, 'I03G', 1, SubString("【卷轴】黑足", 0, StringLength("【卷轴】黑足")))
-                set ssssss[i]="【卷轴】黑足"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("敏捷匕首"), 0, 'I00L')
-                call SaveStr(ITEM_HT, 'I00L', 1, SubString("敏捷匕首", 0, StringLength("敏捷匕首")))
-                set ssssss[i]="敏捷匕首"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑兜"), 0, 'I03P')
-                call SaveStr(ITEM_HT, 'I03P', 1, SubString("【卷轴】黑兜", 0, StringLength("【卷轴】黑兜")))
-                set ssssss[i]="【卷轴】黑兜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【力量】|r"), 0, 'I05I')
-                call SaveStr(ITEM_HT, 'I05I', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【力量】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【力量】|r")))
-                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【力量】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】鬼哭"), 0, 'I03X')
-                call SaveStr(ITEM_HT, 'I03X', 1, SubString("【卷轴】鬼哭", 0, StringLength("【卷轴】鬼哭")))
-                set ssssss[i]="【卷轴】鬼哭"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("登船斧"), 0, 'I015')
-                call SaveStr(ITEM_HT, 'I015', 1, SubString("登船斧", 0, StringLength("登船斧")))
-                set ssssss[i]="登船斧"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r空岛之云"), 0, 'I05S')
-                call SaveStr(ITEM_HT, 'I05S', 1, SubString("|cffff6800【伪】|r空岛之云", 0, StringLength("|cffff6800【伪】|r空岛之云")))
-                set ssssss[i]="|cffff6800【伪】|r空岛之云"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("破碎的古老纹章"), 0, 'I00J')
-                call SaveStr(ITEM_HT, 'I00J', 1, SubString("破碎的古老纹章", 0, StringLength("破碎的古老纹章")))
-                set ssssss[i]="破碎的古老纹章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("左轮手枪"), 0, 'I02Y')
-                call SaveStr(ITEM_HT, 'I02Y', 1, SubString("左轮手枪", 0, StringLength("左轮手枪")))
-                set ssssss[i]="左轮手枪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv4"), 0, 'I046')
-                call SaveStr(ITEM_HT, 'I046', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv4", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv4")))
-                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv4"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("摄魂之眼"), 0, 'I00S')
-                call SaveStr(ITEM_HT, 'I00S', 1, SubString("摄魂之眼", 0, StringLength("摄魂之眼")))
-                set ssssss[i]="摄魂之眼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("海神之心"), 0, 'I02X')
-                call SaveStr(ITEM_HT, 'I02X', 1, SubString("海神之心", 0, StringLength("海神之心")))
-                set ssssss[i]="海神之心"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黄金钟"), 0, 'I04H')
-                call SaveStr(ITEM_HT, 'I04H', 1, SubString("|cffff6800【伪】|r【卷轴】黄金钟", 0, StringLength("|cffff6800【伪】|r【卷轴】黄金钟")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】黄金钟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("贤者宝石"), 0, 'I00M')
-                call SaveStr(ITEM_HT, 'I00M', 1, SubString("贤者宝石", 0, StringLength("贤者宝石")))
-                set ssssss[i]="贤者宝石"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魂之丧剑"), 0, 'I05O')
-                call SaveStr(ITEM_HT, 'I05O', 1, SubString("|cffff6800【伪】|r魂之丧剑", 0, StringLength("|cffff6800【伪】|r魂之丧剑")))
-                set ssssss[i]="|cffff6800【伪】|r魂之丧剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r"), 0, 'I066')
-                call SaveStr(ITEM_HT, 'I066', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r")))
-                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r"), 0, 'I065')
-                call SaveStr(ITEM_HT, 'I065', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r")))
-                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r草帽"), 0, 'I053')
-                call SaveStr(ITEM_HT, 'I053', 1, SubString("|cffff6800【伪】|r草帽", 0, StringLength("|cffff6800【伪】|r草帽")))
-                set ssssss[i]="|cffff6800【伪】|r草帽"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】炎阳铠甲"), 0, 'I04U')
-                call SaveStr(ITEM_HT, 'I04U', 1, SubString("|cffff6800【伪】|r【卷轴】炎阳铠甲", 0, StringLength("|cffff6800【伪】|r【卷轴】炎阳铠甲")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】炎阳铠甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("浮蜥唾液"), 0, 'I013')
-                call SaveStr(ITEM_HT, 'I013', 1, SubString("浮蜥唾液", 0, StringLength("浮蜥唾液")))
-                set ssssss[i]="浮蜥唾液"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r左轮手枪"), 0, 'I077')
-                call SaveStr(ITEM_HT, 'I077', 1, SubString("|cffff6800【伪】|r左轮手枪", 0, StringLength("|cffff6800【伪】|r左轮手枪")))
-                set ssssss[i]="|cffff6800【伪】|r左轮手枪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r炎阳铠甲"), 0, 'I06S')
-                call SaveStr(ITEM_HT, 'I06S', 1, SubString("|cffff6800【伪】|r炎阳铠甲", 0, StringLength("|cffff6800【伪】|r炎阳铠甲")))
-                set ssssss[i]="|cffff6800【伪】|r炎阳铠甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】秋水"), 0, 'I04O')
-                call SaveStr(ITEM_HT, 'I04O', 1, SubString("|cffff6800【伪】|r【卷轴】秋水", 0, StringLength("|cffff6800【伪】|r【卷轴】秋水")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】秋水"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r追云飞鸟"), 0, 'I076')
-                call SaveStr(ITEM_HT, 'I076', 1, SubString("|cffff6800【伪】|r追云飞鸟", 0, StringLength("|cffff6800【伪】|r追云飞鸟")))
-                set ssssss[i]="|cffff6800【伪】|r追云飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r火烈鸟大氅"), 0, 'I05P')
-                call SaveStr(ITEM_HT, 'I05P', 1, SubString("|cffff6800【伪】|r火烈鸟大氅", 0, StringLength("|cffff6800【伪】|r火烈鸟大氅")))
-                set ssssss[i]="|cffff6800【伪】|r火烈鸟大氅"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("诺诺大人棒"), 0, 'I02O')
-                call SaveStr(ITEM_HT, 'I02O', 1, SubString("诺诺大人棒", 0, StringLength("诺诺大人棒")))
-                set ssssss[i]="诺诺大人棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】三代鬼彻"), 0, 'I04P')
-                call SaveStr(ITEM_HT, 'I04P', 1, SubString("|cffff6800【伪】|r【卷轴】三代鬼彻", 0, StringLength("|cffff6800【伪】|r【卷轴】三代鬼彻")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】三代鬼彻"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("炎阳铠甲"), 0, 'I01P')
-                call SaveStr(ITEM_HT, 'I01P', 1, SubString("炎阳铠甲", 0, StringLength("炎阳铠甲")))
-                set ssssss[i]="炎阳铠甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】毒爪"), 0, 'I03O')
-                call SaveStr(ITEM_HT, 'I03O', 1, SubString("【卷轴】毒爪", 0, StringLength("【卷轴】毒爪")))
-                set ssssss[i]="【卷轴】毒爪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv5】|r"), 0, 'I02U')
-                call SaveStr(ITEM_HT, 'I02U', 1, SubString("魔法天候棒|cffff0000【Lv5】|r", 0, StringLength("魔法天候棒|cffff0000【Lv5】|r")))
-                set ssssss[i]="魔法天候棒|cffff0000【Lv5】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("力量护臂"), 0, 'I00K')
-                call SaveStr(ITEM_HT, 'I00K', 1, SubString("力量护臂", 0, StringLength("力量护臂")))
-                set ssssss[i]="力量护臂"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("追云"), 0, 'I023')
-                call SaveStr(ITEM_HT, 'I023', 1, SubString("追云", 0, StringLength("追云")))
-                set ssssss[i]="追云"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r和道一文字"), 0, 'I05F')
-                call SaveStr(ITEM_HT, 'I05F', 1, SubString("|cffff6800【伪】|r和道一文字", 0, StringLength("|cffff6800【伪】|r和道一文字")))
-                set ssssss[i]="|cffff6800【伪】|r和道一文字"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("雪走"), 0, 'I018')
-                call SaveStr(ITEM_HT, 'I018', 1, SubString("雪走", 0, StringLength("雪走")))
-                set ssssss[i]="雪走"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("战斗神符"), 0, 'I008')
-                call SaveStr(ITEM_HT, 'I008', 1, SubString("战斗神符", 0, StringLength("战斗神符")))
-                set ssssss[i]="战斗神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r"), 0, 'I067')
-                call SaveStr(ITEM_HT, 'I067', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r")))
-                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("小型治愈神符"), 0, 'I001')
-                call SaveStr(ITEM_HT, 'I001', 1, SubString("小型治愈神符", 0, StringLength("小型治愈神符")))
-                set ssssss[i]="小型治愈神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r小盾牌"), 0, 'I06O')
-                call SaveStr(ITEM_HT, 'I06O', 1, SubString("|cffff6800【伪】|r小盾牌", 0, StringLength("|cffff6800【伪】|r小盾牌")))
-                set ssssss[i]="|cffff6800【伪】|r小盾牌"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("生命纸"), 0, 'I01U')
-                call SaveStr(ITEM_HT, 'I01U', 1, SubString("生命纸", 0, StringLength("生命纸")))
-                set ssssss[i]="生命纸"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("金币神符"), 0, 'I003')
-                call SaveStr(ITEM_HT, 'I003', 1, SubString("金币神符", 0, StringLength("金币神符")))
-                set ssssss[i]="金币神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r影遁"), 0, 'I06X')
-                call SaveStr(ITEM_HT, 'I06X', 1, SubString("|cffff6800【伪】|r影遁", 0, StringLength("|cffff6800【伪】|r影遁")))
-                set ssssss[i]="|cffff6800【伪】|r影遁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("恢复指环"), 0, 'I00O')
-                call SaveStr(ITEM_HT, 'I00O', 1, SubString("恢复指环", 0, StringLength("恢复指环")))
-                set ssssss[i]="恢复指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海神之心"), 0, 'I05C')
-                call SaveStr(ITEM_HT, 'I05C', 1, SubString("|cffff6800【伪】|r海神之心", 0, StringLength("|cffff6800【伪】|r海神之心")))
-                set ssssss[i]="|cffff6800【伪】|r海神之心"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("影遁"), 0, 'I021')
-                call SaveStr(ITEM_HT, 'I021', 1, SubString("影遁", 0, StringLength("影遁")))
-                set ssssss[i]="影遁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】秋水"), 0, 'I03S')
-                call SaveStr(ITEM_HT, 'I03S', 1, SubString("【卷轴】秋水", 0, StringLength("【卷轴】秋水")))
-                set ssssss[i]="【卷轴】秋水"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r三代鬼彻"), 0, 'I06E')
-                call SaveStr(ITEM_HT, 'I06E', 1, SubString("|cffff6800【伪】|r三代鬼彻", 0, StringLength("|cffff6800【伪】|r三代鬼彻")))
-                set ssssss[i]="|cffff6800【伪】|r三代鬼彻"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【智力】|r"), 0, 'I020')
-                call SaveStr(ITEM_HT, 'I020', 1, SubString("黑足|cffff0000【智力】|r", 0, StringLength("黑足|cffff0000【智力】|r")))
-                set ssssss[i]="黑足|cffff0000【智力】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r廓尔格弯刀"), 0, 'I05U')
-                call SaveStr(ITEM_HT, 'I05U', 1, SubString("|cffff6800【伪】|r廓尔格弯刀", 0, StringLength("|cffff6800【伪】|r廓尔格弯刀")))
-                set ssssss[i]="|cffff6800【伪】|r廓尔格弯刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("西洋剑"), 0, 'I031')
-                call SaveStr(ITEM_HT, 'I031', 1, SubString("西洋剑", 0, StringLength("西洋剑")))
-                set ssssss[i]="西洋剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】吸血剑"), 0, 'I03M')
-                call SaveStr(ITEM_HT, 'I03M', 1, SubString("【卷轴】吸血剑", 0, StringLength("【卷轴】吸血剑")))
-                set ssssss[i]="【卷轴】吸血剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】黑刀夜"), 0, 'I03R')
-                call SaveStr(ITEM_HT, 'I03R', 1, SubString("【卷轴】黑刀夜", 0, StringLength("【卷轴】黑刀夜")))
-                set ssssss[i]="【卷轴】黑刀夜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("鳍露"), 0, 'I01S')
-                call SaveStr(ITEM_HT, 'I01S', 1, SubString("鳍露", 0, StringLength("鳍露")))
-                set ssssss[i]="鳍露"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r西洋剑"), 0, 'I06M')
-                call SaveStr(ITEM_HT, 'I06M', 1, SubString("|cffff6800【伪】|r西洋剑", 0, StringLength("|cffff6800【伪】|r西洋剑")))
-                set ssssss[i]="|cffff6800【伪】|r西洋剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r鲨齿"), 0, 'I06F')
-                call SaveStr(ITEM_HT, 'I06F', 1, SubString("|cffff6800【伪】|r鲨齿", 0, StringLength("|cffff6800【伪】|r鲨齿")))
-                set ssssss[i]="|cffff6800【伪】|r鲨齿"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("洛树琼浆"), 0, 'I011')
-                call SaveStr(ITEM_HT, 'I011', 1, SubString("洛树琼浆", 0, StringLength("洛树琼浆")))
-                set ssssss[i]="洛树琼浆"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("海神之心【破损】"), 0, 'I038')
-                call SaveStr(ITEM_HT, 'I038', 1, SubString("海神之心【破损】", 0, StringLength("海神之心【破损】")))
-                set ssssss[i]="海神之心【破损】"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】追云飞鸟"), 0, 'I03J')
-                call SaveStr(ITEM_HT, 'I03J', 1, SubString("【卷轴】追云飞鸟", 0, StringLength("【卷轴】追云飞鸟")))
-                set ssssss[i]="【卷轴】追云飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("传送号角"), 0, 'I00P')
-                call SaveStr(ITEM_HT, 'I00P', 1, SubString("传送号角", 0, StringLength("传送号角")))
-                set ssssss[i]="传送号角"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("洛泉之瓶"), 0, 'I00Z')
-                call SaveStr(ITEM_HT, 'I00Z', 1, SubString("洛泉之瓶", 0, StringLength("洛泉之瓶")))
-                set ssssss[i]="洛泉之瓶"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv4】|r"), 0, 'I02T')
-                call SaveStr(ITEM_HT, 'I02T', 1, SubString("魔法天候棒|cffff0000【Lv4】|r", 0, StringLength("魔法天候棒|cffff0000【Lv4】|r")))
-                set ssssss[i]="魔法天候棒|cffff0000【Lv4】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r恢复指环"), 0, 'I05N')
-                call SaveStr(ITEM_HT, 'I05N', 1, SubString("|cffff6800【伪】|r恢复指环", 0, StringLength("|cffff6800【伪】|r恢复指环")))
-                set ssssss[i]="|cffff6800【伪】|r恢复指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑足"), 0, 'I04F')
-                call SaveStr(ITEM_HT, 'I04F', 1, SubString("|cffff6800【伪】|r【卷轴】黑足", 0, StringLength("|cffff6800【伪】|r【卷轴】黑足")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑足"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】魔法天候棒"), 0, 'I04K')
-                call SaveStr(ITEM_HT, 'I04K', 1, SubString("|cffff6800【伪】|r【卷轴】魔法天候棒", 0, StringLength("|cffff6800【伪】|r【卷轴】魔法天候棒")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】魔法天候棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("监视电话虫"), 0, 'I01Q')
-                call SaveStr(ITEM_HT, 'I01Q', 1, SubString("监视电话虫", 0, StringLength("监视电话虫")))
-                set ssssss[i]="监视电话虫"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黄金甲"), 0, 'I04G')
-                call SaveStr(ITEM_HT, 'I04G', 1, SubString("|cffff6800【伪】|r【卷轴】黄金甲", 0, StringLength("|cffff6800【伪】|r【卷轴】黄金甲")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】黄金甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("治愈神符"), 0, 'I006')
-                call SaveStr(ITEM_HT, 'I006', 1, SubString("治愈神符", 0, StringLength("治愈神符")))
-                set ssssss[i]="治愈神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黑足|cffff0000【力量】|r"), 0, 'I01Y')
-                call SaveStr(ITEM_HT, 'I01Y', 1, SubString("黑足|cffff0000【力量】|r", 0, StringLength("黑足|cffff0000【力量】|r")))
-                set ssssss[i]="黑足|cffff0000【力量】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("空岛之云"), 0, 'I02A')
-                call SaveStr(ITEM_HT, 'I02A', 1, SubString("空岛之云", 0, StringLength("空岛之云")))
-                set ssssss[i]="空岛之云"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r加速手套"), 0, 'I05Q')
-                call SaveStr(ITEM_HT, 'I05Q', 1, SubString("|cffff6800【伪】|r加速手套", 0, StringLength("|cffff6800【伪】|r加速手套")))
-                set ssssss[i]="|cffff6800【伪】|r加速手套"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】诺诺大人棒"), 0, 'I04L')
-                call SaveStr(ITEM_HT, 'I04L', 1, SubString("|cffff6800【伪】|r【卷轴】诺诺大人棒", 0, StringLength("|cffff6800【伪】|r【卷轴】诺诺大人棒")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】诺诺大人棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r小戒指"), 0, 'I06P')
-                call SaveStr(ITEM_HT, 'I06P', 1, SubString("|cffff6800【伪】|r小戒指", 0, StringLength("|cffff6800【伪】|r小戒指")))
-                set ssssss[i]="|cffff6800【伪】|r小戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("飞鸟"), 0, 'I024')
-                call SaveStr(ITEM_HT, 'I024', 1, SubString("飞鸟", 0, StringLength("飞鸟")))
-                set ssssss[i]="飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("火烈鸟大氅"), 0, 'I01O')
-                call SaveStr(ITEM_HT, 'I01O', 1, SubString("火烈鸟大氅", 0, StringLength("火烈鸟大氅")))
-                set ssssss[i]="火烈鸟大氅"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("追云飞鸟"), 0, 'I036')
-                call SaveStr(ITEM_HT, 'I036', 1, SubString("追云飞鸟", 0, StringLength("追云飞鸟")))
-                set ssssss[i]="追云飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r时雨"), 0, 'I06G')
-                call SaveStr(ITEM_HT, 'I06G', 1, SubString("|cffff6800【伪】|r时雨", 0, StringLength("|cffff6800【伪】|r时雨")))
-                set ssssss[i]="|cffff6800【伪】|r时雨"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】历史正文"), 0, 'I04J')
-                call SaveStr(ITEM_HT, 'I04J', 1, SubString("|cffff6800【伪】|r【卷轴】历史正文", 0, StringLength("|cffff6800【伪】|r【卷轴】历史正文")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】历史正文"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r"), 0, 'I070')
-                call SaveStr(ITEM_HT, 'I070', 1, SubString("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r", 0, StringLength("|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r")))
-                set ssssss[i]="|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r"), 0, 'I071')
-                call SaveStr(ITEM_HT, 'I071', 1, SubString("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r", 0, StringLength("|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r")))
-                set ssssss[i]="|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("鲨齿"), 0, 'I042')
-                call SaveStr(ITEM_HT, 'I042', 1, SubString("鲨齿", 0, StringLength("鲨齿")))
-                set ssssss[i]="鲨齿"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r航海服"), 0, 'I05E')
-                call SaveStr(ITEM_HT, 'I05E', 1, SubString("|cffff6800【伪】|r航海服", 0, StringLength("|cffff6800【伪】|r航海服")))
-                set ssssss[i]="|cffff6800【伪】|r航海服"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】魂之丧剑"), 0, 'I04I')
-                call SaveStr(ITEM_HT, 'I04I', 1, SubString("|cffff6800【伪】|r【卷轴】魂之丧剑", 0, StringLength("|cffff6800【伪】|r【卷轴】魂之丧剑")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】魂之丧剑"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("速度神符"), 0, 'I004')
-                call SaveStr(ITEM_HT, 'I004', 1, SubString("速度神符", 0, StringLength("速度神符")))
-                set ssssss[i]="速度神符"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】电话虫口袋"), 0, 'I04A')
-                call SaveStr(ITEM_HT, 'I04A', 1, SubString("|cffff6800【伪】|r【卷轴】电话虫口袋", 0, StringLength("|cffff6800【伪】|r【卷轴】电话虫口袋")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】电话虫口袋"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r诺诺大人棒"), 0, 'I069')
-                call SaveStr(ITEM_HT, 'I069', 1, SubString("|cffff6800【伪】|r诺诺大人棒", 0, StringLength("|cffff6800【伪】|r诺诺大人棒")))
-                set ssssss[i]="|cffff6800【伪】|r诺诺大人棒"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】影遁"), 0, 'I03H')
-                call SaveStr(ITEM_HT, 'I03H', 1, SubString("【卷轴】影遁", 0, StringLength("【卷轴】影遁")))
-                set ssssss[i]="【卷轴】影遁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("Pure Gold"), 0, 'I00A')
-                call SaveStr(ITEM_HT, 'I00A', 1, SubString("Pure Gold", 0, StringLength("Pure Gold")))
-                set ssssss[i]="Pure Gold"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r敏捷匕首"), 0, 'I061')
-                call SaveStr(ITEM_HT, 'I061', 1, SubString("|cffff6800【伪】|r敏捷匕首", 0, StringLength("|cffff6800【伪】|r敏捷匕首")))
-                set ssssss[i]="|cffff6800【伪】|r敏捷匕首"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("霸气修行"), 0, 'I01V')
-                call SaveStr(ITEM_HT, 'I01V', 1, SubString("霸气修行", 0, StringLength("霸气修行")))
-                set ssssss[i]="霸气修行"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r海皇类之心"), 0, 'I05A')
-                call SaveStr(ITEM_HT, 'I05A', 1, SubString("|cffff6800【伪】|r海皇类之心", 0, StringLength("|cffff6800【伪】|r海皇类之心")))
-                set ssssss[i]="|cffff6800【伪】|r海皇类之心"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("哲谱红靴|cffff0000【心灵形态】|r"), 0, 'I026')
-                call SaveStr(ITEM_HT, 'I026', 1, SubString("哲谱红靴|cffff0000【心灵形态】|r", 0, StringLength("哲谱红靴|cffff0000【心灵形态】|r")))
-                set ssssss[i]="哲谱红靴|cffff0000【心灵形态】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("魔法天候棒|cffff0000【Lv3】|r"), 0, 'I02S')
-                call SaveStr(ITEM_HT, 'I02S', 1, SubString("魔法天候棒|cffff0000【Lv3】|r", 0, StringLength("魔法天候棒|cffff0000【Lv3】|r")))
-                set ssssss[i]="魔法天候棒|cffff0000【Lv3】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r硬皮手札"), 0, 'I06Y')
-                call SaveStr(ITEM_HT, 'I06Y', 1, SubString("|cffff6800【伪】|r硬皮手札", 0, StringLength("|cffff6800【伪】|r硬皮手札")))
-                set ssssss[i]="|cffff6800【伪】|r硬皮手札"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r"), 0, 'I064')
-                call SaveStr(ITEM_HT, 'I064', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r")))
-                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r监视电话虫口袋"), 0, 'I030')
-                call SaveStr(ITEM_HT, 'I030', 1, SubString("|cffff6800【伪】|r监视电话虫口袋", 0, StringLength("|cffff6800【伪】|r监视电话虫口袋")))
-                set ssssss[i]="|cffff6800【伪】|r监视电话虫口袋"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv3"), 0, 'I01G')
-                call SaveStr(ITEM_HT, 'I01G', 1, SubString("|c00ff8040护贝|r Lv3", 0, StringLength("|c00ff8040护贝|r Lv3")))
-                set ssssss[i]="|c00ff8040护贝|r Lv3"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("哲谱红靴|cffff0000【物理形态】|r"), 0, 'I025')
-                call SaveStr(ITEM_HT, 'I025', 1, SubString("哲谱红靴|cffff0000【物理形态】|r", 0, StringLength("哲谱红靴|cffff0000【物理形态】|r")))
-                set ssssss[i]="哲谱红靴|cffff0000【物理形态】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑兜"), 0, 'I05H')
-                call SaveStr(ITEM_HT, 'I05H', 1, SubString("|cffff6800【伪】|r黑兜", 0, StringLength("|cffff6800【伪】|r黑兜")))
-                set ssssss[i]="|cffff6800【伪】|r黑兜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("丝滑披风"), 0, 'I037')
-                call SaveStr(ITEM_HT, 'I037', 1, SubString("丝滑披风", 0, StringLength("丝滑披风")))
-                set ssssss[i]="丝滑披风"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("旅行者之衣"), 0, 'I01L')
-                call SaveStr(ITEM_HT, 'I01L', 1, SubString("旅行者之衣", 0, StringLength("旅行者之衣")))
-                set ssssss[i]="旅行者之衣"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("可可亚西之橘"), 0, 'I00U')
-                call SaveStr(ITEM_HT, 'I00U', 1, SubString("可可亚西之橘", 0, StringLength("可可亚西之橘")))
-                set ssssss[i]="可可亚西之橘"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("叶子"), 0, 'I027')
-                call SaveStr(ITEM_HT, 'I027', 1, SubString("叶子", 0, StringLength("叶子")))
-                set ssssss[i]="叶子"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】黄金钟"), 0, 'I03E')
-                call SaveStr(ITEM_HT, 'I03E', 1, SubString("【卷轴】黄金钟", 0, StringLength("【卷轴】黄金钟")))
-                set ssssss[i]="【卷轴】黄金钟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】电话虫口袋"), 0, 'I03L')
-                call SaveStr(ITEM_HT, 'I03L', 1, SubString("【卷轴】电话虫口袋", 0, StringLength("【卷轴】电话虫口袋")))
-                set ssssss[i]="【卷轴】电话虫口袋"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r天龙人勋章"), 0, 'I07C')
-                call SaveStr(ITEM_HT, 'I07C', 1, SubString("|cffff6800【伪】|r天龙人勋章", 0, StringLength("|cffff6800【伪】|r天龙人勋章")))
-                set ssssss[i]="|cffff6800【伪】|r天龙人勋章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】炎阳铠甲"), 0, 'I03C')
-                call SaveStr(ITEM_HT, 'I03C', 1, SubString("【卷轴】炎阳铠甲", 0, StringLength("【卷轴】炎阳铠甲")))
-                set ssssss[i]="【卷轴】炎阳铠甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r"), 0, 'I068')
-                call SaveStr(ITEM_HT, 'I068', 1, SubString("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r", 0, StringLength("|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r")))
-                set ssssss[i]="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】点金"), 0, 'I049')
-                call SaveStr(ITEM_HT, 'I049', 1, SubString("|cffff6800【伪】|r【卷轴】点金", 0, StringLength("|cffff6800【伪】|r【卷轴】点金")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】点金"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r飞鸟"), 0, 'I057')
-                call SaveStr(ITEM_HT, 'I057', 1, SubString("|cffff6800【伪】|r飞鸟", 0, StringLength("|cffff6800【伪】|r飞鸟")))
-                set ssssss[i]="|cffff6800【伪】|r飞鸟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r科勒恩的逃脱匕首"), 0, 'I078')
-                call SaveStr(ITEM_HT, 'I078', 1, SubString("|cffff6800【伪】|r科勒恩的逃脱匕首", 0, StringLength("|cffff6800【伪】|r科勒恩的逃脱匕首")))
-                set ssssss[i]="|cffff6800【伪】|r科勒恩的逃脱匕首"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黄金钟"), 0, 'I02N')
-                call SaveStr(ITEM_HT, 'I02N', 1, SubString("黄金钟", 0, StringLength("黄金钟")))
-                set ssssss[i]="黄金钟"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r"), 0, 'I05J')
-                call SaveStr(ITEM_HT, 'I05J', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【敏捷】|r")))
-                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【敏捷】|r"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】时雨"), 0, 'I03U')
-                call SaveStr(ITEM_HT, 'I03U', 1, SubString("【卷轴】时雨", 0, StringLength("【卷轴】时雨")))
-                set ssssss[i]="【卷轴】时雨"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("人鱼精髓"), 0, 'I01T')
-                call SaveStr(ITEM_HT, 'I01T', 1, SubString("人鱼精髓", 0, StringLength("人鱼精髓")))
-                set ssssss[i]="人鱼精髓"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r七尺十手"), 0, 'I06C')
-                call SaveStr(ITEM_HT, 'I06C', 1, SubString("|cffff6800【伪】|r七尺十手", 0, StringLength("|cffff6800【伪】|r七尺十手")))
-                set ssssss[i]="|cffff6800【伪】|r七尺十手"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("秋水"), 0, 'I02J')
-                call SaveStr(ITEM_HT, 'I02J', 1, SubString("秋水", 0, StringLength("秋水")))
-                set ssssss[i]="秋水"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r甘迪披风"), 0, 'I058')
-                call SaveStr(ITEM_HT, 'I058', 1, SubString("|cffff6800【伪】|r甘迪披风", 0, StringLength("|cffff6800【伪】|r甘迪披风")))
-                set ssssss[i]="|cffff6800【伪】|r甘迪披风"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r智力戒指"), 0, 'I074')
-                call SaveStr(ITEM_HT, 'I074', 1, SubString("|cffff6800【伪】|r智力戒指", 0, StringLength("|cffff6800【伪】|r智力戒指")))
-                set ssssss[i]="|cffff6800【伪】|r智力戒指"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("【卷轴】晕锤"), 0, 'I03N')
-                call SaveStr(ITEM_HT, 'I03N', 1, SubString("【卷轴】晕锤", 0, StringLength("【卷轴】晕锤")))
-                set ssssss[i]="【卷轴】晕锤"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("海皇类之心"), 0, 'I028')
-                call SaveStr(ITEM_HT, 'I028', 1, SubString("海皇类之心", 0, StringLength("海皇类之心")))
-                set ssssss[i]="海皇类之心"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("甘迪披风"), 0, 'I00R')
-                call SaveStr(ITEM_HT, 'I00R', 1, SubString("甘迪披风", 0, StringLength("甘迪披风")))
-                set ssssss[i]="甘迪披风"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】黑兜"), 0, 'I04E')
-                call SaveStr(ITEM_HT, 'I04E', 1, SubString("|cffff6800【伪】|r【卷轴】黑兜", 0, StringLength("|cffff6800【伪】|r【卷轴】黑兜")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】黑兜"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("洛泉结晶"), 0, 'I00Q')
-                call SaveStr(ITEM_HT, 'I00Q', 1, SubString("洛泉结晶", 0, StringLength("洛泉结晶")))
-                set ssssss[i]="洛泉结晶"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("航海服"), 0, 'I01J')
-                call SaveStr(ITEM_HT, 'I01J', 1, SubString("航海服", 0, StringLength("航海服")))
-                set ssssss[i]="航海服"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r智慧头饰"), 0, 'I073')
-                call SaveStr(ITEM_HT, 'I073', 1, SubString("|cffff6800【伪】|r智慧头饰", 0, StringLength("|cffff6800【伪】|r智慧头饰")))
-                set ssssss[i]="|cffff6800【伪】|r智慧头饰"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r威霸"), 0, 'I06K')
-                call SaveStr(ITEM_HT, 'I06K', 1, SubString("|cffff6800【伪】|r威霸", 0, StringLength("|cffff6800【伪】|r威霸")))
-                set ssssss[i]="|cffff6800【伪】|r威霸"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("血腥指环"), 0, 'I00T')
-                call SaveStr(ITEM_HT, 'I00T', 1, SubString("血腥指环", 0, StringLength("血腥指环")))
-                set ssssss[i]="血腥指环"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r叶子"), 0, 'I06U')
-                call SaveStr(ITEM_HT, 'I06U', 1, SubString("|cffff6800【伪】|r叶子", 0, StringLength("|cffff6800【伪】|r叶子")))
-                set ssssss[i]="|cffff6800【伪】|r叶子"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|c00ff8040护贝|r Lv5"), 0, 'I01I')
-                call SaveStr(ITEM_HT, 'I01I', 1, SubString("|c00ff8040护贝|r Lv5", 0, StringLength("|c00ff8040护贝|r Lv5")))
-                set ssssss[i]="|c00ff8040护贝|r Lv5"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("和道一文字"), 0, 'I02K')
-                call SaveStr(ITEM_HT, 'I02K', 1, SubString("和道一文字", 0, StringLength("和道一文字")))
-                set ssssss[i]="和道一文字"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("奥哈拉树枝"), 0, 'I032')
-                call SaveStr(ITEM_HT, 'I032', 1, SubString("奥哈拉树枝", 0, StringLength("奥哈拉树枝")))
-                set ssssss[i]="奥哈拉树枝"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】威霸"), 0, 'I04S')
-                call SaveStr(ITEM_HT, 'I04S', 1, SubString("|cffff6800【伪】|r【卷轴】威霸", 0, StringLength("|cffff6800【伪】|r【卷轴】威霸")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】威霸"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("森林之眼"), 0, 'I079')
-                call SaveStr(ITEM_HT, 'I079', 1, SubString("森林之眼", 0, StringLength("森林之眼")))
-                set ssssss[i]="森林之眼"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("绳索"), 0, 'I012')
-                call SaveStr(ITEM_HT, 'I012', 1, SubString("绳索", 0, StringLength("绳索")))
-                set ssssss[i]="绳索"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("奶酪"), 0, 'I00V')
-                call SaveStr(ITEM_HT, 'I00V', 1, SubString("奶酪", 0, StringLength("奶酪")))
-                set ssssss[i]="奶酪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("廓尔格弯刀"), 0, 'I016')
-                call SaveStr(ITEM_HT, 'I016', 1, SubString("廓尔格弯刀", 0, StringLength("廓尔格弯刀")))
-                set ssssss[i]="廓尔格弯刀"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r破碎的古老纹章"), 0, 'I06B')
-                call SaveStr(ITEM_HT, 'I06B', 1, SubString("|cffff6800【伪】|r破碎的古老纹章", 0, StringLength("|cffff6800【伪】|r破碎的古老纹章")))
-                set ssssss[i]="|cffff6800【伪】|r破碎的古老纹章"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r|c00ff8040护贝|r Lv5"), 0, 'I047')
-                call SaveStr(ITEM_HT, 'I047', 1, SubString("|cffff6800【伪】|r|c00ff8040护贝|r Lv5", 0, StringLength("|cffff6800【伪】|r|c00ff8040护贝|r Lv5")))
-                set ssssss[i]="|cffff6800【伪】|r|c00ff8040护贝|r Lv5"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r毒爪"), 0, 'I056')
-                call SaveStr(ITEM_HT, 'I056', 1, SubString("|cffff6800【伪】|r毒爪", 0, StringLength("|cffff6800【伪】|r毒爪")))
-                set ssssss[i]="|cffff6800【伪】|r毒爪"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】鬼哭"), 0, 'I04C')
-                call SaveStr(ITEM_HT, 'I04C', 1, SubString("|cffff6800【伪】|r【卷轴】鬼哭", 0, StringLength("|cffff6800【伪】|r【卷轴】鬼哭")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】鬼哭"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("黄金甲"), 0, 'I01K')
-                call SaveStr(ITEM_HT, 'I01K', 1, SubString("黄金甲", 0, StringLength("黄金甲")))
-                set ssssss[i]="黄金甲"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r【卷轴】影遁"), 0, 'I04W')
-                call SaveStr(ITEM_HT, 'I04W', 1, SubString("|cffff6800【伪】|r【卷轴】影遁", 0, StringLength("|cffff6800【伪】|r【卷轴】影遁")))
-                set ssssss[i]="|cffff6800【伪】|r【卷轴】影遁"
-                set i=i + 1
-    
-                call SaveInteger(ITEM_HT, StringHash("|cffff6800【伪】|r黑足|cffff0000【智力】|r"), 0, 'I05K')
-                call SaveStr(ITEM_HT, 'I05K', 1, SubString("|cffff6800【伪】|r黑足|cffff0000【智力】|r", 0, StringLength("|cffff6800【伪】|r黑足|cffff0000【智力】|r")))
-                set ssssss[i]="|cffff6800【伪】|r黑足|cffff0000【智力】|r"
-                set i=i + 1
+function InitFuncForItem takes nothing returns nothing
+    local integer itemId= 0
+    local string itemName= null
+    local integer itemMoney= 0
+    local integer itemLumber= 0
+    
+                set itemId='I06E'
+                set itemName="|cffff6800【伪】|r三代鬼彻"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I054'
+                set itemName="|cffff6800【伪】|r触鬼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02W'
+                set itemName="历史正文-沉默的箴言"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I02F'
+                set itemName="时雨"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I00P'
+                set itemName="传送号角"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 90)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06R'
+                set itemName="|cffff6800【伪】|r血腥指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I064'
+                set itemName="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv1】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2100)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I01L'
+                set itemName="旅行者之衣"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01P'
+                set itemName="炎阳铠甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3600)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I00G'
+                set itemName="力量拳套"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05T'
+                set itemName="|cffff6800【伪】|r枯木"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04S'
+                set itemName="|cffff6800【伪】|r【卷轴】威霸"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01A'
+                set itemName="樱十"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1250)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02L'
+                set itemName="偃月大砍刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 7450)
+                call SaveInteger(ITEM_HT, itemId, 3, 1500)
+    
+                set itemId='I04P'
+                set itemName="|cffff6800【伪】|r【卷轴】三代鬼彻"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I00L'
+                set itemName="敏捷匕首"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I008'
+                set itemName="战斗神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00Y'
+                set itemName="面粉"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 210)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06G'
+                set itemName="|cffff6800【伪】|r时雨"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I01F'
+                set itemName="|c00ff8040护贝|r Lv2"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I066'
+                set itemName="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv3】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5300)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I00E'
+                set itemName="智力戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01Y'
+                set itemName="黑足|cffff0000【力量】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I01W'
+                set itemName="速度之鞋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01Q'
+                set itemName="监视电话虫"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 110)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00S'
+                set itemName="摄魂之眼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05Q'
+                set itemName="|cffff6800【伪】|r加速手套"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I005'
+                set itemName="治疗神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01U'
+                set itemName="生命纸"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I00Q'
+                set itemName="洛泉结晶"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06V'
+                set itemName="|cffff6800【伪】|r艺人面罩"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04L'
+                set itemName="|cffff6800【伪】|r【卷轴】诺诺大人棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I07B'
+                set itemName="天龙人勋章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2500)
+                call SaveInteger(ITEM_HT, itemId, 3, 200)
+    
+                set itemId='I04C'
+                set itemName="|cffff6800【伪】|r【卷轴】鬼哭"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I02R'
+                set itemName="魔法天候棒|cffff0000【Lv2】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3700)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I03F'
+                set itemName="【卷轴】威霸"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I038'
+                set itemName="海神之心【破损】"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03V'
+                set itemName="【卷轴】偃月大砍刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1500)
+    
+                set itemId='I03Y'
+                set itemName="【卷轴】魔法天候棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I06B'
+                set itemName="|cffff6800【伪】|r破碎的古老纹章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03W'
+                set itemName="【卷轴】诺诺大人棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I018'
+                set itemName="雪走"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04W'
+                set itemName="|cffff6800【伪】|r【卷轴】影遁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00F'
+                set itemName="花边指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04Q'
+                set itemName="|cffff6800【伪】|r【卷轴】时雨"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I03C'
+                set itemName="【卷轴】炎阳铠甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I04U'
+                set itemName="|cffff6800【伪】|r【卷轴】炎阳铠甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I00A'
+                set itemName="Pure Gold"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03R'
+                set itemName="【卷轴】黑刀夜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I02S'
+                set itemName="魔法天候棒|cffff0000【Lv3】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5300)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I02Y'
+                set itemName="左轮手枪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6800)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I03S'
+                set itemName="【卷轴】秋水"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 450)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I00V'
+                set itemName="奶酪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 55)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01I'
+                set itemName="|c00ff8040护贝|r Lv5"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01T'
+                set itemName="人鱼精髓"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I06L'
+                set itemName="|cffff6800【伪】|r味贝"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02H'
+                set itemName="黑刀 夜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5700)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I06M'
+                set itemName="|cffff6800【伪】|r西洋剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04T'
+                set itemName="|cffff6800【伪】|r【卷轴】吸血剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I03A'
+                set itemName="【卷轴】Pure Gold"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04M'
+                set itemName="|cffff6800【伪】|r【卷轴】泡行车"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 350)
+    
+                set itemId='I03N'
+                set itemName="【卷轴】晕锤"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I03J'
+                set itemName="【卷轴】追云飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I040'
+                set itemName="【卷轴】历史正文"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I05L'
+                set itemName="|cffff6800【伪】|r花边指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00J'
+                set itemName="古老纹章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I073'
+                set itemName="|cffff6800【伪】|r智慧头饰"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05V'
+                set itemName="|cffff6800【伪】|r力量护臂"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05N'
+                set itemName="|cffff6800【伪】|r恢复指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 325)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01D'
+                set itemName="铁壁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 660)
+                call SaveInteger(ITEM_HT, itemId, 3, 8)
+    
+                set itemId='I03T'
+                set itemName="【卷轴】魂之丧剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I04O'
+                set itemName="|cffff6800【伪】|r【卷轴】秋水"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 450)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I02I'
+                set itemName="魂之丧剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6250)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I021'
+                set itemName="影遁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2412)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I053'
+                set itemName="|cffff6800【伪】|r草帽"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04Z'
+                set itemName="|cffff6800【伪】|r【卷轴】追云飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I06X'
+                set itemName="|cffff6800【伪】|r影遁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2412)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04D'
+                set itemName="|cffff6800【伪】|r【卷轴】黑刀夜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I030'
+                set itemName="监视电话虫口袋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03B'
+                set itemName="【卷轴】黄金甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I06Z'
+                set itemName="|cffff6800【伪】|r幽灵叹息"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I042'
+                set itemName="鲨齿"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1525)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01K'
+                set itemName="黄金甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3400)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I063'
+                set itemName="|cffff6800【伪】|r敏捷丝靴"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04K'
+                set itemName="|cffff6800【伪】|r【卷轴】魔法天候棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I02D'
+                set itemName="森林之眼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 10888)
+                call SaveInteger(ITEM_HT, itemId, 3, 8888)
+    
+                set itemId='I05C'
+                set itemName="|cffff6800【伪】|r海神之心"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02A'
+                set itemName="空岛之云"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03K'
+                set itemName="【卷轴】触鬼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I051'
+                set itemName="|cffff6800【伪】|rPure Gold"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06A'
+                set itemName="|cffff6800【伪】|r泡行车"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 350)
+    
+                set itemId='I06Y'
+                set itemName="|cffff6800【伪】|r硬皮手札"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01M'
+                set itemName="草帽"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I039'
+                set itemName="【卷轴】天龙人勋章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 200)
+    
+                set itemId='I03M'
+                set itemName="【卷轴】吸血剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I06F'
+                set itemName="|cffff6800【伪】|r鲨齿"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1525)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06O'
+                set itemName="|cffff6800【伪】|r小盾牌"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 4)
+    
+                set itemId='I05S'
+                set itemName="|cffff6800【伪】|r空岛之云"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00D'
+                set itemName="敏捷戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I067'
+                set itemName="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv4】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6900)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I00H'
+                set itemName="敏捷丝靴"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04X'
+                set itemName="|cffff6800【伪】|r【卷轴】晕锤"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I01H'
+                set itemName="|c00ff8040护贝|r Lv4"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03D'
+                set itemName="【卷轴】正义之衣"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I04N'
+                set itemName="|cffff6800【伪】|r【卷轴】七尺十手"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 800)
+    
+                set itemId='I05Z'
+                set itemName="|cffff6800【伪】|r洛泉结晶"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I057'
+                set itemName="|cffff6800【伪】|r飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4400)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I00U'
+                set itemName="可可亚西之橘"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05F'
+                set itemName="|cffff6800【伪】|r和道一文字"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03L'
+                set itemName="【卷轴】电话虫口袋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06N'
+                set itemName="|cffff6800【伪】|r贤者宝石"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05R'
+                set itemName="|cffff6800【伪】|r可可亚西之橘"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I075'
+                set itemName="|cffff6800【伪】|r追云"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2400)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I061'
+                set itemName="|cffff6800【伪】|r敏捷匕首"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06I'
+                set itemName="|cffff6800【伪】|r速度之鞋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04R'
+                set itemName="|cffff6800【伪】|r【卷轴】天龙人勋章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 200)
+    
+                set itemId='I04Y'
+                set itemName="|cffff6800【伪】|r【卷轴】正义之衣"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I00T'
+                set itemName="血腥指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03H'
+                set itemName="【卷轴】影遁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I020'
+                set itemName="黑足|cffff0000【智力】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I03Q'
+                set itemName="【卷轴】七尺十手"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 800)
+    
+                set itemId='I05X'
+                set itemName="|cffff6800【伪】|r力量拳套"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I031'
+                set itemName="西洋剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03O'
+                set itemName="【卷轴】毒爪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1100)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I06Q'
+                set itemName="|cffff6800【伪】|r雪走"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I07G'
+                set itemName="|cffff6800【伪】|r吸血剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2500)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I076'
+                set itemName="|cffff6800【伪】|r追云飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6400)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I05O'
+                set itemName="|cffff6800【伪】|r魂之丧剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6250)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I05Y'
+                set itemName="|cffff6800【伪】|r历史正文-沉默的箴言"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I03I'
+                set itemName="【卷轴】泡行车"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I045'
+                set itemName="|cffff6800【伪】|r|c00ff8040护贝|r Lv3"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 900)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06U'
+                set itemName="|cffff6800【伪】|r叶子"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01G'
+                set itemName="|c00ff8040护贝|r Lv3"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 900)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02G'
+                set itemName="七尺十手"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5400)
+                call SaveInteger(ITEM_HT, itemId, 3, 800)
+    
+                set itemId='I044'
+                set itemName="|cffff6800【伪】|r|c00ff8040护贝|r Lv2"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06D'
+                set itemName="|cffff6800【伪】|r秋水"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5600)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I023'
+                set itemName="追云"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2400)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I00K'
+                set itemName="力量护臂"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I055'
+                set itemName="|cffff6800【伪】|r登船斧"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04J'
+                set itemName="|cffff6800【伪】|r【卷轴】历史正文"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I065'
+                set itemName="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv2】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3700)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I025'
+                set itemName="哲谱红靴|cffff0000【物理形态】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1725)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06J'
+                set itemName="|cffff6800【伪】|r铁壁"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 660)
+                call SaveInteger(ITEM_HT, itemId, 3, 8)
+    
+                set itemId='I02Z'
+                set itemName="海楼石"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I019'
+                set itemName="硬皮手札"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01X'
+                set itemName="威霸"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2412)
+                call SaveInteger(ITEM_HT, itemId, 3, 800)
+    
+                set itemId='I04I'
+                set itemName="|cffff6800【伪】|r【卷轴】魂之丧剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I03Z'
+                set itemName="【卷轴】三代鬼彻"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I041'
+                set itemName="【卷轴】左轮手枪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I05K'
+                set itemName="|cffff6800【伪】|r黑足|cffff0000【智力】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I050'
+                set itemName="|cffff6800【伪】|r【卷轴】左轮手枪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I035'
+                set itemName="科勒恩的逃脱匕首"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06K'
+                set itemName="|cffff6800【伪】|r威霸"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I052'
+                set itemName="|cffff6800【伪】|r奥哈拉树枝"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06C'
+                set itemName="|cffff6800【伪】|r七尺十手"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5400)
+                call SaveInteger(ITEM_HT, itemId, 3, 800)
+    
+                set itemId='I043'
+                set itemName="|cffff6800【伪】|r|c00ff8040护贝|r Lv1"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05H'
+                set itemName="|cffff6800【伪】|r黑兜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I01Z'
+                set itemName="黑足|cffff0000【敏捷】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I00X'
+                set itemName="章鱼烧"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 185)
+                call SaveInteger(ITEM_HT, itemId, 3, 8)
+    
+                set itemId='I05W'
+                set itemName="|cffff6800【伪】|r力量戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02N'
+                set itemName="黄金钟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I02B'
+                set itemName="触鬼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06H'
+                set itemName="|cffff6800【伪】|r丝滑披风"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I016'
+                set itemName="廓尔格弯刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I024'
+                set itemName="飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4400)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I07H'
+                set itemName="|cffff6800【伪】|r监视电话虫口袋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I029'
+                set itemName="幽灵叹息"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02M'
+                set itemName="黑兜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I07C'
+                set itemName="|cffff6800【伪】|r天龙人勋章"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1000)
+                call SaveInteger(ITEM_HT, itemId, 3, 200)
+    
+                set itemId='I027'
+                set itemName="叶子"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I07A'
+                set itemName="|cffff6800【伪】|r黄金钟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I009'
+                set itemName="正义旗帜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01O'
+                set itemName="火烈鸟大氅"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04G'
+                set itemName="|cffff6800【伪】|r【卷轴】黄金甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I026'
+                set itemName="哲谱红靴|cffff0000【心灵形态】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1725)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00O'
+                set itemName="恢复指环"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 325)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I07F'
+                set itemName="吸血剑"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2500)
+                call SaveInteger(ITEM_HT, itemId, 3, 300)
+    
+                set itemId='I056'
+                set itemName="|cffff6800【伪】|r毒爪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5385)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I03E'
+                set itemName="【卷轴】黄金钟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I028'
+                set itemName="海皇类之心"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05A'
+                set itemName="|cffff6800【伪】|r海皇类之心"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00B'
+                set itemName="小戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 60)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02J'
+                set itemName="秋水"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5600)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I007'
+                set itemName="隐身神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I013'
+                set itemName="浮蜥唾液"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 125)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I072'
+                set itemName="|cffff6800【伪】|r正义大氅"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I001'
+                set itemName="小型治愈神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I058'
+                set itemName="|cffff6800【伪】|r甘迪披风"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04B'
+                set itemName="|cffff6800【伪】|r【卷轴】毒爪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1100)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I017'
+                set itemName="加速手套"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01E'
+                set itemName="|c00ff8040护贝|r Lv1"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02P'
+                set itemName="鬼哭"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5760)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I01C'
+                set itemName="小盾牌"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 4)
+    
+                set itemId='I049'
+                set itemName="|cffff6800【伪】|r【卷轴】点金"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I004'
+                set itemName="速度神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I010'
+                set itemName="淡水桶"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00W'
+                set itemName="三明治"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 175)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03U'
+                set itemName="【卷轴】时雨"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I014'
+                set itemName="海蛇毒液"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 135)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01N'
+                set itemName="正义大氅"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I05I'
+                set itemName="|cffff6800【伪】|r黑足|cffff0000【力量】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I015'
+                set itemName="登船斧"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I032'
+                set itemName="奥哈拉树枝"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I034'
+                set itemName="监察电话虫"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I068'
+                set itemName="|cffff6800【伪】|r魔法天候棒|cffff0000【Lv5】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 8500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I02V'
+                set itemName="三代鬼彻"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5000)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I07E'
+                set itemName="|cffff6800【伪】|r晕锤"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2550)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I05D'
+                set itemName="|cffff6800【伪】|r海神之心【破损】"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01S'
+                set itemName="鳍露"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I047'
+                set itemName="|cffff6800【伪】|r|c00ff8040护贝|r Lv5"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I074'
+                set itemName="|cffff6800【伪】|r智力戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I048'
+                set itemName="|cffff6800【伪】|r【卷轴】触鬼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06S'
+                set itemName="|cffff6800【伪】|r炎阳铠甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3600)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I02X'
+                set itemName="海神之心"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5500)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I037'
+                set itemName="丝滑披风"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I060'
+                set itemName="|cffff6800【伪】|r旅行者之衣"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 4400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06T'
+                set itemName="|cffff6800【伪】|r偃月大砍刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 7450)
+                call SaveInteger(ITEM_HT, itemId, 3, 1500)
+    
+                set itemId='I02O'
+                set itemName="诺诺大人棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5500)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I02Q'
+                set itemName="魔法天候棒|cffff0000【Lv1】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2100)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I05G'
+                set itemName="|cffff6800【伪】|r黑刀 夜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5700)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I05J'
+                set itemName="|cffff6800【伪】|r黑足|cffff0000【敏捷】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I07D'
+                set itemName="晕锤"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2550)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I033'
+                set itemName="洛泉之瓶 空瓶"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 925)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I03X'
+                set itemName="【卷轴】鬼哭"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 500)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I000'
+                set itemName="小型治疗神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I046'
+                set itemName="|cffff6800【伪】|r|c00ff8040护贝|r Lv4"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00M'
+                set itemName="贤者宝石"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00C'
+                set itemName="力量戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05B'
+                set itemName="|cffff6800【伪】|r海楼石"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I022'
+                set itemName="泡行车"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1600)
+                call SaveInteger(ITEM_HT, itemId, 3, 350)
+    
+                set itemId='I05U'
+                set itemName="|cffff6800【伪】|r廓尔格弯刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I05P'
+                set itemName="|cffff6800【伪】|r火烈鸟大氅"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5600)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I079'
+                set itemName="森林之眼"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 10888)
+                call SaveInteger(ITEM_HT, itemId, 3, 8888)
+    
+                set itemId='I011'
+                set itemName="洛树琼浆"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 212)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01B'
+                set itemName="枯木"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00N'
+                set itemName="艺人面罩"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 200)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I036'
+                set itemName="追云飞鸟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6400)
+                call SaveInteger(ITEM_HT, itemId, 3, 1800)
+    
+                set itemId='I059'
+                set itemName="|cffff6800【伪】|r鬼哭"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5760)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I01V'
+                set itemName="霸气修行"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 4000)
+    
+                set itemId='I00Z'
+                set itemName="洛泉之瓶"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 925)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04V'
+                set itemName="|cffff6800【伪】|r【卷轴】偃月大砍刀"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1500)
+    
+                set itemId='I02U'
+                set itemName="魔法天候棒|cffff0000【Lv5】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 8500)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I078'
+                set itemName="|cffff6800【伪】|r科勒恩的逃脱匕首"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I071'
+                set itemName="|cffff6800【伪】|r哲谱红靴|cffff0000【心灵形态】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1725)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I012'
+                set itemName="绳索"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 220)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I06P'
+                set itemName="|cffff6800【伪】|r小戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 60)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04F'
+                set itemName="|cffff6800【伪】|r【卷轴】黑足"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I070'
+                set itemName="|cffff6800【伪】|r哲谱红靴|cffff0000【物理形态】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1725)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04H'
+                set itemName="|cffff6800【伪】|r【卷轴】黄金钟"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 0)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I06W'
+                set itemName="|cffff6800【伪】|r樱十"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 1250)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I069'
+                set itemName="|cffff6800【伪】|r诺诺大人棒"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5500)
+                call SaveInteger(ITEM_HT, itemId, 3, 600)
+    
+                set itemId='I03G'
+                set itemName="【卷轴】黑足"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 100)
+    
+                set itemId='I02E'
+                set itemName="毒爪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5385)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I00I'
+                set itemName="智慧头饰"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 700)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01J'
+                set itemName="航海服"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I003'
+                set itemName="金币神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 150)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04A'
+                set itemName="|cffff6800【伪】|r【卷轴】电话虫口袋"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 350)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I077'
+                set itemName="|cffff6800【伪】|r左轮手枪"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6800)
+                call SaveInteger(ITEM_HT, itemId, 3, 1200)
+    
+                set itemId='I02T'
+                set itemName="魔法天候棒|cffff0000【Lv4】|r"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 6900)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I006'
+                set itemName="治愈神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02K'
+                set itemName="和道一文字"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 5400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I02C'
+                set itemName="味贝"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 2000)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I002'
+                set itemName="恢复神符"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 100)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I01R'
+                set itemName="胜利旗帜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 220)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I04E'
+                set itemName="|cffff6800【伪】|r【卷轴】黑兜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 550)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I05M'
+                set itemName="|cffff6800【伪】|r黄金甲"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 3400)
+                call SaveInteger(ITEM_HT, itemId, 3, 500)
+    
+                set itemId='I03P'
+                set itemName="【卷轴】黑兜"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 550)
+                call SaveInteger(ITEM_HT, itemId, 3, 1000)
+    
+                set itemId='I05E'
+                set itemName="|cffff6800【伪】|r航海服"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 800)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I062'
+                set itemName="|cffff6800【伪】|r敏捷戒指"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 300)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
+    
+                set itemId='I00R'
+                set itemName="甘迪披风"
+                call SaveInteger(ITEM_HT, StringHash(itemName), 0, itemId)
+                call SaveInteger(ITEM_HT, itemId, 1, itemId)
+                call SaveInteger(ITEM_HT, itemId, 2, 400)
+                call SaveInteger(ITEM_HT, itemId, 3, 0)
     
     
 endfunction
@@ -3667,15 +4043,15 @@ endfunction
     endfunction
     //获取鼠标在地图中的x轴
      function GetMouseX takes nothing returns real
-        call SaveStr(japi_ht, japi__key, 0, "()R")
+        call SaveStr(japi_ht, japi___key, 0, "()R")
         call Call("GetMouseX")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
     endfunction
     //获取鼠标在地图中的y轴
      function GetMouseY takes nothing returns real
-        call SaveStr(japi_ht, japi__key, 0, "()R")
+        call SaveStr(japi_ht, japi___key, 0, "()R")
         call Call("GetMouseY")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
     endfunction
     
     
@@ -3683,11 +4059,11 @@ endfunction
     
     //==========================================================================
      function EXGetUnitAbility takes unit u,integer abilityId returns integer
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(u))
-        call SaveInteger(japi_ht, japi__key, 2, abilityId)
-        call SaveStr(japi_ht, japi__key, 0, "(II)I")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(u))
+        call SaveInteger(japi_ht, japi___key, 2, abilityId)
+        call SaveStr(japi_ht, japi___key, 0, "(II)I")
         call Call("EXGetUnitAbility")
-        return LoadInteger(japi_ht, japi__key, 0)
+        return LoadInteger(japi_ht, japi___key, 0)
     endfunction
     
     // yd japi ==================================================================
@@ -3695,83 +4071,83 @@ endfunction
     
     ///<summary>技能属性 [JAPI]</summary>
   function YDWEGetUnitAbilityState takes unit u,integer abilcode,integer data_type returns real
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, data_type)
-        call SaveStr(japi_ht, japi__key, 0, "(II)R")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, data_type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)R")
         call Call("EXGetAbilityState")
-		return LoadReal(japi_ht, japi__key, 0)
+		return LoadReal(japi_ht, japi___key, 0)
 	endfunction
 	///<summary>技能数据 (整数) [JAPI]</summary>
   function YDWEGetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type returns integer
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveStr(japi_ht, japi__key, 0, "(III)I")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveStr(japi_ht, japi___key, 0, "(III)I")
         call Call("EXGetAbilityDataInteger")
-		return LoadInteger(japi_ht, japi__key, 0)
+		return LoadInteger(japi_ht, japi___key, 0)
 	endfunction
 	///<summary>技能数据 (实数) [JAPI]</summary>
   function YDWEGetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type returns real
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveStr(japi_ht, japi__key, 0, "(III)R")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveStr(japi_ht, japi___key, 0, "(III)R")
         call Call("EXGetAbilityDataReal")
-		return LoadReal(japi_ht, japi__key, 0)
+		return LoadReal(japi_ht, japi___key, 0)
     endfunction
 	///<summary>技能数据 (字符串) [JAPI]</summary>
   function YDWEGetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type returns string
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveStr(japi_ht, japi__key, 0, "(III)S")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveStr(japi_ht, japi___key, 0, "(III)S")
         call Call("EXGetAbilityDataString")
-		return LoadStr(japi_ht, japi__key, 0)
+		return LoadStr(japi_ht, japi___key, 0)
 	endfunction
 	///<summary>设置技能属性 [JAPI]</summary>
   function YDWESetUnitAbilityState takes unit u,integer abilcode,integer data_type,real value returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, data_type)
-        call SaveReal(japi_ht, japi__key, 3, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIR)V")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, data_type)
+        call SaveReal(japi_ht, japi___key, 3, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIR)V")
         call Call("EXSetAbilityState")
     endfunction
 	///<summary>设置技能数据 (整数) [JAPI]</summary>
   function YDWESetUnitAbilityDataInteger takes unit u,integer abilcode,integer level,integer data_type,integer value returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveInteger(japi_ht, japi__key, 4, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIII)V")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveInteger(japi_ht, japi___key, 4, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIII)V")
         call Call("EXSetAbilityDataInteger")
     endfunction
 	///<summary>设置技能数据 (实数) [JAPI]</summary>
   function YDWESetUnitAbilityDataReal takes unit u,integer abilcode,integer level,integer data_type,real value returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveReal(japi_ht, japi__key, 4, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIIR)V")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveReal(japi_ht, japi___key, 4, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIIR)V")
         call Call("EXSetAbilityDataReal")
     endfunction
 	///<summary>设置技能数据 (字符串) [JAPI]</summary>
   function YDWESetUnitAbilityDataString takes unit u,integer abilcode,integer level,integer data_type,string value returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, EXGetUnitAbility(u , abilcode))
-        call SaveInteger(japi_ht, japi__key, 2, level)
-        call SaveInteger(japi_ht, japi__key, 3, data_type)
-        call SaveStr(japi_ht, japi__key, 4, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIIS)V")
+        call SaveInteger(japi_ht, japi___key, 1, EXGetUnitAbility(u , abilcode))
+        call SaveInteger(japi_ht, japi___key, 2, level)
+        call SaveInteger(japi_ht, japi___key, 3, data_type)
+        call SaveStr(japi_ht, japi___key, 4, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIIS)V")
         call Call("EXSetAbilityDataString")
     endfunction
 	
     
     //设置技能变身数据A
      function EXSetAbilityAEmeDataA takes integer ability_handle,integer value returns boolean
-        call SaveInteger(japi_ht, japi__key, 1, ability_handle)
-        call SaveInteger(japi_ht, japi__key, 2, value)
-        call SaveStr(japi_ht, japi__key, 0, "(II)B")
+        call SaveInteger(japi_ht, japi___key, 1, ability_handle)
+        call SaveInteger(japi_ht, japi___key, 2, value)
+        call SaveStr(japi_ht, japi___key, 0, "(II)B")
         call Call("EXSetAbilityAEmeDataA")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     
     //单位变身
@@ -3789,112 +4165,112 @@ endfunction
     
     //暂停单位
      function EXPauseUnit takes unit unit_handle,boolean flag returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
-        call SaveBoolean(japi_ht, japi__key, 2, flag)
-        call SaveStr(japi_ht, japi__key, 0, "(IB)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
+        call SaveBoolean(japi_ht, japi___key, 2, flag)
+        call SaveStr(japi_ht, japi___key, 0, "(IB)V")
         call Call("EXPauseUnit")
     endfunction
     
     //获取单位字符串
      function EXGetUnitString takes integer unitcode,integer Type returns string
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(II)S")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)S")
         call Call("EXGetUnitString")
-        return LoadStr(japi_ht, japi__key, 0)
+        return LoadStr(japi_ht, japi___key, 0)
     endfunction
     
        //设置单位字符串
      function EXSetUnitString takes integer unitcode,integer Type,string value returns boolean
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 3, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIS)B")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 3, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIS)B")
         call Call("EXSetUnitString")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     
     //获取单位实数
      function EXGetUnitReal takes integer unitcode,integer Type returns real
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(II)R")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)R")
         call Call("EXGetUnitReal")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
     endfunction
     
     //设置单位实数
      function EXSetUnitReal takes integer unitcode,integer Type,real value returns boolean
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveReal(japi_ht, japi__key, 3, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIR)B")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveReal(japi_ht, japi___key, 3, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIR)B")
         call Call("EXSetUnitReal")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     
     
     //获取单位整数
      function EXGetUnitInteger takes integer unitcode,integer Type returns integer
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(II)I")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)I")
         call Call("EXGetUnitInteger")
-        return LoadInteger(japi_ht, japi__key, 0)
+        return LoadInteger(japi_ht, japi___key, 0)
     endfunction
     
     //设置单位整数
      function EXSetUnitInteger takes integer unitcode,integer Type,integer value returns boolean
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveInteger(japi_ht, japi__key, 3, value)
-        call SaveStr(japi_ht, japi__key, 0, "(III)B")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveInteger(japi_ht, japi___key, 3, value)
+        call SaveStr(japi_ht, japi___key, 0, "(III)B")
         call Call("EXSetUnitInteger")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     
         //获取单位数组字符串
      function EXGetUnitArrayString takes integer unitcode,integer Type,integer index returns string
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveInteger(japi_ht, japi__key, 3, index)
-        call SaveStr(japi_ht, japi__key, 0, "(III)S")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveInteger(japi_ht, japi___key, 3, index)
+        call SaveStr(japi_ht, japi___key, 0, "(III)S")
         call Call("EXGetUnitArrayString")
-        return LoadStr(japi_ht, japi__key, 0)
+        return LoadStr(japi_ht, japi___key, 0)
     endfunction
     
     //设置单位数组字符串
      function EXSetUnitArrayString takes integer unitcode,integer Type,integer index,string value returns boolean
-        call SaveInteger(japi_ht, japi__key, 1, unitcode)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveInteger(japi_ht, japi__key, 3, index)
-        call SaveStr(japi_ht, japi__key, 4, value)
-        call SaveStr(japi_ht, japi__key, 0, "(IIIS)B")
+        call SaveInteger(japi_ht, japi___key, 1, unitcode)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveInteger(japi_ht, japi___key, 3, index)
+        call SaveStr(japi_ht, japi___key, 4, value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIIS)B")
         call Call("EXSetUnitArrayString")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     //设置单位面向角度(立即转向)
      function EXSetUnitFacing takes unit unit_handle,real angle returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
-        call SaveReal(japi_ht, japi__key, 2, angle)
-        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
+        call SaveReal(japi_ht, japi___key, 2, angle)
+        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
         call Call("EXSetUnitFacing")
     endfunction
     
     //设置单位碰撞类型
      function EXSetUnitCollisionType takes boolean enable,unit unit_handle,integer Type returns nothing
-        call SaveBoolean(japi_ht, japi__key, 1, enable)
-        call SaveInteger(japi_ht, japi__key, 2, GetHandleId(unit_handle))
-        call SaveInteger(japi_ht, japi__key, 3, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(BII)V")
+        call SaveBoolean(japi_ht, japi___key, 1, enable)
+        call SaveInteger(japi_ht, japi___key, 2, GetHandleId(unit_handle))
+        call SaveInteger(japi_ht, japi___key, 3, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(BII)V")
         call Call("EXSetUnitCollisionType")
     endfunction
     
     //设置单位移动类型
      function EXSetUnitMoveType takes unit unit_handle,integer Type returns nothing
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(unit_handle))
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(II)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(unit_handle))
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)V")
         call Call("EXSetUnitMoveType")
     endfunction
     
@@ -3910,18 +4286,18 @@ endfunction
     
     //获取伤害数据
      function EXGetEventDamageData takes integer Type returns integer
-        call SaveInteger(japi_ht, japi__key, 1, Type)
-        call SaveStr(japi_ht, japi__key, 0, "(I)I")
+        call SaveInteger(japi_ht, japi___key, 1, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(I)I")
         call Call("EXGetEventDamageData")
-        return LoadInteger(japi_ht, japi__key, 0)
+        return LoadInteger(japi_ht, japi___key, 0)
     endfunction
 	
     //设置伤害
      function EXSetEventDamage takes real Damage returns boolean
-        call SaveReal(japi_ht, japi__key, 1, Damage)
-        call SaveStr(japi_ht, japi__key, 0, "(R)B")
+        call SaveReal(japi_ht, japi___key, 1, Damage)
+        call SaveStr(japi_ht, japi___key, 0, "(R)B")
         call Call("EXSetEventDamage")
-        return LoadBoolean(japi_ht, japi__key, 0)
+        return LoadBoolean(japi_ht, japi___key, 0)
     endfunction
     
     //判断是否是物理伤害
@@ -3961,167 +4337,167 @@ endfunction
     
     ///<summary>设置物品数据 (字符串) [JAPI]</summary>
      function YDWESetItemDataString takes integer ItemTypeId,integer Type,string Value returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IIS)V")
-        call SaveInteger(japi_ht, japi__key, 1, ItemTypeId)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
-        call SaveStr(japi_ht, japi__key, 3, Value)
+        call SaveStr(japi_ht, japi___key, 0, "(IIS)V")
+        call SaveInteger(japi_ht, japi___key, 1, ItemTypeId)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 3, Value)
         call Call("EXSetItemDataString")
     endfunction
     ///<summary>获取物品数据 (字符串) [JAPI]</summary>
      function YDWEGetItemDataString takes integer ItemTypeId,integer Type returns string
-        call SaveStr(japi_ht, japi__key, 0, "(II)S")
-        call SaveInteger(japi_ht, japi__key, 1, ItemTypeId)
-        call SaveInteger(japi_ht, japi__key, 2, Type)
+        call SaveStr(japi_ht, japi___key, 0, "(II)S")
+        call SaveInteger(japi_ht, japi___key, 1, ItemTypeId)
+        call SaveInteger(japi_ht, japi___key, 2, Type)
         call Call("EXGetItemDataString")
-        return LoadStr(japi_ht, japi__key, 0)
+        return LoadStr(japi_ht, japi___key, 0)
     endfunction
     
     //特效--------------------------------------------------------
     
     ///<summary>设置特效坐标 [JAPI]</summary>
      function EXSetEffectXY takes effect Handle,real x,real y returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, x)
-        call SaveReal(japi_ht, japi__key, 3, y)
+        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, x)
+        call SaveReal(japi_ht, japi___key, 3, y)
         call Call("EXSetEffectXY")
     endfunction
     
     ///<summary>设置特效Z轴 [JAPI]</summary>
      function EXSetEffectZ takes effect Handle,real z returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, z)
+        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, z)
 		call Call("EXSetEffectZ")
 	endfunction
     
     ///<summary>获取特效X轴 [JAPI]</summary>
      function EXGetEffectX takes effect Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectX")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
     ///<summary>获取特效Y轴 [JAPI]</summary>
   function EXGetEffectY takes effect Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectY")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
     ///<summary>获取特效Z轴 [JAPI]</summary>
   function EXGetEffectZ takes effect Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectZ")
-		return LoadReal(japi_ht, japi__key, 0)
+		return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
     ///<summary>设置特效尺寸 [JAPI]</summary>
   function EXSetEffectSize takes effect Handle,real size returns nothing
-		call SaveStr(japi_ht, japi__key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, size)
+		call SaveStr(japi_ht, japi___key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, size)
         call Call("EXSetEffectSize")
 	endfunction
     
     ///<summary>获取特效尺寸 [JAPI]</summary>
   function EXGetEffectSize takes effect Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectSize")
-		return LoadReal(japi_ht, japi__key, 0)
+		return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
     ///<summary>设置特效X旋转轴 [JAPI]</summary>
   function EXEffectMatRotateX takes effect Handle,real x returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, x)
+        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, x)
         call Call("EXEffectMatRotateX")
 	endfunction
     
     ///<summary>设置特效Y旋转轴 [JAPI]</summary>
   function EXEffectMatRotateY takes effect Handle,real y returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, y)
+        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, y)
         call Call("EXEffectMatRotateY")
 	endfunction
     
     ///<summary>设置特效Z旋转轴 [JAPI]</summary>
   function EXEffectMatRotateZ takes effect Handle,real z returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, z)
+        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, z)
         call Call("EXEffectMatRotateZ")
 	endfunction
     
     ///<summary>设置特效比例 [JAPI]</summary>
   function EXEffectMatScale takes effect Handle,real x,real y,real z returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IRRR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, x)
-        call SaveReal(japi_ht, japi__key, 3, y)
-        call SaveReal(japi_ht, japi__key, 4, z)
+        call SaveStr(japi_ht, japi___key, 0, "(IRRR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, x)
+        call SaveReal(japi_ht, japi___key, 3, y)
+        call SaveReal(japi_ht, japi___key, 4, z)
         call Call("EXEffectMatScale")
 	endfunction
     
     ///<summary>设置特效重置 [JAPI]</summary>
   function EXEffectMatReset takes effect Handle returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(I)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXEffectMatReset")
 	endfunction
     
     ///<summary>设置特效速率 [JAPI]</summary>
   function EXSetEffectSpeed takes effect Handle,real speed returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, speed)
+        call SaveStr(japi_ht, japi___key, 0, "(IR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, speed)
         call Call("EXSetEffectSpeed")
 	endfunction
     
     ///<summary>设置可追踪物坐标 [JAPI]</summary>
      function EXSetTrackableXY takes trackable Handle,real x,real y returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IRR)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
-        call SaveReal(japi_ht, japi__key, 2, x)
-        call SaveReal(japi_ht, japi__key, 3, y)
+        call SaveStr(japi_ht, japi___key, 0, "(IRR)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
+        call SaveReal(japi_ht, japi___key, 2, x)
+        call SaveReal(japi_ht, japi___key, 3, y)
         call Call("EXSetEffectXY")
     endfunction
     
     
     ///<summary>获取可追踪物X轴 [JAPI]</summary>
      function EXGetTrackableX takes trackable Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectX")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
     ///<summary>获取可追踪物Y轴 [JAPI]</summary>
   function EXGetTrackableY takes trackable Handle returns real
-        call SaveStr(japi_ht, japi__key, 0, "(I)R")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(Handle))
+        call SaveStr(japi_ht, japi___key, 0, "(I)R")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(Handle))
         call Call("EXGetEffectY")
-        return LoadReal(japi_ht, japi__key, 0)
+        return LoadReal(japi_ht, japi___key, 0)
 	endfunction
     
      function EXExecuteScript takes string str returns string
-        call SaveStr(japi_ht, japi__key, 0, "(S)S")
-        call SaveStr(japi_ht, japi__key, 1, str)
+        call SaveStr(japi_ht, japi___key, 0, "(S)S")
+        call SaveStr(japi_ht, japi___key, 1, str)
         call Call("EXExecuteScript")
-        return LoadStr(japi_ht, japi__key, 0)
+        return LoadStr(japi_ht, japi___key, 0)
     endfunction
     //-----------------模拟聊天----------------------------
      function EXDisplayChat takes player p,integer chat_recipient,string message returns nothing
-        call SaveStr(japi_ht, japi__key, 0, "(IIS)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetHandleId(p))
-        call SaveInteger(japi_ht, japi__key, 2, chat_recipient)
-        call SaveStr(japi_ht, japi__key, 3, message)
+        call SaveStr(japi_ht, japi___key, 0, "(IIS)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetHandleId(p))
+        call SaveInteger(japi_ht, japi___key, 2, chat_recipient)
+        call SaveStr(japi_ht, japi___key, 3, message)
         call Call("EXDisplayChat")
     endfunction
   function YDWEDisplayChat takes player p,integer chat_recipient,string message returns nothing
@@ -4132,21 +4508,21 @@ endfunction
     
     //获取魔兽版本
      function GetGameVersion takes nothing returns integer
-        call SaveStr(japi_ht, japi__key, 0, "()I")
+        call SaveStr(japi_ht, japi___key, 0, "()I")
         call Call("GetGameVersion")
-        return LoadInteger(japi_ht, japi__key, 0)
+        return LoadInteger(japi_ht, japi___key, 0)
     endfunction
     
     //获取插件版本
      function GetPluginVersion takes nothing returns string
-        call SaveStr(japi_ht, japi__key, 0, "()S")
+        call SaveStr(japi_ht, japi___key, 0, "()S")
         call Call("GetPluginVersion")
-        return LoadStr(japi_ht, japi__key, 0)
+        return LoadStr(japi_ht, japi___key, 0)
     endfunction
     
      function GetFuncAddr takes code f returns integer
         call SetHeroLevels(f)
-        return LoadInteger(japi_ht, japi__key, 0)
+        return LoadInteger(japi_ht, japi___key, 0)
     endfunction
     
      function japiDoNothing takes nothing returns nothing
@@ -4157,8 +4533,8 @@ endfunction
         call StartCampaignAI(Player(PLAYER_NEUTRAL_AGGRESSIVE), "callback")
         call Call(I2S(GetHandleId(japi_ht)))
         
-        call SaveStr(japi_ht, japi__key, 0, "(I)V")
-        call SaveInteger(japi_ht, japi__key, 1, GetFuncAddr(function japiDoNothing))
+        call SaveStr(japi_ht, japi___key, 0, "(I)V")
+        call SaveInteger(japi_ht, japi___key, 1, GetFuncAddr(function japiDoNothing))
         call Call("SaveFunc")
         return 0
     endfunction
@@ -4263,6 +4639,320 @@ function getPlayerColorNameById takes integer i returns string
 endfunction
 
 //library FuncForGame ends
+//library FuncForToast:
+
+function toastInfoTextToPlayer takes player p,string msg returns nothing
+    call DisplayTimedTextToPlayer(p, 0.5, 0, 1.2, "|cffffff00" + msg + "|r")
+endfunction
+
+function toastWarningTextToPlayer takes player p,string msg returns nothing
+    call DisplayTimedTextToPlayer(p, 0.5, 0, 1.2, "|cffff0000" + msg + "|r")
+endfunction
+
+function toastBuyingTitleTextToPlayer takes player p,integer itId,integer needGold,integer needLumber returns nothing
+    call DisplayTimedTextToPlayer(p, 0.3, 0, 3.6, "购买  " + getItemNameById(itId) + "  需  $|cffff6800" + I2S(getItemSoldGoldById(itId)) + "|r/赏|cff00a000" + I2S(getItemSoldLumberById(itId)) + "|r,缺少  $" + I2S(needGold) + "/赏" + I2S(needLumber))
+endfunction
+
+function toastBuyingContentTextToPlayer takes player p,integer itId,integer state returns nothing
+    call DisplayTimedTextToPlayer(p, 0.3, 0, 3.6, "    -" + getItemNameById(itId) + NEEDING_ITEM_STATE[state])
+endfunction
+
+function showMoneyTagToPlayerInPoint takes string s,real x,real y,real z,integer playerId returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, s, 0.024)
+	call SetTextTagPos(tag, x, y, z)
+    call SetTextTagColor(tag, 255, 255, 0, 255)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 1.2)
+    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
+        call SetTextTagVisibility(tag, true)
+    endif
+    set tag=null
+endfunction
+
+function showMoneyTagToPlayerOverUnit takes integer money,unit deader,integer playerId returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, "|cffffff00+ " + I2S(money) + "$|r", 0.024)
+    call SetTextTagPosUnit(tag, deader, 0.1)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 1.2)
+    if ( IsPlayerInForce(GetLocalPlayer(), bj_FORCE_PLAYER[playerId]) ) then
+        call SetTextTagVisibility(tag, true)
+    endif
+	set tag=null
+endfunction
+
+function showMissTagToPlayerOverUnit takes unit deader returns nothing
+ local texttag tag= CreateTextTag()
+	call SetTextTagText(tag, "|cffff0000Miss!|r", 0.024)
+    call SetTextTagPosUnit(tag, deader, 0.1)
+    call SetTextTagColor(tag, 255, 0, 0, 255)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.6)
+    call SetTextTagVisibility(tag, true)
+    
+	set tag=null
+endfunction
+//==============================暴击写在自己头上，伤害写在别人身上
+function changeTag_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    local texttag tag= LoadTextTagHandle(FuncForToast___toast_ht, pKey, 0)
+    local string s= LoadStr(FuncForToast___toast_ht, pKey, 1)
+    local real scale= LoadReal(FuncForToast___toast_ht, pKey, 2)
+    
+    call SetTextTagText(tag, s, scale)
+    
+    call FlushChildHashtable(FuncForToast___toast_ht, pKey)
+    call DestroyTimer(t)
+    set t=null
+endfunction
+
+function showPhysicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, injureder, 0)
+    call SetTextTagVelocity(tag, 0, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.8)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.050)
+    call TimerStart(t, 0.12, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.030)
+    call TimerStart(t1, 0.25, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+
+function showMagicalCritTagToPlayerOverUnit takes unit injureder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "！|r"
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, injureder, 0.1)
+    call SetTextTagVelocity(tag, 0.01, 0.064)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.8)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.050)
+    call TimerStart(t, 0.12, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.030)
+    call TimerStart(t1, 0.25, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+
+function showShieldTagToPlayerOverUnit takes unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local timer t1= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffccffff-" + SubString(damageS, 0, StringLength(damageS) - 4) + "|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagVelocity(tag, 0.00, 0.032)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.6)
+    call SetTextTagVisibility(tag, true)
+    
+    set pKey=GetHandleId(t)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.030)
+    call TimerStart(t, 0.1, false, function changeTag_timer)
+    
+    set pKey=GetHandleId(t1)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 0, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 1, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 2, 0.024)
+    call TimerStart(t1, 0.20, false, function changeTag_timer)
+    
+    set t1=null
+    set t=null
+	set tag=null
+endfunction
+//==================================================
+function changeTagCoordinate_timer takes nothing returns nothing
+    local timer t= GetExpiredTimer()
+    local integer pKey= GetHandleId(t)
+    
+    local integer times= LoadInteger(FuncForToast___toast_ht, pKey, 0)
+    local real timerOut= LoadInteger(FuncForToast___toast_ht, pKey, 1)
+    local texttag tag= LoadTextTagHandle(FuncForToast___toast_ht, pKey, 2)
+    local string msg= LoadStr(FuncForToast___toast_ht, pKey, 3)
+    local real scale= LoadReal(FuncForToast___toast_ht, pKey, 4)
+    local real x= LoadReal(FuncForToast___toast_ht, pKey, 5)
+    local real y= LoadReal(FuncForToast___toast_ht, pKey, 6)
+    local real angle= LoadReal(FuncForToast___toast_ht, pKey, 7)
+    local boolean isRight= LoadBoolean(FuncForToast___toast_ht, pKey, 8)
+    local real radius= LoadReal(FuncForToast___toast_ht, pKey, 9)
+    local real shiftX= LoadReal(FuncForToast___toast_ht, pKey, 10)
+    
+    
+    if ( times < timerOut ) then
+        set times=times + 1
+        set angle=angle + 180 / timerOut
+        if ( isRight ) then
+            set x=x + shiftX
+        else
+            set x=x - shiftX
+        endif
+        set y=y + radius * CosBJ(angle)
+        if ( angle <= 90 ) then
+            set scale=scale + 0.002
+        else
+            set scale=scale - 0.003
+        endif
+        call SetTextTagText(tag, msg, scale)
+        call SetTextTagPos(tag, x, y, 0)
+        call SaveInteger(FuncForToast___toast_ht, pKey, 0, times)
+        call SaveReal(FuncForToast___toast_ht, pKey, 4, scale)
+        call SaveReal(FuncForToast___toast_ht, pKey, 5, x)
+        call SaveReal(FuncForToast___toast_ht, pKey, 6, y)
+        call SaveReal(FuncForToast___toast_ht, pKey, 7, angle)
+        call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    else
+        call FlushChildHashtable(FuncForToast___toast_ht, pKey)
+        call DestroyTimer(t)
+        call DestroyTextTag(tag)
+    endif
+    
+    set tag=null
+    set t=null
+endfunction
+
+function showPhysicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cffff0000" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    local real x1= GetUnitX(sourcer)
+    local real y1= GetUnitY(sourcer)
+    local boolean isRight= false
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagVisibility(tag, true)
+    
+    if ( x1 < x ) then
+        set isRight=true
+    endif
+    
+    set pKey=GetHandleId(t)
+    call SaveInteger(FuncForToast___toast_ht, pKey, 0, 0)
+    call SaveInteger(FuncForToast___toast_ht, pKey, 1, 12)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 2, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 3, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 4, 0.020)
+    call SaveReal(FuncForToast___toast_ht, pKey, 5, x)
+    call SaveReal(FuncForToast___toast_ht, pKey, 6, y)
+    call SaveReal(FuncForToast___toast_ht, pKey, 7, 0)
+    call SaveBoolean(FuncForToast___toast_ht, pKey, 8, isRight)
+    call SaveReal(FuncForToast___toast_ht, pKey, 9, 40)
+    call SaveReal(FuncForToast___toast_ht, pKey, 10, 10)
+    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    
+    set t=null
+	set tag=null
+endfunction
+
+function showMagicalDamageTagToPlayer takes unit sourcer,unit damageder,real damage returns nothing
+ local texttag tag= CreateTextTag()
+    local timer t= CreateTimer()
+    local integer pKey= 0
+    local string damageS= R2S(damage)
+    local string s= "|cff9090ff" + SubString(damageS, 0, StringLength(damageS) - 4) + "!|r"
+    local real x= GetUnitX(damageder)
+    local real y= GetUnitY(damageder)
+    local real x1= GetUnitX(sourcer)
+    local real y1= GetUnitY(sourcer)
+    local boolean isRight= false
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPos(tag, x, y, 0)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagVisibility(tag, true)
+    
+    if ( x1 < x ) then
+        set isRight=true
+    endif
+    
+    set pKey=GetHandleId(t)
+    call SaveInteger(FuncForToast___toast_ht, pKey, 0, 0)
+    call SaveInteger(FuncForToast___toast_ht, pKey, 1, 12)
+    call SaveTextTagHandle(FuncForToast___toast_ht, pKey, 2, tag)
+    call SaveStr(FuncForToast___toast_ht, pKey, 3, s)
+    call SaveReal(FuncForToast___toast_ht, pKey, 4, 0.020)
+    call SaveReal(FuncForToast___toast_ht, pKey, 5, x)
+    call SaveReal(FuncForToast___toast_ht, pKey, 6, y)
+    call SaveReal(FuncForToast___toast_ht, pKey, 7, 0)
+    call SaveBoolean(FuncForToast___toast_ht, pKey, 8, isRight)
+    call SaveReal(FuncForToast___toast_ht, pKey, 9, 36)
+    call SaveReal(FuncForToast___toast_ht, pKey, 10, 5)
+    call TimerStart(t, 0.05, false, function changeTagCoordinate_timer)
+    
+    set t=null
+	set tag=null
+endfunction
+//=====================================================治疗
+
+function showRecoveryLifeTagToPlayer takes unit target,real value returns nothing
+    local texttag tag= CreateTextTag()
+    local integer pKey= 0
+    local string valueS= R2S(value)
+    local string s= "|cff00ff00+" + SubString(valueS, 0, StringLength(valueS) - 4) + "|r"
+    
+    
+	call SetTextTagText(tag, s, 0.016)
+    call SetTextTagPosUnit(tag, target, 0)
+    call SetTextTagVelocity(tag, 0.00, 0.022)
+    call SetTextTagPermanent(tag, false)
+    call SetTextTagLifespan(tag, 0.24)
+    call SetTextTagVisibility(tag, true)
+    
+    set tag=null
+endfunction
+
+//library FuncForToast ends
 //library LocalActionLib:
     function LocalActionLib___Call takes string str returns nothing
         call UnitId(str)
@@ -4364,7 +5054,7 @@ endfunction
 //library LocalActionLib ends
 //library d3d:
     
-    function d3d__Call takes string str returns nothing
+    function d3d___Call takes string str returns nothing
         call UnitId(str)
     endfunction
     
@@ -4373,376 +5063,376 @@ endfunction
     
     //获取鼠标在屏幕的x轴
     function GetMouseVectorX takes nothing returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "()R")
-        call d3d__Call("GetMouseVectorX")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()R")
+        call d3d___Call("GetMouseVectorX")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取鼠标在屏幕的y轴
     function GetMouseVectorY takes nothing returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "()R")
-        call d3d__Call("GetMouseVectorY")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()R")
+        call d3d___Call("GetMouseVectorY")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取魔兽窗口宽
     function GetWindowWidth takes nothing returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "()I")
-        call d3d__Call("GetWindowWidth")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()I")
+        call d3d___Call("GetWindowWidth")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取魔兽窗口高
     function GetWindowHeight takes nothing returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "()I")
-        call d3d__Call("GetWindowHeight")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()I")
+        call d3d___Call("GetWindowHeight")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //16进制函数
     function Hex takes integer i returns string
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
-        call SaveInteger(d3d__ht, d3d__key, 1, i)
-        call d3d__Call("Hex")
-    return LoadStr(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
+        call SaveInteger(d3d___ht, d3d___key, 1, i)
+        call d3d___Call("Hex")
+    return LoadStr(d3d___ht, d3d___key, 0)
     endfunction
     
     //==================字体类================================
     //创建字体
     function CreateFont takes nothing returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "()I")
-        call d3d__Call("CreateFont")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()I")
+        call d3d___Call("CreateFont")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //销毁字体
     function DestroyFont takes integer font returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)V")
-        call d3d__Call("DestroyFont")
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)V")
+        call d3d___Call("DestroyFont")
     endfunction
     
     //获取字体宽
     function GetFontWidth takes integer font returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call d3d__Call("GetFontWidth")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call d3d___Call("GetFontWidth")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置字体宽
     function SetFontWidth takes integer font,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetFontWidth")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetFontWidth")
     endfunction
     
     //获取字体高
     function GetFontHeight takes integer font returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call d3d__Call("GetFontHeight")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call d3d___Call("GetFontHeight")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置字体高
     function SetFontHeight takes integer font,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetFontHeight")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetFontHeight")
     endfunction
     
     //获取字体粗细
     function GetFontWeight takes integer font returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call d3d__Call("GetFontWeight")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call d3d___Call("GetFontWeight")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置字体粗细
     function SetFontWeight takes integer font,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetFontWeight")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetFontWeight")
     endfunction
     
     //设置字体是否倾斜
     function SetFontItalic takes integer font,boolean value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveBoolean(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetFontItalic")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveBoolean(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetFontItalic")
     endfunction
     
     //获取字体类型
     function GetFontFaceName takes integer font returns string
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call d3d__Call("GetFontFaceName")
-        return LoadStr(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call d3d___Call("GetFontFaceName")
+        return LoadStr(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置字体类型
     function SetFontFaceName takes integer font,string value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveStr(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetFontFaceName")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveStr(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetFontFaceName")
     endfunction
     
     //==============写字类===========================
     //创建文字 参数是 字体 内容 屏幕坐标x y 存活时间 颜色值
     function CreateText takes integer font,string str,real x,real y,real time,integer color returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(ISRRRI)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, font)
-        call SaveStr(d3d__ht, d3d__key, 2, str)
-        call SaveReal(d3d__ht, d3d__key, 3, x)
-        call SaveReal(d3d__ht, d3d__key, 4, y)
-        call SaveReal(d3d__ht, d3d__key, 5, time)
-        call SaveInteger(d3d__ht, d3d__key, 6, color)
-        call d3d__Call("CreateText")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(ISRRRI)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, font)
+        call SaveStr(d3d___ht, d3d___key, 2, str)
+        call SaveReal(d3d___ht, d3d___key, 3, x)
+        call SaveReal(d3d___ht, d3d___key, 4, y)
+        call SaveReal(d3d___ht, d3d___key, 5, time)
+        call SaveInteger(d3d___ht, d3d___key, 6, color)
+        call d3d___Call("CreateText")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取文字内容
     function GetTextString takes integer text returns string
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)S")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call d3d__Call("GetTextString")
-        return LoadStr(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)S")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call d3d___Call("GetTextString")
+        return LoadStr(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置文字内容
     function SetTextString takes integer text,string str returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call SaveStr(d3d__ht, d3d__key, 2, str)
-        call d3d__Call("SetTextString")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call SaveStr(d3d___ht, d3d___key, 2, str)
+        call d3d___Call("SetTextString")
     endfunction
     
     //获取文字坐标x轴
     function GetTextX takes integer text returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call d3d__Call("GetTextX")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call d3d___Call("GetTextX")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置文字坐标x轴
     function SetTextX takes integer text,real x returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call SaveReal(d3d__ht, d3d__key, 2, x)
-        call d3d__Call("SetTextX")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call SaveReal(d3d___ht, d3d___key, 2, x)
+        call d3d___Call("SetTextX")
     endfunction
     
     //获取文字坐标y轴
     function GetTextY takes integer text returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call d3d__Call("GetTextY")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call d3d___Call("GetTextY")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置文字坐标y轴
     function SetTextY takes integer text,real y returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call SaveReal(d3d__ht, d3d__key, 2, y)
-        call d3d__Call("SetTextY")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call SaveReal(d3d___ht, d3d___key, 2, y)
+        call d3d___Call("SetTextY")
     endfunction
     
     //获取文字剩余存活时间
     function GetTextTime takes integer text returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call d3d__Call("GetTextTime")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call d3d___Call("GetTextTime")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置文字剩余存活时间
     function SetTextTime takes integer text,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextTime")
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextTime")
     endfunction
     
     //获取文字颜色 16进制 0xFFFFFFFF 前2位表示透明 后6位表示 红绿蓝
     function GetTextColor takes integer text returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call d3d__Call("GetTextColor")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call d3d___Call("GetTextColor")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置文字颜色 16进制
     function SetTextColor takes integer text,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, text)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextColor")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, text)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextColor")
     endfunction
     
     //创建屏幕图像 图像路径 相对魔兽窗口x轴 相对魔兽窗口y轴 相对魔兽窗口 宽度 相对魔兽窗口 高度 等级
     function CreateTexture takes string path,real x,real y,real width,real height,integer color,integer level returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(SRRRRII)I")
-        call SaveStr(d3d__ht, d3d__key, 1, path)
-        call SaveReal(d3d__ht, d3d__key, 2, x)
-        call SaveReal(d3d__ht, d3d__key, 3, y)
-        call SaveReal(d3d__ht, d3d__key, 4, width)
-        call SaveReal(d3d__ht, d3d__key, 5, height)
-        call SaveInteger(d3d__ht, d3d__key, 6, color)
-        call SaveInteger(d3d__ht, d3d__key, 7, level)
-        call d3d__Call("CreateTexture")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(SRRRRII)I")
+        call SaveStr(d3d___ht, d3d___key, 1, path)
+        call SaveReal(d3d___ht, d3d___key, 2, x)
+        call SaveReal(d3d___ht, d3d___key, 3, y)
+        call SaveReal(d3d___ht, d3d___key, 4, width)
+        call SaveReal(d3d___ht, d3d___key, 5, height)
+        call SaveInteger(d3d___ht, d3d___key, 6, color)
+        call SaveInteger(d3d___ht, d3d___key, 7, level)
+        call d3d___Call("CreateTexture")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //删除图像
     function DestroyTexture takes integer texture returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("DestroyTexture")
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("DestroyTexture")
     endfunction
     
     //获取图像相对魔兽窗口坐标x轴
     function GetTextureX takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureX")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureX")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像相对魔兽窗口坐标x轴
     function SetTextureX takes integer texture,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureX")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureX")
     endfunction
     
     //获取图像相对魔兽窗口坐标y轴
     function GetTextureY takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureY")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureY")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像相对魔兽窗口坐标y轴
     function SetTextureY takes integer texture,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureY")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureY")
     endfunction
     
     //获取图像相对魔兽窗口 宽度
     function GetTextureWidth takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureWidth")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureWidth")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像相对魔兽窗口 宽度
     function SetTextureWidth takes integer texture,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureWidth")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureWidth")
     endfunction
     
     //获取图像相对魔兽窗口 高度
     function GetTextureHeight takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureHeight")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureHeight")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像相对魔兽窗口 高度
     function SetTextureHeight takes integer texture,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureHeight")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureHeight")
     endfunction
     
     //获取图像颜色
     function GetTextureColor takes integer texture returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureColor")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureColor")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像颜色
     function SetTextureColor takes integer texture,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureColor")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureColor")
     endfunction
     
     //获取图像级别 级别越高 越上层显示
     function GetTextureLevel takes integer texture returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureLevel")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureLevel")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像级别 级别越高越上层显示
     function SetTextureLevel takes integer texture,integer value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveInteger(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureLevel")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveInteger(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureLevel")
     endfunction
     
     //获取图像旋转角度
     function GetTextureRotation takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureRotation")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureRotation")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图像旋转角度  参数 图像,角度  角度制
     function SetTextureRotation takes integer texture,real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IR)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveReal(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureRotation")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IR)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveReal(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureRotation")
     endfunction
     
     //获取图像像素的 宽
     function GetTexturePixelWidth takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTexturePixelWidth")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTexturePixelWidth")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取图像像素的 高  可以在  宽 * 高的矩形里进行切割
     function GetTexturePixelHeight takes integer texture returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)R")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTexturePixelWidth")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)R")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTexturePixelWidth")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //获取图形切割区域 默认完整的图形区域
     //注意！ 返回的rect 是handle 记得用 RemoveRect 排泄
     function GetTextureSrcRect takes integer texture returns rect
-        call SaveStr(d3d__ht, d3d__key, 0, "(I)Hrect;")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call d3d__Call("GetTextureSrcRect")
-        return LoadRectHandle(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(I)Hrect;")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call d3d___Call("GetTextureSrcRect")
+        return LoadRectHandle(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置图形切割区域  在原图片上按 rect 矩形进行切割
@@ -4750,35 +5440,35 @@ endfunction
     //比如 128*256的图片 完整的图片的 矩形应该是 左=0 下=0 右=128 上=256
     // 左上右下 表示 图片像素里的 宽跟高的范围
     function SetTextureSrcRect takes integer texture,rect value returns nothing
-        call RemoveSavedHandle(d3d__ht, d3d__key, 0)
-        call SaveStr(d3d__ht, d3d__key, 0, "(IHrect;)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveRectHandle(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureSrcRect")
+        call RemoveSavedHandle(d3d___ht, d3d___key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(IHrect;)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveRectHandle(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureSrcRect")
     endfunction
     
     //更改图像图形  参数 图像句柄 新的图形路径
     function SetTexture takes integer texture,string value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IS)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveStr(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTexture")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IS)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveStr(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTexture")
     endfunction
     
     //设置图像是否显示 隐藏 true显示  false隐藏
     function SetTextureShow takes integer texture,boolean value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveBoolean(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureShow")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveBoolean(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureShow")
     endfunction
     
     //设置图像是否响应事件 默认true 为开启触发状态 false为关闭触发
     function SetTextureTrigger takes integer texture,boolean value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveBoolean(d3d__ht, d3d__key, 2, value)
-        call d3d__Call("SetTextureTrigger")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveBoolean(d3d___ht, d3d___key, 2, value)
+        call d3d___Call("SetTextureTrigger")
     endfunction
     
     //开启图像的触发器
@@ -4831,29 +5521,29 @@ endfunction
     //返回事件句柄
     //==================================================
     function TextureAddEvent takes integer texture,integer order,code wCallBack,code lCallBack returns integer
-        call SaveStr(d3d__ht, d3d__key, 0, "(IIII)I")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveInteger(d3d__ht, d3d__key, 2, order)
-        call SaveInteger(d3d__ht, d3d__key, 3, GetFuncAddr(wCallBack))
-        call SaveInteger(d3d__ht, d3d__key, 4, GetFuncAddr(lCallBack))
-        call d3d__Call("TextureAddEvent")
-        return LoadInteger(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "(IIII)I")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveInteger(d3d___ht, d3d___key, 2, order)
+        call SaveInteger(d3d___ht, d3d___key, 3, GetFuncAddr(wCallBack))
+        call SaveInteger(d3d___ht, d3d___key, 4, GetFuncAddr(lCallBack))
+        call d3d___Call("TextureAddEvent")
+        return LoadInteger(d3d___ht, d3d___key, 0)
     endfunction
     
     //图像删除事件 参数 图像句柄 事件句柄
     function TextureRemoveEvent takes integer texture,integer Event returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(II)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, texture)
-        call SaveInteger(d3d__ht, d3d__key, 2, Event)
-        call d3d__Call("TextureRemoveEvent")
+        call SaveStr(d3d___ht, d3d___key, 0, "(II)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, texture)
+        call SaveInteger(d3d___ht, d3d___key, 2, Event)
+        call d3d___Call("TextureRemoveEvent")
     endfunction
     
     //设置键位状态 指定键位 按下或弹起状态  true为按下 false为弹起
     function SetKeyboard takes integer Key,boolean up returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(IB)V")
-        call SaveInteger(d3d__ht, d3d__key, 1, Key)
-        call SaveBoolean(d3d__ht, d3d__key, 2, up)
-        call d3d__Call("SetKeyboard")
+        call SaveStr(d3d___ht, d3d___key, 0, "(IB)V")
+        call SaveInteger(d3d___ht, d3d___key, 1, Key)
+        call SaveBoolean(d3d___ht, d3d___key, 2, up)
+        call d3d___Call("SetKeyboard")
     endfunction
     
     // 模拟按键  按下 弹起 模拟1次点击
@@ -4870,22 +5560,22 @@ endfunction
     
     //获取响应的键位
     function GetTriggerKeyboard takes nothing returns integer
-        return LoadInteger(d3d__ht, GetEventIndex(), 0x100)
+        return LoadInteger(d3d___ht, GetEventIndex(), 0x100)
     endfunction
     
     //获取触发图像
     function GetTriggerTexture takes nothing returns integer
-        return LoadInteger(d3d__ht, GetEventIndex(), 0xff)
+        return LoadInteger(d3d___ht, GetEventIndex(), 0xff)
     endfunction
     
     //获取响应事件
     function GetTriggerEvent takes nothing returns integer
-        return LoadInteger(d3d__ht, GetEventIndex(), 0xfe)
+        return LoadInteger(d3d___ht, GetEventIndex(), 0xfe)
     endfunction
     
     // 获取响应的键盘操作 按下为true 弹起为false
     function GetTriggerKeyboardAction takes nothing returns boolean
-        if ( LoadInteger(d3d__ht, GetEventIndex(), 0x101) == 0 ) then
+        if ( LoadInteger(d3d___ht, GetEventIndex(), 0x101) == 0 ) then
             return false
         endif
         return true
@@ -4894,37 +5584,37 @@ endfunction
     //====================魔兽控制台UI=============================
     //设置是否隐藏控制台UI true为隐藏 false为恢复
     function ShowConsole takes boolean show returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(B)V")
-        call SaveBoolean(d3d__ht, d3d__key, 1, show)
-        call d3d__Call("ShowConsole")
+        call SaveStr(d3d___ht, d3d___key, 0, "(B)V")
+        call SaveBoolean(d3d___ht, d3d___key, 1, show)
+        call d3d___Call("ShowConsole")
     endfunction
     
     //获取小地图图形位置X轴向量
     function GetLittleMapX takes nothing returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "()R")
-        call d3d__Call("GetLittleMapX")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()R")
+        call d3d___Call("GetLittleMapX")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置小地图图形位置X轴向量
     function SetLittleMapX takes real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(R)V")
-        call SaveReal(d3d__ht, d3d__key, 1, value)
-        call d3d__Call("SetLittleMapX")
+        call SaveStr(d3d___ht, d3d___key, 0, "(R)V")
+        call SaveReal(d3d___ht, d3d___key, 1, value)
+        call d3d___Call("SetLittleMapX")
     endfunction
     
     //获取小地图图形位置y轴向量
     function GetLittleMapY takes nothing returns real
-        call SaveStr(d3d__ht, d3d__key, 0, "()R")
-        call d3d__Call("GetLittleMapY")
-        return LoadReal(d3d__ht, d3d__key, 0)
+        call SaveStr(d3d___ht, d3d___key, 0, "()R")
+        call d3d___Call("GetLittleMapY")
+        return LoadReal(d3d___ht, d3d___key, 0)
     endfunction
     
     //设置小地图图形位置Y轴向量
     function SetLittleMapY takes real value returns nothing
-        call SaveStr(d3d__ht, d3d__key, 0, "(R)V")
-        call SaveReal(d3d__ht, d3d__key, 1, value)
-        call d3d__Call("SetLittleMapY")
+        call SaveStr(d3d___ht, d3d___key, 0, "(R)V")
+        call SaveReal(d3d___ht, d3d___key, 1, value)
+        call d3d___Call("SetLittleMapY")
     endfunction
     
     //====================字体结构体的封装=============================
@@ -4988,12 +5678,12 @@ endfunction
 function FuncForDamage_killUnit_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
     local integer pKey= GetHandleId(t)
-    local unit u= LoadUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0)
+    local unit u= LoadUnitHandle(FuncForDamage___FuncForDamage_ht, pKey, 0)
     
     call KillUnit(u)
     call RemoveUnit(u)
     
-    call FlushChildHashtable(FuncForDamage__FuncForDamage_ht, pKey)
+    call FlushChildHashtable(FuncForDamage___FuncForDamage_ht, pKey)
     call DestroyTimer(t)
     set u=null
     set t=null
@@ -5005,7 +5695,7 @@ function FuncForDamage_damageUnit takes player p,integer unitId,unit target,dama
     local real x= GetUnitX(target)
     local real y= GetUnitY(target)
     local unit u= CreateUnit(p, unitId, x, y, 0)
-    call SaveUnitHandle(FuncForDamage__FuncForDamage_ht, pKey, 0, u)
+    call SaveUnitHandle(FuncForDamage___FuncForDamage_ht, pKey, 0, u)
     call UnitDamageTarget(u, target, damage, true, false, ATTACK_TYPE_MELEE, damageType, WEAPON_TYPE_WHOKNOWS)
     call TimerStart(t, 0.1, false, function FuncForDamage_killUnit_timer)
     
@@ -5103,6 +5793,22 @@ function setPlayerCurrentLumber takes player p,integer count returns boolean
     call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, count)
     
     return true
+endfunction
+//===========================================================================
+
+function reducePlayerCurrentGold takes player p,integer count returns nothing
+    local integer array iTemp
+    
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) - count
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, iTemp[0])
+endfunction
+//===========================================================================
+
+function reducePlayerCurrentLumber takes player p,integer count returns nothing
+    local integer array iTemp
+    
+    set iTemp[0]=GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER) - count
+    call SetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER, iTemp[0])
 endfunction
 //===========================================================================
 
@@ -5212,6 +5918,182 @@ function isCreepBoss takes integer unitType returns boolean
 endfunction
 
 //library FuncForCreep ends
+//library FuncForItemModule:
+function unitBuyOverlyingItem takes unit u,integer itId,integer money,integer lumber returns nothing
+    local player p= GetOwningPlayer(u)
+    
+    if ( isUnitHasItemById(u , itId) ) then
+        call setUnitItemChargesById(u , itId , getUnitItemChargesById(u , itId) + 1)
+    else
+        if ( isHasFillItems(u) ) then
+            call toastWarningTextToPlayer(p , "物品格已满!")
+            call AdjustPlayerStateBJ(money, p, PLAYER_STATE_RESOURCE_GOLD)
+            call AdjustPlayerStateBJ(lumber, p, PLAYER_STATE_RESOURCE_LUMBER)
+        else
+            call unitAddItemById(u , itId)
+        endif
+    endif
+    
+    set u=null
+    set p=null
+endfunction
+function soldItemToUnitById takes unit u,integer itId returns nothing
+    local player p= GetOwningPlayer(u)
+    local integer money= getItemSoldGoldById(itId)
+    local integer lumber= getItemSoldLumberById(itId)
+    if ( GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) < money or GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER) < lumber ) then
+        set p=null
+        call toastWarningTextToPlayer(p , "您的金钱不够！！")
+        return
+    endif
+    call unitAddItemById(u , itId)
+    call reducePlayerCurrentGold(p , money)
+    call reducePlayerCurrentLumber(p , lumber)
+    set p=null
+endfunction
+function soldItemToUnitOnPricesById takes unit u,integer itId,integer money,integer lumber returns nothing
+    local player p= GetOwningPlayer(u)
+    if ( GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) < money or GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER) < lumber ) then
+        set p=null
+        call toastWarningTextToPlayer(p , "您的金钱不够！！")
+        return
+    endif
+    call unitAddItemById(u , itId)
+    call reducePlayerCurrentGold(p , money)
+    call reducePlayerCurrentLumber(p , lumber)
+    set p=null
+endfunction
+function unitDirectBuyFusedItem takes unit u,integer wantingItemId returns boolean
+    local player p= GetOwningPlayer(u)
+    local integer array needingItemStateCode
+    local integer fusedItemSoldMoney= getItemSoldGoldById(wantingItemId)
+    local integer fusedItemSoldLumber= getItemSoldLumberById(wantingItemId)
+    local integer pMoney= GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
+    local integer pLumber= GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
+    local integer havingItemMoney= 0
+    local integer havingItemLumber= 0
+    local integer array soldMoney
+    local integer array soldLumber
+    local integer needMoney= 0
+    local integer needLumber= 0
+    local integer elementCounts= getFuseItemElementTypeCounts(wantingItemId) * 2
+    local integer array elementItemId
+    local integer array elementItemCounts
+    local integer i= 0
+    local integer j= 0
+    local integer k= 0
+    local integer itemCounts= 0
+    
+    if ( not IsUnitType(u, UNIT_TYPE_HERO) ) then
+        set wantingItemId=getSurrenalItemIdById(wantingItemId)
+    endif
+    
+    loop
+        exitwhen i > elementCounts - 1
+        set elementItemId[k]=getFusedItemElementItemId(wantingItemId , i + 1)
+        set elementItemCounts[i]=getFusedItemElementItemCounts(wantingItemId , i + 2)
+        set itemCounts=getUnitItemCountById(u , elementItemId[k])
+        if ( itemCounts < elementItemCounts[i] ) then
+        //材料没有或者不够
+            set j=0
+            loop
+                exitwhen j > elementItemCounts[i] - 1
+                set elementItemId[k]=getFusedItemElementItemId(wantingItemId , i + 1)
+                set soldMoney[k]=getItemSoldGoldById(elementItemId[k])
+                set soldLumber[k]=getItemSoldLumberById(elementItemId[k])
+                if ( j < itemCounts and itemCounts != 0 ) then
+                    set needingItemStateCode[k]=0
+                    set havingItemMoney=havingItemMoney + soldMoney[k]
+                    set havingItemLumber=havingItemLumber + soldLumber[k]
+                else
+                    if ( pMoney >= soldMoney[k] and pLumber >= soldLumber[k] ) then
+                        set needingItemStateCode[k]=2
+                    else
+                        set needingItemStateCode[k]=1
+                    endif
+                endif
+                set k=k + 1
+                set j=j + 1
+            endloop
+        else
+            set j=0
+            loop
+                exitwhen j > elementItemCounts[i] - 1
+                set elementItemId[k]=getFusedItemElementItemId(wantingItemId , i + 1)
+                set soldMoney[k]=getItemSoldGoldById(elementItemId[k])
+                set soldLumber[k]=getItemSoldLumberById(elementItemId[k])
+                set needingItemStateCode[k]=0
+                set havingItemMoney=havingItemMoney + soldMoney[k]
+                set havingItemLumber=havingItemLumber + soldLumber[k]
+                set k=k + 1
+                set j=j + 1
+            endloop
+        endif
+        
+        set i=i + 2
+    endloop
+    if ( pMoney + havingItemMoney >= fusedItemSoldMoney and pLumber + havingItemLumber >= fusedItemSoldMoney ) then
+        set i=0
+        loop
+            exitwhen i > k - 1
+            if ( needingItemStateCode[i] == 0 ) then
+                call removeUnitItemsIgnoreUsingTimesById(u , elementItemId[i] , 1)
+            elseif ( needingItemStateCode[i] == 2 ) then
+                call reducePlayerCurrentGold(p , soldMoney[i])
+                call reducePlayerCurrentLumber(p , soldLumber[i])
+            endif
+            set i=i + 1
+        endloop
+        call unitAddItemById(u , wantingItemId)
+        set p=null
+        return true
+    else
+        call ClearTextMessagesBJ(bj_FORCE_PLAYER[GetPlayerId(p)])
+        set needMoney=fusedItemSoldMoney - havingItemMoney - pMoney
+        if ( needMoney < 0 ) then
+            set needMoney=0
+        endif
+        set needLumber=fusedItemSoldLumber - havingItemLumber - pLumber
+        if ( needLumber < 0 ) then
+            set needLumber=0
+        endif
+        call toastBuyingTitleTextToPlayer(p , wantingItemId , needMoney , needLumber)
+        set i=0
+        loop
+            exitwhen i > k - 1
+            call toastBuyingContentTextToPlayer(p , elementItemId[i] , needingItemStateCode[i])
+            set i=i + 1
+        endloop
+    endif
+    
+    set p=null
+    return false
+endfunction
+function unitDirectBuyFusedItemOrBook takes unit u,integer fusedItemId,integer bookItemId returns nothing
+    local player p= null
+    local integer array money
+    local integer array lumber
+    if ( not unitDirectBuyFusedItem(u , fusedItemId) ) then
+        set p=GetOwningPlayer(u)
+        set money[0]=GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
+        set lumber[0]=GetPlayerState(p, PLAYER_STATE_RESOURCE_LUMBER)
+        set money[1]=getItemSoldGoldById(bookItemId)
+        set lumber[1]=getItemSoldLumberById(bookItemId)
+        if ( money[0] >= money[1] and lumber[0] >= lumber[1] and ( not isHasFillItems(u) ) ) then
+            call soldItemToUnitById(u , bookItemId)
+        endif
+    endif
+    
+    set p=null
+endfunction
+function InitFuncForItemModule takes nothing returns nothing
+    
+    set NEEDING_ITEM_STATE[0]="|cffa0a0ff(已拥有)|r"
+    set NEEDING_ITEM_STATE[1]="|cffff2020(不够金额购买)|r"
+    set NEEDING_ITEM_STATE[2]="|cffff6800(可自动购买)|r"
+endfunction
+
+//library FuncForItemModule ends
 //library FuncForUnit:
 //===================================
 
@@ -5253,7 +6135,7 @@ endfunction
 
 function removeUnit_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
-    local unit u= LoadUnitHandle(FuncForUnit__UNIT_HT, GetHandleId(t), 0)
+    local unit u= LoadUnitHandle(FuncForUnit___UNIT_HT, GetHandleId(t), 0)
     call DestroyTimer(t)
     call RemoveUnit(u)
     set t=null
@@ -5261,7 +6143,7 @@ function removeUnit_timer takes nothing returns nothing
 endfunction
 function removeUnitAfterTime takes unit u,real long returns nothing
     local timer t= CreateTimer()
-    call SaveUnitHandle(FuncForUnit__UNIT_HT, GetHandleId(t), 0, u)
+    call SaveUnitHandle(FuncForUnit___UNIT_HT, GetHandleId(t), 0, u)
     call TimerStart(t, long, false, function removeUnit_timer)
     set t=null
 endfunction
@@ -5703,14 +6585,14 @@ endfunction
 function sustainedRecoveryUnitLife_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
     local integer pKey= GetHandleId(t)
-    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
-    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
-    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
-    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
-    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
+    local integer currentTimes= LoadInteger(FuncForUnit___UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit___UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit___UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit___UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit___UNIT_HT, pKey, 4)
     
     if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
-        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call FlushChildHashtable(FuncForUnit___UNIT_HT, pKey)
         call DestroyTimer(t)
         set target=null
         set t=null
@@ -5720,7 +6602,7 @@ function sustainedRecoveryUnitLife_timer takes nothing returns nothing
     call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIhe\\AIheTarget.mdl" , target , "chest" , 0.5)
     call showRecoveryLifeTagToPlayer(target , value)
     set currentTimes=currentTimes + 1
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, currentTimes)
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLife_timer)
 endfunction
 function sustainedRecoveryUnitLife takes unit target,real second,real recoveryVal,integer abliCode returns nothing
@@ -5738,11 +6620,11 @@ function sustainedRecoveryUnitLife takes unit target,real second,real recoveryVa
         set t=null
         return
     endif
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
-    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
-    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, value)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit___UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit___UNIT_HT, pKey, 3, value)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 4, abliCode)
     
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLife_timer)
 endfunction
@@ -5750,14 +6632,14 @@ endfunction
 function sustainedRecoveryUnitMana_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
     local integer pKey= GetHandleId(t)
-    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
-    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
-    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
-    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
-    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
+    local integer currentTimes= LoadInteger(FuncForUnit___UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit___UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit___UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit___UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit___UNIT_HT, pKey, 4)
     
     if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
-        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call FlushChildHashtable(FuncForUnit___UNIT_HT, pKey)
         call DestroyTimer(t)
         set target=null
         set t=null
@@ -5766,7 +6648,7 @@ function sustainedRecoveryUnitMana_timer takes nothing returns nothing
     call recoveryUnitMana(target , value)
     call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
     set currentTimes=currentTimes + 1
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, currentTimes)
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitMana_timer)
 endfunction
 function sustainedRecoveryUnitMana takes unit target,real second,real recoveryVal,integer abliCode returns nothing
@@ -5783,11 +6665,11 @@ function sustainedRecoveryUnitMana takes unit target,real second,real recoveryVa
         set t=null
         return
     endif
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
-    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
-    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, value)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit___UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit___UNIT_HT, pKey, 3, value)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 4, abliCode)
     
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitMana_timer)
 endfunction
@@ -5795,15 +6677,15 @@ endfunction
 function sustainedRecoveryUnitLifeAndMana_timer takes nothing returns nothing
     local timer t= GetExpiredTimer()
     local integer pKey= GetHandleId(t)
-    local integer currentTimes= LoadInteger(FuncForUnit__UNIT_HT, pKey, 0)
-    local unit target= LoadUnitHandle(FuncForUnit__UNIT_HT, pKey, 1)
-    local integer times= LoadInteger(FuncForUnit__UNIT_HT, pKey, 2)
-    local real value= LoadReal(FuncForUnit__UNIT_HT, pKey, 3)
-    local integer abliCode= LoadInteger(FuncForUnit__UNIT_HT, pKey, 4)
-    local real manaVal= LoadReal(FuncForUnit__UNIT_HT, pKey, 5)
+    local integer currentTimes= LoadInteger(FuncForUnit___UNIT_HT, pKey, 0)
+    local unit target= LoadUnitHandle(FuncForUnit___UNIT_HT, pKey, 1)
+    local integer times= LoadInteger(FuncForUnit___UNIT_HT, pKey, 2)
+    local real value= LoadReal(FuncForUnit___UNIT_HT, pKey, 3)
+    local integer abliCode= LoadInteger(FuncForUnit___UNIT_HT, pKey, 4)
+    local real manaVal= LoadReal(FuncForUnit___UNIT_HT, pKey, 5)
     
     if ( ( GetUnitAbilityLevel(target, abliCode) == 0 ) or currentTimes > times ) then
-        call FlushChildHashtable(FuncForUnit__UNIT_HT, pKey)
+        call FlushChildHashtable(FuncForUnit___UNIT_HT, pKey)
         call DestroyTimer(t)
         set target=null
         set t=null
@@ -5815,7 +6697,7 @@ function sustainedRecoveryUnitLifeAndMana_timer takes nothing returns nothing
     call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Other\\ANrl\\ANrlTarget.mdl" , target , "chest" , 0.5)
     call showRecoveryLifeTagToPlayer(target , value)
     set currentTimes=currentTimes + 1
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, currentTimes)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, currentTimes)
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLifeAndMana_timer)
 endfunction
 function sustainedRecoveryUnitLifeAndMana takes unit target,real second,real lifeVal,real manaVal,integer abliCode returns nothing
@@ -5836,12 +6718,12 @@ function sustainedRecoveryUnitLifeAndMana takes unit target,real second,real lif
         set t=null
         return
     endif
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 0, 1)
-    call SaveUnitHandle(FuncForUnit__UNIT_HT, pKey, 1, target)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 2, times)
-    call SaveReal(FuncForUnit__UNIT_HT, pKey, 3, lifeVal)
-    call SaveInteger(FuncForUnit__UNIT_HT, pKey, 4, abliCode)
-    call SaveReal(FuncForUnit__UNIT_HT, pKey, 5, manaVal)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 0, 1)
+    call SaveUnitHandle(FuncForUnit___UNIT_HT, pKey, 1, target)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 2, times)
+    call SaveReal(FuncForUnit___UNIT_HT, pKey, 3, lifeVal)
+    call SaveInteger(FuncForUnit___UNIT_HT, pKey, 4, abliCode)
+    call SaveReal(FuncForUnit___UNIT_HT, pKey, 5, manaVal)
     
     call TimerStart(t, 0.5, false, function sustainedRecoveryUnitLifeAndMana_timer)
 endfunction
@@ -5853,7 +6735,7 @@ endfunction
 // 
 //   Warcraft III map script
 //   Generated by the Warcraft III World Editor
-//   Date: Tue Nov 28 23:00:50 2017
+//   Date: Sun Dec 17 00:48:28 2017
 //   Map Author: 未知
 // 
 //===========================================================================
@@ -5886,6 +6768,18 @@ function InitGlobals takes nothing returns nothing
 endfunction
 //***************************************************************************
 //*
+//*  Items
+//*
+//***************************************************************************
+function CreateAllItems takes nothing returns nothing
+    local integer itemID
+    call CreateItem('I00N', - 1751.3, 1130.7)
+    call CreateItem('I00O', - 1538.4, 1114.7)
+    call CreateItem('I015', - 1517.5, 1244.4)
+    call CreateItem('I01D', - 1684.4, 1236.5)
+endfunction
+//***************************************************************************
+//*
 //*  Unit Creation
 //*
 //***************************************************************************
@@ -5896,14 +6790,7 @@ function CreateBuildingsForPlayer0 takes nothing returns nothing
     local integer unitID
     local trigger t
     local real life
-    set u=CreateUnit(p, 'h028', - 6912.0, - 6656.0, 270.000)
-    set u=CreateUnit(p, 'h024', - 6976.0, - 6784.0, 270.000)
-    set u=CreateUnit(p, 'h025', - 6976.0, - 6912.0, 270.000)
-    set u=CreateUnit(p, 'h026', - 6784.0, - 6848.0, 270.000)
-    set u=CreateUnit(p, 'h027', - 6656.0, - 6720.0, 270.000)
-    set u=CreateUnit(p, 'h029', - 6592.0, - 6848.0, 270.000)
-    set u=CreateUnit(p, 'h02A', - 6784.0, - 6656.0, 270.000)
-    set u=CreateUnit(p, 'h02B', - 6656.0, - 6912.0, 270.000)
+    set u=CreateUnit(p, 'h02C', - 5696.0, - 6720.0, 270.000)
 endfunction
 //===========================================================================
 function CreateUnitsForPlayer0 takes nothing returns nothing
@@ -5913,8 +6800,8 @@ function CreateUnitsForPlayer0 takes nothing returns nothing
     local trigger t
     local real life
     set u=CreateUnit(p, 'e006', - 1835.2, - 1648.8, 201.089)
-    set gg_unit_Hpal_0067=CreateUnit(p, 'Hpal', - 1207.4, 1082.9, 331.984)
-    set u=CreateUnit(p, 'Hmkg', - 1094.7, 1042.0, 288.301)
+    set gg_unit_Hpal_0067=CreateUnit(p, 'Hpal', - 4072.8, 1814.5, 331.984)
+    set u=CreateUnit(p, 'Hmkg', - 6447.3, - 6931.4, 288.301)
     set u=CreateUnit(p, 'Hblm', - 994.1, 526.3, 97.397)
 endfunction
 //===========================================================================
@@ -5924,8 +6811,15 @@ function CreateBuildingsForPlayer10 takes nothing returns nothing
     local integer unitID
     local trigger t
     local real life
-    set gg_unit_h002_0010=CreateUnit(p, 'h002', - 5376.0, - 6080.0, 47.220)
-    set u=CreateUnit(p, 'n000', - 7218.9, - 7502.2, 53.275)
+    set u=CreateUnit(p, 'h028', - 7040.0, - 6976.0, 270.000)
+    set u=CreateUnit(p, 'h024', - 6336.0, - 7424.0, 270.000)
+    set u=CreateUnit(p, 'h025', - 7040.0, - 6720.0, 270.000)
+    set u=CreateUnit(p, 'h026', - 6080.0, - 7424.0, 270.000)
+    set u=CreateUnit(p, 'h027', - 5760.0, - 7424.0, 270.000)
+    set u=CreateUnit(p, 'h029', - 7040.0, - 6464.0, 270.000)
+    set u=CreateUnit(p, 'h02A', - 6592.0, - 7424.0, 270.000)
+    set gg_unit_h002_0010=CreateUnit(p, 'h002', - 5376.0, - 6080.0, 270.000)
+    set u=CreateUnit(p, 'n000', - 7232.0, - 7488.0, 270.000)
     set gg_unit_h001_0024=CreateUnit(p, 'h001', - 5376.0, - 5632.0, 270.000)
     set gg_unit_h001_0025=CreateUnit(p, 'h001', - 4928.0, - 5952.0, 270.000)
     set gg_unit_h003_0026=CreateUnit(p, 'h003', - 4480.0, - 4032.0, 270.000)
@@ -5943,6 +6837,7 @@ function CreateBuildingsForPlayer10 takes nothing returns nothing
     set gg_unit_h00I_0060=CreateUnit(p, 'h00I', - 4480.0, - 4800.0, 270.000)
     set gg_unit_h00I_0061=CreateUnit(p, 'h00I', - 6464.0, - 4352.0, 270.000)
     set gg_unit_h00I_0062=CreateUnit(p, 'h00I', - 3904.0, - 6720.0, 270.000)
+    set u=CreateUnit(p, 'h02B', - 5888.0, - 6592.0, 270.000)
 endfunction
 //===========================================================================
 function CreateBuildingsForPlayer11 takes nothing returns nothing
@@ -5951,7 +6846,7 @@ function CreateBuildingsForPlayer11 takes nothing returns nothing
     local integer unitID
     local trigger t
     local real life
-    set gg_unit_h000_0009=CreateUnit(p, 'h000', 5056.0, 5504.0, 235.723)
+    set gg_unit_h000_0009=CreateUnit(p, 'h000', 5056.0, 5504.0, 270.000)
     set u=CreateUnit(p, 'n001', 6912.0, 6848.0, 270.000)
     set gg_unit_h00F_0039=CreateUnit(p, 'h00F', 4608.0, 5312.0, 270.000)
     set gg_unit_h00F_0040=CreateUnit(p, 'h00F', 5056.0, 5056.0, 270.000)
@@ -6000,8 +6895,10 @@ function CreateNeutralPassiveBuildings takes nothing returns nothing
     set u=CreateUnit(p, 'h00H', 1408.0, 5440.0, 270.000)
     set u=CreateUnit(p, 'h00H', 1536.0, 2368.0, 270.000)
     set u=CreateUnit(p, 'h00H', 5440.0, 896.0, 270.000)
+    set u=CreateUnit(p, 'h02E', - 4224.0, 2176.0, 270.000)
     set u=CreateUnit(p, 'h00K', 128.0, - 3328.0, 270.000)
     set u=CreateUnit(p, 'h00K', 64.0, 2816.0, 270.000)
+    set u=CreateUnit(p, 'h02E', 3392.0, 0.0, 270.000)
 endfunction
 //===========================================================================
 function CreatePlayerBuildings takes nothing returns nothing
@@ -6192,7 +7089,7 @@ endfunction
 
 // Trigger: FuncForPlayer
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=56
 //TESH.alwaysfold=0
 // Trigger: FuncForUnit
 //===========================================================================
@@ -6214,11 +7111,11 @@ endfunction
 //TESH.alwaysfold=0
 // Trigger: FuncForItem
 //===========================================================================
-//TESH.scrollpos=969
+//TESH.scrollpos=261
 //TESH.alwaysfold=0
 // Trigger: FuncForToast
 //===========================================================================
-//TESH.scrollpos=6
+//TESH.scrollpos=15
 //TESH.alwaysfold=0
 
 // Trigger: FuncForDamage
@@ -6599,13 +7496,14 @@ endfunction
 //===========================================================================
 // Trigger: ForbidAbility
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=3
 //TESH.alwaysfold=0
 function Trig_ForbidAbilityActions takes nothing returns nothing
     local integer i= 0
     //禁用魔法书
     set i=0
     loop
+        exitwhen i > 15
         call SetPlayerAbilityAvailable(Player(i), 'A00A', false)
         call SetPlayerAbilityAvailable(Player(i), 'A006', false)
         call SetPlayerAbilityAvailable(Player(i), 'A007', false)
@@ -6619,7 +7517,6 @@ function Trig_ForbidAbilityActions takes nothing returns nothing
         call SetPlayerAbilityAvailable(Player(i), 'A06M', false)
         call SetPlayerAbilityAvailable(Player(i), 'A080', false)
         call SetPlayerAbilityAvailable(Player(i), 'A085', false)
-        exitwhen i > 13
         set i=i + 1
     endloop
     
@@ -12516,7 +13413,7 @@ endfunction
 //===========================================================================
 // Trigger: RegisterItemFuse
 //===========================================================================
-//TESH.scrollpos=257
+//TESH.scrollpos=203
 //TESH.alwaysfold=0
 
 function RIF_initPlayersBuffCount takes nothing returns nothing
@@ -12524,8 +13421,8 @@ function RIF_initPlayersBuffCount takes nothing returns nothing
     local integer j= 0
     loop
         exitwhen i > 10 - 1
+        set j=0
         loop
-            set j=0
             exitwhen j > BUFF_TYPES - 1
             call SaveInteger(heroWeaponBuff_ht, i, j, 0)
             set j=j + 1
@@ -12693,6 +13590,7 @@ function RIF_registerAllItemOriginalAndSurrenal takes nothing returns nothing
     call setItemSurrenal('I039' , 'I04R')
     call setItemSurrenal('I03M' , 'I04T')
     call setItemSurrenal('I03N' , 'I04X')
+    call setItemSurrenal('I030' , 'I07H')
 endfunction
 //注册所有物品的合成公式
 function RIF_registerAllItemFuseStyle takes nothing returns nothing
@@ -12700,8 +13598,8 @@ function RIF_registerAllItemFuseStyle takes nothing returns nothing
     call registerFuseItem3('I00A' , 'I00Q' , 1 , 'I02Z' , 1 , 'I03A' , 1)
     call registerFuseItem4('I01M' , 'I00Q' , 1 , 'I02C' , 1 , 'I028' , 1 , 'I029' , 1)
     call registerFuseItem3('I02B' , 'I017' , 1 , 'I00F' , 1 , 'I03K' , 1)
-    call registerFuseItem5('I02E' , 'I030' , 1 , 'I01A' , 1 , 'I031' , 1 , 'I028' , 1 , 'I014' , 1)
-    call registerFuseItem5('I02P' , 'I03X' , 1 , 'I01B' , 1 , 'I016' , 1 , 'I07B' , 1 , 'I010' , 1)
+    call registerFuseItem5('I02E' , 'I03O' , 1 , 'I01A' , 1 , 'I031' , 1 , 'I028' , 1 , 'I014' , 1)
+    call registerFuseItem6('I02P' , 'I03X' , 1 , 'I02A' , 1 , 'I01J' , 1 , 'I01A' , 1 , 'I00K' , 1 , 'I00Y' , 1)
     call registerFuseItem4('I02X' , 'I02A' , 1 , 'I00K' , 1 , 'I00J' , 1 , 'I00Q' , 1)
     call registerFuseItem4('I02K' , 'I01B' , 1 , 'I00J' , 1 , 'I02A' , 1 , 'I01J' , 1)
     call registerFuseItem5('I02H' , 'I016' , 1 , 'I031' , 1 , 'I00Q' , 1 , 'I00J' , 1 , 'I03R' , 1)
@@ -12738,16 +13636,18 @@ function RIF_registerAllItemFuseStyle takes nothing returns nothing
     call registerFuseItem4('I01P' , 'I028' , 1 , 'I01I' , 1 , 'I01J' , 1 , 'I03C' , 1)
     call registerFuseItem5('I02L' , 'I07B' , 1 , 'I031' , 1 , 'I01A' , 1 , 'I00K' , 1 , 'I03V' , 1)
     call registerFuseItem5('I021' , 'I01W' , 1 , 'I00F' , 1 , 'I00R' , 1 , 'I011' , 1 , 'I03H' , 1)
-    call registerFuseItem3('I025' , 'I00U' , 1 , 'I00N' , 1 , 'I00O' , 1)
+    call registerFuseItem4('I025' , 'I01W' , 1 , 'I00U' , 1 , 'I00N' , 1 , 'I00O' , 1)
     //call registerFuseItem('I026')
     call registerFuseItem4('I01N' , 'I01I' , 1 , 'I01J' , 1 , 'I01B' , 1 , 'I03D' , 1)
     
-    call registerFuseItem3('I023' , 'I01W' , 1 , 'I00F' , 1 , 'I03J' , 1)
+    call registerFuseItem2('I023' , 'I01W' , 1 , 'I03J' , 1)
     call registerFuseItem2('I024' , 'I023' , 1 , 'I03J' , 1)
     call registerFuseItem2('I036' , 'I024' , 1 , 'I03J' , 1)
     call registerFuseItem4('I02Y' , 'I00M' , 1 , 'I00J' , 1 , 'I07F' , 1 , 'I041' , 1)
     call registerFuseItem4('I07F' , 'I00H' , 1 , 'I016' , 1 , 'I00T' , 1 , 'I03M' , 1)
     call registerFuseItem4('I07D' , 'I00K' , 1 , 'I01A' , 1 , 'I016' , 1 , 'I03N' , 1)
+    call registerFuseItem2('I030' , 'I03L' , 1 , 'I00Q' , 1)
+    
 endfunction
 //注册所有物品的合成
 function RIF_registerAllItemsFuse takes nothing returns nothing
@@ -12797,6 +13697,24 @@ function InitTrig_InitItemData takes nothing returns nothing
     call TriggerAddAction(gg_trg_InitItemData, function Trig_InitItemDataActions)
 endfunction
 //===========================================================================
+// Trigger: StoreSoldItems
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_StoreSoldItemsActions takes nothing returns nothing
+    call debugText("单位购买物品")
+    call SetItemPlayer(GetSoldItem(), GetOwningPlayer(GetBuyingUnit()), true)
+    call debugText("itemPlayerName:" + GetPlayerName(GetItemPlayer(GetSoldItem())))
+    call debugText("单位购买物品结束")
+endfunction
+//===========================================================================
+function InitTrig_StoreSoldItems takes nothing returns nothing
+    set gg_trg_StoreSoldItems=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_StoreSoldItems, EVENT_PLAYER_UNIT_SELL_ITEM)
+    call TriggerAddAction(gg_trg_StoreSoldItems, function Trig_StoreSoldItemsActions)
+endfunction
+//===========================================================================
 // Trigger: UnitDropItem
 //===========================================================================
 //TESH.scrollpos=0
@@ -12829,7 +13747,7 @@ endfunction
 //===========================================================================
 // Trigger: UnitPickUpItem
 //===========================================================================
-//TESH.scrollpos=3
+//TESH.scrollpos=15
 //TESH.alwaysfold=0
  
 function Trig_UnitPickUpItemActions takes nothing returns nothing
@@ -12839,6 +13757,9 @@ function Trig_UnitPickUpItemActions takes nothing returns nothing
     local player itemP= GetItemPlayer(it)
     local player triggerP= GetTriggerPlayer()
     
+    call debugText("UnitPickUpItem()--单位获得物品")
+    call debugText("itemPlayerName:" + GetPlayerName(itemP))
+    call debugText("triggerPlayerName:" + GetPlayerName(triggerP))
     if ( itemP != triggerP ) then
     //捡到者不是物品拥有者
         if ( isOriginalItemById(itId) ) then
@@ -12896,7 +13817,7 @@ endfunction
 //
 // 共享物品，也就是真假物品为同一样东西
 //===========================================================================
-//TESH.scrollpos=71
+//TESH.scrollpos=95
 //TESH.alwaysfold=0
 function Trig_UnitSpellObtainItemConditions takes nothing returns boolean
     return ( ( GetSpellAbilityId() == 'A000' ) )
@@ -13044,7 +13965,7 @@ endfunction
 //===========================================================================
 // Trigger: UnitPickUpBuffItem
 //===========================================================================
-//TESH.scrollpos=43
+//TESH.scrollpos=10
 //TESH.alwaysfold=0
 
 //======================main动作
@@ -13100,12 +14021,16 @@ function InitTrig_UnitPickUpBuffItem takes nothing returns nothing
 endfunction
 //===========================================================================
 // Trigger: aaa
+//
+// 记得删除
 //===========================================================================
-function Trig_aaaFunc001A takes nothing returns nothing
+function Trig_aaaFunc003A takes nothing returns nothing
     call SetItemPlayer(GetEnumItem(), Player(0), true)
 endfunction
 function Trig_aaaActions takes nothing returns nothing
-    call EnumItemsInRectBJ(GetPlayableMapRect(), function Trig_aaaFunc001A)
+    call SetPlayerStateBJ(Player(0), PLAYER_STATE_RESOURCE_GOLD, 100000)
+    call SetPlayerStateBJ(Player(0), PLAYER_STATE_RESOURCE_LUMBER, 100000)
+    call EnumItemsInRectBJ(GetPlayableMapRect(), function Trig_aaaFunc003A)
 endfunction
 //===========================================================================
 function InitTrig_aaa takes nothing returns nothing
@@ -14045,7 +14970,7 @@ endfunction
 //===========================================================================
 // Trigger: WeiBaSprint
 //===========================================================================
-//TESH.scrollpos=62
+//TESH.scrollpos=38
 //TESH.alwaysfold=0
 function Trig_WeiBaSprintConditions takes nothing returns boolean
     return ( ( GetSpellAbilityId() == 'A036' ) )
@@ -14133,132 +15058,77 @@ function InitTrig_WeiBaSprint takes nothing returns nothing
     call TriggerAddAction(gg_trg_WeiBaSprint, function Trig_WeiBaSprintActions)
 endfunction
 //===========================================================================
-// Trigger: BlackFoot_str
+// Trigger: BlackFoot
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=8
 //TESH.alwaysfold=0
-function Trig_BlackFoot_strConditions takes nothing returns boolean
-    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I01Y' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+function Trig_BlackFootConditions takes nothing returns boolean
+    return GetSpellAbilityId() == 'A03E'
 endfunction
-function Trig_BlackFoot_strActions takes nothing returns nothing
-    local item it= GetManipulatedItem()
+function Trig_BlackFootActions takes nothing returns nothing
+    local item it= null
     local unit u= GetTriggerUnit()
-   
-    call replaceUnitItemInSlotById(u , it , 'I01Z')
+    
+    call debugText("切换黑足")
+    if ( isUnitHasItemById(u , 'I01Y') ) then
+        set it=getUnitFirstItemById(u , 'I01Y')
+        call replaceUnitItemInSlotById(u , it , 'I01Z')
+    elseif ( isUnitHasItemById(u , 'I01Z') ) then
+        set it=getUnitFirstItemById(u , 'I01Z')
+        call replaceUnitItemInSlotById(u , it , 'I020')
+    elseif ( isUnitHasItemById(u , 'I020') ) then
+        set it=getUnitFirstItemById(u , 'I020')
+        call replaceUnitItemInSlotById(u , it , 'I01Y')
+    endif
+    
     
     set it=null
     set u=null
 endfunction
 //===========================================================================
-function InitTrig_BlackFoot_str takes nothing returns nothing
-    set gg_trg_BlackFoot_str=CreateTrigger()
+function InitTrig_BlackFoot takes nothing returns nothing
+    set gg_trg_BlackFoot=CreateTrigger()
     call DoNothing()
-    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_str, EVENT_PLAYER_UNIT_USE_ITEM)
-    call TriggerAddCondition(gg_trg_BlackFoot_str, Condition(function Trig_BlackFoot_strConditions))
-    call TriggerAddAction(gg_trg_BlackFoot_str, function Trig_BlackFoot_strActions)
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_BlackFoot, Condition(function Trig_BlackFootConditions))
+    call TriggerAddAction(gg_trg_BlackFoot, function Trig_BlackFootActions)
 endfunction
 //===========================================================================
-// Trigger: BlackFoot_agi
+// Trigger: ZhePuRedShoe
 //===========================================================================
-//TESH.scrollpos=0
+//TESH.scrollpos=3
 //TESH.alwaysfold=0
-function Trig_BlackFoot_agiConditions takes nothing returns boolean
-    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I01Z' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
+function Trig_ZhePuRedShoeConditions takes nothing returns boolean
+   return GetSpellAbilityId() == 'A08E'
 endfunction
-function Trig_BlackFoot_agiActions takes nothing returns nothing
-    local item it= GetManipulatedItem()
+function Trig_ZhePuRedShoeActions takes nothing returns nothing
+    local item it= null
     local unit u= GetTriggerUnit()
-    call replaceUnitItemInSlotById(u , it , 'I020')
+    
+    call debugText("切换红鞋")
+    if ( isUnitHasItemById(u , 'I025') ) then
+        set it=getUnitFirstItemById(u , 'I025')
+        call replaceUnitItemInSlotById(u , it , 'I026')
+    elseif ( isUnitHasItemById(u , 'I026') ) then
+        set it=getUnitFirstItemById(u , 'I026')
+        call replaceUnitItemInSlotById(u , it , 'I025')
+    endif
     
     set it=null
     set u=null
 endfunction
 //===========================================================================
-function InitTrig_BlackFoot_agi takes nothing returns nothing
-    set gg_trg_BlackFoot_agi=CreateTrigger()
+function InitTrig_ZhePuRedShoe takes nothing returns nothing
+    set gg_trg_ZhePuRedShoe=CreateTrigger()
     call DoNothing()
-    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_agi, EVENT_PLAYER_UNIT_USE_ITEM)
-    call TriggerAddCondition(gg_trg_BlackFoot_agi, Condition(function Trig_BlackFoot_agiConditions))
-    call TriggerAddAction(gg_trg_BlackFoot_agi, function Trig_BlackFoot_agiActions)
-endfunction
-//===========================================================================
-// Trigger: BlackFoot_int
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-function Trig_BlackFoot_intConditions takes nothing returns boolean
-    return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I020' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
-endfunction
-function Trig_BlackFoot_intActions takes nothing returns nothing
-    local item it= GetManipulatedItem()
-    local unit u= GetTriggerUnit()
-    call replaceUnitItemInSlotById(u , it , 'I01Y')
-    
-    set it=null
-    set u=null
-endfunction
-//===========================================================================
-function InitTrig_BlackFoot_int takes nothing returns nothing
-    set gg_trg_BlackFoot_int=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterAnyUnitEventBJ(gg_trg_BlackFoot_int, EVENT_PLAYER_UNIT_USE_ITEM)
-    call TriggerAddCondition(gg_trg_BlackFoot_int, Condition(function Trig_BlackFoot_intConditions))
-    call TriggerAddAction(gg_trg_BlackFoot_int, function Trig_BlackFoot_intActions)
-endfunction
-//===========================================================================
-// Trigger: ZhePuRedShoe_life
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-function Trig_ZhePuRedShoe_lifeConditions takes nothing returns boolean
-   return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I025' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
-endfunction
-function Trig_ZhePuRedShoe_lifeActions takes nothing returns nothing
-    local item it= GetManipulatedItem()
-    local unit u= GetTriggerUnit()
-   
-    call replaceUnitItemInSlotById(u , it , 'I026')
-    
-    set it=null
-    set u=null
-endfunction
-//===========================================================================
-function InitTrig_ZhePuRedShoe_life takes nothing returns nothing
-    set gg_trg_ZhePuRedShoe_life=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuRedShoe_life, EVENT_PLAYER_UNIT_USE_ITEM)
-    call TriggerAddCondition(gg_trg_ZhePuRedShoe_life, Condition(function Trig_ZhePuRedShoe_lifeConditions))
-    call TriggerAddAction(gg_trg_ZhePuRedShoe_life, function Trig_ZhePuRedShoe_lifeActions)
-endfunction
-//===========================================================================
-// Trigger: ZhePuRedShoe_heart
-//===========================================================================
-//TESH.scrollpos=0
-//TESH.alwaysfold=0
-function Trig_ZhePuRedShoe_heartConditions takes nothing returns boolean
-   return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I026' ) ) and ( not isUnitRealIllusion(GetTriggerUnit()) )
-endfunction
-function Trig_ZhePuRedShoe_heartActions takes nothing returns nothing
-    local item it= GetManipulatedItem()
-    local unit u= GetTriggerUnit()
-   
-    call replaceUnitItemInSlotById(u , it , 'I025')
-    
-    set it=null
-    set u=null
-endfunction
-//===========================================================================
-function InitTrig_ZhePuRedShoe_heart takes nothing returns nothing
-    set gg_trg_ZhePuRedShoe_heart=CreateTrigger()
-    call DoNothing()
-    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuRedShoe_heart, EVENT_PLAYER_UNIT_USE_ITEM)
-    call TriggerAddCondition(gg_trg_ZhePuRedShoe_heart, Condition(function Trig_ZhePuRedShoe_heartConditions))
-    call TriggerAddAction(gg_trg_ZhePuRedShoe_heart, function Trig_ZhePuRedShoe_heartActions)
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuRedShoe, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_ZhePuRedShoe, Condition(function Trig_ZhePuRedShoeConditions))
+    call TriggerAddAction(gg_trg_ZhePuRedShoe, function Trig_ZhePuRedShoeActions)
 endfunction
 //===========================================================================
 // Trigger: AutoIncreaTelephoneWormPackage
 //===========================================================================
-//TESH.scrollpos=18
+//TESH.scrollpos=21
 //TESH.alwaysfold=0
 function Trig_AutoIncreaTelephoneWormPackageConditions takes nothing returns boolean
     return ( ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) and ( GetItemTypeId(GetManipulatedItem()) == 'I030' ) )
@@ -14357,7 +15227,7 @@ endfunction
 //===========================================================================
 // Trigger: GoldenArmour
 //===========================================================================
-//TESH.scrollpos=54
+//TESH.scrollpos=48
 //TESH.alwaysfold=0
 function Trig_GoldenArmourConditions takes nothing returns boolean
     return ( ( GetSpellAbilityId() == 'A06H' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true ) )
@@ -14484,7 +15354,7 @@ endfunction
 //===========================================================================
 // Trigger: SunLoricae
 //===========================================================================
-//TESH.scrollpos=30
+//TESH.scrollpos=51
 //TESH.alwaysfold=0
 function SL_getAllUnit takes nothing returns boolean
     //活着，非建筑,非古树
@@ -14543,21 +15413,54 @@ function SL_hurt_timer takes nothing returns nothing
     set u=null
     set t=null
 endfunction
+function SL_heroDropItemCondition takes nothing returns boolean
+    return GetItemTypeId(GetManipulatedItem()) == 'I01P'
+endfunction
+function SL_heroDropItemAction takes nothing returns nothing
+    local item it= GetManipulatedItem()
+    local trigger trg= GetTriggeringTrigger()
+    local integer pKey= GetHandleId(trg)
+    local timer t= null
+    
+    if ( it == LoadItemHandle(SPELL_HT, pKey, 0) ) then
+        set t=LoadTimerHandle(SPELL_HT, pKey, 1)
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTrigger(trg)
+        
+        set pKey=GetHandleId(t)
+        call FlushChildHashtable(SPELL_HT, pKey)
+        call DestroyTimer(t)
+    endif
+    
+    set it=null
+    set trg=null
+    set t=null
+endfunction
 function Trig_SunLoricaeActions takes nothing returns nothing
     local unit u= GetTriggerUnit()
     local timer t= null
     local integer pKey= 0
-    local item it=null
+    local item it= GetManipulatedItem()
+    local trigger trg= null
     
     if ( getUnitItemCountById(u , 'I01P') > 1 ) then
         set u=null
+        set it=null
         return
     endif
     set t=CreateTimer()
     set pKey=GetHandleId(t)
     call SaveUnitHandle(SPELL_HT, pKey, 0, u)
     
-    call TimerStart(t, 1.0, false, function SL_hurt_timer)
+    call TimerStart(t, 0.1, false, function SL_hurt_timer)
+    
+    set trg=CreateTrigger()
+    set pKey=GetHandleId(trg)
+    call SaveItemHandle(SPELL_HT, pKey, 0, it)
+    call SaveTimerHandle(SPELL_HT, pKey, 1, t)
+    call TriggerRegisterUnitEvent(trg, u, EVENT_UNIT_DROP_ITEM)
+    call TriggerAddCondition(trg, Condition(function SL_heroDropItemCondition))
+    call TriggerAddAction(trg, function SL_heroDropItemAction)
     
     set it=null
     set u=null
@@ -15057,7 +15960,7 @@ endfunction
 //===========================================================================
 // Trigger: GetAoHaLaWand
 //===========================================================================
-//TESH.scrollpos=27
+//TESH.scrollpos=21
 //TESH.alwaysfold=0
 function Trig_GetAoHaLaWandConditions takes nothing returns boolean
     return ( GetItemTypeId(GetManipulatedItem()) == 'I032' ) and ( IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) ) and ( GetItemPlayer(GetManipulatedItem()) == GetTriggerPlayer() )
@@ -15128,7 +16031,7 @@ function Trig_UseAoHaLaWandActions takes nothing returns nothing
     call recoveryUnitLife(u , life)
     call recoveryUnitMana(u , mana)
     call createEffectOnUnitAndDeleteAfter("Abilities\\Spells\\Items\\AIsm\\AIsmTarget.mdl" , u , "chest" , 0.4)
-    
+    call SetItemCharges(it, 0)
     set u=null
     set it=null
 endfunction
@@ -15949,9 +16852,1020 @@ function InitTrig_QiuShui takes nothing returns nothing
     call TriggerAddCondition(gg_trg_QiuShui, Condition(function Trig_QiuShuiConditions))
     call TriggerAddAction(gg_trg_QiuShui, function Trig_QiuShuiActions)
 endfunction//===========================================================================
+// Trigger: PureGold
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_PureGoldConditions takes nothing returns boolean
+    return ( ( GetSpellAbilityId() == 'A086' ) )
+endfunction
+function Trig_PureGoldActions takes nothing returns nothing
+    local unit u= GetTriggerUnit()
+    local player p= GetTriggerPlayer()
+    
+    call showMoneyTagToPlayerOverUnit(100 , u , GetPlayerId(p))
+    call increasePlayerCurrentGold(p , 100)
+    call increasePlayerCurrentLumber(p , 120)
+    call AddHeroXP(u, 100, true)
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_PureGold takes nothing returns nothing
+    set gg_trg_PureGold=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_PureGold, EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    call TriggerAddCondition(gg_trg_PureGold, Condition(function Trig_PureGoldConditions))
+    call TriggerAddAction(gg_trg_PureGold, function Trig_PureGoldActions)
+endfunction
+//===========================================================================
+// Trigger: FuncForItemModule
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+// Trigger: BugHorn
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BugHornConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01J' ) )
+endfunction
+function Trig_BugHornActions takes nothing returns nothing
+    call RemoveUnit(GetSoldUnit())
+    call unitBuyOverlyingItem(GetBuyingUnit() , 'I00P' , 90 , 0)
+endfunction
+//===========================================================================
+function InitTrig_BugHorn takes nothing returns nothing
+    set gg_trg_BugHorn=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BugHorn, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BugHorn, Condition(function Trig_BugHornConditions))
+    call TriggerAddAction(gg_trg_BugHorn, function Trig_BugHornActions)
+endfunction
+//===========================================================================
+// Trigger: BugCheese
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BugCheeseConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01G' ) )
+endfunction
+function Trig_BugCheeseActions takes nothing returns nothing
+    call RemoveUnit(GetSoldUnit())
+    call unitBuyOverlyingItem(GetBuyingUnit() , 'I00V' , 55 , 0)
+endfunction
+//===========================================================================
+function InitTrig_BugCheese takes nothing returns nothing
+    set gg_trg_BugCheese=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BugCheese, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BugCheese, Condition(function Trig_BugCheeseConditions))
+    call TriggerAddAction(gg_trg_BugCheese, function Trig_BugCheeseActions)
+endfunction
+//===========================================================================
+// Trigger: BugSanMingZhi
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BugSanMingZhiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01H' ) )
+endfunction
+function Trig_BugSanMingZhiActions takes nothing returns nothing
+    call RemoveUnit(GetSoldUnit())
+    call unitBuyOverlyingItem(GetBuyingUnit() , 'I00W' , 175 , 0)
+endfunction
+//===========================================================================
+function InitTrig_BugSanMingZhi takes nothing returns nothing
+    set gg_trg_BugSanMingZhi=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BugSanMingZhi, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BugSanMingZhi, Condition(function Trig_BugSanMingZhiConditions))
+    call TriggerAddAction(gg_trg_BugSanMingZhi, function Trig_BugSanMingZhiActions)
+endfunction
+//===========================================================================
+// Trigger: BugZhangYuShao
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BugZhangYuShaoConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01I' ) )
+endfunction
+function Trig_BugZhangYuShaoActions takes nothing returns nothing
+    call RemoveUnit(GetSoldUnit())
+    call unitBuyOverlyingItem(GetBuyingUnit() , 'I00X' , 185 , 8)
+endfunction
+//===========================================================================
+function InitTrig_BugZhangYuShao takes nothing returns nothing
+    set gg_trg_BugZhangYuShao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BugZhangYuShao, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BugZhangYuShao, Condition(function Trig_BugZhangYuShaoConditions))
+    call TriggerAddAction(gg_trg_BugZhangYuShao, function Trig_BugZhangYuShaoActions)
+endfunction
+//===========================================================================
+// Trigger: BugTieBi
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BugTieBiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01K' ) )
+endfunction
+function Trig_BugTieBiActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01D'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BugTieBi takes nothing returns nothing
+    set gg_trg_BugTieBi=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BugTieBi, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BugTieBi, Condition(function Trig_BugTieBiConditions))
+    call TriggerAddAction(gg_trg_BugTieBi, function Trig_BugTieBiActions)
+endfunction
+//===========================================================================
+// Trigger: BuyHubei
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyHubeiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00M' ) )
+endfunction
+function Trig_BuyHubeiActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer itId= 'I01E'
+    local integer money= getItemSoldGoldById(itId)
+    local integer lumber= getItemSoldLumberById(itId)
+    local player p= GetOwningPlayer(u)
+    
+    call RemoveUnit(GetSoldUnit())
+    
+    if ( isUnitHasItemById(u , 'I01I') ) then
+        call toastWarningTextToPlayer(p , "护贝等级已最高！")
+        //call AdjustPlayerStateBJ(money,p,PLAYER_STATE_RESOURCE_GOLD)
+        //call AdjustPlayerStateBJ(lumber,p,PLAYER_STATE_RESOURCE_LUMBER)
+    elseif ( isUnitHasItemById(u , 'I01H') ) then
+        call removeUnitItemsIgnoreUsingTimesById(u , 'I01H' , 1)
+        call soldItemToUnitOnPricesById(u , 'I01I' , money , lumber)
+    elseif ( isUnitHasItemById(u , 'I01G') ) then
+        call removeUnitItemsIgnoreUsingTimesById(u , 'I01G' , 1)
+        call soldItemToUnitOnPricesById(u , 'I01H' , money , lumber)
+    elseif ( isUnitHasItemById(u , 'I01F') ) then
+        call removeUnitItemsIgnoreUsingTimesById(u , 'I01F' , 1)
+        call soldItemToUnitOnPricesById(u , 'I01G' , money , lumber)
+    elseif ( isUnitHasItemById(u , 'I01E') ) then
+        call removeUnitItemsIgnoreUsingTimesById(u , 'I01E' , 1)
+        call soldItemToUnitOnPricesById(u , 'I01F' , money , lumber)
+    else
+        call soldItemToUnitOnPricesById(u , 'I01E' , money , lumber)
+    endif
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_BuyHubei takes nothing returns nothing
+    set gg_trg_BuyHubei=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyHubei, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyHubei, Condition(function Trig_BuyHubeiConditions))
+    call TriggerAddAction(gg_trg_BuyHubei, function Trig_BuyHubeiActions)
+endfunction
+//===========================================================================
+// Trigger: GoldArmor
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_GoldArmorConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00V' ) )
+endfunction
+function Trig_GoldArmorActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01K'
+    local integer bookItemId= 'I03B'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_GoldArmor takes nothing returns nothing
+    set gg_trg_GoldArmor=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_GoldArmor, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_GoldArmor, Condition(function Trig_GoldArmorConditions))
+    call TriggerAddAction(gg_trg_GoldArmor, function Trig_GoldArmorActions)
+endfunction
+//===========================================================================
+// Trigger: TravellerClothes
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TravellerClothesConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01N' ) )
+endfunction
+function Trig_TravellerClothesActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01L'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_TravellerClothes takes nothing returns nothing
+    set gg_trg_TravellerClothes=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TravellerClothes, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_TravellerClothes, Condition(function Trig_TravellerClothesConditions))
+    call TriggerAddAction(gg_trg_TravellerClothes, function Trig_TravellerClothesActions)
+endfunction
+//===========================================================================
+// Trigger: Straw
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_StrawConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01M' ) )
+endfunction
+function Trig_StrawActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01M'
+    //local integer bookItemId = 'I03B'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    //call unitDirectBuyFusedItemOrBook(u,wantingItemId,bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_Straw takes nothing returns nothing
+    set gg_trg_Straw=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_Straw, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_Straw, Condition(function Trig_StrawConditions))
+    call TriggerAddAction(gg_trg_Straw, function Trig_StrawActions)
+endfunction
+//===========================================================================
+// Trigger: JusticeClothes
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_JusticeClothesConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01D' ) )
+endfunction
+function Trig_JusticeClothesActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01N'
+    local integer bookItemId= 'I03D'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_JusticeClothes takes nothing returns nothing
+    set gg_trg_JusticeClothes=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_JusticeClothes, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_JusticeClothes, Condition(function Trig_JusticeClothesConditions))
+    call TriggerAddAction(gg_trg_JusticeClothes, function Trig_JusticeClothesActions)
+endfunction
+//===========================================================================
+// Trigger: FlamingoClothes
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_FlamingoClothesConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01L' ) )
+endfunction
+function Trig_FlamingoClothesActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01O'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_FlamingoClothes takes nothing returns nothing
+    set gg_trg_FlamingoClothes=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_FlamingoClothes, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_FlamingoClothes, Condition(function Trig_FlamingoClothesConditions))
+    call TriggerAddAction(gg_trg_FlamingoClothes, function Trig_FlamingoClothesActions)
+endfunction
+//===========================================================================
+// Trigger: SunClothes
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_SunClothesConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e019' ) )
+endfunction
+function Trig_SunClothesActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01P'
+    local integer bookItemId= 'I03C'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_SunClothes takes nothing returns nothing
+    set gg_trg_SunClothes=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_SunClothes, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_SunClothes, Condition(function Trig_SunClothesConditions))
+    call TriggerAddAction(gg_trg_SunClothes, function Trig_SunClothesActions)
+endfunction
+//===========================================================================
+// Trigger: WeiBa
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_WeiBaConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e017' ) )
+endfunction
+function Trig_WeiBaActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01X'
+    local integer bookItemId= 'I03F'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_WeiBa takes nothing returns nothing
+    set gg_trg_WeiBa=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_WeiBa, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_WeiBa, Condition(function Trig_WeiBaConditions))
+    call TriggerAddAction(gg_trg_WeiBa, function Trig_WeiBaActions)
+endfunction
+//===========================================================================
+// Trigger: HeiZu
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_HeiZuConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00U' ) )
+endfunction
+function Trig_HeiZuActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I01Y'
+    local integer bookItemId= 'I03G'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_HeiZu takes nothing returns nothing
+    set gg_trg_HeiZu=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HeiZu, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_HeiZu, Condition(function Trig_HeiZuConditions))
+    call TriggerAddAction(gg_trg_HeiZu, function Trig_HeiZuActions)
+endfunction
+//===========================================================================
+// Trigger: ZhePuHongXie
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ZhePuHongXieConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01O' ) )
+endfunction
+function Trig_ZhePuHongXieActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I025'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_ZhePuHongXie takes nothing returns nothing
+    set gg_trg_ZhePuHongXie=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhePuHongXie, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_ZhePuHongXie, Condition(function Trig_ZhePuHongXieConditions))
+    call TriggerAddAction(gg_trg_ZhePuHongXie, function Trig_ZhePuHongXieActions)
+endfunction
+//===========================================================================
+// Trigger: YingDun
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_YingDunConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01B' ) )
+endfunction
+function Trig_YingDunActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I021'
+    local integer bookItemId= 'I03H'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_YingDun takes nothing returns nothing
+    set gg_trg_YingDun=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_YingDun, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_YingDun, Condition(function Trig_YingDunConditions))
+    call TriggerAddAction(gg_trg_YingDun, function Trig_YingDunActions)
+endfunction
+//===========================================================================
+// Trigger: PaoXingChe
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_PaoXingCheConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e011' ) )
+endfunction
+function Trig_PaoXingCheActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I022'
+    local integer bookItemId= 'I03I'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_PaoXingChe takes nothing returns nothing
+    set gg_trg_PaoXingChe=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_PaoXingChe, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_PaoXingChe, Condition(function Trig_PaoXingCheConditions))
+    call TriggerAddAction(gg_trg_PaoXingChe, function Trig_PaoXingCheActions)
+endfunction
+//===========================================================================
+// Trigger: ZhuiYunFeiNiao
+//===========================================================================
+//TESH.scrollpos=6
+//TESH.alwaysfold=0
+function Trig_ZhuiYunFeiNiaoConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01E' ) )
+endfunction
+function Trig_ZhuiYunFeiNiaoActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer bookItemId= 'I03J'
+    local integer wantingItemId= 0
+    local integer money= getItemSoldGoldById(bookItemId)
+    local integer lumber= getItemSoldLumberById(bookItemId)
+    local player p= GetOwningPlayer(u)
+    
+    call RemoveUnit(GetSoldUnit())
+    
+    if ( isUnitHasItemById(u , 'I036') ) then
+        call toastWarningTextToPlayer(p , "追云飞鸟等级已最高！")
+    elseif ( isUnitHasItemById(u , 'I024') ) then
+        set wantingItemId='I036'
+        call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    elseif ( isUnitHasItemById(u , 'I023') ) then
+        set wantingItemId='I024'
+        call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    else
+        set wantingItemId='I023'
+        call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    endif
+    
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_ZhuiYunFeiNiao takes nothing returns nothing
+    set gg_trg_ZhuiYunFeiNiao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ZhuiYunFeiNiao, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_ZhuiYunFeiNiao, Condition(function Trig_ZhuiYunFeiNiaoConditions))
+    call TriggerAddAction(gg_trg_ZhuiYunFeiNiao, function Trig_ZhuiYunFeiNiaoActions)
+endfunction
+//===========================================================================
+// Trigger: TianLongRenXunZhang
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_TianLongRenXunZhangConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e016' ) )
+endfunction
+function Trig_TianLongRenXunZhangActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I07B'
+    local integer bookItemId= 'I039'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_TianLongRenXunZhang takes nothing returns nothing
+    set gg_trg_TianLongRenXunZhang=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_TianLongRenXunZhang, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_TianLongRenXunZhang, Condition(function Trig_TianLongRenXunZhangConditions))
+    call TriggerAddAction(gg_trg_TianLongRenXunZhang, function Trig_TianLongRenXunZhangActions)
+endfunction
+//===========================================================================
+// Trigger: ChuGui
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ChuGuiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00O' ) )
+endfunction
+function Trig_ChuGuiActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02B'
+    local integer bookItemId= 'I03K'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_ChuGui takes nothing returns nothing
+    set gg_trg_ChuGui=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ChuGui, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_ChuGui, Condition(function Trig_ChuGuiConditions))
+    call TriggerAddAction(gg_trg_ChuGui, function Trig_ChuGuiActions)
+endfunction
+//===========================================================================
+// Trigger: DianHuaChong
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_DianHuaChongConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00P' ) )
+endfunction
+function Trig_DianHuaChongActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I030'
+    local integer bookItemId= 'I03L'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_DianHuaChong takes nothing returns nothing
+    set gg_trg_DianHuaChong=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_DianHuaChong, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_DianHuaChong, Condition(function Trig_DianHuaChongConditions))
+    call TriggerAddAction(gg_trg_DianHuaChong, function Trig_DianHuaChongActions)
+endfunction
+//===========================================================================
+// Trigger: DuZhua
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_DuZhuaConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00Q' ) )
+endfunction
+function Trig_DuZhuaActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02E'
+    local integer bookItemId= 'I03O'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_DuZhua takes nothing returns nothing
+    set gg_trg_DuZhua=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_DuZhua, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_DuZhua, Condition(function Trig_DuZhuaConditions))
+    call TriggerAddAction(gg_trg_DuZhua, function Trig_DuZhuaActions)
+endfunction
+//===========================================================================
+// Trigger: ShiYu
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_ShiYuConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e015' ) )
+endfunction
+function Trig_ShiYuActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02F'
+    local integer bookItemId= 'I03U'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_ShiYu takes nothing returns nothing
+    set gg_trg_ShiYu=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_ShiYu, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_ShiYu, Condition(function Trig_ShiYuConditions))
+    call TriggerAddAction(gg_trg_ShiYu, function Trig_ShiYuActions)
+endfunction
+//===========================================================================
+// Trigger: QiChiShiShou
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_QiChiShiShouConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e012' ) )
+endfunction
+function Trig_QiChiShiShouActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02G'
+    local integer bookItemId= 'I03Q'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_QiChiShiShou takes nothing returns nothing
+    set gg_trg_QiChiShiShou=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_QiChiShiShou, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_QiChiShiShou, Condition(function Trig_QiChiShiShouConditions))
+    call TriggerAddAction(gg_trg_QiChiShiShou, function Trig_QiChiShiShouActions)
+endfunction
+//===========================================================================
+// Trigger: HeiDao
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_HeiDaoConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00S' ) )
+endfunction
+function Trig_HeiDaoActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02H'
+    local integer bookItemId= 'I03R'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_HeiDao takes nothing returns nothing
+    set gg_trg_HeiDao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HeiDao, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_HeiDao, Condition(function Trig_HeiDaoConditions))
+    call TriggerAddAction(gg_trg_HeiDao, function Trig_HeiDaoActions)
+endfunction
+//===========================================================================
+// Trigger: HunZhiSangJian
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_HunZhiSangJianConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00X' ) )
+endfunction
+function Trig_HunZhiSangJianActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02I'
+    local integer bookItemId= 'I03T'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_HunZhiSangJian takes nothing returns nothing
+    set gg_trg_HunZhiSangJian=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HunZhiSangJian, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_HunZhiSangJian, Condition(function Trig_HunZhiSangJianConditions))
+    call TriggerAddAction(gg_trg_HunZhiSangJian, function Trig_HunZhiSangJianActions)
+endfunction
+//===========================================================================
+// Trigger: BuyQiuShui
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyQiuShuiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e013' ) )
+endfunction
+function Trig_BuyQiuShuiActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02J'
+    local integer bookItemId= 'I03S'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyQiuShui takes nothing returns nothing
+    set gg_trg_BuyQiuShui=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyQiuShui, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyQiuShui, Condition(function Trig_BuyQiuShuiConditions))
+    call TriggerAddAction(gg_trg_BuyQiuShui, function Trig_BuyQiuShuiActions)
+endfunction
+//===========================================================================
+// Trigger: BuyXueZou
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyXueZouConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01P' ) )
+endfunction
+function Trig_BuyXueZouActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I018'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyXueZou takes nothing returns nothing
+    set gg_trg_BuyXueZou=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyXueZou, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyXueZou, Condition(function Trig_BuyXueZouConditions))
+    call TriggerAddAction(gg_trg_BuyXueZou, function Trig_BuyXueZouActions)
+endfunction
+//===========================================================================
+// Trigger: BuyHeDaoYiWenZhi
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyHeDaoYiWenZhiConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01Q' ) )
+endfunction
+function Trig_BuyHeDaoYiWenZhiActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02K'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyHeDaoYiWenZhi takes nothing returns nothing
+    set gg_trg_BuyHeDaoYiWenZhi=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyHeDaoYiWenZhi, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyHeDaoYiWenZhi, Condition(function Trig_BuyHeDaoYiWenZhiConditions))
+    call TriggerAddAction(gg_trg_BuyHeDaoYiWenZhi, function Trig_BuyHeDaoYiWenZhiActions)
+endfunction
+//===========================================================================
+// Trigger: BuyDaKanDao
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyDaKanDaoConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01A' ) )
+endfunction
+function Trig_BuyDaKanDaoActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02L'
+    local integer bookItemId= 'I03V'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyDaKanDao takes nothing returns nothing
+    set gg_trg_BuyDaKanDao=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyDaKanDao, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyDaKanDao, Condition(function Trig_BuyDaKanDaoConditions))
+    call TriggerAddAction(gg_trg_BuyDaKanDao, function Trig_BuyDaKanDaoActions)
+endfunction
+//===========================================================================
+// Trigger: BuyHeiDou
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyHeiDouConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00T' ) )
+endfunction
+function Trig_BuyHeiDouActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02M'
+    local integer bookItemId= 'I03P'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyHeiDou takes nothing returns nothing
+    set gg_trg_BuyHeiDou=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyHeiDou, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyHeiDou, Condition(function Trig_BuyHeiDouConditions))
+    call TriggerAddAction(gg_trg_BuyHeiDou, function Trig_BuyHeiDouActions)
+endfunction
+//===========================================================================
+// Trigger: HuangJinZhong
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_HuangJinZhongConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00W' ) )
+endfunction
+function Trig_HuangJinZhongActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02N'
+    local integer bookItemId= 'I03E'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_HuangJinZhong takes nothing returns nothing
+    set gg_trg_HuangJinZhong=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_HuangJinZhong, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_HuangJinZhong, Condition(function Trig_HuangJinZhongConditions))
+    call TriggerAddAction(gg_trg_HuangJinZhong, function Trig_HuangJinZhongActions)
+endfunction
+//===========================================================================
+// Trigger: NuoNuoDaRenBang
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_NuoNuoDaRenBangConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e010' ) )
+endfunction
+function Trig_NuoNuoDaRenBangActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02O'
+    local integer bookItemId= 'I03W'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_NuoNuoDaRenBang takes nothing returns nothing
+    set gg_trg_NuoNuoDaRenBang=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_NuoNuoDaRenBang, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_NuoNuoDaRenBang, Condition(function Trig_NuoNuoDaRenBangConditions))
+    call TriggerAddAction(gg_trg_NuoNuoDaRenBang, function Trig_NuoNuoDaRenBangActions)
+endfunction
+//===========================================================================
+// Trigger: BuyGuiKu
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyGuiKuConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00R' ) )
+endfunction
+function Trig_BuyGuiKuActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02P'
+    local integer bookItemId= 'I03X'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyGuiKu takes nothing returns nothing
+    set gg_trg_BuyGuiKu=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyGuiKu, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyGuiKu, Condition(function Trig_BuyGuiKuConditions))
+    call TriggerAddAction(gg_trg_BuyGuiKu, function Trig_BuyGuiKuActions)
+endfunction
+//===========================================================================
+// Trigger: BuyTianHouBang
+//===========================================================================
+//TESH.scrollpos=9
+//TESH.alwaysfold=0
+function Trig_BuyTianHouBangConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00Z' ) )
+endfunction
+function Trig_BuyTianHouBangActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer bookItemId= 'I00M'
+    local integer wantingItemId= 0
+    local player p= GetOwningPlayer(u)
+    
+    call RemoveUnit(GetSoldUnit())
+    
+    if ( isUnitHasItemById(u , 'I02U') ) then
+        call toastWarningTextToPlayer(p , "魔法天候棒等级已最高！")
+    elseif ( isUnitHasItemById(u , 'I02T') ) then
+        set wantingItemId='I02U'
+        call unitDirectBuyFusedItem(u , wantingItemId)
+    elseif ( isUnitHasItemById(u , 'I02S') ) then
+        set wantingItemId='I02T'
+        call unitDirectBuyFusedItem(u , wantingItemId)
+    elseif ( isUnitHasItemById(u , 'I02R') ) then
+        set wantingItemId='I02S'
+        call unitDirectBuyFusedItem(u , wantingItemId)
+    elseif ( isUnitHasItemById(u , 'I02Q') ) then
+        set wantingItemId='I02R'
+        call unitDirectBuyFusedItem(u , wantingItemId)
+    else
+        set bookItemId='I03Y'
+        call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    endif
+    
+    set u=null
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_BuyTianHouBang takes nothing returns nothing
+    set gg_trg_BuyTianHouBang=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyTianHouBang, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyTianHouBang, Condition(function Trig_BuyTianHouBangConditions))
+    call TriggerAddAction(gg_trg_BuyTianHouBang, function Trig_BuyTianHouBangActions)
+endfunction
+//===========================================================================
+// Trigger: BuyGuiChe
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyGuiCheConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e014' ) )
+endfunction
+function Trig_BuyGuiCheActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02V'
+    local integer bookItemId= 'I03Z'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyGuiChe takes nothing returns nothing
+    set gg_trg_BuyGuiChe=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyGuiChe, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyGuiChe, Condition(function Trig_BuyGuiCheConditions))
+    call TriggerAddAction(gg_trg_BuyGuiChe, function Trig_BuyGuiCheActions)
+endfunction
+//===========================================================================
+// Trigger: BuyLiShiZhengWen
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyLiShiZhengWenConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00Y' ) )
+endfunction
+function Trig_BuyLiShiZhengWenActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02W'
+    local integer bookItemId= 'I040'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyLiShiZhengWen takes nothing returns nothing
+    set gg_trg_BuyLiShiZhengWen=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyLiShiZhengWen, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyLiShiZhengWen, Condition(function Trig_BuyLiShiZhengWenConditions))
+    call TriggerAddAction(gg_trg_BuyLiShiZhengWen, function Trig_BuyLiShiZhengWenActions)
+endfunction
+//===========================================================================
+// Trigger: BuyHaiShenXin
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyHaiShenXinConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01R' ) )
+endfunction
+function Trig_BuyHaiShenXinActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02X'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItem(u , wantingItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyHaiShenXin takes nothing returns nothing
+    set gg_trg_BuyHaiShenXin=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyHaiShenXin, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyHaiShenXin, Condition(function Trig_BuyHaiShenXinConditions))
+    call TriggerAddAction(gg_trg_BuyHaiShenXin, function Trig_BuyHaiShenXinActions)
+endfunction
+//===========================================================================
+// Trigger: BuyZuoLunShouQiang
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyZuoLunShouQiangConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e01F' ) )
+endfunction
+function Trig_BuyZuoLunShouQiangActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I02Y'
+    local integer bookItemId= 'I041'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyZuoLunShouQiang takes nothing returns nothing
+    set gg_trg_BuyZuoLunShouQiang=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyZuoLunShouQiang, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyZuoLunShouQiang, Condition(function Trig_BuyZuoLunShouQiangConditions))
+    call TriggerAddAction(gg_trg_BuyZuoLunShouQiang, function Trig_BuyZuoLunShouQiangActions)
+endfunction
+//===========================================================================
 // Trigger: UnitBeDamaged
 //===========================================================================
-//TESH.scrollpos=277
+//TESH.scrollpos=357
 //TESH.alwaysfold=0
 
 
@@ -16301,7 +18215,7 @@ function UBD_dengChuanFu takes unit target,unit sourcer,real damage returns noth
 endfunction
 
 function UBD_hurtMinions takes unit target,unit sourcer,real damage returns nothing
-    //补刀斧
+    //登船斧
     call UBD_dengChuanFu(target , sourcer , damage)
 endfunction
 //吸血：浮蜥唾液
@@ -16340,7 +18254,7 @@ function UBD_itemBuff takes unit target,unit sourcer,real damage returns boolean
     call UBD_heroPhysicalVampireBuff(sourcer , damage)
     //格挡
     set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
-    //当格挡全部的伤害时，会忽略 吸血和暴击
+    //当格挡全部的伤害时，会忽略 暴击
     if ( damage != 0 ) then
         //盾牌格挡
         call UBD_shieldParry(target , sourcer , damage)
@@ -16430,15 +18344,21 @@ endfunction
 //魔法单体伤害
 function UBD_magicalSingleDamage takes unit target,unit sourcer,real damage returns nothing
     local boolean isShowed= false
+    
     //抗性
     set damage=damage - UBD_heroMagicalDefenseBuff(target , sourcer , damage)
+    
+    //法术吸血
+    
+    call UBD_heroMagicalVampireBuff(target , sourcer , damage)
     //格挡
     set damage=damage - UBD_heroParryBuff(target , sourcer , damage)
+    
+    //冰冻
     call UBD_heroFrozenBuff(target , sourcer , false)
-    //当格挡全部的伤害时，会忽略 吸血和暴击
+    
+    //当格挡全部的伤害时，会忽略 暴击
     if ( damage != 0 ) then
-        //法术吸血
-        call UBD_heroMagicalVampireBuff(target , sourcer , damage)
         //法术暴击
         set isShowed=UBD_heroMagicalCritBuff(target , sourcer , damage , false)
     endif
@@ -16479,34 +18399,42 @@ function Trig_UnitBeDamagedActions takes nothing returns nothing
     local unit origin= GetEventDamageSource()
     local integer originalType= GetUnitTypeId(origin)
     local real damage= GetEventDamage()
+    if ( originalType == DEMAGE_TYPE_HOLY ) then
+        
+    endif
+    
+    if ( originalType == DEMAGE_TYPE_BE_IGNORED_ORIGINAL ) then
+    
+    elseif ( originalType == DEMAGE_TYPE_BE_TGNORED_MAGICAL ) then
+        call UBD_heroMagicalDefenseBuff(target , origin , damage)
+    endif
+    
     if ( IsUnitType(origin, UNIT_TYPE_HERO) ) then
     //伤害来源为英雄
         call UBD_heroDamage(target , origin , damage)
-    elseif ( originalType == 'e007' ) then
-    //神圣伤害
+        
+    elseif ( originalType == DEMAGE_TYPE_PHYSICAL_SIGNAL ) then
     
-    elseif ( originalType == 'e008' ) then
-    //物理单体技能伤害
         call UBD_physicalSingleDamage(target , origin , damage)
-    elseif ( originalType == 'e009' ) then
-    //物理群体技能伤害
+        
+    elseif ( originalType == DEMAGE_TYPE_PHYSICAL_MULTI ) then
+    
         call UBD_physicalMultiDamage(target , origin , damage)
+        
     elseif ( originalType == 'e00A' ) then
     //不被反弹的物理伤害
     
     elseif ( originalType == 'e00D' ) then
     //不被反弹的魔法伤害
     
-    elseif ( originalType == 'e00B' ) then
-    //魔法单体伤害
+    elseif ( originalType == DEMAGE_TYPE_MAGICAL_SIGNAL ) then
+    
         call UBD_magicalSingleDamage(target , origin , damage)
-    elseif ( originalType == 'e00C' ) then
-    //魔法群体伤害
+        
+    elseif ( originalType == DEMAGE_TYPE_MAGICAL_MULTI ) then
+    
         call UBD_magicalMultiDamage(target , origin , damage)
-    elseif ( originalType == 'e00E' ) then
-    //不被触发的伤害，该伤害应该被忽略
-    elseif ( originalType == 'e00I' ) then
-    //不被触发的魔法伤害，该伤害应该被忽略，但是计算法抗
+        
     else
     //来自小兵，野怪，召唤物的伤害
         call UBD_minionsDamage(target , origin , damage)
@@ -16706,6 +18634,35 @@ function InitTrig_CameraDown takes nothing returns nothing
     call TriggerAddAction(gg_trg_CameraDown, function Trig_CameraDownActions)
 endfunction
 //===========================================================================
+// Trigger: ClearScreen
+//===========================================================================
+function Trig_ClearScreenActions takes nothing returns nothing
+    call ClearTextMessagesBJ(YDWEGetForceOfPlayerNull(GetTriggerPlayer()))
+endfunction
+//===========================================================================
+function InitTrig_ClearScreen takes nothing returns nothing
+    set gg_trg_ClearScreen=CreateTrigger()
+    call DoNothing()
+
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(0))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(1))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(2))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(3))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(4))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(5))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(6))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(7))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(8))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(9))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(10))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(11))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(12))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(13))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(14))
+        call TriggerRegisterPlayerEventEndCinematic(gg_trg_ClearScreen, Player(15))
+    call TriggerAddAction(gg_trg_ClearScreen, function Trig_ClearScreenActions)
+endfunction
+//===========================================================================
 // Trigger: CloseDebuging
 //===========================================================================
 //TESH.scrollpos=0
@@ -16719,6 +18676,7 @@ function Trig_CloseDebugingActions takes nothing returns nothing
     call DisableTrigger(gg_trg_SetAgi)
     call DisableTrigger(gg_trg_SetInt)
     call DisableTrigger(gg_trg_ShowAction)
+    call DisableTrigger(gg_trg_CreateItem)
     
 endfunction
 //===========================================================================
@@ -16750,7 +18708,7 @@ function Trig_OpenDebugingActions takes nothing returns nothing
     call EnableTrigger(gg_trg_SetAgi)
     call EnableTrigger(gg_trg_SetInt)
     call EnableTrigger(gg_trg_ShowAction)
-    
+    call EnableTrigger(gg_trg_CreateItem)
     
 endfunction
 //===========================================================================
@@ -16800,7 +18758,7 @@ endfunction
 //TESH.alwaysfold=0
 function LU_EventCondition takes nothing returns boolean
     
-    return ( StringLength(GetEventPlayerChatString()) != 6 )
+    return ( SubString(GetEventPlayerChatString(), 0, 6) == "-level" )
     
 endfunction
 function Trig_LivelUpActions takes nothing returns nothing
@@ -16809,6 +18767,7 @@ function Trig_LivelUpActions takes nothing returns nothing
     local unit hero= getFirstHeroSelected(GetTriggerPlayer())
     
     if ( hero == null ) then
+        set hero=null
         return
     endif
     
@@ -16939,12 +18898,12 @@ endfunction
 //===========================================================================
 // Trigger: CreateItem
 //===========================================================================
-//TESH.scrollpos=3
+//TESH.scrollpos=9
 //TESH.alwaysfold=0
 function Trig_CreateItemConditions takes nothing returns boolean
     local string chat= GetEventPlayerChatString()
     local string s= SubString(chat, 0, 6)
-    return s == "-item "
+    return s == "-item_"
 endfunction
 function Trig_CreateItemActions takes nothing returns nothing
     local string chat= GetEventPlayerChatString()
@@ -16954,13 +18913,17 @@ function Trig_CreateItemActions takes nothing returns nothing
     local player p= GetTriggerPlayer()
     local unit u= getFirstHeroSelected(p)
     
-    call debugText("ssssss:" + ssssss[0])
     call debugText("end:" + I2S(end))
     call debugText("name:" + itemName)
+    
     if ( u != null ) then
-        set itId=LoadInteger(ITEM_HT, StringHash(itemName), 0)
+        if ( end == 10 ) then
+            set itId=LoadInteger(ITEM_HT, StringHash(itemName), 1)
+        else
+            set itId=LoadInteger(ITEM_HT, StringHash(itemName), 0)
+        endif
+        
         call debugText("StringHash(itemName):" + I2S(StringHash(itemName)))
-        call debugText("登船斧:" + LoadStr(ITEM_HT, 'I015', 1))
         call unitAddItemById(u , itId)
     endif
     
@@ -16971,9 +18934,57 @@ endfunction
 function InitTrig_CreateItem takes nothing returns nothing
     set gg_trg_CreateItem=CreateTrigger()
     call DoNothing()
-    call TriggerRegisterPlayerChatEvent(gg_trg_CreateItem, Player(0), "-item ", false)
+    call TriggerRegisterPlayerChatEvent(gg_trg_CreateItem, Player(0), "-item_", false)
     call TriggerAddCondition(gg_trg_CreateItem, Condition(function Trig_CreateItemConditions))
     call TriggerAddAction(gg_trg_CreateItem, function Trig_CreateItemActions)
+endfunction
+//===========================================================================
+// Trigger: SetMoney
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_SetMoneyConditions takes nothing returns boolean
+    return ( SubString(GetEventPlayerChatString(), 0, 6) == "-money" )
+endfunction
+function Trig_SetMoneyActions takes nothing returns nothing
+    local player p= GetTriggerPlayer()
+    local integer money= S2I(SubString(GetEventPlayerChatString(), 6, StringLength(GetEventPlayerChatString())))
+    call setPlayerCurrentGold(p , money)
+    call setPlayerCurrentLumber(p , money)
+    
+    set p=null
+endfunction
+//===========================================================================
+function InitTrig_SetMoney takes nothing returns nothing
+    set gg_trg_SetMoney=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterPlayerChatEvent(gg_trg_SetMoney, Player(0), "-money", false)
+    call TriggerAddCondition(gg_trg_SetMoney, Condition(function Trig_SetMoneyConditions))
+    call TriggerAddAction(gg_trg_SetMoney, function Trig_SetMoneyActions)
+endfunction
+//===========================================================================
+// Trigger: BuyPureGold
+//===========================================================================
+//TESH.scrollpos=0
+//TESH.alwaysfold=0
+function Trig_BuyPureGoldConditions takes nothing returns boolean
+    return ( ( GetUnitTypeId(GetSoldUnit()) == 'e00N' ) )
+endfunction
+function Trig_BuyPureGoldActions takes nothing returns nothing
+    local unit u= GetBuyingUnit()
+    local integer wantingItemId= 'I00A'
+    local integer bookItemId= 'I03A'
+    call RemoveUnit(GetSoldUnit())
+    call unitDirectBuyFusedItemOrBook(u , wantingItemId , bookItemId)
+    set u=null
+endfunction
+//===========================================================================
+function InitTrig_BuyPureGold takes nothing returns nothing
+    set gg_trg_BuyPureGold=CreateTrigger()
+    call DoNothing()
+    call TriggerRegisterAnyUnitEventBJ(gg_trg_BuyPureGold, EVENT_PLAYER_UNIT_SELL)
+    call TriggerAddCondition(gg_trg_BuyPureGold, Condition(function Trig_BuyPureGoldConditions))
+    call TriggerAddAction(gg_trg_BuyPureGold, function Trig_BuyPureGoldActions)
 endfunction
 //===========================================================================
 function InitCustomTriggers takes nothing returns nothing
@@ -17058,6 +19069,7 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_GameStart()
     call InitTrig_RegisterItemFuse()
     call InitTrig_InitItemData()
+    call InitTrig_StoreSoldItems()
     call InitTrig_UnitDropItem()
     call InitTrig_UnitPickUpItem()
     call InitTrig_UnitSpellObtainItem()
@@ -17085,11 +19097,8 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_PrepareGlove()
     call InitTrig_QiLu()
     call InitTrig_WeiBaSprint()
-    call InitTrig_BlackFoot_str()
-    call InitTrig_BlackFoot_agi()
-    call InitTrig_BlackFoot_int()
-    call InitTrig_ZhePuRedShoe_life()
-    call InitTrig_ZhePuRedShoe_heart()
+    call InitTrig_BlackFoot()
+    call InitTrig_ZhePuRedShoe()
     call InitTrig_AutoIncreaTelephoneWormPackage()
     call InitTrig_TelephoneWormPackageIntoSpring()
     call InitTrig_WeiBei()
@@ -17118,12 +19127,54 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_GetHeiDou()
     call InitTrig_DropHeiDou()
     call InitTrig_QiuShui()
+    call InitTrig_PureGold()
+    //Function not found: call InitTrig_FuncForItemModule()
+    call InitTrig_BugHorn()
+    call InitTrig_BugCheese()
+    call InitTrig_BugSanMingZhi()
+    call InitTrig_BugZhangYuShao()
+    call InitTrig_BugTieBi()
+    call InitTrig_BuyHubei()
+    call InitTrig_GoldArmor()
+    call InitTrig_TravellerClothes()
+    call InitTrig_Straw()
+    call InitTrig_JusticeClothes()
+    call InitTrig_FlamingoClothes()
+    call InitTrig_SunClothes()
+    call InitTrig_WeiBa()
+    call InitTrig_HeiZu()
+    call InitTrig_ZhePuHongXie()
+    call InitTrig_YingDun()
+    call InitTrig_PaoXingChe()
+    call InitTrig_ZhuiYunFeiNiao()
+    call InitTrig_TianLongRenXunZhang()
+    call InitTrig_ChuGui()
+    call InitTrig_DianHuaChong()
+    call InitTrig_DuZhua()
+    call InitTrig_ShiYu()
+    call InitTrig_QiChiShiShou()
+    call InitTrig_HeiDao()
+    call InitTrig_HunZhiSangJian()
+    call InitTrig_BuyQiuShui()
+    call InitTrig_BuyXueZou()
+    call InitTrig_BuyHeDaoYiWenZhi()
+    call InitTrig_BuyDaKanDao()
+    call InitTrig_BuyHeiDou()
+    call InitTrig_HuangJinZhong()
+    call InitTrig_NuoNuoDaRenBang()
+    call InitTrig_BuyGuiKu()
+    call InitTrig_BuyTianHouBang()
+    call InitTrig_BuyGuiChe()
+    call InitTrig_BuyLiShiZhengWen()
+    call InitTrig_BuyHaiShenXin()
+    call InitTrig_BuyZuoLunShouQiang()
     call InitTrig_UnitBeDamaged()
     call InitTrig_HeroAttacking()
     call InitTrig_AbilityData()
     call InitTrig_InitAbilTrg()
     call InitTrig_CameraUp()
     call InitTrig_CameraDown()
+    call InitTrig_ClearScreen()
     call InitTrig_CloseDebuging()
     call InitTrig_OpenDebuging()
     call InitTrig_OpenFog()
@@ -17134,6 +19185,8 @@ function InitCustomTriggers takes nothing returns nothing
     call InitTrig_SetInt()
     call InitTrig_ShowAction()
     call InitTrig_CreateItem()
+    call InitTrig_SetMoney()
+    call InitTrig_BuyPureGold()
 endfunction
 //===========================================================================
 function RunInitializationTriggers takes nothing returns nothing
@@ -17142,6 +19195,7 @@ function RunInitializationTriggers takes nothing returns nothing
     call ConditionalTriggerExecute(gg_trg_AllianceSet)
     call ConditionalTriggerExecute(gg_trg_ForbidAbility)
     call ConditionalTriggerExecute(gg_trg_noteUnitMoney)
+    call ConditionalTriggerExecute(gg_trg_RegisterItemFuse)
     call ConditionalTriggerExecute(gg_trg_aaa)
 endfunction
 //***************************************************************************
@@ -17395,10 +19449,13 @@ function main takes nothing returns nothing
     call SetAmbientNightSound("LordaeronSummerNight")
     call SetMapMusic("Music", true, 0)
     call CreateRegions()
+    call CreateAllItems()
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs55104406")
+call ExecuteFunc("jasshelper__initstructs53090203")
+call ExecuteFunc("InitFuncForItem")
+call ExecuteFunc("InitFuncForItemModule")
 
     call InitGlobals()
     call InitCustomTriggers()
@@ -17448,7 +19505,7 @@ local integer this=f__arg_this
    return true
 endfunction
 
-function jasshelper__initstructs55104406 takes nothing returns nothing
+function jasshelper__initstructs53090203 takes nothing returns nothing
     set st__LOGFONT_onDestroy=CreateTrigger()
     call TriggerAddCondition(st__LOGFONT_onDestroy,Condition( function sa__LOGFONT_onDestroy))
 
